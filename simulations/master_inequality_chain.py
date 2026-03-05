@@ -13,9 +13,12 @@ Also computes entropy production Sigma for comparison.
 Reference: Huang (2026), Theorem 3.
 """
 
+import os
 import numpy as np
 from scipy.linalg import sqrtm, logm
 import matplotlib.pyplot as plt
+
+_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def density_matrix(rho):
@@ -211,8 +214,8 @@ def main():
     print("the Data Processing Inequality (Petz 1988).")
     print("For the rotated Petz with Gibbs reference, Delta_D = Sigma.")
 
-    plt.savefig('simulations/fig_master_inequality_chain.png', dpi=150, bbox_inches='tight')
-    plt.savefig('simulations/fig_master_inequality_chain.pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(_DIR, 'fig_master_inequality_chain.png'), dpi=150, bbox_inches='tight')
+    plt.savefig(os.path.join(_DIR, 'fig_master_inequality_chain.pdf'), bbox_inches='tight')
     print("\nFigures saved: simulations/fig_master_inequality_chain.{png,pdf}")
     plt.show()
 

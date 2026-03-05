@@ -7,9 +7,12 @@ applied to the partial trace channel, achieving F = 1 and tau = 0.
 Reference: Huang (2026), Section III and Supplemental Material S1.
 """
 
+import os
 import numpy as np
 from scipy.linalg import sqrtm
 import matplotlib.pyplot as plt
+
+_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def fidelity(rho, sigma):
@@ -35,8 +38,6 @@ def petz_recovery_partial_trace(rho_S, sigma_SE, dim_S, dim_E):
 
     For N = Tr_E: N^dag(X_S) = X_S tensor I_E
     """
-    d = dim_S * dim_E
-
     # Step 1: N(sigma) = Tr_E[sigma_SE]
     sigma_S = partial_trace_E(sigma_SE, dim_S, dim_E)
 
@@ -147,8 +148,8 @@ def main():
     ax2.ticklabel_format(style='scientific', axis='y', scilimits=(0,0))
 
     plt.tight_layout()
-    plt.savefig('simulations/fig_quantum_eraser_petz.png', dpi=150, bbox_inches='tight')
-    plt.savefig('simulations/fig_quantum_eraser_petz.pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(_DIR, 'fig_quantum_eraser_petz.png'), dpi=150, bbox_inches='tight')
+    plt.savefig(os.path.join(_DIR, 'fig_quantum_eraser_petz.pdf'), bbox_inches='tight')
     print("\nFigures saved: simulations/fig_quantum_eraser_petz.{png,pdf}")
     plt.show()
 

@@ -14,9 +14,12 @@ giving the bound tau <= 1 - exp(-Sigma/2) from Eq. (9)-(10).
 Reference: Huang (2026), Eq. (9)-(10).
 """
 
+import os
 import numpy as np
 from scipy.linalg import sqrtm, logm
 import matplotlib.pyplot as plt
+
+_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def density_matrix(rho):
@@ -156,8 +159,8 @@ def main():
     plt.suptitle(r'Temporal Asymmetry Bound: $\tau \leq 1 - e^{-\Delta D/2}$ (Amplitude Damping)',
                  fontsize=15, y=1.02)
     plt.tight_layout()
-    plt.savefig('simulations/fig_tau_vs_entropy_production.png', dpi=150, bbox_inches='tight')
-    plt.savefig('simulations/fig_tau_vs_entropy_production.pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(_DIR, 'fig_tau_vs_entropy_production.png'), dpi=150, bbox_inches='tight')
+    plt.savefig(os.path.join(_DIR, 'fig_tau_vs_entropy_production.pdf'), bbox_inches='tight')
     print("\nFigures saved: simulations/fig_tau_vs_entropy_production.{png,pdf}")
 
     print("\n" + "=" * 60)

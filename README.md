@@ -69,10 +69,12 @@ The `simulations/` directory contains Python scripts that numerically verify the
 ### Requirements
 
 ```bash
-pip install numpy scipy qutip matplotlib
+pip install numpy scipy matplotlib
 ```
 
 ### Running
+
+All scripts should be run from the **repository root directory**:
 
 ```bash
 # Verify the master inequality chain (Theorem 3)
@@ -85,7 +87,7 @@ python simulations/quantum_eraser_petz.py
 python simulations/tau_vs_entropy_production.py
 ```
 
-Each script generates plots and prints numerical verification of the corresponding theorem.
+Each script generates plots in `simulations/` and prints numerical verification of the corresponding theorem.
 
 ## Key References
 
