@@ -80,20 +80,44 @@ We use **stim** (Google Quantum AI's circuit-level stabilizer simulator — the 
 
 **(b-c) Post-selection improvement is approximately decoder-independent.** The ratio $R_{\text{MWPM}} / R_{\text{Unwt}}$ averages $1.055 \pm 0.083$ across all configurations — close to the predicted value of 1.0. High syndrome-weight events (panel c, orange bars) have systematically higher failure rates, confirming that syndrome weight is a valid entropy-production proxy for thermodynamic filtering.
 
+### 3. Direct Test of the Retrodiction Landauer Principle
+
+![Petz Fidelity vs Entropy](simulations/fig_petz_fidelity_vs_entropy.png)
+
+**(a) F vs ΔD for amplitude damping.** The Petz recovery fidelity F is plotted against the relative entropy drop ΔD for three input states. All 600 points satisfy F ≥ exp(−ΔD/2). Predicted experimental data points from Singh et al. (NMR, 2025) and Pino et al. (ion trap, 2025) are overlaid — all satisfy the bound.
+
+**(b) Petz map is optimal among retrodiction-consistent maps.** Four recovery strategies are compared: Petz (red), identity (blue), reset (gray), transpose (green). The Petz map achieves the highest fidelity among all maps satisfying the retrodiction condition R(N(σ)) = σ.
+
+### 4. Explicit Petz Recovery Optimality
+
+![Explicit Petz Recovery](simulations/fig_explicit_petz_recovery.png)
+
+Across three quantum channels (amplitude damping, depolarizing, phase damping) and 20,250 state-channel pairs, the Petz recovery map is provably optimal among retrodiction-consistent maps. This gives operational meaning to τ = 1 − F(Petz): it measures the minimum temporal asymmetry achievable by any valid Bayesian inverse.
+
+### 5. Non-Markovian Witness (Prediction 3 — New)
+
+![Non-Markovian Witness](simulations/fig_non_markovian_witness.png)
+
+A new non-Markovianity witness based on fixed-Petz-recovery fidelity. **(a)** Markovian regime: F(t) monotonically decreases, zero false positives. **(b)** Non-Markovian regime: F(t) oscillates, 26 revival intervals detected. **(c)** The Petz witness and BLP trace-distance witness agree on the Markovian-to-non-Markovian transition at γ₀/λ ≈ 0.9. Advantage: single-state witness (no optimization over state pairs needed).
+
+### 6. Decoder α-Independence (Extended, 6 Decoders)
+
+![Decoder Alpha Independence](simulations/fig_decoder_alpha_independence.png)
+
+Six decoders tested on surface codes d=3,5,7: MWPM, Unwt-MWPM, Union-Find, BP+OSD, Greedy-NN, Lookup. **Honest result: inconclusive.** Overall CV = 0.46 (above 0.10 threshold), driven by Greedy-NN (too bad for post-selection to help). Among the 4 functional decoders, pairwise α differences are all ≤ 1.4σ — consistent with decoder-independence but requiring more statistics for definitive confirmation.
+
 ### Running the Simulations
 
 ```bash
-pip install numpy scipy matplotlib stim pymatching
+pip install numpy scipy matplotlib stim pymatching ldpc
 
-# Reanalysis of published experimental data
-python simulations/published_data_reanalysis.py
-
-# Surface code simulation (stim + pymatching, ~4 min)
-python simulations/surface_code_predictions.py
-
-# Proof-of-concept: toy model verification
-python simulations/decoder_retrodiction_hierarchy.py
-python simulations/postselection_filtering.py
+# Primary evidence
+python simulations/published_data_reanalysis.py          # Published data reanalysis
+python simulations/surface_code_predictions.py           # stim surface code (~4 min)
+python simulations/petz_fidelity_vs_entropy.py           # F vs Sigma direct test
+python simulations/explicit_petz_recovery.py             # Petz optimality comparison
+python simulations/non_markovian_witness.py              # Non-Markovian witness
+python simulations/decoder_alpha_independence.py         # Alpha-independence (~10 min)
 ```
 
 ## Repository Structure
@@ -103,13 +127,17 @@ petz-recovery-unification/
 ├── paper/
 │   ├── petz_recovery_unification.tex      # Main text (PRL format, 5 pages)
 │   ├── petz_recovery_unification.pdf      # Compiled PDF
-│   ├── petz_recovery_supplemental.tex     # Supplemental material (12 pages)
+│   ├── petz_recovery_supplemental.tex     # Supplemental material
 │   └── petz_recovery_supplemental.pdf     # Compiled PDF
 ├── simulations/
-│   ├── published_data_reanalysis.py       # Reanalysis of AlphaQubit, Willow, NMR, ion-trap data
+│   ├── published_data_reanalysis.py       # Reanalysis of AlphaQubit, Willow, NMR, ion-trap
 │   ├── surface_code_predictions.py        # stim + pymatching surface code simulation
-│   ├── decoder_retrodiction_hierarchy.py  # Proof-of-concept: decoder hierarchy (toy model)
-│   ├── postselection_filtering.py         # Proof-of-concept: thermodynamic filtering (toy model)
+│   ├── petz_fidelity_vs_entropy.py        # Direct F vs ΔD test (Retrodiction Landauer)
+│   ├── explicit_petz_recovery.py          # Petz optimality across channels
+│   ├── non_markovian_witness.py           # Fixed-Petz non-Markovianity witness
+│   ├── decoder_alpha_independence.py      # 6-decoder α-independence test
+│   ├── decoder_retrodiction_hierarchy.py  # Proof-of-concept: decoder hierarchy (toy)
+│   ├── postselection_filtering.py         # Proof-of-concept: post-selection (toy)
 │   ├── quantum_eraser_petz.py             # Quantum eraser = Petz recovery
 │   ├── master_inequality_chain.py         # DPI bound verification (supplementary)
 │   └── tau_vs_entropy_production.py       # tau bound visualization (supplementary)
