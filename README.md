@@ -62,7 +62,7 @@ We reanalyze data from four independent experimental groups. No new experiments 
 
 **(c) Post-selection scaling confirmed.** Three independent studies (English et al. PRL 2025, Smith et al. 2024, Chen et al. 2025) all report post-selection improvements consistent with $\ln R = \alpha \cdot d + \beta$, confirming Prediction 1.
 
-**(d) Recovery bound satisfied.** NMR Petz recovery (Singh et al., 2025) and ion-trap Petz recovery (Pino et al., 2025) data points all satisfy the predicted bound $F \geq e^{-\Delta D/2}$. No data point enters the forbidden region.
+**(d) Recovery bound satisfied.** Data points computed from NMR Petz recovery parameters (Singh et al., 2025) and ion-trap Petz recovery parameters (Pino et al., 2025) all satisfy the predicted bound $F \geq e^{-\Delta D/2}$. **Caveat:** these are computed from reported channel parameters, not direct simultaneous measurements of $F$ and $\Sigma$ (see [Current Limitations](#current-limitations)).
 
 ### 2. Surface Code Simulation (stim + pymatching)
 
@@ -84,7 +84,7 @@ We use **stim** (Google Quantum AI's circuit-level stabilizer simulator — the 
 
 ![Petz Fidelity vs Entropy](simulations/fig_petz_fidelity_vs_entropy.png)
 
-**(a) F vs ΔD for amplitude damping.** The Petz recovery fidelity F is plotted against the relative entropy drop ΔD for three input states. All 600 points satisfy F ≥ exp(−ΔD/2). Predicted experimental data points from Singh et al. (NMR, 2025) and Pino et al. (ion trap, 2025) are overlaid — all satisfy the bound.
+**(a) F vs ΔD for amplitude damping.** The Petz recovery fidelity F is plotted against the relative entropy drop ΔD for three input states. All 600 theoretical points satisfy F ≥ exp(−ΔD/2). Data points computed from Singh et al. (NMR, 2025) and Pino et al. (ion trap, 2025) reported parameters are overlaid — all satisfy the bound. **Note:** these are theoretical predictions at experimentally reported parameter values, not direct measurements of F and Σ on the same channel.
 
 **(b) Petz map is optimal among retrodiction-consistent maps.** Four recovery strategies are compared: Petz (red), identity (blue), reset (gray), transpose (green). The Petz map achieves the highest fidelity among all maps satisfying the retrodiction condition R(N(σ)) = σ.
 
@@ -104,7 +104,19 @@ A new non-Markovianity witness based on fixed-Petz-recovery fidelity. **(a)** Ma
 
 ![Decoder Alpha Independence](simulations/fig_decoder_alpha_independence.png)
 
-Six decoders tested on surface codes d=3,5,7: MWPM, Unwt-MWPM, Union-Find, BP+OSD, Greedy-NN, Lookup. **Honest result: inconclusive.** Overall CV = 0.46 (above 0.10 threshold), driven by Greedy-NN (too bad for post-selection to help). Among the 4 functional decoders, pairwise α differences are all ≤ 1.4σ — consistent with decoder-independence but requiring more statistics for definitive confirmation.
+Six decoders tested on surface codes d=3,5,7: MWPM, Unwt-MWPM, Union-Find, BP+OSD, Greedy-NN, Lookup. **Result: partial support.** Overall CV = 0.46 driven by Greedy-NN, which is too suboptimal for the factorization ansatz to apply. Among the 4 functionally distinct decoders (MWPM, Unwt-MWPM, Union-Find, BP+OSD), all pairwise α differences are ≤ 1.4σ — consistent with decoder-independence. Definitive confirmation requires larger code distances ($d \geq 9$) and real hardware data.
+
+### Current Limitations
+
+We report the following limitations transparently:
+
+1. **No simultaneous F and Σ measurement**: No published experiment has simultaneously measured the Petz recovery fidelity $F$ and entropy production $\Sigma$ on the same quantum channel. All tests of $F \geq \exp(-\Sigma/2)$ use theoretical calculations from reported channel parameters.
+
+2. **τ = 1−F(Petz) is indirectly tested**: Singh et al. (NMR, 2025) and Pino et al. (ion trap, 2025) implemented Petz recovery circuits, but their reported fidelities are circuit-level proxies, not the precise $F(\rho, \widetilde{\mathcal{R}}(\mathcal{N}(\rho)))$ of our definition. We compute predicted values from their published parameters.
+
+3. **α-independence is partially supported**: Among 4 functionally distinct decoders, pairwise α differences are ≤ 1.4σ (consistent), but a highly suboptimal greedy decoder deviates. Larger code distances ($d \geq 9$) and real hardware data are needed for definitive confirmation.
+
+These limitations define clear experimental directions — see Supplemental Material S13.2 for a concrete protocol.
 
 ### Running the Simulations
 

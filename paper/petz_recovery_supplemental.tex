@@ -1175,22 +1175,36 @@ been performed.
 \emph{Petz recovery experiments.}---Singh et~al.~\cite{Singh2025}
 implemented the Petz recovery map on a nuclear magnetic resonance
 (NMR) platform, and Pino et~al.~\cite{Pino2025} realized it on a
-trapped-ion quantum processor. Both experiments measured the recovery
-fidelity~$F$ under controlled noise channels.
+trapped-ion quantum processor. Both experiments measured aspects of
+recovery fidelity under controlled noise channels.
 Our framework predicts $F \geq \exp(-\Sigma/2)$, where $\Sigma$ is
-the entropy production of the noise process. However, neither
-experiment simultaneously measured $\Sigma$. Reanalyzing their noise
-parameters to compute $\Sigma$ from the known channel model
-(e.g., amplitude damping with measured decay rate $\gamma$, giving
+the entropy production of the noise process. Two important caveats
+apply: (i)~neither experiment directly measured the Petz recovery
+fidelity $F$ in the precise sense of Eq.~(7) of the main text
+(i.e., fidelity between the input state and the output of the
+rotated Petz map); rather, they measured circuit-level recovery
+fidelities that serve as proxies; and (ii)~neither experiment
+simultaneously measured $\Sigma$. One can compute $\Sigma$ from
+the reported channel parameters (e.g., amplitude damping with
+measured decay rate $\gamma$, giving
 $\Sigma(\gamma) = \gamma \ln[(1+\gamma)/\gamma]$ for a thermal bath)
-would verify whether the measured $F$ saturates or exceeds the bound.
+and check consistency, but this constitutes an indirect test based on
+the theoretical channel model, not a direct simultaneous measurement
+of $F$ and $\Sigma$ on the same experimental run. A simultaneous
+measurement of both quantities on the same quantum channel is an
+important open experimental direction (see Sec.~S13.2).
 
 \subsection{S13.2: Proposed Experiment---Simultaneous $F$ and $\Sigma$ Measurement}
 
 To our knowledge, no existing experiment has simultaneously measured
 the Petz recovery fidelity $F$ and the entropy production $\Sigma$ for
-the same quantum channel. This is the most direct test of the
-bound $F \geq \exp(-\Sigma/2)$ and the equivalence $\tauasym = 0
+the same quantum channel in the same experimental run.
+This represents a significant gap in the experimental evidence base:
+all existing tests of the bound $F \geq \exp(-\Sigma/2)$ rely either on
+theoretical calculations from channel parameters (Sec.~S15.1) or on
+separate measurements of $F$ and $\Sigma$ in different experimental
+contexts. A simultaneous measurement would provide the most direct
+test of both the bound and the equivalence $\tauasym = 0
 \Leftrightarrow \Sigma = 0$.
 
 \emph{System.}---A superconducting transmon qubit coupled to a tunable
@@ -1458,13 +1472,27 @@ at 600 parameter values. All data points satisfy the bound, with
 near-saturation for the $\ket{1}$ input (which maximizes entropy
 production).
 
-Using experimental parameters from Singh~et~al.~\cite{Singh2025}
+We also compute predicted $(F, \Delta D)$ values using the
+\emph{reported experimental parameters} from Singh~et~al.~\cite{Singh2025}
 (NMR, $\gamma = 0.1$--$0.9$) and Pino~et~al.~\cite{Pino2025}
-(ion trap, $\gamma = 0.05$--$0.5$), we compute predicted $(F, \Delta D)$
-values. All 41 predicted data points satisfy the bound, with NMR
-points showing $\sim$2\% deviations below theory (consistent with
-reported experimental imperfections) and ion-trap points showing
-$\sim$0.5\% deviations.
+(ion trap, $\gamma = 0.05$--$0.5$).
+\emph{Important caveat:} these $(F, \Delta D)$ values are computed
+from the published damping parameters $\gamma$ using the theoretical
+amplitude damping model---they are \emph{not} direct experimental
+measurements of the Petz recovery fidelity $F$ or the entropy
+production $\Sigma$. Neither experiment simultaneously measured both
+quantities; Singh~et~al.\ measured recovery fidelity for specific
+circuits, and neither group reported $\Sigma$. The comparison here
+therefore tests consistency of the theoretical framework with
+reported channel parameters, not a direct experimental verification
+of the bound.
+All 41 computed data points satisfy the bound, with NMR
+points showing $\sim$2\% deviations below the theoretical curve
+(consistent with reported experimental imperfections) and ion-trap
+points showing $\sim$0.5\% deviations. Direct experimental
+measurement of Petz recovery fidelity and entropy production on
+the same quantum channel remains an important open direction
+(see Sec.~S13.2 for a concrete proposal).
 
 \subsection{S15.2: Optimality of the Petz Recovery Map}
 
@@ -1502,20 +1530,28 @@ depolarizing noise at $p \in \{0.003, 0.005, 0.007, 0.01, 0.015\}$
 are simulated using \texttt{stim}.
 
 \emph{Result.}---The overall coefficient of variation (CV) of $\alpha$
-across all six decoders is 0.46, nominally exceeding the 0.10 threshold
-for ``supported.'' However, the high CV is driven primarily by the
-Greedy decoder ($\alpha \approx 0$), which is so suboptimal that
-post-selection yields negligible improvement. Among the four
-non-degenerate decoders (MWPM, Unwt-MWPM, Union-Find, BP+OSD), all
-pairwise $\alpha$ differences are $\leq 1.4\sigma$---statistically
-consistent with decoder-independence.
+across all six decoders is 0.46, which does not meet a stringent
+threshold for decoder-independence. However, the high CV is driven
+almost entirely by the Greedy nearest-neighbor decoder
+($\alpha \approx 0$), which is so suboptimal that post-selection
+yields negligible improvement---it effectively operates in a
+regime where the factorization ansatz does not apply.
+Among the four functionally distinct decoders (MWPM, Unwt-MWPM,
+Union-Find, BP+OSD), the picture is more encouraging: all pairwise
+$\alpha$ differences are $\leq 1.4\sigma$, statistically consistent
+with decoder-independence. The Lookup table decoder (available only
+at $d = 3$) shows intermediate behavior.
 
-We report this honestly as \emph{inconclusive}: the data is consistent
-with $\alpha$-independence for functional decoders, but
-definitive confirmation requires (i)~larger code distances
-($d \geq 9$), (ii)~more Monte Carlo shots for slow decoders, and
-(iii)~real hardware data where the noise model is not artificially
-symmetric.
+We characterize this as \emph{partial support}: the trend among
+functional decoders is positive and consistent with the prediction,
+but the evidence is not yet definitive. Stronger confirmation
+requires (i)~larger code distances ($d \geq 9$) where the
+asymptotic scaling is better resolved, (ii)~higher Monte Carlo
+statistics for slow decoders, and (iii)~real hardware data where
+the noise model is not artificially symmetric. We encourage
+experimental groups with existing surface code data (e.g., from
+Refs.~\cite{Acharya2024,Bausch2024}) to extract $\alpha$ for
+multiple decoders as a direct test.
 
 \subsection{S15.4: Fixed-Petz-Recovery Non-Markovianity Witness}
 

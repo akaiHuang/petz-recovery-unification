@@ -480,8 +480,15 @@ with $\alpha$ (decoder-independent) and $\beta$
 scaling $\alpha(p)$ is \emph{independent of the decoder} is a
 consequence of our framework---$\Delta D(s)$ depends only on the
 noise channel $\chan$ and the code state $\sigma_\code$, not on the
-recovery strategy. Recent evidence supports this structure:
-Boltzmann-factor failure rates via the Ising--QEC
+recovery strategy. Numerical simulations provide partial support:
+among four functionally distinct decoders (MWPM, Unweighted MWPM,
+Union-Find, BP+OSD), all pairwise $\alpha$ differences are
+$\leq 1.4\sigma$, consistent with decoder-independence; however,
+a highly suboptimal greedy decoder deviates significantly
+(see~\cite{SM}, Sec.~S15.3 for full details). Definitive
+confirmation requires larger code distances ($d \geq 9$) and
+real hardware data. The factorization structure is independently
+supported by Boltzmann-factor failure rates via the Ising--QEC
 mapping~\cite{EnglishEtAl2025}, statistical-mechanical
 thresholds~\cite{EnglishWilliamsonBartlett2025}, and scalable
 post-selection gains~\cite{ChenEtAl2025,SmithBrownBartlett2024}.
@@ -584,8 +591,11 @@ reconstruction uses the Petz map~\cite{Chen2020},
 Theorem~\ref{thm:master} implies a thermodynamic bound on bulk
 reconstruction fidelity.
 (iii)~\emph{Post-selection experiments}: The prediction
-$\ln R(\varepsilon, d) = \alpha d + \beta(\varepsilon)$ is directly
-testable on current hardware~\cite{Acharya2024}.
+$\ln R(\varepsilon, d) = \alpha d + \beta(\varepsilon)$ with
+decoder-independent $\alpha$ receives partial numerical support
+(see~\cite{SM}, Sec.~S15.3) and is directly testable on current
+hardware~\cite{Acharya2024}; definitive confirmation requires
+larger code distances.
 (iv)~\emph{Decoherence and $\tauasym$}: Can $\tauasym$ serve as a
 quantitative measure of the quantum-to-classical
 transition~\cite{Zurek2003}?
@@ -595,10 +605,14 @@ transient decreases in $\tauasym$---partial ``time reversal.'' The
 process tensor framework~\cite{Pollock2018} may extend the
 equivalence chain~\eqref{eq:equiv_chain} to this regime.
 
-Detailed experimental proposals, including a protocol for simultaneous
-$F$ and $\Sigma$ measurement on a superconducting qubit platform and
-strategies for reanalyzing existing data, are given in the
-Supplemental Material~\cite{SM}.
+We note that the bound $\tauasym \leq 1 - \exp(-\Sigma/2)$ has not
+yet been tested by simultaneous measurement of $F$ and $\Sigma$ on
+the same quantum channel; existing evidence comes from theoretical
+calculations using experimentally reported channel parameters
+(see~\cite{SM}, Sec.~S15.1). Detailed experimental proposals,
+including a protocol for simultaneous $F$ and $\Sigma$ measurement on
+a superconducting qubit platform and strategies for reanalyzing
+existing data, are given in the Supplemental Material~\cite{SM}.
 
 \begin{acknowledgments}
 The author thanks the quantum information and quantum foundations
