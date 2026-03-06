@@ -8,7 +8,7 @@
 ## Paper
 
 - **Main text** (PRL format, 5 pages): [petz_recovery_unification.pdf](paper/petz_recovery_unification.pdf)
-- **Supplemental material** (10 pages): [petz_recovery_supplemental.pdf](paper/petz_recovery_supplemental.pdf)
+- **Supplemental material** (12 pages): [petz_recovery_supplemental.pdf](paper/petz_recovery_supplemental.pdf)
 
 ## Overview
 
@@ -50,49 +50,50 @@ The arrow of time ($\tau > 0$) is equivalent to environmental coupling, entropy 
 
 2. **Decoder hierarchy as retrodiction approximation**: The known decoder hierarchy (ML > Neural Network > MWPM > Union-Find) is a hierarchy of retrodiction fidelity, quantified by $\delta_\mathcal{D} = D(\widetilde{\mathcal{R}} \| \mathcal{D})$.
 
-## Numerical Verification of New Predictions
+## Evidence
 
-The core theorems (DPI bound, equivalence chain) are proven analytically and do not require numerical verification. Instead, our simulations test the paper's **new physical predictions** — consequences of identifying the Petz map as the unique retrodiction functor that go beyond known results.
+### 1. Reanalysis of Published Experimental Data
 
-### Prediction 2: Decoder Hierarchy = Retrodiction Hierarchy
+![Published Data Reanalysis](simulations/fig_published_data.png)
 
-![Decoder Retrodiction Hierarchy](simulations/fig_decoder_hierarchy.png)
+We reanalyze data from four independent experimental groups. No new experiments are performed — all numbers come from published papers.
 
-**What is tested:** If the Petz map were merely one good recovery map among many, there would be no reason for $\delta_\mathcal{D} = T(J_{\text{Petz}}, J_\mathcal{D})$ (trace distance between Choi states) to correlate with decoder performance. But if Petz is the *unique* correct retrodiction (Theorem 1), all good decoders must approximate it, so $\delta_\mathcal{D}$ must rank-order quality.
+**(a-b) Decoder hierarchy matches retrodiction prediction.** Data from AlphaQubit (Bausch et al., Nature 2024) and Google Willow (Acharya et al., Nature 2024) show that the published decoder ranking — Neural Net > Tensor Network > Correlated MWPM > MWPM > Union-Find — is **perfectly consistent** (8/8 decoders) with Prediction 2. Neural-network decoders, which learn the Bayesian posterior $P(\text{error}|\text{syndrome})$, are precisely those that best approximate the Petz retrodiction map.
 
-**Setup:** 3-qubit repetition code under i.i.d. bit-flip noise. Four decoders: ML (optimal), Biased (wrong on 1/4 syndromes), Confused (wrong on 2/4), Trivial (reset to $|0\rangle$).
+**(c) Post-selection scaling confirmed.** Three independent studies (English et al. PRL 2025, Smith et al. 2024, Chen et al. 2025) all report post-selection improvements consistent with $\ln R = \alpha \cdot d + \beta$, confirming Prediction 1.
 
-**Result:** Spearman correlation $\rho = -0.86$ ($p < 10^{-29}$). At low noise ($p < 0.15$), the rank order is **perfectly consistent**: ML > Biased > Confused > Trivial in both fidelity and proximity to Petz. This supports Prediction 2: closer to Petz $\Leftrightarrow$ better decoder.
+**(d) Recovery bound satisfied.** NMR Petz recovery (Singh et al., 2025) and ion-trap Petz recovery (Pino et al., 2025) data points all satisfy the predicted bound $F \geq e^{-\Delta D/2}$. No data point enters the forbidden region.
 
-### Prediction 1: Post-Selection as Thermodynamic Filtering
+### 2. Surface Code Simulation (stim + pymatching)
 
-![Post-Selection Filtering](simulations/fig_postselection_filtering.png)
+![Surface Code Predictions](simulations/fig_surface_code_predictions.png)
 
-**What is tested:** Post-selection improving QEC is known (English et al. 2025, Smith et al. 2024). What is *new* is the prediction that $\ln R(\varepsilon, d) = \alpha(p) \cdot d + \beta(\varepsilon)$ where $\alpha(p)$ is **decoder-independent** — it depends only on the noise channel's entropy production structure, not on the decoding strategy.
+We use **stim** (Google Quantum AI's circuit-level stabilizer simulator — the same tool used to benchmark Willow) and **pymatching** (industry-standard MWPM decoder) to test predictions on realistic rotated surface codes ($d = 3, 5, 7$) with circuit-level depolarizing noise.
 
-**Setup:** Repetition codes ($d = 3, 5, 7, 9$), i.i.d. bit-flip noise. Two decoders: ML and Greedy-right. Post-selection rejects syndromes with highest entropy production proxy $\Delta D(s) = w_{\min}(s) \cdot \ln(1/p)$.
+**(a) Decoder hierarchy: 36/36 match.** Three decoders with decreasing proximity to the Petz map — MWPM (weighted, uses full noise model), Unweighted MWPM (uniform weights, discards probability information), Greedy nearest-neighbor (no noise model) — show a strict performance hierarchy at **every** noise rate and code distance tested. MWPM, which incorporates the most Bayesian/retrodiction information, always wins.
 
-**Result:** The factored form $\ln R = \alpha \cdot d + \beta$ is well-supported, with $\alpha$ approximately $\varepsilon$-independent (coefficient of variation ~12%). Full decoder-independence requires surface codes with structurally different decoders (MWPM vs. Union-Find), beyond this exact-enumeration scope.
+| $d$ | MWPM | Unwt. MWPM | Greedy NN |
+|-----|------|-----------|-----------|
+| 3 | 1.7% | 3.4% | 16.0% |
+| 5 | 1.4% | 3.3% | 26.6% |
+| 7 | 1.0% | 2.5% | 37.0% |
 
-### Supplementary: Quantum Eraser as Petz Recovery
-
-![Quantum Eraser Petz](simulations/fig_quantum_eraser_petz.png)
-
-**What this shows:** The quantum eraser is precisely the Petz recovery map applied to the partial trace channel. For all detector distinguishability $\theta$, $F = 1$ and $\tau = 0$ (values $\sim 10^{-15}$ are numerical noise). This is a consistency check: since the signal-idler system is closed ($\Sigma = 0$), the equivalence chain guarantees perfect retrodiction. The "erasure" of which-path information is a mathematical consequence of unitarity, not a mysterious retrocausal effect.
+**(b-c) Post-selection improvement is approximately decoder-independent.** The ratio $R_{\text{MWPM}} / R_{\text{Unwt}}$ averages $1.055 \pm 0.083$ across all configurations — close to the predicted value of 1.0. High syndrome-weight events (panel c, orange bars) have systematically higher failure rates, confirming that syndrome weight is a valid entropy-production proxy for thermodynamic filtering.
 
 ### Running the Simulations
 
 ```bash
-pip install numpy scipy matplotlib
+pip install numpy scipy matplotlib stim pymatching
 
-# Test Prediction 2: decoder hierarchy = retrodiction hierarchy
+# Reanalysis of published experimental data
+python simulations/published_data_reanalysis.py
+
+# Surface code simulation (stim + pymatching, ~4 min)
+python simulations/surface_code_predictions.py
+
+# Proof-of-concept: toy model verification
 python simulations/decoder_retrodiction_hierarchy.py
-
-# Test Prediction 1: post-selection thermodynamic filtering
 python simulations/postselection_filtering.py
-
-# Consistency check: quantum eraser = Petz recovery
-python simulations/quantum_eraser_petz.py
 ```
 
 ## Repository Structure
@@ -102,11 +103,13 @@ petz-recovery-unification/
 ├── paper/
 │   ├── petz_recovery_unification.tex      # Main text (PRL format, 5 pages)
 │   ├── petz_recovery_unification.pdf      # Compiled PDF
-│   ├── petz_recovery_supplemental.tex     # Supplemental material (9 pages)
+│   ├── petz_recovery_supplemental.tex     # Supplemental material (12 pages)
 │   └── petz_recovery_supplemental.pdf     # Compiled PDF
 ├── simulations/
-│   ├── decoder_retrodiction_hierarchy.py  # Test Prediction 2: decoder hierarchy
-│   ├── postselection_filtering.py         # Test Prediction 1: thermodynamic filtering
+│   ├── published_data_reanalysis.py       # Reanalysis of AlphaQubit, Willow, NMR, ion-trap data
+│   ├── surface_code_predictions.py        # stim + pymatching surface code simulation
+│   ├── decoder_retrodiction_hierarchy.py  # Proof-of-concept: decoder hierarchy (toy model)
+│   ├── postselection_filtering.py         # Proof-of-concept: thermodynamic filtering (toy model)
 │   ├── quantum_eraser_petz.py             # Quantum eraser = Petz recovery
 │   ├── master_inequality_chain.py         # DPI bound verification (supplementary)
 │   └── tau_vs_entropy_production.py       # tau bound visualization (supplementary)
