@@ -8,7 +8,7 @@
 ## Paper
 
 - **Main text** (PRL format, 5 pages): [petz_recovery_unification.pdf](paper/petz_recovery_unification.pdf)
-- **Supplemental material** (12 pages): [petz_recovery_supplemental.pdf](paper/petz_recovery_supplemental.pdf)
+- **Supplemental material** (13 pages): [petz_recovery_supplemental.pdf](paper/petz_recovery_supplemental.pdf)
 
 ## Overview
 
