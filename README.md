@@ -12,7 +12,7 @@
 
 ## Overview
 
-The Petz recovery map appears independently in quantum sufficiency theory, quantum error correction, categorical retrodiction, and quantum thermodynamics. This work proves that these appearances are not analogies but manifestations of a **single mathematical structure**.
+The Petz recovery map appears independently in quantum sufficiency theory, quantum error correction, categorical retrodiction, and quantum thermodynamics. This work proves that these appearances are not analogies but manifestations of a **single mathematical structure**. (Independent validation: Buscemi, Fullwood & Parzygnat ([arXiv:2412.12489](https://arxiv.org/abs/2412.12489), 2024) concurrently constructed a closely related framework.)
 
 We define a **temporal asymmetry parameter**
 
@@ -185,6 +185,7 @@ petz-recovery-unification/
 ### Retrodiction and Categorical Quantum Mechanics
 
 - A. J. Parzygnat and F. Buscemi, "Axioms for retrodiction: Achieving time-reversal symmetry with a prior," Quantum **7**, 1013 (2023).
+- F. Buscemi, J. Fullwood, and A. J. Parzygnat, "Information-theoretic foundations of quantum data science," arXiv:2412.12489 (2024). *(Independent construction of closely related framework)*
 - J. Fullwood and A. J. Parzygnat, "From time-reversal symmetry to quantum Bayes' rules," PRX Quantum **4**, 020334 (2023).
 - Y. Aharonov, P. G. Bergmann, and J. L. Lebowitz, "Time symmetry in the quantum process of measurement," Phys. Rev. **134**, B1410 (1964).
 
