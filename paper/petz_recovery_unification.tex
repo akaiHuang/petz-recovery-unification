@@ -462,7 +462,12 @@ production ($\Sigma > 0$), and imperfect recoverability
 \label{sec:predictions}
 %-----------------------------------------------------------------------
 
-The framework generates two testable predictions.
+The framework generates two testable predictions that go beyond the
+mathematical structure established above. While the individual
+inequalities in Eq.~\eqref{eq:master} are known results, the
+following predictions are \emph{new physical consequences} of
+identifying the Petz map as the unique retrodiction functor
+(Theorem~\ref{thm:unique}).
 
 \emph{Prediction~1: Post-selection as thermodynamic filtering.}---For
 a stabilizer code under noise $\chan$, each syndrome $s$ has a
@@ -471,7 +476,11 @@ $F(s)^2 \geq \exp(-\Delta D(s))$. Rejecting the fraction
 $\varepsilon$ of syndromes with the largest $\Delta D(s)$ yields
 $\ln R(\varepsilon, d) = \alpha(p)\, d + \beta(\varepsilon)$,
 with $\alpha$ (decoder-independent) and $\beta$
-(code-distance-independent). Recent evidence supports this structure:
+(code-distance-independent). \emph{What is new:} that the per-distance
+scaling $\alpha(p)$ is \emph{independent of the decoder} is a
+consequence of our framework---$\Delta D(s)$ depends only on the
+noise channel $\chan$ and the code state $\sigma_\code$, not on the
+recovery strategy. Recent evidence supports this structure:
 Boltzmann-factor failure rates via the Ising--QEC
 mapping~\cite{EnglishEtAl2025}, statistical-mechanical
 thresholds~\cite{EnglishWilliamsonBartlett2025}, and scalable
@@ -481,9 +490,16 @@ See~\cite{SM}, Sec.~S9 for derivation.
 \emph{Prediction~2: Decoder hierarchy as retrodiction
 approximation.}---Every decoder $\mathcal{D}$ has a retrodiction gap
 $\delta_{\mathcal{D}} = D(\tilde{\Petz}_{\sigma,\chan}\|\mathcal{D})$.
-The known decoder hierarchy~\cite{deMartiOlius2024}---ML $>$ neural
-network~\cite{Bausch2024} $>$ MWPM $>$ Union-Find---is a hierarchy
-of retrodiction fidelity. See~\cite{SM}, Sec.~S10.
+\emph{What is new:} if the Petz map were merely one good recovery map
+among many, $\delta_{\mathcal{D}}$ would have no reason to correlate
+with decoder performance. But the uniqueness theorem
+(Theorem~\ref{thm:unique}) implies that \emph{all} good decoders must
+approximate the Petz map, so $\delta_{\mathcal{D}}$ must rank-order
+decoder performance. The known decoder
+hierarchy~\cite{deMartiOlius2024}---ML $>$ neural
+network~\cite{Bausch2024} $>$ MWPM $>$ Union-Find---should therefore
+be a hierarchy of retrodiction fidelity. See~\cite{SM}, Secs.~S10
+and~S12 for the derivation and numerical verification.
 
 %-----------------------------------------------------------------------
 \section{The Quantum Eraser Revisited}
@@ -761,7 +777,8 @@ Rev.\ Mod.\ Phys.\ \textbf{88}, 021002 (2016).
 \bibitem{SM}
 See Supplemental Material for detailed proofs of all theorems,
 the explicit quantum eraser calculation, post-selection analysis,
-the decoder hierarchy, the equivalence chain proof, and caveats.
+the decoder hierarchy, numerical verification of Predictions~1
+and~2, the equivalence chain proof, and caveats.
 
 \end{thebibliography}
 

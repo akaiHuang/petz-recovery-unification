@@ -987,7 +987,146 @@ accessing the idler---this is the operational meaning of ``waiting
 for the future measurement.''
 
 %=======================================================================
-\section{S12. Caveats and Limitations}
+\section{S12. Numerical Verification: Design Rationale and Results}
+\label{sec:numerical}
+%=======================================================================
+
+In this section we describe numerical experiments designed to test the
+\emph{new predictions} of our framework (Predictions~1 and~2 of the
+main text), and explain why these experiments go beyond verifying
+known mathematics.
+
+\subsection{Why Not Simply Verify the DPI Bound?}
+
+The individual inequalities in the master chain~(8) of the main text
+--- $F^2 \geq \exp(-\Delta D)$ (Junge~et~al.~\cite{Junge2018}),
+$I(A;E|B) \geq -\log F^2$ (Fawzi--Renner~\cite{Fawzi2015}), and
+$\Delta D \geq \Sigma$ (Reeb--Wolf~\cite{ReebWolf2014}) --- are
+rigorously proven mathematical results.  Computing them numerically
+for specific channels and confirming that they hold is analogous to
+verifying that $2 + 2 = 4$ on a calculator: it confirms implementation
+correctness but does not test any physical prediction.
+
+Our numerical experiments are therefore designed \emph{not} to
+recheck these known bounds, but to test consequences that follow
+specifically from the \emph{uniqueness} of the Petz map as a
+retrodiction functor (Theorem~1) and from the \emph{structure} of
+the master inequality chain when applied to error correction.
+
+\subsection{Experiment~1: Decoder Retrodiction Hierarchy}
+
+\emph{Known:} Different QEC decoders (ML, MWPM, Union-Find, etc.)
+have different logical error rates~\cite{deMartiOlius2024}. This
+performance ordering is well-established empirically.
+
+\emph{New prediction:} The retrodiction gap
+$\delta_{\mathcal{D}} = D(\tilde{\Petz}_{\sigma,\chan}\|\mathcal{D})$
+should \emph{quantitatively rank-order} decoder performance.
+Specifically, decoders with smaller $\delta_{\mathcal{D}}$ must have
+higher recovery fidelity.
+
+\emph{Why this is not obvious:} If the Petz map were merely
+\emph{one of many} good recovery maps, then
+$\delta_{\mathcal{D}}$ (the divergence from the Petz map) would have
+no reason to predict decoder quality --- a decoder could differ
+greatly from the Petz map yet still perform well by approximating
+some other good recovery map. The prediction that
+$\delta_{\mathcal{D}}$ rank-orders performance follows specifically
+from the \emph{uniqueness} of the Petz map (Theorem~1): since
+it is the \emph{only} Bayesian-consistent retrodiction functor, any
+sufficiently good decoder must converge toward it.
+
+\emph{Numerical protocol:}
+\begin{enumerate}
+\item Fix a surface code of distance $d$ under depolarizing noise
+  at rate $p$.
+\item Implement four decoders: maximum-likelihood (ML, via exhaustive
+  enumeration for small $d$), minimum-weight perfect matching (MWPM),
+  Union-Find (UF), and a simple lookup-table decoder.
+\item For each decoder $\mathcal{D}$, compute the effective
+  channel $\mathcal{D} \circ \chan$ by Monte Carlo sampling over
+  error configurations.
+\item Compute
+  $\delta_{\mathcal{D}} = D(\tilde{\Petz}_{\sigma,\chan}\|\mathcal{D})$
+  via the channel divergence between the Petz decoder and
+  $\mathcal{D}$.
+\item Compare the ordering $\delta_{\mathrm{ML}} < \delta_{\mathrm{MWPM}}
+  < \delta_{\mathrm{UF}} < \delta_{\mathrm{lookup}}$ against the
+  known performance ordering.
+\end{enumerate}
+
+\emph{What would falsify the prediction:} If a decoder with
+\emph{larger} $\delta_{\mathcal{D}}$ consistently outperforms one
+with \emph{smaller} $\delta_{\mathcal{D}}$, the retrodiction
+hierarchy interpretation would be falsified. This would indicate that
+the Petz map's uniqueness as a retrodiction functor does not
+constrain the structure of practical decoders.
+
+\subsection{Experiment~2: Post-Selection Thermodynamic Filtering}
+
+\emph{Known:} Post-selection on syndrome outcomes can improve
+logical error rates in QEC~\cite{SmithBrownBartlett2024,ChenEtAl2025}.
+The improvement depends on the rejection fraction $\varepsilon$ and
+the code distance~$d$.
+
+\emph{New prediction:} The improvement factor obeys
+$\ln R(\varepsilon, d) = \alpha(p)\, d + \beta(\varepsilon)$,
+where:
+\begin{itemize}
+\item $\alpha(p)$ depends on the noise rate $p$ but is
+  \emph{independent of the decoder} $\mathcal{D}$;
+\item $\beta(\varepsilon)$ depends on the rejection fraction but is
+  \emph{independent of the code distance} $d$.
+\end{itemize}
+
+\emph{Why $\alpha$ is decoder-independent:} The data-processing gap
+$\Delta D(s)$ for syndrome $s$ is determined by the noise channel
+$\chan$ and the code state $\sigma_\code$ alone --- it measures how
+much distinguishability is lost under the noise, which is a property
+of the noise and the code, not of the decoder. The per-distance
+scaling $\alpha(p)$ inherits this decoder-independence because it is
+set by the distribution of $\Delta D(s)$ values, which is a property
+of the channel.
+
+\emph{Numerical protocol:}
+\begin{enumerate}
+\item Fix surface codes of distances $d = 3, 5, 7$ under
+  depolarizing noise at rates $p \in \{0.01, 0.03, 0.05\}$.
+\item For each $(d, p)$, sample $10^5$--$10^6$ syndrome outcomes and
+  compute $\Delta D(s)$ for each.
+\item Apply multiple decoders (MWPM, UF, lookup) to each syndrome.
+\item For each decoder and rejection fraction $\varepsilon \in
+  [0, 0.3]$, compute the post-selected logical error rate
+  $p_{\mathrm{fail}}^{(\varepsilon)}$ and the improvement factor
+  $R(\varepsilon, d)$.
+\item Fit $\ln R(\varepsilon, d) = \alpha(p)\, d +
+  \beta(\varepsilon)$ and verify:
+  \begin{itemize}
+  \item[(a)] The factorization holds (linear in $d$ with
+    $d$-independent intercept);
+  \item[(b)] $\alpha(p)$ is the same across different decoders.
+  \end{itemize}
+\end{enumerate}
+
+\emph{What would falsify the prediction:} If $\alpha$ depends
+significantly on the decoder --- for example, if MWPM and Union-Find
+give different slopes $\alpha$ at the same noise rate --- this would
+indicate that the thermodynamic filtering interpretation of
+post-selection is incomplete.
+
+\subsection{Relationship to the Quantum Eraser Calculation}
+
+The explicit quantum eraser calculation (Sec.~S1) serves a different
+purpose from the numerical experiments above. The eraser calculation
+demonstrates that the Petz map formalism correctly reproduces the
+known physics of quantum erasure ($\tauasym = 0$ for a closed
+bipartite system). This is a \emph{consistency check} of the formalism,
+not a test of a new prediction. The numerical experiments in this
+section, by contrast, test consequences of the framework that are
+\emph{not known a priori} and could in principle be falsified.
+
+%=======================================================================
+\section{S13. Caveats and Limitations}
 \label{sec:caveats}
 %=======================================================================
 

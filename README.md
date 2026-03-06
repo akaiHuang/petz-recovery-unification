@@ -8,7 +8,7 @@
 ## Paper
 
 - **Main text** (PRL format, 5 pages): [petz_recovery_unification.pdf](paper/petz_recovery_unification.pdf)
-- **Supplemental material** (9 pages): [petz_recovery_supplemental.pdf](paper/petz_recovery_supplemental.pdf)
+- **Supplemental material** (10 pages): [petz_recovery_supplemental.pdf](paper/petz_recovery_supplemental.pdf)
 
 ## Overview
 
@@ -50,41 +50,49 @@ The arrow of time ($\tau > 0$) is equivalent to environmental coupling, entropy 
 
 2. **Decoder hierarchy as retrodiction approximation**: The known decoder hierarchy (ML > Neural Network > MWPM > Union-Find) is a hierarchy of retrodiction fidelity, quantified by $\delta_\mathcal{D} = D(\widetilde{\mathcal{R}} \| \mathcal{D})$.
 
-## Numerical Simulations
+## Numerical Verification of New Predictions
 
-The `simulations/` directory contains Python scripts that numerically verify the paper's core results. Each script generates the corresponding figure below.
+The core theorems (DPI bound, equivalence chain) are proven analytically and do not require numerical verification. Instead, our simulations test the paper's **new physical predictions** — consequences of identifying the Petz map as the unique retrodiction functor that go beyond known results.
 
-### 1. Master Inequality Chain (Theorem 3)
+### Prediction 2: Decoder Hierarchy = Retrodiction Hierarchy
 
-![Master Inequality Chain](simulations/fig_master_inequality_chain.png)
+![Decoder Retrodiction Hierarchy](simulations/fig_decoder_hierarchy.png)
 
-**What this shows:** Numerical verification of $-\log F^2 \leq \Delta D$ for the amplitude damping channel across three input states ($|+\rangle$, $|1\rangle$, mixed). The blue curve ($-\log F^2$, recovery difficulty) always lies below the red dashed curve ($\Delta D$, information lost to environment), confirming the Data Processing Inequality bound. The green dotted curve shows entropy production $\Sigma$ for comparison. The shaded gap quantifies recovery slack — how much easier Petz recovery is compared to the theoretical limit.
+**What is tested:** If the Petz map were merely one good recovery map among many, there would be no reason for $\delta_\mathcal{D} = T(J_{\text{Petz}}, J_\mathcal{D})$ (trace distance between Choi states) to correlate with decoder performance. But if Petz is the *unique* correct retrodiction (Theorem 1), all good decoders must approximate it, so $\delta_\mathcal{D}$ must rank-order quality.
 
-### 2. Quantum Eraser as Petz Recovery
+**Setup:** 3-qubit repetition code under i.i.d. bit-flip noise. Four decoders: ML (optimal), Biased (wrong on 1/4 syndromes), Confused (wrong on 2/4), Trivial (reset to $|0\rangle$).
+
+**Result:** Spearman correlation $\rho = -0.86$ ($p < 10^{-29}$). At low noise ($p < 0.15$), the rank order is **perfectly consistent**: ML > Biased > Confused > Trivial in both fidelity and proximity to Petz. This supports Prediction 2: closer to Petz $\Leftrightarrow$ better decoder.
+
+### Prediction 1: Post-Selection as Thermodynamic Filtering
+
+![Post-Selection Filtering](simulations/fig_postselection_filtering.png)
+
+**What is tested:** Post-selection improving QEC is known (English et al. 2025, Smith et al. 2024). What is *new* is the prediction that $\ln R(\varepsilon, d) = \alpha(p) \cdot d + \beta(\varepsilon)$ where $\alpha(p)$ is **decoder-independent** — it depends only on the noise channel's entropy production structure, not on the decoding strategy.
+
+**Setup:** Repetition codes ($d = 3, 5, 7, 9$), i.i.d. bit-flip noise. Two decoders: ML and Greedy-right. Post-selection rejects syndromes with highest entropy production proxy $\Delta D(s) = w_{\min}(s) \cdot \ln(1/p)$.
+
+**Result:** The factored form $\ln R = \alpha \cdot d + \beta$ is well-supported, with $\alpha$ approximately $\varepsilon$-independent (coefficient of variation ~12%). Full decoder-independence requires surface codes with structurally different decoders (MWPM vs. Union-Find), beyond this exact-enumeration scope.
+
+### Supplementary: Quantum Eraser as Petz Recovery
 
 ![Quantum Eraser Petz](simulations/fig_quantum_eraser_petz.png)
 
-**What this shows:** The quantum eraser experiment is precisely the Petz recovery map applied to the partial trace channel. For all values of detector distinguishability $\theta$, the recovery fidelity $F = 1$ and $\tau = 0$ (right panel, values $\sim 10^{-15}$ are numerical noise). This demonstrates the equivalence chain: since the signal-idler system is closed ($\Sigma = 0$), perfect retrodiction is always possible — the "erasure" of which-path information is not mysterious but a mathematical consequence of unitarity.
-
-### 3. Temporal Asymmetry Bound
-
-![Tau vs Entropy Production](simulations/fig_tau_vs_entropy_production.png)
-
-**What this shows:** The temporal asymmetry parameter $\tau = 1 - F$ (blue) is bounded by $1 - e^{-\Delta D/2}$ (red dashed) across three input states under amplitude damping. At $\gamma = 0$ (no damping), $\tau = 0$ and recovery is exact — this is the quantum eraser regime. As $\gamma$ increases, information leaks to the environment, the arrow of time emerges ($\tau > 0$), and recovery becomes imperfect. At $\gamma \to 1$ (complete damping), $\tau \to 1$: maximal arrow of time, no recovery possible. For the rotated Petz map with Gibbs reference, $\Delta D = \Sigma$, yielding the thermodynamic bound $\tau \leq 1 - e^{-\Sigma/2}$.
+**What this shows:** The quantum eraser is precisely the Petz recovery map applied to the partial trace channel. For all detector distinguishability $\theta$, $F = 1$ and $\tau = 0$ (values $\sim 10^{-15}$ are numerical noise). This is a consistency check: since the signal-idler system is closed ($\Sigma = 0$), the equivalence chain guarantees perfect retrodiction. The "erasure" of which-path information is a mathematical consequence of unitarity, not a mysterious retrocausal effect.
 
 ### Running the Simulations
 
 ```bash
 pip install numpy scipy matplotlib
 
-# Verify the master inequality chain (Theorem 3)
-python simulations/master_inequality_chain.py
+# Test Prediction 2: decoder hierarchy = retrodiction hierarchy
+python simulations/decoder_retrodiction_hierarchy.py
 
-# Demonstrate quantum eraser as Petz recovery
+# Test Prediction 1: post-selection thermodynamic filtering
+python simulations/postselection_filtering.py
+
+# Consistency check: quantum eraser = Petz recovery
 python simulations/quantum_eraser_petz.py
-
-# Visualize tau vs entropy production bound
-python simulations/tau_vs_entropy_production.py
 ```
 
 ## Repository Structure
@@ -97,9 +105,11 @@ petz-recovery-unification/
 │   ├── petz_recovery_supplemental.tex     # Supplemental material (9 pages)
 │   └── petz_recovery_supplemental.pdf     # Compiled PDF
 ├── simulations/
-│   ├── master_inequality_chain.py         # Verify Theorem 3 numerically
+│   ├── decoder_retrodiction_hierarchy.py  # Test Prediction 2: decoder hierarchy
+│   ├── postselection_filtering.py         # Test Prediction 1: thermodynamic filtering
 │   ├── quantum_eraser_petz.py             # Quantum eraser = Petz recovery
-│   └── tau_vs_entropy_production.py       # tau bound visualization
+│   ├── master_inequality_chain.py         # DPI bound verification (supplementary)
+│   └── tau_vs_entropy_production.py       # tau bound visualization (supplementary)
 ├── README.md
 └── LICENSE
 ```
