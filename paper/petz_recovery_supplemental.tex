@@ -1774,6 +1774,208 @@ irreversible'' than non-unital noise at the same information
 loss $\Delta D$.
 
 %=======================================================================
+\section{S17: Saturation Theorem---Full Proof}
+\label{sec:S17}
+%=======================================================================
+
+We prove Theorem~4 of the main text: sufficient conditions for
+exact saturation of the Junge et~al.\ bound
+$F^2(\rho,\Petz_{\sigma,\chan}(\chan(\rho))) \geq \exp(-\Delta D)$.
+
+\subsection{S17.1: Statement}
+
+Let $\chan$ be CPTP with Kraus operators $\{E_k\}$,
+$\sigma$ full-rank, and $\rho = \ket{\psi}\!\bra{\psi}$ pure.
+If (i)~$\chan(\rho) = \rho$, (ii)~$[\rho,\sigma] = 0$, and
+(iii)~$[\rho,\chan(\sigma)] = 0$, then
+\begin{equation}
+F^2 = \frac{\bra{\psi}\sigma\ket{\psi}}%
+  {\bra{\psi}\chan(\sigma)\ket{\psi}}
+= \exp(-\Delta D).
+\end{equation}
+
+\subsection{S17.2: Proof of sufficiency}
+
+Work in a basis where $\ket{\psi} = \ket{0}$, so
+$\rho = P \equiv \ket{0}\!\bra{0}$.
+
+\emph{Step~1: Eigenvalue structure from condition~(i).}
+Since $\chan(P) = \sum_k E_k P E_k^\dagger = P$, each Kraus
+operator satisfies $E_k\ket{0} = \lambda_k\ket{0}$ for some
+$\lambda_k \in \mathbb{C}$ with
+$\sum_k |\lambda_k|^2 = 1$.
+
+\emph{Step~2: Block-diagonal structure from conditions~(ii)--(iii).}
+Condition~(ii) gives $\sigma = s_0 P \oplus \sigma_\perp$ where
+$s_0 = \bra{0}\sigma\ket{0}$.  Condition~(iii) gives
+$\chan(\sigma) = \omega_0 P \oplus [\chan(\sigma)]_\perp$ where
+$\omega_0 = \bra{0}\chan(\sigma)\ket{0}$.
+
+\emph{Step~3: Relative entropy drop.}
+\begin{align}
+D(P\|\sigma) &= -\log s_0, \notag\\
+D(P\|\chan(\sigma)) &= -\log \omega_0, \notag\\
+\Delta D &= \log(\omega_0/s_0).
+\end{align}
+Therefore $\exp(-\Delta D) = s_0/\omega_0$.
+
+\emph{Step~4: Petz map computation.}
+\begin{align}
+\chan(\sigma)^{-1/2}\,P\,\chan(\sigma)^{-1/2}
+&= \omega_0^{-1}\,P, \notag\\
+\chan^\dagger(\omega_0^{-1}P)
+&= \omega_0^{-1}\sum_k E_k^\dagger P\, E_k, \notag\\
+\bra{0}\chan^\dagger(\omega_0^{-1}P)\ket{0}
+&= \omega_0^{-1}\sum_k|\lambda_k|^2 = \omega_0^{-1}.
+\end{align}
+The full Petz map gives:
+\begin{equation}
+\bra{0}\Petz(P)\ket{0}
+= s_0^{1/2}\cdot\omega_0^{-1}\cdot s_0^{1/2}
+= s_0/\omega_0.
+\end{equation}
+Since $\rho = P$ is pure,
+$F^2 = \bra{0}\Petz(\chan(P))\ket{0}
+= \bra{0}\Petz(P)\ket{0} = s_0/\omega_0
+= \exp(-\Delta D)$.\hfill$\square$
+
+\subsection{S17.3: Condition~(i) is not necessary}
+
+\emph{Counterexample.}---The completely depolarizing channel
+$\chan(\rho) = I/d$ satisfies $\chan(P) = I/d \neq P$ for any
+pure $P$, violating condition~(i).  Yet with $\sigma = I/d$:
+\begin{align}
+F^2 &= \bra{0}(I/d)\ket{0} = 1/d, \notag\\
+\Delta D &= D(P\|I/d) - D(I/d\|I/d) = \ln d - 0 = \ln d,
+  \notag\\
+\exp(-\Delta D) &= 1/d = F^2.
+\end{align}
+Saturation holds for every pure input.  This demonstrates that
+condition~(i) is sufficient but not necessary.
+
+\subsection{S17.4: Numerical verification}
+
+The saturation theorem is verified numerically across six
+channel families in the script
+\texttt{numerical/saturation\_verification.py}:
+amplitude damping ($\gamma \in \{0.1,\ldots,0.9\}$, ground
+state), pure loss bosonic ($d=3$, vacuum), complement of
+amplitude damping (anti-degradable), and three-level decay
+channels.  All cases satisfying conditions~(i)--(iii) achieve
+$F^2/\exp(-\Delta D) = 1$ to machine precision ($<10^{-12}$).
+Cases violating any condition show $F^2/\exp(-\Delta D) > 1$.
+Total: 46/46 tests pass with zero bound violations.
+
+%=======================================================================
+\section{S18: Composition Sub-additivity---Proof and Numerics}
+\label{sec:S18}
+%=======================================================================
+
+\subsection{S18.1: Statement}
+
+For sequential channels $\chan_1, \chan_2$, reference $\sigma$,
+and any state $\rho$:
+\begin{equation}
+\sqrt{\tauasym_{12}}
+\;\leq\; \sqrt{\tauasym_1}
++ \sqrt{\tauasym_2^{\mathrm{eff}}},
+\label{eq:comp_supp}
+\end{equation}
+where $\tauasym_{12}$, $\tauasym_1$, and
+$\tauasym_2^{\mathrm{eff}}$ are defined in the main text
+(Theorem~5), with $\tauasym_2^{\mathrm{eff}}$ evaluated at
+evolved state $\chan_1(\rho)$ and updated reference
+$\chan_1(\sigma)$.
+
+\subsection{S18.2: Proof}
+
+Define:
+\begin{align}
+\rho_1 &= \Petz_{\sigma,\chan_1}(\chan_1(\rho)),
+  \notag\\
+\rho_{12} &= \Petz_{\sigma,\chan_2\circ\chan_1}
+  ((\chan_2\circ\chan_1)(\rho)).
+\end{align}
+
+\emph{Step~1: Functoriality.}
+By the Parzygnat--Buscemi theorem~\cite{Parzygnat2023}:
+\begin{equation}
+\Petz_{\sigma,\chan_2\circ\chan_1}
+= \Petz_{\sigma,\chan_1}\circ
+  \Petz_{\chan_1(\sigma),\chan_2}.
+\end{equation}
+
+\emph{Step~2: Bures triangle inequality.}
+The Bures distance
+$d_B(\rho,\sigma) = \sqrt{1-F(\rho,\sigma)}$ is a metric, so:
+\begin{equation}
+d_B(\rho,\rho_{12})
+\leq d_B(\rho,\rho_1)
++ d_B(\rho_1,\rho_{12}).
+\end{equation}
+The left side is $\sqrt{\tauasym_{12}}$ and the first term on
+the right is $\sqrt{\tauasym_1}$.
+
+\emph{Step~3: Data-processing bound on the second term.}
+By functoriality,
+$\rho_{12} = \Petz_{\sigma,\chan_1}
+(\Petz_{\chan_1(\sigma),\chan_2}(\chan_2(\chan_1(\rho))))$.
+Since $\rho_1 = \Petz_{\sigma,\chan_1}(\chan_1(\rho))$, both
+$\rho_1$ and $\rho_{12}$ are images of $\Petz_{\sigma,\chan_1}$.
+By contractivity of fidelity under CPTP maps:
+\begin{align}
+F(\rho_1,\rho_{12})
+&\geq F\!\big(\chan_1(\rho),\,
+  \Petz_{\chan_1(\sigma),\chan_2}(\chan_2(\chan_1(\rho)))\big)
+  \notag\\
+&= 1 - \tauasym_2^{\mathrm{eff}}.
+\end{align}
+Therefore $d_B(\rho_1,\rho_{12})
+\leq \sqrt{\tauasym_2^{\mathrm{eff}}}$, completing the
+proof.\hfill$\square$
+
+\subsection{S18.3: Failure of the naive version}
+
+If one defines $\tauasym_2^{\mathrm{naive}}
+= 1 - F(\rho,\Petz_{\sigma,\chan_2}(\chan_2(\rho)))$
+using the original state $\rho$ and reference $\sigma$
+(instead of the evolved ones), the inequality
+$\sqrt{\tauasym_{12}} \leq \sqrt{\tauasym_1}
++ \sqrt{\tauasym_2^{\mathrm{naive}}}$ \emph{fails}:
+numerical tests find violations in 2/1000 random channel
+pairs (worst margin: $-0.030$).
+
+\subsection{S18.4: The rotated Petz map violates composition}
+
+The rotated Petz map
+$\tilde{\Petz}(\cdot) = \int dt\,p(t)\,
+\sigma^{it}\Petz(\chan(\sigma)^{-it}(\cdot)
+\chan(\sigma)^{it})\sigma^{-it}$
+of Ref.~\cite{Junge2018} does \emph{not} satisfy the
+functoriality axiom~\eqref{eq:functor} and consequently
+violates the composition
+inequality~\eqref{eq:comp_supp}.  Numerical tests
+(\texttt{numerical/composition\_verification.py}) find
+violations for non-unital channel pairs: $\sim\!10\%$ failure
+rate for amplitude damping pairs, with worst violation margin
+$-0.0046$.  No violations are found for unital channel pairs
+(dephasing, depolarizing).
+
+This provides a new structural distinction: the standard Petz
+map uniquely ``decomposes time correctly,'' while the rotated
+Petz map achieves tighter recovery bounds at the cost of
+breaking compositional consistency.
+
+\subsection{S18.5: Numerical verification}
+
+The composition inequality is verified in
+\texttt{numerical/composition\_verification.py}:
+0 violations in 1338 structured tests (qubit and qutrit
+channels) and 0 violations in 1000 random qubit channel pairs.
+Petz functoriality is confirmed to machine precision
+(max trace distance error: $8.44\times10^{-16}$).
+
+%=======================================================================
 
 \begin{thebibliography}{30}
 

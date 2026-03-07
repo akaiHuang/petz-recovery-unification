@@ -60,11 +60,14 @@ Junge et~al.).  This interpretation unifies the quantum eraser
 error correction ($\tauasym > 0$ sets the decoder's task), and
 thermodynamic irreversibility ($\tauasym$ bounded by dissipation)
 under a single physical picture.
-We present one new result: the amplitude damping channel exactly
-saturates the recovery bound ($F^2 = \exp(-\Delta D)$) for
-fixed-point states, making the arrow of time a tight
-information-theoretic quantity for this experimentally relevant
-noise model.
+We present two new results.  First, we identify sufficient
+conditions under which the recovery bound is exactly saturated
+($F^2 = \exp(-\Delta D)$): the saturation value is a Bayesian
+posterior ratio, connecting quantum recovery to classical
+retrodiction.  Second, we prove that $\sqrt{\tauasym}$ satisfies
+a triangle inequality under channel composition---a property
+unique to the Petz map that fails for the universal
+(rotated Petz) recovery map of Junge et~al.
 \end{abstract}
 
 \maketitle
@@ -126,12 +129,15 @@ distinction between forward and reverse processes.  Openness to an
 environment ($\Sigma > 0$) breaks this symmetry, and
 $\tauasym \leq 1 - \exp(-\Sigma/2)$ quantifies the cost.
 
-We also present one new result: we show that the amplitude
-damping channel exactly saturates the Junge et~al.\ bound
-($F^2 = \exp(-\Delta D)$) for fixed-point input states, while
-unital channels generically do not.  This identifies a physically
-meaningful distinction between channel families in terms of
-temporal asymmetry.
+We present two new mathematical results.  First, we identify
+sufficient conditions under which the Junge et~al.\ bound
+$F^2 \geq \exp(-\Delta D)$ is exactly saturated, with a
+saturation value given by a Bayesian likelihood ratio
+(Theorem~\ref{thm:saturation}).
+Second, we prove that $\sqrt{\tauasym}$ satisfies a triangle
+inequality under channel composition---a structural property
+unique to the Petz map that fails for the rotated Petz map
+(Theorem~\ref{thm:composition}).
 
 %-----------------------------------------------------------------------
 \section{The Petz Recovery Map}
@@ -463,69 +469,148 @@ production ($\Sigma > 0$), and imperfect recoverability
 ($F < 1$).
 
 %-----------------------------------------------------------------------
-\section{New Result: Channel-Dependent Bound Saturation}
+\section{New Result I: Bound Saturation Theorem}
 \label{sec:saturation}
 %-----------------------------------------------------------------------
 
-We present a new result that demonstrates a physically meaningful
-distinction between channel families within the $\tauasym$
-framework.
+We identify sufficient conditions under which the Junge et~al.\
+bound $F^2 \geq \exp(-\Delta D)$ is exactly saturated.
 
-\emph{Proposition (Amplitude damping saturation).}---Consider
-single-qubit channels with reference state $\sigma = I/2$.  For
-the amplitude damping channel $\chan_\gamma^{\mathrm{AD}}$ with
-damping parameter $\gamma \in [0,1]$:
-
-(a)~For the fixed-point input $\rho = \ket{0}\!\bra{0}$
-(ground state, preserved by the channel):
+\begin{theorem}[Saturation of the Recovery Bound]
+\label{thm:saturation}
+Let\/ $\chan$ be a CPTP map, $\sigma$ a full-rank reference state,
+and $\rho = \ket{\psi}\!\bra{\psi}$ a pure state.  If the
+following conditions hold:
+\begin{enumerate}
+\item[\emph{(i)}] $\chan(\rho) = \rho$ \emph{(fixed point);}
+\item[\emph{(ii)}] $[\rho, \sigma] = 0$
+  \emph{(input commutes with reference);}
+\item[\emph{(iii)}] $[\rho, \chan(\sigma)] = 0$
+  \emph{(input commutes with channel output of reference);}
+\end{enumerate}
+then the Junge et~al.\ bound is exactly saturated:
 \begin{equation}
-F^2 = \frac{1}{1+\gamma} = \exp(-\Delta D),
+F^2\!\big(\rho,\,\Petz_{\sigma,\chan}(\chan(\rho))\big)
+= \exp(-\Delta D)
+= \frac{\bra{\psi}\sigma\ket{\psi}}%
+       {\bra{\psi}\chan(\sigma)\ket{\psi}}.
 \label{eq:saturation}
 \end{equation}
-where $\Delta D = \ln(1+\gamma)$.  The Junge et~al.\ bound is
-\emph{exactly saturated} for all $\gamma$.
+\end{theorem}
 
-(b)~For unital channels (dephasing, depolarizing) with Bloch
-contraction $\lambda \in (0,1)$, evaluated on equatorial pure
-states:
-\begin{equation}
-\eta \equiv \frac{F^2}{\exp(-\Delta D)}
-= \frac{1+\lambda^2}{2\exp(-H_{\mathrm{bin}})}
-> 1,
-\label{eq:unital_gap}
-\end{equation}
-where $H_{\mathrm{bin}} = H((1+\lambda)/2)$ is the binary entropy.
-The bound is \emph{strictly non-saturated} in the interior.
+\emph{Proof sketch.}---Work in a basis where
+$\ket{\psi} = \ket{0}$.  Condition~(ii) gives
+$\sigma = s_0\ket{0}\!\bra{0} \oplus \sigma_\perp$;
+condition~(i) forces $E_k\ket{0} = \lambda_k\ket{0}$ with
+$\sum_k|\lambda_k|^2 = 1$.  Then
+$\Delta D = \ln(\omega_0/s_0)$ where
+$\omega_0 = \bra{0}\chan(\sigma)\ket{0}$, and direct computation
+of the Petz map gives
+$F^2 = s_0/\omega_0 = \exp(-\Delta D)$.
+See~\cite{SM}, Sec.~S16--S17, for the full derivation and
+numerical verification across six channel
+families.\hfill$\square$
 
-\emph{Proof.}---For $\sigma = I/2$, the Petz map reduces to
-$\Petz(\cdot) = \chan^\dagger(\chan(I/2)^{-1/2}(\cdot)
-\chan(I/2)^{-1/2})/2$.  For unital channels,
-$\chan(I/2) = I/2$ and $\Petz = \chan^\dagger = \chan$
-(self-adjoint).  The fidelity and relative entropy drop are
-computed explicitly in~\cite{SM}, Sec.~S16.
+\emph{Bayesian interpretation.}---The saturation value
+$F^2 = s_0/\omega_0$ is the ratio of prior to posterior
+probability: $P(\psi|\text{prior})/P(\psi|\text{posterior})$.
+Saturation occurs precisely when quantum recovery reduces to
+classical Bayesian retrodiction on the one-dimensional subspace
+spanned by $\ket{\psi}$.
 
-For amplitude damping, $\chan(I/2) = (I + \gamma Z)/2$.
-Direct calculation gives
-$\Petz(\ket{0}\!\bra{0}) = \mathrm{diag}(1/(1+\gamma),\,
-\gamma/(1+\gamma))$, yielding
-$F^2 = 1/(1+\gamma)$, while
-$\Delta D = \log 2 - D(\ket{0}\!\bra{0}\|\chan(I/2))
-= \ln(1+\gamma)$.  Hence $F^2 = \exp(-\Delta D)$.
-\hfill$\square$
+\emph{Examples.}---(a)~Amplitude damping
+$\chan_\gamma^{\mathrm{AD}}$ with $\rho = \ket{0}\!\bra{0}$
+(ground state) and $\sigma = I/2$:
+$F^2 = 1/(1+\gamma) = \exp(-\ln(1+\gamma))$, saturated for
+all $\gamma \in [0,1]$.
+(b)~Pure loss bosonic channel (transmissivity $\eta$) with
+vacuum input: saturated for all $\eta$.
+(c)~The complement of the amplitude damping channel (which is
+\emph{anti-degradable}) also saturates---degradability is
+irrelevant.
+(d)~Unital channels (dephasing, depolarizing) are \emph{strictly
+non-saturated} in the interior~\cite{SM}.
 
-The physical content: for amplitude damping of the ground state,
-the temporal asymmetry $\tauasym = 1 - 1/\sqrt{1+\gamma}$
-\emph{exactly equals} the information-theoretic lower bound
-$1 - \exp(-\Delta D/2)$.  There is no slack---the arrow of time
-is entirely determined by the information loss $\Delta D$.  This
-contrasts with unital channels, where the actual $\tauasym$ is
-always less than the bound permits.
+\emph{Remark.}---Conditions~(i)--(iii) are sufficient but not
+necessary.  The completely depolarizing channel
+$\chan(\rho) = I/d$ saturates for all pure inputs
+($F^2 = 1/d = \exp(-\ln d)$) despite condition~(i) failing.
+A complete characterization of necessity remains open.
 
-This distinction is experimentally relevant: amplitude damping is
-the dominant noise channel in superconducting qubits and ion
-traps, and Petz recovery has been implemented on both
+\emph{Experimental relevance.}---Amplitude damping is the
+dominant noise in superconducting qubits ($T_1$ decay) and ion
+traps.  Petz recovery has been implemented on both
 platforms~\cite{Pino2025,Singh2025}.  The prediction
-$F^2 = 1/(1+\gamma)$ for ground-state input is directly testable.
+$F^2 = 1/(1+\gamma)$ for ground-state input is directly
+testable.
+
+%-----------------------------------------------------------------------
+\section{New Result II: Compositional Sub-additivity of $\tauasym$}
+\label{sec:composition}
+%-----------------------------------------------------------------------
+
+The Petz map's functoriality~\eqref{eq:functor} implies a
+geometric structure on $\tauasym$ that other recovery maps lack.
+
+\begin{theorem}[Composition Sub-additivity]
+\label{thm:composition}
+For sequential channels $\chan_1, \chan_2$ and reference state
+$\sigma$, the Petz recovery $\tauasym$ satisfies:
+\begin{equation}
+\sqrt{\tauasym_{12}} \;\leq\; \sqrt{\tauasym_1}
+  + \sqrt{\tauasym_2^{\mathrm{eff}}},
+\label{eq:composition}
+\end{equation}
+where $\tauasym_{12} = 1 - F(\rho,\,\Petz_{\sigma,\chan_2\circ\chan_1}
+\circ (\chan_2\!\circ\!\chan_1)(\rho))$,\;
+$\tauasym_1 = 1 - F(\rho,\,\Petz_{\sigma,\chan_1}
+\circ \chan_1(\rho))$,\;
+and $\tauasym_2^{\mathrm{eff}} =
+1 - F(\chan_1(\rho),\,
+\Petz_{\chan_1(\sigma),\chan_2}
+\circ \chan_2(\chan_1(\rho)))$
+is the second-stage cost evaluated at the
+\emph{evolved} state $\chan_1(\rho)$ with \emph{updated}
+reference $\chan_1(\sigma)$.
+\end{theorem}
+
+\emph{Proof.}---Three ingredients.
+(1)~\emph{Functoriality}~\eqref{eq:functor}:
+$\Petz_{\sigma,\chan_2\circ\chan_1} =
+\Petz_{\sigma,\chan_1} \circ
+\Petz_{\chan_1(\sigma),\chan_2}$.
+(2)~\emph{Bures triangle inequality}: for any three states
+$\rho, \rho_1, \rho_{12}$,
+$\sqrt{1-F(\rho,\rho_{12})} \leq
+\sqrt{1-F(\rho,\rho_1)} +
+\sqrt{1-F(\rho_1,\rho_{12})}$.
+(3)~\emph{Data-processing inequality}:
+$\Petz_{\sigma,\chan_1}$ is CPTP, so
+$F(\rho_1, \rho_{12}) =
+F(\Petz_{\sigma,\chan_1}\circ\Petz_{\chan_1(\sigma),\chan_2}
+\circ\chan_2\circ\chan_1(\rho),\,
+\Petz_{\sigma,\chan_1}\circ\chan_1(\rho))
+\geq F(\Petz_{\chan_1(\sigma),\chan_2}
+\circ\chan_2(\chan_1(\rho)),\, \chan_1(\rho))$.
+Combining gives~\eqref{eq:composition}.
+See~\cite{SM}, Sec.~S18.\hfill$\square$
+
+\emph{Remark.}---The reference for the second stage
+\emph{must} be the Bayesian-updated $\chan_1(\sigma)$, not the
+original~$\sigma$.  With the original reference, the inequality
+fails numerically.  This is physically meaningful:
+irreversibility decomposes additively across sequential
+processes only when each stage's cost is measured using the
+updated prior---the hallmark of Bayesian inference.
+
+\emph{Uniqueness to Petz.}---The rotated Petz map
+$\tilde{\Petz}$ of Ref.~\cite{Junge2018}, which gives tighter
+fidelity bounds, does \emph{not} satisfy
+Eq.~\eqref{eq:composition}: numerical tests find violations
+for non-unital channel pairs (see~\cite{SM}, Sec.~S18).
+This provides a new structural distinction between the two
+recovery maps beyond what the categorical axioms~\cite{Parzygnat2023}
+alone imply.
 
 %-----------------------------------------------------------------------
 \section{Observations from the $\tauasym$ Framework}
@@ -603,10 +688,14 @@ mathematical results---the Petz map's uniqueness as retrodiction
 functor~\cite{Parzygnat2023}, the universal recovery
 bound~\cite{Junge2018}, and the connection to entropy
 production~\cite{Kolchinsky2017,Crooks1999,Kwon2019}.  Our
-contribution is twofold: the definition of $\tauasym = 1 - F$
-as a continuous measure of the arrow of time, and the
-demonstration that the amplitude damping channel saturates the
-recovery bound for fixed-point states.
+contributions are: (1)~the definition of $\tauasym = 1 - F$
+as a continuous measure of the arrow of time;
+(2)~sufficient conditions for exact saturation of the recovery
+bound, with a Bayesian interpretation
+(Theorem~\ref{thm:saturation}); and (3)~a composition
+sub-additivity theorem showing that $\sqrt{\tauasym}$ forms a
+metric-like quantity unique to the Petz map
+(Theorem~\ref{thm:composition}).
 
 The $\tauasym$ parameter provides a unified language for
 phenomena across quantum information:
@@ -618,11 +707,13 @@ phenomena across quantum information:
 \midrule
 Quantum eraser & $F = 1$ (exact) & $0$ \\
 Closed unitary & Petz = inverse & $0$ \\
-QEC (Ref.~\cite{Junge2018}) & $F^2 \geq e^{-\Delta D}$ & $> 0$ \\
+QEC~\cite{Junge2018} & $F^2 \geq e^{-\Delta D}$ & $> 0$ \\
 Thermodynamics & Eq.~\eqref{eq:tau_bound}
   & $\leq 1 - e^{-\Sigma/2}$ \\
-Ampl.\ damping & Eq.~\eqref{eq:saturation} (new)
-  & $= 1 - e^{-\Delta D/2}$ \\
+Saturation (new) & Thm.~\ref{thm:saturation}
+  & $= 1 - \sqrt{s_0/\omega_0}$ \\
+Composition (new) & Thm.~\ref{thm:composition}
+  & $\sqrt{\tauasym_{12}} \leq \sqrt{\tauasym_1}+\sqrt{\tauasym_2^{\mathrm{eff}}}$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -633,23 +724,28 @@ produces entropy ($\Sigma > 0$), implying $\tauasym > 0$.  The
 arrow of time, in this interpretation, is a consequence of
 system-environment coupling quantified by Petz recovery failure.
 
-\emph{Limitations.}---The $\tauasym$ bound
-$\tauasym \leq 1 - \exp(-\Sigma/2)$ has not yet been tested by
-simultaneous measurement of $F$ and $\Sigma$ on the same quantum
-channel.  The amplitude damping saturation
-(Eq.~\eqref{eq:saturation}) is a single-qubit result; extension
-to multi-qubit channels remains open.  The QEC observations
+\emph{Limitations.}---The sufficient conditions in
+Theorem~\ref{thm:saturation} are not necessary: the completely
+depolarizing channel saturates without satisfying condition~(i).
+A full characterization of necessity remains open.
+The composition inequality
+(Theorem~\ref{thm:composition}) holds for the standard Petz map;
+its generalization to approximate or smoothed recovery maps is
+not established.
+The QEC observations
 (Sec.~\ref{sec:observations}) are numerically supported but lack
 rigorous proofs.
 
-\emph{Open questions.}---(i)~For non-Markovian processes,
+\emph{Open questions.}---(i)~What are the necessary and
+sufficient conditions for saturation of the Junge et~al.\ bound?
+(ii)~Does the composition sub-additivity extend to
+continuous-time Lindbladian evolution?
+(iii)~For non-Markovian processes,
 $\Sigma$ can be temporarily negative~\cite{Breuer2016}, implying
 transient decreases in $\tauasym$.  Can the process tensor
 framework~\cite{Pollock2018} extend the equivalence
 chain~\eqref{eq:equiv_chain}?
-(ii)~Does the saturation result~\eqref{eq:saturation} generalize
-to multi-qubit amplitude damping or other non-unital channels?
-(iii)~Since entanglement wedge reconstruction uses the Petz
+(iv)~Since entanglement wedge reconstruction uses the Petz
 map~\cite{Chen2020}, does $\tauasym$ have a holographic
 interpretation?
 
@@ -849,8 +945,9 @@ arXiv:2508.08998 (2025).
 
 \bibitem{SM}
 See Supplemental Material for detailed derivations,
-the explicit quantum eraser calculation, the amplitude damping
-saturation proof, post-selection analysis,
+the explicit quantum eraser calculation, the saturation theorem
+proof (Sec.~S17), the composition sub-additivity proof
+(Sec.~S18), post-selection analysis,
 the equivalence chain proof, and caveats.
 
 \end{thebibliography}
