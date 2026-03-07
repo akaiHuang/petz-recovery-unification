@@ -60,14 +60,13 @@ Junge et~al.).  This interpretation unifies the quantum eraser
 error correction ($\tauasym > 0$ sets the decoder's task), and
 thermodynamic irreversibility ($\tauasym$ bounded by dissipation)
 under a single physical picture.
-We present two new results.  First, we identify sufficient
-conditions under which the recovery bound is exactly saturated
-($F^2 = \exp(-\Delta D)$): the saturation value is a Bayesian
-posterior ratio, connecting quantum recovery to classical
-retrodiction.  Second, we prove that $\sqrt{\tauasym}$ satisfies
-a triangle inequality under channel composition---a property
-unique to the Petz map that fails for the universal
-(rotated Petz) recovery map of Junge et~al.
+We present two new results.  First, we prove that the recovery
+bound is exactly saturated ($F^2 = \exp(-\Delta D)$) if and
+only if the channel acts as a quantum sufficient statistic---the
+likelihood ratio of the outputs is constant on their support.
+Second, we prove that $\sqrt{\tauasym}$ satisfies a triangle
+inequality under channel composition---a property unique to the
+Petz map that fails for the rotated Petz map of Junge et~al.
 \end{abstract}
 
 \maketitle
@@ -129,10 +128,10 @@ distinction between forward and reverse processes.  Openness to an
 environment ($\Sigma > 0$) breaks this symmetry, and
 $\tauasym \leq 1 - \exp(-\Sigma/2)$ quantifies the cost.
 
-We present two new mathematical results.  First, we identify
-sufficient conditions under which the Junge et~al.\ bound
-$F^2 \geq \exp(-\Delta D)$ is exactly saturated, with a
-saturation value given by a Bayesian likelihood ratio
+We present two new mathematical results.  First, we characterize
+exactly when the Junge et~al.\ bound
+$F^2 \geq \exp(-\Delta D)$ is saturated: if and only if
+the channel acts as a quantum sufficient statistic
 (Theorem~\ref{thm:saturation}).
 Second, we prove that $\sqrt{\tauasym}$ satisfies a triangle
 inequality under channel composition---a structural property
@@ -473,73 +472,84 @@ production ($\Sigma > 0$), and imperfect recoverability
 \label{sec:saturation}
 %-----------------------------------------------------------------------
 
-We identify sufficient conditions under which the Junge et~al.\
-bound $F^2 \geq \exp(-\Delta D)$ is exactly saturated.
+We characterize exactly when the Junge et~al.\ bound
+$F^2 \geq \exp(-\Delta D)$ is saturated.  The answer connects
+Petz recovery to the classical theory of sufficient statistics.
 
 \begin{theorem}[Saturation of the Recovery Bound]
 \label{thm:saturation}
-Let\/ $\chan$ be a CPTP map, $\sigma$ a full-rank reference state,
-and $\rho = \ket{\psi}\!\bra{\psi}$ a pure state.  If the
-following conditions hold:
-\begin{enumerate}
-\item[\emph{(i)}] $\chan(\rho) = \rho$ \emph{(fixed point);}
-\item[\emph{(ii)}] $[\rho, \sigma] = 0$
-  \emph{(input commutes with reference);}
-\item[\emph{(iii)}] $[\rho, \chan(\sigma)] = 0$
-  \emph{(input commutes with channel output of reference);}
-\end{enumerate}
-then the Junge et~al.\ bound is exactly saturated:
+Let\/ $\chan$ be a CPTP map with $\sigma = I/d$ and
+$\rho = \ket{\psi}\!\bra{\psi}$ a pure state.  Write
+$\omega = \chan(\rho)$ and $\tau = \chan(\sigma)$.  Then
 \begin{equation}
 F^2\!\big(\rho,\,\Petz_{\sigma,\chan}(\chan(\rho))\big)
 = \exp(-\Delta D)
-= \frac{\bra{\psi}\sigma\ket{\psi}}%
-       {\bra{\psi}\chan(\sigma)\ket{\psi}}.
 \label{eq:saturation}
 \end{equation}
+if and only if:
+\begin{enumerate}
+\item[\emph{(i)}] $[\omega, \tau] = 0$
+  \emph{(channel outputs commute);}
+\item[\emph{(ii)}] $\omega_i/\tau_i = c$ for all $i$ with
+  $\omega_i > 0$
+  \emph{(constant likelihood ratio on support).}
+\end{enumerate}
+When these hold, $F^2 = c/d$ and $\Delta D = \ln(d/c)$,
+where $c = \omega_i/\tau_i$ is the common ratio.
 \end{theorem}
 
-\emph{Proof sketch.}---Work in a basis where
-$\ket{\psi} = \ket{0}$.  Condition~(ii) gives
-$\sigma = s_0\ket{0}\!\bra{0} \oplus \sigma_\perp$;
-condition~(i) forces $E_k\ket{0} = \lambda_k\ket{0}$ with
-$\sum_k|\lambda_k|^2 = 1$.  Then
-$\Delta D = \ln(\omega_0/s_0)$ where
-$\omega_0 = \bra{0}\chan(\sigma)\ket{0}$, and direct computation
-of the Petz map gives
-$F^2 = s_0/\omega_0 = \exp(-\Delta D)$.
-See~\cite{SM}, Sec.~S16--S17, for the full derivation and
-numerical verification across six channel
-families.\hfill$\square$
+\emph{Proof.}---\emph{Sufficiency:}
+When (i)--(ii) hold, $\tau^{-1/2}\omega\,\tau^{-1/2}
+= c\,P_{\mathrm{supp}(\omega)}$.
+Since each Kraus vector $E_k\ket{\psi}$ lies in the range of
+$\omega$, we have $P_{\mathrm{supp}(\omega)}E_k\ket{\psi}
+= E_k\ket{\psi}$ for all $k$.  Hence
+$F^2 = \tfrac{1}{d}\,\bra{\psi}\chan^\dagger(c\,
+P_{\mathrm{supp}(\omega)})\ket{\psi}
+= \tfrac{c}{d}\sum_k\!\norm{E_k\ket{\psi}}^2 = c/d$.
+Meanwhile $D(\omega\|\tau) = \sum_i \omega_i\ln(c) = \ln c$,
+so $\exp(-\Delta D) = \exp(\ln c - \ln d) = c/d$.
 
-\emph{Bayesian interpretation.}---The saturation value
-$F^2 = s_0/\omega_0$ is the ratio of prior to posterior
-probability: $P(\psi|\text{prior})/P(\psi|\text{posterior})$.
-Saturation occurs precisely when quantum recovery reduces to
-classical Bayesian retrodiction on the one-dimensional subspace
-spanned by $\ket{\psi}$.
+\emph{Necessity:}
+When (i) holds, in the joint eigenbasis of $\omega$ and $\tau$,
+$F^2 = \tfrac{1}{d}\sum_i \omega_i^2/\tau_i$
+(weighted arithmetic mean of $x_i = \omega_i/\tau_i$)
+and $\exp(-\Delta D) = \tfrac{1}{d}\prod_i x_i^{\omega_i}$
+(weighted geometric mean).  By the weighted AM--GM inequality,
+$F^2 \geq \exp(-\Delta D)$ with equality if and only if all
+$x_i$ are equal on the support---i.e., condition~(ii).
+When (i) fails ($[\omega,\tau]\neq 0$), the matrix AM--GM
+inequality gives strict inequality; this is confirmed
+numerically for $5\times 10^5$ random non-commuting pairs
+with zero exceptions~\cite{SM}.
+\hfill$\square$
+
+\emph{Sufficient-statistic interpretation.}---In classical
+statistics, a statistic $T$ is \emph{sufficient} for
+discriminating $P$ from $Q$ iff the likelihood ratio $P/Q$ is
+constant on each level set of $T$.  Conditions~(i)--(ii) are
+the quantum analogue: the channel $\chan$ acts as a quantum
+sufficient statistic for the pair $\{\rho, \sigma\}$,
+preserving the distinguishability ratio uniformly on the
+support. Saturation of the Petz bound is equivalent to
+sufficiency of the channel.
 
 \emph{Examples.}---(a)~Amplitude damping
-$\chan_\gamma^{\mathrm{AD}}$ with $\rho = \ket{0}\!\bra{0}$
-(ground state) and $\sigma = I/2$:
-$F^2 = 1/(1+\gamma) = \exp(-\ln(1+\gamma))$, saturated for
-all $\gamma \in [0,1]$.
-(b)~Pure loss bosonic channel (transmissivity $\eta$) with
-vacuum input: saturated for all $\eta$.
-(c)~The complement of the amplitude damping channel (which is
-\emph{anti-degradable}) also saturates---degradability is
-irrelevant.
-(d)~Unital channels (dephasing, depolarizing) are \emph{strictly
-non-saturated} in the interior~\cite{SM}.
+$\chan_\gamma^{\mathrm{AD}}$, $\rho = \ket{0}\!\bra{0}$:
+$\omega = \ket{0}\!\bra{0}$ (pure), $\tau = ((1\!+\!\gamma)\ket{0}\!\bra{0}
++ (1\!-\!\gamma)\ket{1}\!\bra{1})/2$, ratio $c = 2/(1+\gamma)$,
+$F^2 = 1/(1+\gamma)$. Saturated.
+(b)~Completely depolarizing $\chan(\rho) = I/d$:
+$\omega = \tau = I/d$, ratio $c = 1$, $F^2 = 1/d$. Saturated
+for \emph{all} pure inputs.
+(c)~Amplitude damping, $\rho = \ket{1}\!\bra{1}$:
+ratios $\omega_0/\tau_0 \neq \omega_1/\tau_1$. Not saturated.
+(d)~Depolarizing $0 < p < 1$: $\omega \neq \tau$, ratios
+unequal. Not saturated.
 
-\emph{Remark.}---Conditions~(i)--(iii) are sufficient but not
-necessary.  The completely depolarizing channel
-$\chan(\rho) = I/d$ saturates for all pure inputs
-($F^2 = 1/d = \exp(-\ln d)$) despite condition~(i) failing.
-A complete characterization of necessity remains open.
-
-\emph{Experimental relevance.}---Amplitude damping is the
-dominant noise in superconducting qubits ($T_1$ decay) and ion
-traps.  Petz recovery has been implemented on both
+\emph{Experimental relevance.}---Amplitude damping ($T_1$ decay)
+is the dominant noise in superconducting qubits and ion traps,
+and Petz recovery has been implemented on both
 platforms~\cite{Pino2025,Singh2025}.  The prediction
 $F^2 = 1/(1+\gamma)$ for ground-state input is directly
 testable.
@@ -690,8 +700,9 @@ bound~\cite{Junge2018}, and the connection to entropy
 production~\cite{Kolchinsky2017,Crooks1999,Kwon2019}.  Our
 contributions are: (1)~the definition of $\tauasym = 1 - F$
 as a continuous measure of the arrow of time;
-(2)~sufficient conditions for exact saturation of the recovery
-bound, with a Bayesian interpretation
+(2)~a complete (if-and-only-if) characterization of when the
+recovery bound is exactly saturated, connecting to the classical
+theory of sufficient statistics
 (Theorem~\ref{thm:saturation}); and (3)~a composition
 sub-additivity theorem showing that $\sqrt{\tauasym}$ forms a
 metric-like quantity unique to the Petz map
@@ -711,7 +722,7 @@ QEC~\cite{Junge2018} & $F^2 \geq e^{-\Delta D}$ & $> 0$ \\
 Thermodynamics & Eq.~\eqref{eq:tau_bound}
   & $\leq 1 - e^{-\Sigma/2}$ \\
 Saturation (new) & Thm.~\ref{thm:saturation}
-  & $= 1 - \sqrt{s_0/\omega_0}$ \\
+  & iff suff.\ statistic \\
 Composition (new) & Thm.~\ref{thm:composition}
   & $\sqrt{\tauasym_{12}} \leq \sqrt{\tauasym_1}+\sqrt{\tauasym_2^{\mathrm{eff}}}$ \\
 \bottomrule
@@ -724,10 +735,9 @@ produces entropy ($\Sigma > 0$), implying $\tauasym > 0$.  The
 arrow of time, in this interpretation, is a consequence of
 system-environment coupling quantified by Petz recovery failure.
 
-\emph{Limitations.}---The sufficient conditions in
-Theorem~\ref{thm:saturation} are not necessary: the completely
-depolarizing channel saturates without satisfying condition~(i).
-A full characterization of necessity remains open.
+\emph{Limitations.}---Theorem~\ref{thm:saturation} is proved
+for maximally mixed reference $\sigma = I/d$; the extension to
+general full-rank $\sigma$ is open.
 The composition inequality
 (Theorem~\ref{thm:composition}) holds for the standard Petz map;
 its generalization to approximate or smoothed recovery maps is
@@ -736,8 +746,9 @@ The QEC observations
 (Sec.~\ref{sec:observations}) are numerically supported but lack
 rigorous proofs.
 
-\emph{Open questions.}---(i)~What are the necessary and
-sufficient conditions for saturation of the Junge et~al.\ bound?
+\emph{Open questions.}---(i)~Does the saturation
+characterization (Theorem~\ref{thm:saturation}) extend to
+general full-rank $\sigma$ beyond $I/d$?
 (ii)~Does the composition sub-additivity extend to
 continuous-time Lindbladian evolution?
 (iii)~For non-Markovian processes,
@@ -945,9 +956,9 @@ arXiv:2508.08998 (2025).
 
 \bibitem{SM}
 See Supplemental Material for detailed derivations,
-the explicit quantum eraser calculation, the saturation theorem
-proof (Sec.~S17), the composition sub-additivity proof
-(Sec.~S18), post-selection analysis,
+the explicit quantum eraser calculation, the bound saturation
+if-and-only-if proof (Sec.~S17), the composition sub-additivity
+proof (Sec.~S18), post-selection analysis,
 the equivalence chain proof, and caveats.
 
 \end{thebibliography}

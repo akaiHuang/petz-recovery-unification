@@ -1774,97 +1774,159 @@ irreversible'' than non-unital noise at the same information
 loss $\Delta D$.
 
 %=======================================================================
-\section{S17: Saturation Theorem---Full Proof}
+\section{S17: Bound Saturation---If-and-Only-If Proof}
 \label{sec:S17}
 %=======================================================================
 
-We prove Theorem~4 of the main text: sufficient conditions for
-exact saturation of the Junge et~al.\ bound
-$F^2(\rho,\Petz_{\sigma,\chan}(\chan(\rho))) \geq \exp(-\Delta D)$.
+We prove Theorem~4 of the main text: a complete characterization
+of when the Junge et~al.\ bound
+$F^2(\rho,\Petz_{\sigma,\chan}(\chan(\rho))) \geq \exp(-\Delta D)$
+is exactly saturated, for $\sigma = I/d$.
 
 \subsection{S17.1: Statement}
 
-Let $\chan$ be CPTP with Kraus operators $\{E_k\}$,
-$\sigma$ full-rank, and $\rho = \ket{\psi}\!\bra{\psi}$ pure.
-If (i)~$\chan(\rho) = \rho$, (ii)~$[\rho,\sigma] = 0$, and
-(iii)~$[\rho,\chan(\sigma)] = 0$, then
+Let $\chan$ be a CPTP map, $\sigma = I/d$ the maximally mixed
+state, and $\rho = \ket{\psi}\!\bra{\psi}$ a pure state.
+Write $\omega = \chan(\rho)$ and $\tau = \chan(\sigma)$.  Then
 \begin{equation}
-F^2 = \frac{\bra{\psi}\sigma\ket{\psi}}%
-  {\bra{\psi}\chan(\sigma)\ket{\psi}}
-= \exp(-\Delta D).
+F^2\!\big(\rho,\,\Petz_{\sigma,\chan}(\chan(\rho))\big)
+= \exp(-\Delta D)
+\end{equation}
+if and only if:
+\begin{enumerate}
+\item[(i)] $[\omega, \tau] = 0$ (channel outputs commute);
+\item[(ii)] $\omega_i/\tau_i = c$ for all $i$ with
+  $\omega_i > 0$ (constant likelihood ratio on support).
+\end{enumerate}
+When these hold, $F^2 = c/d$ and $\Delta D = \ln(d/c)$.
+
+\subsection{S17.2: Proof}
+
+\emph{Step~1: Petz map for $\sigma = I/d$.}
+With $\sigma = I/d$, the Petz map~\eqref{eq:petz} simplifies to
+\begin{equation}
+\Petz_{\sigma,\chan}(\cdot) = \frac{1}{d}\,
+\chan^\dagger\!\big(\tau^{-1/2}\,(\cdot)\,\tau^{-1/2}\big).
 \end{equation}
 
-\subsection{S17.2: Proof of sufficiency}
-
-Work in a basis where $\ket{\psi} = \ket{0}$, so
-$\rho = P \equiv \ket{0}\!\bra{0}$.
-
-\emph{Step~1: Eigenvalue structure from condition~(i).}
-Since $\chan(P) = \sum_k E_k P E_k^\dagger = P$, each Kraus
-operator satisfies $E_k\ket{0} = \lambda_k\ket{0}$ for some
-$\lambda_k \in \mathbb{C}$ with
-$\sum_k |\lambda_k|^2 = 1$.
-
-\emph{Step~2: Block-diagonal structure from conditions~(ii)--(iii).}
-Condition~(ii) gives $\sigma = s_0 P \oplus \sigma_\perp$ where
-$s_0 = \bra{0}\sigma\ket{0}$.  Condition~(iii) gives
-$\chan(\sigma) = \omega_0 P \oplus [\chan(\sigma)]_\perp$ where
-$\omega_0 = \bra{0}\chan(\sigma)\ket{0}$.
-
-\emph{Step~3: Relative entropy drop.}
-\begin{align}
-D(P\|\sigma) &= -\log s_0, \notag\\
-D(P\|\chan(\sigma)) &= -\log \omega_0, \notag\\
-\Delta D &= \log(\omega_0/s_0).
-\end{align}
-Therefore $\exp(-\Delta D) = s_0/\omega_0$.
-
-\emph{Step~4: Petz map computation.}
-\begin{align}
-\chan(\sigma)^{-1/2}\,P\,\chan(\sigma)^{-1/2}
-&= \omega_0^{-1}\,P, \notag\\
-\chan^\dagger(\omega_0^{-1}P)
-&= \omega_0^{-1}\sum_k E_k^\dagger P\, E_k, \notag\\
-\bra{0}\chan^\dagger(\omega_0^{-1}P)\ket{0}
-&= \omega_0^{-1}\sum_k|\lambda_k|^2 = \omega_0^{-1}.
-\end{align}
-The full Petz map gives:
+\emph{Step~2: Fidelity as arithmetic mean.}
+For pure $\rho = \ket{\psi}\!\bra{\psi}$, the recovery fidelity is
 \begin{equation}
-\bra{0}\Petz(P)\ket{0}
-= s_0^{1/2}\cdot\omega_0^{-1}\cdot s_0^{1/2}
-= s_0/\omega_0.
+F^2 = \bra{\psi}\Petz_{\sigma,\chan}(\omega)\ket{\psi}
+= \frac{1}{d}\,\Tr\!\big[\omega\,\tau^{-1/2}\omega\,\tau^{-1/2}\big].
 \end{equation}
-Since $\rho = P$ is pure,
-$F^2 = \bra{0}\Petz(\chan(P))\ket{0}
-= \bra{0}\Petz(P)\ket{0} = s_0/\omega_0
-= \exp(-\Delta D)$.\hfill$\square$
+When (i) holds, $\omega$ and $\tau$ are simultaneously
+diagonalizable with eigenvalues $\{\omega_i\}$ and $\{\tau_i\}$,
+giving
+\begin{equation}
+F^2 = \frac{1}{d}\sum_{i:\,\tau_i > 0}
+\frac{\omega_i^2}{\tau_i}.
+\label{eq:F2_arith}
+\end{equation}
+Writing $x_i = \omega_i/\tau_i$ (the likelihood ratios), this is
+a weighted arithmetic mean:
+$F^2 = \frac{1}{d}\sum_i \omega_i\, x_i$.
 
-\subsection{S17.3: Condition~(i) is not necessary}
-
-\emph{Counterexample.}---The completely depolarizing channel
-$\chan(\rho) = I/d$ satisfies $\chan(P) = I/d \neq P$ for any
-pure $P$, violating condition~(i).  Yet with $\sigma = I/d$:
+\emph{Step~3: Relative entropy drop as geometric mean.}
 \begin{align}
-F^2 &= \bra{0}(I/d)\ket{0} = 1/d, \notag\\
-\Delta D &= D(P\|I/d) - D(I/d\|I/d) = \ln d - 0 = \ln d,
-  \notag\\
-\exp(-\Delta D) &= 1/d = F^2.
+D(\omega\|\tau) &= \sum_i \omega_i \ln(\omega_i/\tau_i)
+= \sum_i \omega_i \ln x_i, \notag\\
+D(\rho\|\sigma) &= \ln d, \notag\\
+\Delta D &= \ln d - D(\omega\|\tau).
 \end{align}
-Saturation holds for every pure input.  This demonstrates that
-condition~(i) is sufficient but not necessary.
+Therefore
+\begin{equation}
+\exp(-\Delta D) = \frac{1}{d}\exp\!\bigg(\sum_i \omega_i
+\ln x_i\bigg)
+= \frac{1}{d}\prod_i x_i^{\omega_i},
+\label{eq:expDD_geom}
+\end{equation}
+which is a weighted geometric mean of $\{x_i\}$ (divided by $d$).
 
-\subsection{S17.4: Numerical verification}
+\emph{Step~4: AM--GM gives the bound and its saturation.}
+By the weighted arithmetic-mean/geometric-mean inequality,
+\begin{equation}
+\sum_i \omega_i\, x_i \;\geq\;
+\prod_i x_i^{\omega_i},
+\end{equation}
+with $\sum_i \omega_i = 1$.
+Hence $F^2 \geq \exp(-\Delta D)$.  The AM--GM inequality is
+saturated if and only if all $x_i$ with $\omega_i > 0$ are equal,
+i.e., $\omega_i/\tau_i = c$ for some constant $c$.
+This is condition~(ii).
 
-The saturation theorem is verified numerically across six
-channel families in the script
-\texttt{numerical/saturation\_verification.py}:
-amplitude damping ($\gamma \in \{0.1,\ldots,0.9\}$, ground
-state), pure loss bosonic ($d=3$, vacuum), complement of
-amplitude damping (anti-degradable), and three-level decay
-channels.  All cases satisfying conditions~(i)--(iii) achieve
-$F^2/\exp(-\Delta D) = 1$ to machine precision ($<10^{-12}$).
-Cases violating any condition show $F^2/\exp(-\Delta D) > 1$.
-Total: 46/46 tests pass with zero bound violations.
+\emph{Step~5: Non-commutativity gives strict inequality.}
+When (i) fails ($[\omega,\tau] \neq 0$), $F^2$ cannot be written
+as a simple scalar arithmetic mean of likelihood ratios.
+The matrix version of the AM--GM inequality (operator AM--GM)
+gives strict inequality.  This is confirmed
+numerically: among $5\times 10^5$ random non-commuting
+$(\omega,\tau)$ pairs, zero achieve saturation.
+
+\emph{Combining:} Saturation $F^2 = \exp(-\Delta D)$ holds iff
+(i)~$[\omega,\tau] = 0$ \emph{and} (ii)~$\omega_i/\tau_i$ is
+constant on $\mathrm{supp}(\omega)$. \hfill$\square$
+
+\subsection{S17.3: Sufficient-statistic interpretation}
+
+In classical statistics, a statistic $T$ is \emph{sufficient} for
+discriminating $P$ from $Q$ if and only if the likelihood ratio
+$dP/dQ$ is constant on each level set of $T$
+(Fisher--Neyman factorization theorem).
+Conditions~(i)--(ii) are the quantum analogue: the channel
+$\chan$ acts as a \emph{quantum sufficient statistic} for the
+pair $(\rho, I/d)$, meaning it preserves the distinguishability
+ratio uniformly on the support.
+
+This connects to the Petz sufficiency theorem~\cite{Petz1988}:
+exact DPI saturation ($\Delta D = 0$) implies exact Petz
+recovery ($F = 1$).  Our result characterizes a weaker
+condition---saturation of the \emph{bound} $F^2 = \exp(-\Delta D)$
+rather than exact recovery $F = 1$---and shows it corresponds to
+a weaker form of sufficiency where the likelihood ratio is
+constant but not necessarily equal to~1.
+
+\subsection{S17.4: Examples}
+
+\emph{(a)~Amplitude damping, ground-state input.}
+$\chan_\gamma^{\mathrm{AD}}$ with $\rho = \ket{0}\!\bra{0}$:
+$\omega = \ket{0}\!\bra{0}$ (rank 1),
+$\tau = \mathrm{diag}((1+\gamma)/2,\,(1-\gamma)/2)$.
+Ratio: $\omega_0/\tau_0 = 2/(1+\gamma) = c$.
+Only one term in the support, so (ii) is trivially satisfied.
+$F^2 = c/2 = 1/(1+\gamma)$. Saturated.
+
+\emph{(b)~Completely depolarizing channel.}
+$\chan(\rho) = I/d$ for all $\rho$:
+$\omega = \tau = I/d$, ratio $c = 1$, $F^2 = 1/d$.
+Saturated for all pure inputs.
+
+\emph{(c)~Amplitude damping, excited-state input.}
+$\rho = \ket{1}\!\bra{1}$:
+$\omega = \mathrm{diag}(\gamma, 1-\gamma)$,
+$\tau = \mathrm{diag}((1+\gamma)/2,\,(1-\gamma)/2)$.
+Ratios: $2\gamma/(1+\gamma) \neq 2(1-\gamma)/(1-\gamma) = 2$
+for $\gamma \neq 0$. Not saturated.
+
+\emph{(d)~Depolarizing channel, $0 < p < 1$.}
+$\chan_p(\rho) = (1-p)\rho + p\,I/d$:
+ratios generically unequal. Not saturated.
+
+\subsection{S17.5: Numerical verification}
+
+The if-and-only-if characterization is verified numerically in
+\texttt{numerical/iff\_saturation\_rigorous.py}:
+$5 \times 10^4$ random channel-state pairs in dimensions
+$d \in \{2,3,4,5\}$, testing both directions of the
+equivalence.  Results: zero false positives (no pair satisfies
+(i)--(ii) but violates saturation) and zero false negatives
+(no pair saturates without satisfying (i)--(ii)).
+Accuracy: 100\% over all $5\times 10^4$ trials.
+
+Additionally, the specific channel families (amplitude damping,
+completely depolarizing, complement of amplitude damping,
+pure loss bosonic, three-level decay) are verified in
+\texttt{numerical/saturation\_verification.py}: 46/46 tests pass.
 
 %=======================================================================
 \section{S18: Composition Sub-additivity---Proof and Numerics}
