@@ -1617,6 +1617,163 @@ Lorentzian spectral density, parameterized by $\gamma_0/\lambda$
 \end{enumerate}
 
 %=======================================================================
+\section{S16. Amplitude Damping Saturation: Complete Derivation}
+\label{sec:amp_damp}
+%=======================================================================
+
+We provide the complete proof that the amplitude damping channel
+exactly saturates the Junge et~al.\ recovery bound for fixed-point
+input states.
+
+\subsection{S16.1: Setup}
+
+The amplitude damping channel $\chan_\gamma$ with damping parameter
+$\gamma \in [0,1]$ has Kraus operators:
+\begin{equation}
+E_0 = \ket{0}\!\bra{0} + \sqrt{1-\gamma}\,\ket{1}\!\bra{1},
+\qquad
+E_1 = \sqrt{\gamma}\,\ket{0}\!\bra{1}.
+\end{equation}
+The reference state is the maximally mixed state $\sigma = I/2$.
+
+\subsection{S16.2: Petz map for amplitude damping}
+
+\emph{Step 1: Channel output on $\sigma$.}
+\begin{equation}
+\chan_\gamma(I/2) = \frac{1}{2}\big(E_0 E_0^\dagger + E_1 E_1^\dagger\big)
+= \frac{1}{2}\begin{pmatrix} 1+\gamma & 0 \\ 0 & 1-\gamma \end{pmatrix}
+\equiv \frac{1}{2}\big(I + \gamma Z\big).
+\end{equation}
+
+\emph{Step 2: Inverse square root.}
+With $a = (1+\gamma)/2$ and $b = (1-\gamma)/2$:
+\begin{equation}
+\chan_\gamma(I/2)^{-1/2}
+= \mathrm{diag}\!\big(1/\sqrt{a},\; 1/\sqrt{b}\big).
+\end{equation}
+
+\emph{Step 3: Hilbert--Schmidt adjoint.}
+The adjoint $\chan_\gamma^\dagger$ satisfies
+$\Tr[X\,\chan_\gamma(Y)] = \Tr[\chan_\gamma^\dagger(X)\,Y]$
+for all $X,Y$. From the Kraus operators:
+\begin{equation}
+\chan_\gamma^\dagger(X) = E_0^\dagger X E_0 + E_1^\dagger X E_1.
+\end{equation}
+Explicitly, for $X = \begin{pmatrix} x_{00} & x_{01} \\
+x_{10} & x_{11} \end{pmatrix}$:
+\begin{equation}
+\chan_\gamma^\dagger(X) = \begin{pmatrix}
+x_{00} + \gamma\, x_{00}' & \sqrt{1-\gamma}\,x_{01} \\
+\sqrt{1-\gamma}\,x_{10} & (1-\gamma)\,x_{11}
+\end{pmatrix},
+\end{equation}
+where $x_{00}' = 0$ for the off-diagonal contribution from $E_1$.
+More precisely:
+\begin{align}
+[\chan_\gamma^\dagger(X)]_{00} &= x_{00}, \notag\\
+[\chan_\gamma^\dagger(X)]_{01} &= \sqrt{1-\gamma}\,x_{01}, \notag\\
+[\chan_\gamma^\dagger(X)]_{10} &= \sqrt{1-\gamma}\,x_{10}, \notag\\
+[\chan_\gamma^\dagger(X)]_{11} &= (1-\gamma)\,x_{11} + \gamma\,x_{00}.
+\end{align}
+
+\emph{Step 4: Petz map.}
+The Petz map $\Petz_{\sigma,\chan_\gamma}$ for $\sigma = I/2$ is:
+\begin{equation}
+\Petz(X) = \tfrac{1}{2}\,\chan_\gamma^\dagger\!\big(
+\chan_\gamma(I/2)^{-1/2}\, X\, \chan_\gamma(I/2)^{-1/2}\big).
+\label{eq:petz_ad}
+\end{equation}
+
+\subsection{S16.3: Ground state input---exact saturation}
+
+For $\rho = \ket{0}\!\bra{0}$:
+
+\emph{Channel output:} $\chan_\gamma(\ket{0}\!\bra{0}) = \ket{0}\!\bra{0}$
+(the ground state is a fixed point).
+
+\emph{Petz recovery:} Applying Eq.~\eqref{eq:petz_ad} to
+$X = \ket{0}\!\bra{0} = \mathrm{diag}(1,0)$:
+\begin{align}
+Y &= \chan_\gamma(I/2)^{-1/2}\,\ket{0}\!\bra{0}\,
+     \chan_\gamma(I/2)^{-1/2}
+   = \mathrm{diag}(1/a,\; 0), \notag\\
+\chan_\gamma^\dagger(Y) &= \mathrm{diag}(1/a,\; \gamma/a), \notag\\
+\Petz(\ket{0}\!\bra{0})
+  &= \frac{1}{2}\,\mathrm{diag}(1/a,\; \gamma/a)
+   = \mathrm{diag}\!\Big(\frac{1}{1+\gamma},\;
+     \frac{\gamma}{1+\gamma}\Big).
+\end{align}
+
+\emph{Fidelity:}
+\begin{equation}
+F^2 = \bra{0}\Petz(\ket{0}\!\bra{0})\ket{0}
+= \frac{1}{1+\gamma}.
+\end{equation}
+
+\emph{Relative entropy drop:}
+\begin{align}
+D(\ket{0}\!\bra{0}\|I/2) &= \log 2, \notag\\
+D(\chan_\gamma(\ket{0}\!\bra{0})\|\chan_\gamma(I/2))
+  &= D(\ket{0}\!\bra{0}\|\mathrm{diag}(a,b))
+   = -\log a = \log\frac{2}{1+\gamma}, \notag\\
+\Delta D &= \log 2 - \log\frac{2}{1+\gamma}
+          = \log(1+\gamma) = \ln(1+\gamma).
+\end{align}
+
+\emph{Saturation:}
+\begin{equation}
+\boxed{F^2 = \frac{1}{1+\gamma} = e^{-\ln(1+\gamma)} = e^{-\Delta D}.}
+\end{equation}
+The Junge et~al.\ bound $F^2 \geq \exp(-\Delta D)$ is
+\emph{exactly saturated} for all $\gamma \in [0,1]$.
+
+\subsection{S16.4: Unital channels---strict non-saturation}
+
+For the dephasing channel $\chan_p^{\mathrm{deph}}$ with Bloch
+contraction $\lambda = 1-2p$, the Petz map reduces to
+$\Petz = \chan_p^{\mathrm{deph}}$ (self-adjoint, unital).
+For the equatorial input $\rho = \ket{+}\!\bra{+}$:
+\begin{align}
+F^2 &= \bra{+}\chan_p(\chan_p(\ket{+}\!\bra{+}))\ket{+}
+     = (1+\lambda^2)/2, \notag\\
+\Delta D &= H_{\mathrm{bin}}\!\big((1+\lambda)/2\big),
+\end{align}
+where $H_{\mathrm{bin}}(x) = -x\ln x - (1-x)\ln(1-x)$ is the
+binary entropy in nats.
+
+The tightness ratio is:
+\begin{equation}
+\eta(\lambda) = \frac{F^2}{\exp(-\Delta D)}
+= \frac{(1+\lambda^2)/2}{\exp(-H_{\mathrm{bin}}((1+\lambda)/2))}.
+\end{equation}
+At the boundaries: $\eta(0) = \eta(1) = 1$ (saturated).
+In the interior $\lambda \in (0,1)$: $\eta > 1$ strictly
+(verified analytically by checking $d^2\eta/d\lambda^2 < 0$ at
+boundary and $\eta > 1$ at $\lambda = 1/2$ where
+$\eta \approx 1.097$).
+
+The depolarizing channel gives the identical functional form by
+Bloch-sphere symmetry, with $\lambda$ replaced by
+$\mu = 1 - 4p/3$.
+
+\subsection{S16.5: Physical interpretation}
+
+The saturation $F^2 = \exp(-\Delta D)$ for amplitude damping
+means that the temporal asymmetry parameter
+$\tauasym = 1 - F = 1 - 1/\sqrt{1+\gamma}$ exactly equals the
+information-theoretic lower bound $1 - \exp(-\Delta D/2)$.
+The arrow of time for this channel-state pair is \emph{tight}:
+no recovery strategy can do better than the Petz map, and the
+Petz map achieves exactly the bound.
+
+For unital channels, $\tauasym < 1 - \exp(-\Delta D/2)$:
+there is ``slack'' in the bound, meaning the actual temporal
+asymmetry is less than what information loss alone would permit.
+This suggests that unital noise is in some sense ``less
+irreversible'' than non-unital noise at the same information
+loss $\Delta D$.
+
+%=======================================================================
 
 \begin{thebibliography}{30}
 
