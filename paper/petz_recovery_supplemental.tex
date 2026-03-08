@@ -374,25 +374,37 @@ and steady state $q_0$ decomposes as:
 \end{align}
 
 The Landauer component $\Sigma_{\mathrm{Landauer}}$ captures the
-information-theoretic cost, which is lower-bounded by the conditional
-mutual information $I(A;E|B)$ via the quantum data-processing
-inequality. The mismatch and residual terms are non-negative:
+information-theoretic cost.  For ideal (infinite, memoryless) thermal
+baths, the total entropy production $\Sigma$ equals the relative entropy
+decrease $\Delta D$; for finite-size baths,
+$\Sigma_{\mathrm{Landauer}} \leq \Delta D$ and the mismatch and
+residual terms provide finite-size corrections.
+Since $\Delta D \geq I(A;E|B)$ (from Links 1--2) and
+$\Sigma \geq \Sigma_{\mathrm{Landauer}} \geq 0$:
 \begin{equation}
-\Sigma \geq \Sigma_{\mathrm{Landauer}} \geq I(A;E|B).
+\Sigma \geq I(A;E|B).
 \end{equation}
+For ideal baths this follows from $\Sigma = \Delta D \geq I(A;E|B)$.
+For finite baths, the chain $I(A;E|B) \leq \Sigma \leq \Delta D$
+requires that the accessible entropy production exceeds the conditional
+mutual information, which holds whenever the environment thermalizes
+independently of the system's initial state (Markovian bath
+assumption).
 
 \subsection{Link 4: $\Delta D \geq \Sigma$ (Second Law)}
 
 The relative entropy decrease $\Delta D = D(\rho\|\sigma) -
 D(\chan(\rho)\|\chan(\sigma))$ is the total information lost under the
-channel. The entropy production $\Sigma$ is the portion that appears as
-heat dissipation. By the second law (Reeb--Wolf~\cite{ReebWolf2014}):
+channel. By the Reeb--Wolf improved Landauer
+principle~\cite{ReebWolf2014}, the accessible entropy production
+$\Sigma$ satisfies:
 \begin{equation}
 \Delta D \geq \Sigma \geq 0.
 \end{equation}
-
-Equality $\Delta D = \Sigma$ holds when all information loss is
-dissipative (no ``useful'' information processing).
+The gap $\Delta D - \Sigma$ accounts for system-bath correlations
+established during the process.  For ideal (Markovian) baths,
+$\Sigma = \Delta D$ and the chain collapses to
+$-\log F^2 \leq I(A;E|B) \leq \Delta D$.
 
 \subsection{Tightness Conditions}
 
@@ -2114,7 +2126,7 @@ Nature \textbf{635}, 834 (2024).
 
 \bibitem{Acharya2024}
 R.~Acharya \emph{et~al.} (Google Quantum AI),
-Nature \textbf{638}, 920 (2024).
+Nature \textbf{638}, 920 (2025).
 
 \bibitem{Crooks1999}
 G.~E. Crooks,
@@ -2161,7 +2173,7 @@ Quantum \textbf{5}, 497 (2021).
 O.~Higgott and C.~Gidney,
 ``Sparse Blossom: Correcting a million errors per core second with
 minimum-weight matching,''
-arXiv:2303.15933 (2023).
+Quantum \textbf{9}, 1600 (2025).
 
 \bibitem{Buscemi2024}
 G.~Bai, F.~Buscemi, and V.~Scarani,

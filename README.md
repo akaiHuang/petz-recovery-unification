@@ -73,7 +73,7 @@ This triangle inequality is unique to the standard Petz map and fails for the ro
 
 We reanalyze data from four independent experimental groups. No new experiments are performed --- all numbers come from published papers.
 
-**(a-b) Decoder hierarchy matches retrodiction prediction.** Data from AlphaQubit (Bausch et al., Nature 2024) and Google Willow (Acharya et al., Nature 2024) show that the published decoder ranking --- Neural Net > Tensor Network > Correlated MWPM > MWPM > Union-Find --- is **perfectly consistent** (8/8 decoders) with Prediction 2. Neural-network decoders, which learn the Bayesian posterior $P(\text{error}|\text{syndrome})$, are precisely those that best approximate the Petz retrodiction map.
+**(a-b) Decoder hierarchy matches retrodiction prediction.** Data from AlphaQubit (Bausch et al., Nature 2024) and Google Willow (Acharya et al., Nature 2025) show that the published decoder ranking --- Neural Net > Tensor Network > Correlated MWPM > MWPM > Union-Find --- is **perfectly consistent** (8/8 decoders) with Prediction 2. Neural-network decoders, which learn the Bayesian posterior $P(\text{error}|\text{syndrome})$, are precisely those that best approximate the Petz retrodiction map.
 
 **(c) Post-selection scaling confirmed.** Three independent studies (English et al. PRL 2025, Smith et al. 2024, Chen et al. 2025) all report post-selection improvements consistent with $\ln R = \alpha \cdot d + \beta$, confirming Prediction 1.
 
@@ -208,14 +208,14 @@ petz-recovery-unification/
 
 - A. J. Parzygnat and F. Buscemi, "Axioms for retrodiction: Achieving time-reversal symmetry with a prior," Quantum **7**, 1013 (2023).
 - G. Bai, F. Buscemi, and V. Scarani, "Fully quantum stochastic entropy production," arXiv:2412.12489 (2024). *(Independent work using the same Petz-retrodiction foundation)*
-- J. Fullwood and A. J. Parzygnat, "From time-reversal symmetry to quantum Bayes' rules," PRX Quantum **4**, 020334 (2023).
+- A. J. Parzygnat and J. Fullwood, "From time-reversal symmetry to quantum Bayes' rules," PRX Quantum **4**, 020334 (2023).
 - Y. Aharonov, P. G. Bergmann, and J. L. Lebowitz, "Time symmetry in the quantum process of measurement," Phys. Rev. **134**, B1410 (1964).
 
 ### Quantum Error Correction
 
 - E. Knill and R. Laflamme, "Theory of quantum error-correcting codes," Phys. Rev. A **55**, 900 (1997).
 - C.-F. Chen, G. Penington, and G. Salton, "Entanglement wedge reconstruction using the Petz map," J. High Energy Phys. **01**, 168 (2020).
-- R. Acharya et al. (Google Quantum AI), "Quantum error correction below the surface code threshold," Nature **638**, 920 (2024).
+- R. Acharya et al. (Google Quantum AI), "Quantum error correction below the surface code threshold," Nature **638**, 920 (2025).
 - J. Bausch, A. W. Senior et al. (AlphaQubit), "Learning high-accuracy error decoding for quantum processors," Nature **635**, 834 (2024).
 - A. deMarti iOlius et al., "Decoding algorithms for surface codes," Quantum **8**, 1498 (2024).
 
@@ -248,7 +248,7 @@ petz-recovery-unification/
 - W. H. Zurek, "Decoherence, einselection, and the quantum origins of the classical," Rev. Mod. Phys. **75**, 715 (2003).
 - H. D. Zeh, "On the interpretation of measurement in quantum theory," Found. Phys. **1**, 69 (1970).
 - H.-P. Breuer, E. M. Laine, J. Piilo, and B. Vacchini, "Colloquium: Non-Markovian dynamics in open quantum systems," Rev. Mod. Phys. **88**, 021002 (2016).
-- F. A. Pollock, C. Rodriguez-Rosario, T. Frauenheim, M. Williamson, and K. Modi, "Non-Markovian quantum processes: Complete framework and efficient characterization," Phys. Rev. A **97**, 012127 (2018).
+- F. A. Pollock, C. Rodriguez-Rosario, T. Frauenheim, M. Paternostro, and K. Modi, "Non-Markovian quantum processes: Complete framework and efficient characterization," Phys. Rev. A **97**, 012127 (2018).
 
 ### Post-Selection and QEC Thresholds
 
