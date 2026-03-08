@@ -34,9 +34,8 @@
 
 \begin{document}
 
-\title{Supplemental Material:\\
-Universal Recovery: The Petz Map as Retrodiction Functor,\\
-Error Corrector, and Entropy Bound}
+\title{Supplemental Material for:\\
+The Arrow of Time as Petz Recovery Failure}
 
 \author{Sheng-Kai Huang}
 \email{akai@fawstudio.com}
@@ -286,7 +285,7 @@ F(\rho,\, \tilde{\Petz} \circ \chan(\rho))^2 \geq
 \exp(-\Delta D),
 \end{equation}
 where $\Delta D = D(\rho\|\sigma) - D(\chan(\rho)\|\chan(\sigma))$.
-This is the bound used in the main text (Eq.~(6)); it applies to the
+This is the bound used in the main text (Eq.~(5)); it applies to the
 \emph{rotated} Petz map, not the standard one.
 
 The \emph{standard} Petz map $\Petz_{\sigma,\chan}$ satisfies the
@@ -305,7 +304,7 @@ F_e(\code,\, \Petz_{\sigma_\code,\chan} \circ \chan) \geq
 Note the factor of $1/2$: the standard Petz map is within a
 constant factor of optimal, but does not saturate the exponential
 bound in general.  For the saturation theorem
-(Theorem~4 of the main text, $\sigma = I/d$), the bound
+(Theorem~3 of the main text, $\sigma = I/d$), the bound
 $F^2 \geq \exp(-\Delta D)$ for the standard Petz map is proved
 directly via the AM--GM inequality (Sec.~S17), without invoking the
 Junge et~al.\ machinery.
@@ -941,9 +940,8 @@ and measures whether that state can be recovered after the channel.
 The connection is: $\tauasym = 0$ implies $\Sigma = 0$ implies
 $P_F = P_R$ (the process is its own time reversal).
 
-This is the precise mathematical content of the physical insight:
-in a zero-entropy-production system, there is no statistical
-distinction between the forward and reverse time directions.
+In a zero-entropy-production system, forward and reverse processes
+are statistically indistinguishable.
 
 \subsection{The Retrodiction Landauer Principle}
 
@@ -1022,7 +1020,7 @@ known mathematics.
 
 \subsection{Scope of Numerical Tests}
 
-The individual inequalities in the master chain~(8) of the main text
+The individual inequalities in the master chain~(6) of the main text
 are rigorously proven~\cite{Junge2018,Fawzi2015,ReebWolf2014};
 computing them for specific channels confirms implementation
 correctness but does not test any physical prediction.
@@ -1043,7 +1041,7 @@ should \emph{quantitatively rank-order} decoder performance.
 Specifically, decoders with smaller $\delta_{\mathcal{D}}$ must have
 higher recovery fidelity.
 
-\emph{Why this is not obvious:} If the Petz map were merely
+The prediction is non-trivial because if the Petz map were merely
 \emph{one of many} good recovery maps, then
 $\delta_{\mathcal{D}}$ (the divergence from the Petz map) would have
 no reason to predict decoder quality --- a decoder could differ
@@ -1145,7 +1143,7 @@ section, by contrast, test consequences of the framework that are
 \label{sec:experiments}
 %=======================================================================
 
-The master inequality chain~(8) of the main text and the predictions
+The master inequality chain~(6) of the main text and the predictions
 derived from it can be tested against both existing published data and
 purpose-built experiments. In this section we describe reanalysis
 strategies for published results (Sec.~S13.1), propose two new
@@ -1195,7 +1193,7 @@ recovery fidelity under controlled noise channels.
 Our framework predicts $F \geq \exp(-\Sigma/2)$, where $\Sigma$ is
 the entropy production of the noise process. Two important caveats
 apply: (i)~neither experiment directly measured the Petz recovery
-fidelity $F$ in the precise sense of Eq.~(7) of the main text
+fidelity $F$ in the precise sense of Eq.~(9) of the main text
 (i.e., fidelity between the input state and the output of the
 rotated Petz map); rather, they measured circuit-level recovery
 fidelities that serve as proxies; and (ii)~neither experiment
@@ -1348,38 +1346,27 @@ industry-standard decoder for benchmarking surface codes. It
 constructs a detector error model from the \texttt{stim} circuit
 and performs minimum-weight perfect matching on the syndrome graph.
 
-\emph{Significance.}---The combination of circuit-level noise
-simulation (\texttt{stim}) and a standard decoder
-(\texttt{PyMatching}) ensures that our numerical results can be
-directly compared with real quantum hardware data. Any discrepancy
-between our predictions and experimental results would indicate
-genuine physics beyond the framework, rather than artifacts of a
-simplified noise model.
+The combination of circuit-level noise simulation (\texttt{stim})
+and a standard decoder (\texttt{PyMatching}) ensures comparability
+with real quantum hardware data.
 
 %=======================================================================
 \section{S14. Caveats and Limitations}
 \label{sec:caveats}
 %=======================================================================
 
-\subsection{Operational vs.\ Ontological Interpretation}
+\subsection{Interpretation}
 
 The equivalence $\Sigma = 0 \Leftrightarrow \tauasym = 0$ is a
-mathematical theorem about quantum channels and recovery maps. It
-does \emph{not} imply:
-
-\begin{enumerate}
-\item That ``the future already exists'' in a closed system (block
-  universe interpretation). The theorem is agnostic about ontology.
-\item That retrocausation is physically real. The Petz map is a
-  mathematical tool for Bayesian inference, not a physical process
-  that sends information backward in time.
-\end{enumerate}
-
-What the theorem \emph{does} establish: in a closed system
-($\Sigma = 0$), the statistical predictions are identical whether
-one conditions on past or future data. This is the precise content
-of the ABL rule~\cite{ABL1964} and the two-state vector formalism,
-now derived from the Petz recovery formalism rather than postulated.
+statement about quantum channels and recovery maps. It is agnostic
+about ontology (block-universe vs.\ other interpretations) and does
+not imply retrocausation; the Petz map is a Bayesian inference tool,
+not a physical process sending information backward.
+The operational content is that in a closed system ($\Sigma = 0$),
+statistical predictions are identical whether one conditions on
+past or future data---the content of the ABL
+rule~\cite{ABL1964}, here derived from Petz recovery rather
+than postulated.
 
 \subsection{``Zero Entropy'' is Entropy Production, Not State Entropy}
 
@@ -1429,31 +1416,17 @@ effects)~\cite{Breuer2016}:
   times.
 \end{itemize}
 
-\subsection{Scope of Contributions}
-
-The individual mathematical ingredients---Petz recovery ($F = 1$ for
-unitaries)~\cite{Petz1988}, the Crooks theorem~\cite{Crooks1999},
-the Fawzi--Renner characterization of quantum Markov
-chains~\cite{Fawzi2015}, decoherence as the origin of
-classicality~\cite{Zurek2003,Zeh1970}, and the Landi--Paternostro
-review of entropy production~\cite{Landi2021}---are all established
-results.
-
-This work contributes at two levels.
-\emph{New mathematical results:}
-Theorem~4 (saturation if and only if quantum sufficient statistic)
-and Theorem~5 (composition sub-additivity of $\sqrt{\tauasym}$
-for the standard Petz map).
-\emph{Synthesis and interpretation:}
-(a)~the definition $\tauasym = 1 - F$ and its reading as temporal
-asymmetry;
-(b)~the equivalence chain~(12) assembling known individual
-equivalences into a single statement;
-(c)~the bound $\tauasym \leq 1 - \exp(-\Sigma/2)$, which restates
-the Junge~et~al.\ recovery bound~\cite{Junge2018} in terms of
-$\tauasym$;
-(d)~the explicit Petz recovery calculation for the quantum eraser;
-(e)~the retrodiction Landauer observation (Sec.~S9).
+The individual mathematical
+ingredients---Petz recovery~\cite{Petz1988}, the Crooks
+theorem~\cite{Crooks1999}, the Fawzi--Renner
+characterization~\cite{Fawzi2015}, and entropy production
+bounds~\cite{Kolchinsky2017,ReebWolf2014}---are established.
+The new mathematical results are Theorem~3 (saturation
+characterization) and Theorem~4 (composition sub-additivity).
+The remaining contributions---the $\tauasym$ definition,
+the equivalence chain, the eraser calculation, and the
+$\tauasym$ bound (which restates the Junge~et~al.\
+bound~\cite{Junge2018})---are synthesis and interpretation.
 
 %=======================================================================
 \section{S15. Extended Numerical Evidence}
@@ -1784,7 +1757,7 @@ loss $\Delta D$.
 \label{sec:S17}
 %=======================================================================
 
-We prove Theorem~4 of the main text: a complete characterization
+We prove Theorem~3 of the main text: a complete characterization
 of when the Junge et~al.\ bound
 $F^2(\rho,\Petz_{\sigma,\chan}(\chan(\rho))) \geq \exp(-\Delta D)$
 is exactly saturated, for $\sigma = I/d$.
@@ -1960,7 +1933,7 @@ and any state $\rho$:
 \end{equation}
 where $\tauasym_{12}$, $\tauasym_1$, and
 $\tauasym_2^{\mathrm{eff}}$ are defined in the main text
-(Theorem~5), with $\tauasym_2^{\mathrm{eff}}$ evaluated at
+(Theorem~4), with $\tauasym_2^{\mathrm{eff}}$ evaluated at
 evolved state $\chan_1(\rho)$ and updated reference
 $\chan_1(\sigma)$.
 

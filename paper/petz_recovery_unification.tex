@@ -76,17 +76,13 @@ Petz map.
 \label{sec:intro}
 %-----------------------------------------------------------------------
 
-The Petz recovery map~\cite{Petz1986,Petz1988} appears
-across several areas of quantum information science:
-as a near-optimal quantum error correction (QEC)
-decoder~\cite{Barnum2002};
-as the \emph{unique} retrodiction functor in categorical quantum
-mechanics~\cite{Parzygnat2023};
-as the reverse channel in quantum fluctuation
-theorems~\cite{Kwon2019};
-as a physical reversal via dilations~\cite{Aw2024};
-and in entanglement wedge reconstruction in
-holography~\cite{Chen2020}.
+The Petz recovery map~\cite{Petz1986,Petz1988} is a near-optimal
+quantum error correction (QEC) decoder~\cite{Barnum2002}, the
+\emph{unique} retrodiction functor satisfying Bayesian
+consistency~\cite{Parzygnat2023}, and the reverse channel in
+quantum Crooks theorems~\cite{Kwon2019}.  It also appears in
+entanglement wedge reconstruction~\cite{Chen2020} and as a
+physical reversal via dilations~\cite{Aw2024}.
 Concurrent work by Bai, Buscemi, and
 Scarani~\cite{Buscemi2024} develops stochastic entropy
 production using the same Petz-retrodiction foundation.
@@ -688,59 +684,26 @@ statistic---and Theorem~\ref{thm:composition} shows that
 $\sqrt{\tauasym}$ satisfies a triangle inequality unique to the
 standard Petz map.
 
-The $\tauasym$ parameter provides a unified language for
-phenomena across quantum information:
+The decoherence program~\cite{Zurek2003,Zeh1970} provides the
+mechanism: environment-induced decoherence produces
+entropy ($\Sigma > 0$), forcing $\tauasym > 0$.
+The $\tauasym$ framework restates this in the Petz language,
+adds the saturation and composition structure
+(Theorems~\ref{thm:saturation}--\ref{thm:composition}),
+and makes the connection to QEC decoders explicit.
 
-\begin{center}
-\begin{tabular}{llc}
-\toprule
-\textbf{Domain} & \textbf{Key result} & $\tauasym$ \\
-\midrule
-Quantum eraser & $F = 1$ (exact) & $0$ \\
-Closed unitary & Petz = inverse & $0$ \\
-QEC~\cite{Junge2018} & $F^2 \geq e^{-\Delta D}$ & $> 0$ \\
-Thermodynamics & Eq.~\eqref{eq:tau_bound}
-  & $\leq 1 - e^{-\Sigma/2}$ \\
-Saturation (new) & Thm.~\ref{thm:saturation}
-  & iff suff.\ statistic \\
-Composition (new) & Thm.~\ref{thm:composition}
-  & $\sqrt{\tauasym_{12}} \leq \sqrt{\tauasym_1}+\sqrt{\tauasym_2^{\mathrm{eff}}}$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-This is the content of the decoherence
-program~\cite{Zurek2003,Zeh1970} restated in the Petz
-language: environment-induced decoherence
-produces entropy ($\Sigma > 0$), so $\tauasym > 0$.
-
-\emph{Limitations.}---Theorem~\ref{thm:saturation} is proved
-for maximally mixed reference $\sigma = I/d$; the extension to
-general full-rank $\sigma$ is open.
-The composition inequality
-(Theorem~\ref{thm:composition}) holds for the standard Petz map;
-its generalization to approximate or smoothed recovery maps is
-not established.
-The QEC observations
-(Sec.~\ref{sec:observations}) are numerically supported but lack
-rigorous proofs.
-
-\emph{Open questions.}---(i)~Does the saturation
-characterization (Theorem~\ref{thm:saturation}) extend to
-general full-rank $\sigma$ beyond $I/d$?
-(ii)~Does the composition sub-additivity extend to
-continuous-time Lindbladian evolution?
-(iii)~For non-Markovian processes,
-$\Sigma$ can be temporarily negative~\cite{Breuer2016}, implying
-transient decreases in $\tauasym$.  Can the process tensor
-framework~\cite{Pollock2018} extend the equivalence
-chain~\eqref{eq:equiv_chain}?
-(iv)~Since entanglement wedge reconstruction uses the Petz
-map~\cite{Chen2020}, does $\tauasym$ have a holographic
-interpretation?
-(v)~In the Aharonov--Bergmann--Lebowitz two-state vector
-formalism~\cite{ABL1964}, does the Petz-retrodicted state
-provide a canonical backward-evolving state?
+Theorem~\ref{thm:saturation} is proved for $\sigma = I/d$;
+the extension to general full-rank $\sigma$ remains open,
+as does the continuous-time generalization of
+Theorem~\ref{thm:composition}.
+For non-Markovian processes, $\Sigma$ can be temporarily
+negative~\cite{Breuer2016}, implying transient decreases in
+$\tauasym$.  Whether the process tensor
+framework~\cite{Pollock2018} extends the equivalence
+chain~\eqref{eq:equiv_chain} to this setting is an
+important open question, as is a possible holographic
+interpretation of $\tauasym$ via the Petz map's role in
+entanglement wedge reconstruction~\cite{Chen2020}.
 
 \begin{acknowledgments}
 The author thanks M.~M.~Wilde for valuable feedback on an earlier
