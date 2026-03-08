@@ -46,8 +46,8 @@
 
 \begin{abstract}
 The Petz recovery map plays a central role across quantum
-information, error correction, and thermodynamics---a fact well
-recognized by these communities.  Here we offer a physical
+information, error correction, and thermodynamics.
+Here we offer a physical
 interpretation of this mathematical unity: we define a temporal
 asymmetry parameter $\tauasym = 1 - F$, where $F$ is the fidelity
 of Petz recovery, and show that $\tauasym$ continuously quantifies
@@ -76,8 +76,8 @@ Petz map that fails for the rotated Petz map of Junge et~al.
 \label{sec:intro}
 %-----------------------------------------------------------------------
 
-The Petz recovery map~\cite{Petz1986,Petz1988} plays a
-central role across several areas of quantum information science:
+The Petz recovery map~\cite{Petz1986,Petz1988} appears
+across several areas of quantum information science:
 as a near-optimal quantum error correction (QEC)
 decoder~\cite{Barnum2002};
 as the \emph{unique} retrodiction functor in categorical quantum
@@ -87,8 +87,7 @@ theorems~\cite{Kwon2019};
 as a physical reversal via dilations~\cite{Aw2024};
 and in entanglement wedge reconstruction in
 holography~\cite{Chen2020}.
-These connections are well established in the literature;
-concurrent work by Bai, Buscemi, and
+Concurrent work by Bai, Buscemi, and
 Scarani~\cite{Buscemi2024} develops stochastic entropy
 production using the same Petz-retrodiction foundation.
 
@@ -168,7 +167,7 @@ $\Petz_{\sigma,\chan}$ across four domains.}
 $\chan$ & Path mark & Fwd.\ evol. & Noise & Irrev.\ proc. \\
 $\sigma$ & Entangled & Prior & Code state & Gibbs \\
 $\Petz$ & Erasure & Retrodiction & Decoder & Rev.\ proc. \\
-$\Delta D$ & Decoherence & Info.\ loss & Code dist. & $\beta W_{\text{diss}}$ \\
+$\Delta D$ & $0$ (closed) & Info.\ loss & Code dist. & $\beta W_{\text{diss}}$ \\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
@@ -203,7 +202,8 @@ satisfying:
 \item[\emph{(iv)}] \emph{Classical limit:} On commutative subalgebras,
   $R$ reduces to classical Bayes' rule.
 \end{enumerate}
-Then $R(\chan,\sigma) = \Petz_{\sigma,\chan}$ is the unique such functor.
+Then, for faithful $\sigma$,
+$R(\chan,\sigma) = \Petz_{\sigma,\chan}$ is the unique such functor.
 \end{theorem}
 
 \emph{Proof sketch.}---Axioms (ii) and (iv) force the
@@ -248,12 +248,6 @@ The functoriality axiom~\eqref{eq:functor}
 corresponds to the sequential structure of the
 eraser: composing the which-path marking with the idler measurement
 decomposes as retrodiction from the idler, then from the path.
-
-\emph{Connection to TSVF.}---The Aharonov--Bergmann--Lebowitz
-two-state vector formalism~\cite{ABL1964} assigns both a
-forward-evolving state $\ket{\psi}$ and a backward-evolving state
-$\bra{\phi}$. We suggest that Theorem~\ref{thm:unique} provides a canonical
-choice for the backward state: the Petz-retrodicted state.
 
 %-----------------------------------------------------------------------
 \section{From Retrodiction to Error Correction}
@@ -312,8 +306,7 @@ $\chan(\rho)$ using the code state as prior.  The Petz map is the
 unique Bayesian-consistent choice
 (Theorem~\ref{thm:unique}), and its
 near-optimality~\cite{Barnum2002} can be understood as a
-consequence of this uniqueness rather than a coincidence of
-case-specific linear algebra.
+consequence of this uniqueness.
 
 %-----------------------------------------------------------------------
 \section{The Thermodynamic Structure}
@@ -345,9 +338,11 @@ the Stinespring complementary output; $\Sigma$ is the entropy production\footnot
 ideal (infinite, memoryless) thermal baths, the total entropy production
 of the Kolchinsky--Wolpert decomposition~\cite{Kolchinsky2017} and the
 accessible entropy production of Reeb--Wolf~\cite{ReebWolf2014} coincide
-with $\Delta D$.  The ordering $I(A;E|B) \leq \Sigma \leq \Delta D$ is
-non-trivial only for finite-size baths; see the Supplemental
-Material~\cite{SM} for discussion.}; and
+with $\Delta D$.  The ordering $I(A;E|B) \leq \Sigma \leq \Delta D$
+requires a Markovian bath assumption and is non-trivial only for
+finite-size baths; see the Supplemental Material~\cite{SM} for
+discussion.  The unconditional bound $-\!\log F^2 \leq \Delta D$
+holds without this assumption.}; and
 $\Delta D = D(\rho\|\sigma) - D(\chan(\rho)\|\chan(\sigma))$ is the
 relative entropy decrease. When $\sigma = e^{-\beta H}/Z$ is a Gibbs
 state:
@@ -359,9 +354,7 @@ yielding a thermodynamic bound on recovery:
 $F^2 \geq e^{-\Delta S_{\mathrm{irr}}/\kB}$.
 \end{theorem}
 
-\emph{Proof.}---Each step uses a known result; our contribution
-is the assembly into a single chain with the $\tauasym$
-interpretation. Here $F$ denotes the fidelity with the rotated
+\emph{Proof.}---Here $F$ denotes the fidelity with the rotated
 Petz map~$\tilde{\Petz}_{\sigma,\chan}$ of
 Ref.~\cite{Junge2018}.
 
@@ -454,7 +447,8 @@ When $\Sigma = 0$ (zero entropy production), $\tauasym = 0$ is
 enforced.
 
 (iii)~\emph{Equivalence chain:} For faithful $\sigma$
-(see~\cite{SM}, Sec.~S11):
+(the Crooks link requires Gibbs $\sigma$;
+see~\cite{SM}, Sec.~S11):
 \begin{equation}
 \tauasym = 0 \;\Longleftrightarrow\; \Sigma = 0
 \;\Longleftrightarrow\; I(A;E|B) = 0
@@ -469,6 +463,20 @@ formalizing the physical content: the arrow of time ($\tauasym > 0$)
 is equivalent to environmental coupling ($I(A;E|B) > 0$), entropy
 production ($\Sigma > 0$), and imperfect recoverability
 ($F < 1$).
+
+The quantum eraser illustrates this directly.
+The signal-idler pair is a closed bipartite system with
+$\chan = \Tr_E$ and $\sigma = \ket{\psi}\bra{\psi}_{SE}$.
+Since $I(A;E|B) = 0$ and $\Sigma = 0$, the equivalence chain
+gives $\tauasym = 0$: the Petz map achieves exact recovery
+(Sec.~\ref{sec:retrodiction}).
+By contrapositive, recovery of interference
+implies prior superposition~\cite{SM}.
+In Wheeler's delayed-choice experiment~\cite{Wheeler1978},
+$\tauasym = 0$ implies the temporal order of measurements is
+irrelevant~\cite{Zurek2003}: the ``need to wait'' for the idler
+measurement arises only when one traces out the idler
+($\tauasym > 0$).
 
 %-----------------------------------------------------------------------
 \section{New Result I: Bound Saturation Theorem}
@@ -489,7 +497,12 @@ F^2\!\big(\rho,\,\Petz_{\sigma,\chan}(\chan(\rho))\big)
 = \exp(-\Delta D)
 \label{eq:saturation}
 \end{equation}
-if and only if:
+if and only if\footnote{The sufficiency direction and the
+commuting-case necessity are proved analytically.  The necessity
+of condition~(i) ($[\omega,\tau]\neq 0$ precludes saturation) is
+supported by $5\times 10^5$ numerical instances with zero
+exceptions; an analytical proof remains open
+(see~\cite{SM}, Sec.~S17).}:
 \begin{enumerate}
 \item[\emph{(i)}] $[\omega, \tau] = 0$
   \emph{(channel outputs commute);}
@@ -623,7 +636,12 @@ Eq.~\eqref{eq:composition}: numerical tests find violations
 for non-unital channel pairs (see~\cite{SM}, Sec.~S18).
 This provides a new structural distinction between the two
 recovery maps beyond what the categorical axioms~\cite{Parzygnat2023}
-alone imply.
+alone imply.  Note that
+Theorem~\ref{thm:composition} uses the \emph{standard} Petz map,
+while the bound~\eqref{eq:tau_bound} uses the \emph{rotated} map.
+For commuting $[\rho,\sigma] = 0$ the two maps coincide; in general
+the rotated map achieves higher fidelity, so
+$\tauasym_{\mathrm{std}} \geq \tauasym_{\mathrm{rot}}$.
 
 %-----------------------------------------------------------------------
 \section{Observations from the $\tauasym$ Framework}
@@ -659,49 +677,13 @@ $D(\tilde{\Petz}_{\sigma,\chan}\|\mathcal{D})$ for each decoder
 $\mathcal{D}$, which we leave to future work.
 
 %-----------------------------------------------------------------------
-\section{The Quantum Eraser Revisited}
-\label{sec:eraser}
-%-----------------------------------------------------------------------
-
-The quantum eraser is a pure bipartite system:
-$\chan = \Tr_E$, $\sigma = \ket{\psi}\bra{\psi}_{SE}$.
-As computed in~\cite{SM} (Sec.~S1), the Petz map achieves $F = 1$,
-hence $\tauasym = 0$. In our framework, this is a direct consequence of the equivalence
-chain~\eqref{eq:equiv_chain}: for a pure bipartite state,
-$I(A;E|B) = 0$ (no environment beyond the idler) and $\Sigma = 0$
-(no dissipation). The quantum eraser ``works'' because the
-signal-idler pair forms a closed system with $\tauasym = 0$.
-
-\emph{Superposition necessity.}---By contrapositive: if a system is in
-a definite path state, the Petz recovery produces no coherence
-(see~\cite{SM}, Sec.~S5). Recovery of interference implies prior
-superposition.
-
-\emph{Wheeler's delayed choice and $\tauasym$.}---In Wheeler's
-delayed-choice experiment~\cite{Wheeler1978}, the signal-idler pair
-forms a time-symmetric ($\tauasym = 0$) system where forward and
-reverse processes are statistically indistinguishable. The \emph{order} of
-measurements is operationally irrelevant: measuring the signal
-first or the idler first yields identical statistics. In the $\tauasym$ framework, the standard
-conclusion~\cite{Zurek2003} that delayed choice requires no
-retrocausal explanation follows directly: the closed system has
-$\tauasym = 0$, so the temporal order of measurements is irrelevant. The ``need to wait'' for the idler measurement arises
-only in the open-system description, where one traces out the
-idler and observes $\tauasym > 0$
-(decoherence)~\cite{Zurek2003}.
-
-%-----------------------------------------------------------------------
 \section{Discussion}
 \label{sec:discussion}
 %-----------------------------------------------------------------------
 
-The interpretive framework presented here rests on known
-mathematical results---the Petz map's uniqueness as retrodiction
-functor~\cite{Parzygnat2023}, the universal recovery
-bound~\cite{Junge2018}, and the connection to entropy
-production~\cite{Kolchinsky2017,Crooks1999,Kwon2019}.  Our
-contributions are: (1)~the definition of $\tauasym = 1 - F$
-as a continuous measure of the arrow of time;
+We summarize our contributions: (1)~the interpretation of
+$\tauasym = 1 - F$ as a continuous measure of the arrow of time,
+together with the equivalence chain~\eqref{eq:equiv_chain};
 (2)~a complete (if-and-only-if) characterization of when the
 recovery bound is exactly saturated, connecting to the classical
 theory of sufficient statistics
@@ -761,6 +743,9 @@ chain~\eqref{eq:equiv_chain}?
 (iv)~Since entanglement wedge reconstruction uses the Petz
 map~\cite{Chen2020}, does $\tauasym$ have a holographic
 interpretation?
+(v)~In the Aharonov--Bergmann--Lebowitz two-state vector
+formalism~\cite{ABL1964}, does the Petz-retrodicted state
+provide a canonical backward-evolving state?
 
 \begin{acknowledgments}
 The author thanks M.~M.~Wilde for valuable feedback on an earlier

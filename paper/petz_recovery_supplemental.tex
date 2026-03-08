@@ -279,31 +279,36 @@ support of $\sigma_\code$, which is the code space $\code$. \hfill$\square$
 
 \subsection{Near-Optimal Recovery (Theorem 2b)}
 
-The bound $F^2(\rho, \Petz_{\sigma,\chan}(\chan(\rho))) \geq
-\exp(-\Delta D)$ follows from the following chain.
-
 By Junge~et~al.~\cite{Junge2018}, for any $\sigma$ and $\chan$, there
-exists a \emph{universal} recovery map $\tilde{\Petz}$ (a rotated
-version of the Petz map) such that:
+exists a \emph{rotated} Petz map $\tilde{\Petz}$ such that:
 \begin{equation}
-D(\rho\|\sigma) - D(\chan(\rho)\|\chan(\sigma))
-\geq -\log F(\rho,\, \tilde{\Petz} \circ \chan(\rho))^2.
+F(\rho,\, \tilde{\Petz} \circ \chan(\rho))^2 \geq
+\exp(-\Delta D),
 \end{equation}
+where $\Delta D = D(\rho\|\sigma) - D(\chan(\rho)\|\chan(\sigma))$.
+This is the bound used in the main text (Eq.~(6)); it applies to the
+\emph{rotated} Petz map, not the standard one.
 
-The Petz map $\Petz_{\sigma,\chan}$ itself satisfies the weaker but
-still useful bound proven by Barnum--Knill~\cite{Barnum2002}:
+The \emph{standard} Petz map $\Petz_{\sigma,\chan}$ satisfies the
+weaker Barnum--Knill bound~\cite{Barnum2002}:
 \begin{equation}
 F_e(\code,\, \Petz_{\sigma_\code,\chan} \circ \chan) \geq
 \frac{1}{2} F_e(\code,\, R_{\mathrm{opt}} \circ \chan)^2,
 \end{equation}
 where $F_e$ is the entanglement fidelity and $R_{\mathrm{opt}}$ is the
-globally optimal decoder. Combined with the Fuchs--van de Graaf
-inequality $1 - F \leq \frac{1}{2}\norm{\rho - \sigma}_1 \leq
-\sqrt{1 - F^2}$, this gives:
+globally optimal decoder. Since $F_{e,\mathrm{opt}}^2 \geq
+\exp(-\Delta D)$ by the Junge et~al.\ bound, this gives:
 \begin{equation}
-F(\rho,\, \Petz_{\sigma_\code,\chan}(\chan(\rho)))^2 \geq
-\exp(-\Delta D).
+F_e(\code,\, \Petz_{\sigma_\code,\chan} \circ \chan) \geq
+\tfrac{1}{2}\exp(-\Delta D).
 \end{equation}
+Note the factor of $1/2$: the standard Petz map is within a
+constant factor of optimal, but does not saturate the exponential
+bound in general.  For the saturation theorem
+(Theorem~4 of the main text, $\sigma = I/d$), the bound
+$F^2 \geq \exp(-\Delta D)$ for the standard Petz map is proved
+directly via the AM--GM inequality (Sec.~S17), without invoking the
+Junge et~al.\ machinery.
 
 \subsection{Worked Example: $[\![5,1,3]\!]$ Code}
 
@@ -814,6 +819,15 @@ decoder-independent metric computable from output statistics,
 offering a unified lens for comparing decoders of entirely different
 architectures.
 
+\emph{Caveat on current evidence.}---The rank-order consistency
+between the retrodiction hierarchy and known decoder performance
+reported in the main text is a \emph{prediction}, not a verified
+result. Computing $\delta_{\mathcal{D}}$ from published data requires
+access to the full CPTP decoder map, which is not available for most
+decoders. Direct numerical verification of
+$\delta_{\mathrm{NN}} < \delta_{\mathrm{MWPM}} < \delta_{\mathrm{UF}}$
+from decoder output statistics is an important open task.
+
 %=======================================================================
 \section{S11. Temporal Asymmetry and the Equivalence Chain}
 \label{sec:equiv_chain}
@@ -937,27 +951,25 @@ The energy cost of retrodiction---inferring the pre-channel state
 from the post-channel state---is bounded by the entropy produced
 during the forward process.
 
-\begin{theorem}[Retrodiction Landauer Principle]
-For a channel $\chan$ with thermal reference state
-$\sigma_\beta = e^{-\beta H}/Z$, the minimum energy cost of any
-physical implementation of approximate retrodiction satisfies:
+\emph{Observation (Retrodiction Landauer principle).}---For a
+channel $\chan$ with thermal reference state
+$\sigma_\beta = e^{-\beta H}/Z$, we argue heuristically that the
+minimum energy cost of any physical implementation of approximate
+retrodiction satisfies:
 \begin{equation}
 E_{\mathrm{retro}} \geq \kB T \cdot \Sigma.
 \label{eq:retro_landauer}
 \end{equation}
-\end{theorem}
-
-\emph{Derivation.}---By Landauer's
-principle~\cite{ReebWolf2014}, any computation that reduces
-uncertainty requires energy dissipation $\geq \kB T \ln 2$ per bit
-erased. Retrodiction from $\chan(\rho)$ to $\rho$ requires recovering
-at least $\Delta D$ nats of distinguishability. The energy cost of
-this recovery is:
-\begin{equation}
-E_{\mathrm{retro}} \geq \kB T \cdot \Delta D.
-\end{equation}
+The argument applies Landauer's principle~\cite{ReebWolf2014}
+(energy dissipation $\geq \kB T \ln 2$ per bit erased) to the
+task of recovering $\Delta D$ nats of distinguishability from
+$\chan(\rho)$ to $\rho$, giving
+$E_{\mathrm{retro}} \geq \kB T \cdot \Delta D$.
 By the master chain, $\Delta D \geq \Sigma$, giving
 Eq.~\eqref{eq:retro_landauer}.
+This extends Landauer's principle from bit erasure to state
+retrodiction; the extension is physically motivated but not
+rigorously derived from first principles.
 
 \emph{Physical consequences:}
 \begin{itemize}
