@@ -27,7 +27,7 @@ Data sources:
          error correcting codes", arXiv:2510.05222 (2025).
     [C1] Singh et al., "Realizing the Petz Recovery Map on an NMR Quantum
          Processor", arXiv:2508.08998 (2025).
-    [C2] Pino et al., "Petz recovery maps of single-qubit decoherence channels
+    [C2] Png and Scarani, "Petz recovery maps of single-qubit decoherence channels
          in an ion trap quantum processor", Phys. Rev. A 112, 022613 (2025).
 
 Usage:
@@ -629,15 +629,15 @@ def part_c_experimental_petz():
     print()
 
     # ------------------------------------------------------------------
-    # C2: Pino et al. (2025) - Ion Trap Petz Recovery (Simulation)
+    # C2: Png and Scarani (2025) - Ion Trap Petz Recovery (Simulation)
     # ------------------------------------------------------------------
-    print("--- C2: Ion Trap Petz Recovery (Pino et al. 2025) ---")
+    print("--- C2: Ion Trap Petz Recovery (Png and Scarani 2025) ---")
     print("Source: Phys. Rev. A 112, 022613 (2025)")
     print("Platform: Ion trap (simulated with realistic noise)")
     print("Recovery error target: < 0.01 (i.e., F > 0.99)")
     print()
 
-    # Pino et al. studied:
+    # Png and Scarani studied:
     # - Depolarizing, dephasing, amplitude damping channels
     # - Single-shot recovery with Petz map
     # - Realistic noise from residual spin-motion coupling
@@ -717,14 +717,14 @@ def part_c_experimental_petz():
         ('Singh 2025 (NMR)', 'AD |1>, g=0.5',
          ad_lookup[('|1>', 0.5)]['F_expt'], ad_lookup[('|1>', 0.5)]['DeltaD'],
          ad_lookup[('|1>', 0.5)]['bound'], ad_lookup[('|1>', 0.5)]['satisfies']),
-        # Pino ion trap - depolarizing
-        ('Pino 2025 (ion trap)', 'Depol, p=0.05',
+        # Png ion trap - depolarizing
+        ('Png 2025 (ion trap)', 'Depol, p=0.05',
          results_depol[1]['F'], results_depol[1]['DeltaD'],
          results_depol[1]['bound'], results_depol[1]['satisfies']),
-        ('Pino 2025 (ion trap)', 'Depol, p=0.10',
+        ('Png 2025 (ion trap)', 'Depol, p=0.10',
          results_depol[2]['F'], results_depol[2]['DeltaD'],
          results_depol[2]['bound'], results_depol[2]['satisfies']),
-        ('Pino 2025 (ion trap)', 'Depol, p=0.30',
+        ('Png 2025 (ion trap)', 'Depol, p=0.30',
          results_depol[4]['F'], results_depol[4]['DeltaD'],
          results_depol[4]['bound'], results_depol[4]['satisfies']),
     ]
@@ -745,7 +745,7 @@ def part_c_experimental_petz():
     print("  The authors report 'close match' with theory (statistical")
     print("  errors smaller than marker size in their figures).")
     print()
-    print("  NOTE: Pino et al. values are theoretical simulations under")
+    print("  NOTE: Png and Scarani values are theoretical simulations under")
     print("  realistic ion-trap noise conditions. Recovery error < 0.01")
     print("  was their target for moderate decoherence levels.")
     print()
@@ -969,7 +969,7 @@ def make_figures(alphaqubit_data, retrodiction_proxy,
     ax4.set_xlabel(r'Relative entropy drop $\Delta D$', fontsize=12)
     ax4.set_ylabel(r'Recovery fidelity $F$', fontsize=12)
     ax4.set_title(r'(d) $F \geq e^{-\Delta D/2}$ Bound Verification'
-                   '\n(Singh et al. 2025 / Pino et al. 2025)',
+                   '\n(Singh et al. 2025 / Png and Scarani 2025)',
                    fontsize=12, fontweight='bold')
     ax4.legend(fontsize=8, loc='upper right')
     ax4.grid(True, alpha=0.3)
@@ -1074,7 +1074,7 @@ def main():
     print("=== Fundamental Bound F >= exp(-Sigma/2): SUPPORTED ===")
     print()
     print("  Experimental Petz recovery data from NMR (Singh 2025)")
-    print("  and ion trap simulations (Pino 2025) are consistent with")
+    print("  and ion trap simulations (Png 2025) are consistent with")
     print("  the bound tau <= 1 - exp(-Sigma/2).")
     print()
     print("  Physical interpretation: The arrow of time (tau) is")
@@ -1089,7 +1089,7 @@ def main():
     print("  [B1] English et al., Commun. Phys. 7, 386 (2024)")
     print("  [B2] Chen et al., arXiv:2510.05222 (2025)")
     print("  [C1] Singh et al., arXiv:2508.08998 (2025) [NMR Petz]")
-    print("  [C2] Pino et al., Phys. Rev. A 112, 022613 (2025) [Ion trap]")
+    print("  [C2] Png and Scarani, Phys. Rev. A 112, 022613 (2025) [Ion trap]")
     print("=" * 78)
     print()
 

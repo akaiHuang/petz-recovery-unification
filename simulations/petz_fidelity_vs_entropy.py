@@ -24,7 +24,7 @@ Part B: Comparison of recovery maps (Petz, identity, reset, transpose)
 Part C: Overlay of experimental parameter regimes from published Petz
         recovery experiments:
     [C1] Singh et al., arXiv:2508.08998 (2025) — NMR Petz recovery
-    [C2] Pino et al., Phys. Rev. A 112, 022613 (2025) — Ion trap Petz
+    [C2] Png and Scarani, Phys. Rev. A 112, 022613 (2025) — Ion trap Petz
 
 Usage:
     python simulations/petz_fidelity_vs_entropy.py
@@ -346,7 +346,7 @@ def compute_experimental_predictions():
       - Results shown graphically; "excellent agreement with theory"
       - Figures show F vs channel strength p for each input state and eps
 
-    Pino et al. (2025, Phys. Rev. A 112, 022613):
+    Png and Scarani (2025, Phys. Rev. A 112, 022613):
       - Ion trap Petz recovery circuits for depol, dephase, AD channels
       - Simulated under realistic noise (residual spin-motion coupling)
       - Recovery error < 0.01 for moderate decoherence
@@ -397,7 +397,7 @@ def compute_experimental_predictions():
                     'source': 'Singh 2025 (NMR)',
                 })
 
-    # --- Pino et al. ion trap ---
+    # --- Png and Scarani ion trap ---
     pino_gammas = np.array([0.05, 0.1, 0.2, 0.3, 0.5])
     rho_plus = np.array([[0.5, 0.5], [0.5, 0.5]], dtype=complex)
     ion_noise = 0.005
@@ -421,7 +421,7 @@ def compute_experimental_predictions():
             'F_expt': F_expt,
             'DeltaD': DeltaD,
             'Sigma': Sigma,
-            'source': 'Pino 2025 (ion trap)',
+            'source': 'Png 2025 (ion trap)',
         })
 
     return singh_results, pino_results
@@ -499,7 +499,7 @@ def make_figure(part_a_results, part_b_results, singh_results, pino_results):
                     [r['F_expt'] for r in pino_results],
                     marker='s', s=55, color='#ff7f00',
                     edgecolors='black', linewidths=0.8, zorder=5,
-                    label=r'Pino 2025 ion trap ($|+\rangle$)')
+                    label=r'Png 2025 ion trap ($|+\rangle$)')
 
     ax1.set_xlabel(r'Relative entropy drop $\Delta D$', fontsize=12)
     ax1.set_ylabel(r'Recovery fidelity $F$', fontsize=12)
@@ -742,7 +742,7 @@ def print_results(part_a_results, part_b_results, singh_results, pino_results):
         print(f"\n  Bound satisfied: {n_satisfy}/{n_total} entries")
         print()
 
-    print("  C2: Pino et al. (2025) — Ion Trap Petz Recovery")
+    print("  C2: Png and Scarani (2025) — Ion Trap Petz Recovery")
     print("  Source: Phys. Rev. A 112, 022613")
     print("  Platform: Ion trap (simulated, realistic noise)")
     print("  Channels: Depolarizing, Dephasing, Amplitude damping")
@@ -885,7 +885,7 @@ def main():
     print("=" * 78)
     print("  Data sources:")
     print("  [C1] Singh et al., arXiv:2508.08998 (2025) [NMR Petz]")
-    print("  [C2] Pino et al., Phys. Rev. A 112, 022613 (2025) [Ion trap]")
+    print("  [C2] Png and Scarani, Phys. Rev. A 112, 022613 (2025) [Ion trap]")
     print("  [T1] Junge, Renner, Sutter, Wilde, Winter (2018) [JRSWW bound]")
     print("  [T2] Huang (2026) [Retrodiction Landauer Principle]")
     print("=" * 78)

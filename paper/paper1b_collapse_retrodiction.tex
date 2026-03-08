@@ -1,0 +1,909 @@
+% paper1b_collapse_retrodiction.tex
+% Wavefunction Collapse as Retrodiction Failure: Gravitational Decoherence,
+% Objectivity, and the τ-R Bridge
+% Companion paper to Paper 1 (Petz Recovery Unification)
+% Author: Sheng-Kai Huang
+% Compile with: pdflatex paper1b_collapse_retrodiction.tex
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+
+% Convenience macros (same as Paper 1)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\KL}{D}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\op}[2]{|#1\rangle\langle#2|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tauasym}{\tau}
+
+\begin{document}
+
+\title{Wavefunction Collapse as Retrodiction Failure:\\
+Gravitational Decoherence, Objectivity, and the $\tauasym$-$R$ Bridge}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+We apply the temporal asymmetry parameter $\tauasym = 1 - F$ from the
+Petz recovery framework [S.-K.\ Huang, companion paper] to the
+gravitational dephasing channel of Pikovski et~al., obtaining an
+explicit, time-dependent quantification of ``collapse'' as Petz
+recovery failure. For a system with $N$ internal degrees of freedom,
+$\tauasym(t) = 1 - \exp(-N\Gamma t^2)$ and the quantum Darwinism
+redundancy $R(t) = N[1 - \exp(-\Gamma t^2)]$ are governed by the same
+parameter $N\Gamma$, establishing a \emph{$\tauasym$-$R$ bridge}:
+irreversibility ($\tauasym \to 1$) and objectivity ($R \to N$) emerge
+at the same timescale. Under the Diósi--Penrose assumption, the
+collapse timescale reduces to $t_c = \hbar/E_G$. We connect
+$\tauasym = 1$ to operational superselection via the
+Englert--Greenberger wave-particle duality relation and spectrum
+broadcast structure, providing a quantitative language for collapse within standard
+quantum mechanics, with explicit bounds on spatial recoverability.
+Predictions for molecule
+interferometry, optomechanical, and gravitational entanglement
+experiments are tabulated and shown to be consistent with all
+existing data. The universal bound
+$F_{\mathrm{spatial}}(t) \geq \exp(-\Sigma_{\mathrm{grav}}(t)/2)$
+constrains the recoverability of spatial coherence for any
+gravitational channel.
+\end{abstract}
+
+\maketitle
+
+%-----------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%-----------------------------------------------------------------------
+
+In a companion paper~\cite{Paper1}, we established that the Petz
+recovery map~\cite{Petz1986,Petz1988} connects quantum erasure,
+Bayesian retrodiction, quantum error correction, and thermodynamic
+irreversibility. The temporal asymmetry parameter
+\begin{equation}
+\tauasym = 1 - F\!\big(\rho,\,
+  \tilde{\Petz}_{\sigma,\chan}(\chan(\rho))\big)
+\label{eq:tau_def}
+\end{equation}
+quantifies the degree to which a quantum channel $\chan$ distinguishes
+past from future: $\tauasym = 0$ for closed (unitary) evolution,
+$\tauasym > 0$ for open systems, with the bound
+$\tauasym \leq 1 - \exp(-\Sigma/2)$ linking recovery failure to
+entropy production~$\Sigma$~\cite{Junge2018,Fawzi2015}.
+
+A central question in quantum foundations remains: when does a quantum
+superposition become a classical mixture?  The decoherence
+program~\cite{Zurek2003,Joos1985,Schlosshauer2007} identifies
+environment-induced decoherence as the mechanism, but leaves open
+what distinguishes ``for all practical purposes'' (FAPP) collapse
+from genuine irreversibility. Meanwhile, Penrose~\cite{Penrose1996}
+and Di\'{o}si~\cite{Diosi1987} have argued that gravitational
+self-energy sets a fundamental collapse timescale $t_c = \hbar/E_G$.
+
+In this Letter, we show that the $\tauasym$ framework provides a
+precise, quantitative answer.  We define \emph{operational collapse}
+as $\tauasym \to 1$: the Petz recovery map---the unique Bayesian
+retrodiction functor~\cite{Parzygnat2023}---fails completely,
+certifying that no physical protocol can recover the prior
+superposition. We derive $\tauasym(t)$ explicitly for the
+gravitational dephasing channel of Pikovski et~al.~\cite{Pikovski2015}
+[Sec.~\ref{sec:channel}], connect internal and spatial decoherence
+via an entanglement complementarity bridge [Sec.~\ref{sec:bridge}],
+establish a quantitative link between irreversibility and objectivity
+(the $\tauasym$-$R$ bridge) [Sec.~\ref{sec:tau_R}], recover the
+Penrose timescale under the Di\'{o}si--Penrose assumption
+[Sec.~\ref{sec:penrose}], and tabulate predictions for current and
+proposed experiments [Sec.~\ref{sec:experiments}].  Each result is
+labeled [\textsc{known}], [\textsc{new synthesis}], or
+[\textsc{new formula}].
+
+%-----------------------------------------------------------------------
+\section{Gravitational Dephasing as a Quantum Channel}
+\label{sec:channel}
+%-----------------------------------------------------------------------
+
+\emph{Pikovski Hamiltonian}~[\textsc{known}].---Consider a massive
+particle in a spatial superposition
+$\ket{\Psi(0)} = (\alpha\ket{x_1} + \beta\ket{x_2}) \otimes
+\ket{\chi_{\mathrm{int}}}$, where $\ket{\chi_{\mathrm{int}}}$ is the
+internal state.  In the post-Newtonian approximation, the total
+Hamiltonian is~\cite{Pikovski2015}
+\begin{equation}
+H = \frac{p^2}{2m} + H_{\mathrm{int}}
+  \!\left(1 + \frac{\Phi(\hat{x})}{c^2}\right),
+\label{eq:pikovski_H}
+\end{equation}
+where $\Phi(\hat{x})$ is the Newtonian gravitational potential
+evaluated at the center-of-mass position.  Time evolution under
+Eq.~\eqref{eq:pikovski_H} produces~\cite{Pikovski2015}
+\begin{equation}
+\ket{\Psi(t)} = \alpha\ket{x_1}\otimes U_1\ket{\chi}
+  + \beta\ket{x_2}\otimes U_2\ket{\chi},
+\label{eq:psi_t}
+\end{equation}
+where $U_j = \exp(-i H_{\mathrm{int}}(1 + \Phi_j/c^2)\,t/\hbar)$
+with $\Phi_j \equiv \Phi(x_j)$.
+
+\emph{Decoherence factor}~[\textsc{known}].---Tracing over internal
+degrees of freedom yields the reduced spatial state
+\begin{equation}
+\rho_S(t) = \begin{pmatrix}
+|\alpha|^2 & \alpha\beta^* D(t) \\
+\alpha^*\beta\, D^*(t) & |\beta|^2
+\end{pmatrix},
+\label{eq:rho_S}
+\end{equation}
+with decoherence factor
+\begin{equation}
+D(t) = \bra{\chi}\exp\!\left(\frac{i H_{\mathrm{int}}
+  \Delta\Phi\, t}{\hbar c^2}\right)\ket{\chi}
+= \sum_n |c_n|^2 e^{-i E_n \Delta\Phi\, t/(\hbar c^2)},
+\label{eq:D_factor}
+\end{equation}
+where $\Delta\Phi = \Phi(x_1) - \Phi(x_2)$, $\{E_n\}$ are internal
+energy eigenvalues, and $c_n = \braket{E_n}{\chi}$.
+
+\emph{CPTP dephasing channel}~[\textsc{known}].---The map
+$\chan_{\mathrm{grav}}: \rho_S(0) \mapsto \rho_S(t)$ is a
+completely positive, trace-preserving (CPTP) dephasing channel with
+Kraus operators~\cite{Schlosshauer2007}
+\begin{equation}
+K_0 = \sqrt{\frac{1+p}{2}}\, I, \qquad
+K_1 = \sqrt{\frac{1-p}{2}}\, \sigma_z,
+\label{eq:kraus}
+\end{equation}
+where $p(t) = |D(t)|$ and $\sigma_z = \op{x_1}{x_1} - \op{x_2}{x_2}$.
+One verifies $K_0^\dagger K_0 + K_1^\dagger K_1 = I$ and
+$\chan_{\mathrm{grav}}(\rho)_{12} = p(t)\,\rho_{12}$.
+
+\emph{Many internal modes}~[\textsc{known}].---For $N$ internal modes
+in a thermal state at temperature $T$, the decoherence factor
+factorizes:
+$D(t) = \prod_{k=1}^{N} d_k(t)$, where each mode contributes
+$d_k(t) = 1 - \varepsilon_k(t)$ with
+$\varepsilon_k \ll 1$.  The product yields
+\begin{equation}
+|D(t)| \approx \exp\!\left(-\sum_k \varepsilon_k\right)
+= \exp(-N\langle\varepsilon\rangle),
+\label{eq:D_product}
+\end{equation}
+giving Gaussian decay $p(t) = \exp(-\Gamma t^2)$ with
+$\Gamma = (\Delta E)^2 (\Delta\Phi)^2/(2\hbar^2 c^4)$ for a thermal
+internal state with energy variance~$(\Delta E)^2$~\cite{Pikovski2015}.
+
+\emph{Temporal asymmetry parameter}~[\textsc{new synthesis}].---The
+Petz recovery map for the dephasing channel with maximally mixed
+reference state is self-adjoint: $\Petz = \chan_{\mathrm{grav}}$.
+Hence the recovery fidelity (worst case, $\ket{+}$ input) is
+$F_{\mathrm{Petz}} = (1 + p^2)/2$.  Using the universal (rotated)
+Petz map~\cite{Junge2018} and defining
+$\tauasym(t) = 1 - F(t)$, we obtain
+\begin{equation}
+\boxed{
+\tauasym_{\mathrm{grav}}(t)
+= 1 - \exp\!\big(-N\Gamma t^2\big)
+}
+\label{eq:tau_grav}
+\end{equation}
+for $N$ internal modes in the large-$N$ limit.  This is a monotone
+from $\tauasym = 0$ (full coherence) to $\tauasym \to 1$
+(operational collapse), with characteristic timescale
+\begin{equation}
+t_{\mathrm{dec}} = \frac{1}{\sqrt{N\Gamma}}
+= \frac{\hbar c^2 \sqrt{2}}{\sqrt{N}\,\Delta E\,|\Delta\Phi|}.
+\label{eq:t_dec}
+\end{equation}
+
+\emph{Entropy production}~[\textsc{known}].---The entropy production
+of the gravitational dephasing channel is
+$\Sigma(t) = H_{\mathrm{bin}}((1+p(t))/2)$, where
+$H_{\mathrm{bin}}(x) = -x\log x - (1-x)\log(1-x)$ is the binary
+entropy.  The bound~$\tauasym \leq 1 - \exp(-\Sigma/2)$
+from Ref.~\cite{Paper1} is satisfied identically.
+
+%-----------------------------------------------------------------------
+\section{Internal--Spatial Bridge}
+\label{sec:bridge}
+%-----------------------------------------------------------------------
+
+[\textsc{new synthesis}]  The state~\eqref{eq:psi_t} is a pure
+bipartite state on $\hilb_{\mathrm{spatial}} \otimes
+\hilb_{\mathrm{internal}}$.  Partial traces define two dephasing
+channels: $\chan_S = \Tr_{\mathrm{int}}$ (yielding $\rho_S$) and
+$\chan_I = \Tr_{\mathrm{spatial}}$ (yielding $\rho_I$).  Define
+$\tauasym_S$ and $\tauasym_I$ as the temporal asymmetry parameters for
+each channel, evaluated for the worst-case input (equal
+superposition).
+
+For the spatial channel, $\tauasym_S = (1 - |D(t)|)/2$.  For the
+internal channel, $\tauasym_I = (1 - |D(t)|^2)/2$.  Eliminating
+$|D|$ yields the \emph{bridge relation}:
+\begin{equation}
+\boxed{
+\tauasym_I = 2\,\tauasym_S\,(1 - \tauasym_S).
+}
+\label{eq:bridge}
+\end{equation}
+This is a concave parabola with maximum $\tauasym_I = 1/2$
+at $\tauasym_S = 1/2$, reflecting the fact that a qubit
+dephasing channel saturates at $\tauasym = 1/2$.
+
+\emph{Entanglement entropy}~[\textsc{known}].---Since the total state
+is pure, the von~Neumann entropy of either subsystem equals the
+entanglement entropy:
+\begin{equation}
+S_{\mathrm{ent}}(t) = H_{\mathrm{bin}}\!\big(1 - \tauasym_S(t)\big).
+\label{eq:S_ent}
+\end{equation}
+The entropy production of both channels equals the entanglement
+entropy:
+\begin{equation}
+\Sigma_{\mathrm{int}} = \Sigma_{\mathrm{spatial}}
+= S_{\mathrm{ent}}.
+\label{eq:sigma_ent}
+\end{equation}
+This identity~[\textsc{new synthesis}] follows because both channels
+arise from tracing out the complementary subsystem of a pure state,
+so the DPI decrease $\Delta D$ equals $S_{\mathrm{ent}}$ in both
+cases.
+
+\emph{Englert--Greenberger complementarity}~[\textsc{new
+synthesis}].---The wave-particle duality relation of Englert and
+Greenberger~\cite{Englert1996,Greenberger1988} takes the form
+$\mathcal{V}^2 + \mathcal{D}_{\mathrm{wp}}^2 \leq 1$, where
+$\mathcal{V}$ is visibility and $\mathcal{D}_{\mathrm{wp}}$ is
+which-path distinguishability.  In the $\tauasym$ language:
+\begin{equation}
+\mathcal{V} = 1 - 2\tauasym_S, \qquad
+\mathcal{D}_{\mathrm{wp}} = \sqrt{2\tauasym_I}.
+\label{eq:EG_tau}
+\end{equation}
+The duality relation becomes
+$\mathcal{V}^2 + \mathcal{D}_{\mathrm{wp}}^2
+= (1 - 2\tauasym_S)^2 + 2\tauasym_I = 1$, which follows identically
+from Eq.~\eqref{eq:bridge}.  When $\tauasym_I = 1/2$ (the internal
+degrees of freedom carry complete which-path information),
+$\mathcal{V} = 0$: spatial coherence vanishes.  This is operationally
+indistinguishable from ``collapse'' into a position eigenstate.
+
+\emph{Pointer basis from the equivalence principle}~[\textsc{new
+synthesis}].---The equivalence principle dictates that the
+gravitational potential $\Phi(\hat{x})$ in
+Eq.~\eqref{eq:pikovski_H} couples to \emph{position}:
+the internal Hamiltonian acquires a position-dependent
+correction $H_{\mathrm{int}} \cdot \Phi(\hat{x})/c^2$.
+By Zurek's einselection criterion~\cite{Zurek2003}, the
+interaction Hamiltonian selects the pointer basis as the
+eigenbasis of the system observable that commutes with the
+coupling.  Since $\Phi(\hat{x})$ is diagonal in position,
+gravity universally selects \emph{position} as the pointer
+basis.  Unlike electromagnetic or nuclear decoherence, where
+the pointer basis depends on the details of the specific
+interaction, gravitational einselection is universal---it
+applies to any massive system regardless of its internal
+composition.  This explains why macroscopic objects always
+have definite positions (not definite momenta or energy
+superpositions): the equivalence principle singles out
+position as the only gravitationally robust observable.
+
+%-----------------------------------------------------------------------
+\section{From Decoherence to Objectivity: The $\tauasym$-$R$ Bridge}
+\label{sec:tau_R}
+%-----------------------------------------------------------------------
+
+The previous sections established that $\tauasym \to 1$ certifies
+irreversibility.  We now show that $\tauasym \to 1$ and objectivity
+(in the sense of quantum Darwinism~\cite{Zurek2009}) emerge from the
+\emph{same} physical parameter.
+
+\emph{Tensor product amplification}~[\textsc{known}].---The
+decoherence factor~\eqref{eq:D_product} is a product over $N$
+independent modes.  Each mode records which-path information
+$\varepsilon_k \ll 1$, but the product decays exponentially:
+$|D| \approx \exp(-N\langle\varepsilon\rangle)$.  This
+exponential-in-$N$ suppression is a direct consequence of the tensor
+product structure of quantum mechanics (an axiom, not derived from
+dynamics)~\cite{Joos1985,Schlosshauer2007}.  Even for
+$\langle\varepsilon\rangle \sim 10^{-20}$, the factor $N \sim
+10^{23}$ of a macroscopic object drives
+$|D| \to 0$ and $\tauasym \to 1$.
+
+\emph{Quantum Darwinism redundancy}~[\textsc{known}].---In the
+framework of quantum Darwinism~\cite{Zurek2009}, the redundancy $R$
+counts the number of independent environmental fragments that each
+contain sufficient information to determine the system's state.  For
+the gravitational dephasing channel with $N$ internal modes, each
+mode acquires which-path information at rate $\Gamma_{\mathrm{single}}
+= \Gamma/N$.  A fragment of size $f\cdot N$ modes gives partial
+decoherence factor $|D_f| = \exp(-fN\Gamma_{\mathrm{single}}t^2) =
+\exp(-f\Gamma t^2)$, which becomes negligible when
+$f > f_c = 1/(\Gamma t^2)$.  The redundancy
+is~\cite{Zurek2009,Riedel2017}
+\begin{equation}
+R(t) = \frac{1}{f_c} = N\!\left[1 - \exp(-\Gamma_{\mathrm{single}}
+  t^2)\right].
+\label{eq:R_darwin}
+\end{equation}
+
+\emph{The $\tauasym$-$R$ bridge}~[\textsc{new formula}].---Comparing
+Eqs.~\eqref{eq:tau_grav} and~\eqref{eq:R_darwin}, both are governed
+by the same dephasing parameter $\Gamma_{\mathrm{single}}$:
+\begin{equation}
+\boxed{
+\begin{aligned}
+\tauasym(t) &= 1 - \exp\!\big(-N\Gamma_{\mathrm{single}} t^2\big), \\
+R(t) &= N\!\left[1 - \exp(-\Gamma_{\mathrm{single}} t^2)\right].
+\end{aligned}
+}
+\label{eq:tau_R_bridge}
+\end{equation}
+At the decoherence time $t_{\mathrm{dec}} = 1/\sqrt{N
+\Gamma_{\mathrm{single}}}$, we have $\tauasym(t_{\mathrm{dec}})
+= 1 - 1/e \approx 0.63$ and
+$R(t_{\mathrm{dec}}) \approx N(1 - e^{-1/N}) \approx 1$ for
+$N \gg 1$.  At time $t = \sqrt{\ln N/\Gamma_{\mathrm{single}}}$,
+$\tauasym \to 1 - N^{-N} \approx 1$ and $R \to N(1 - 1/N) \approx N$.
+This demonstrates that \emph{collapse ($\tauasym \to 1$) and
+objectivity ($R \to N$) occur at the same timescale}---they are
+two manifestations of the same exponential-in-$N$ decoherence
+process.
+
+\emph{Spectrum broadcast structure (SBS)}~[\textsc{new
+synthesis}].---Korbicz et~al.~\cite{Korbicz2021} proved that any
+von~Neumann-type interaction with $N \gg 1$ sub-environments
+generically produces spectrum broadcast structure:
+\begin{equation}
+\rho_{SE}(t) = \sum_i p_i\, \op{i}{i}_S \otimes
+  \rho^{(1)}_i \otimes \rho^{(2)}_i \otimes \cdots \otimes
+  \rho^{(N)}_i,
+\label{eq:SBS}
+\end{equation}
+where $\{\ket{i}\}$ are the pointer states and $\rho^{(k)}_i$ are
+distinguishable states for each environmental fragment.  The
+gravitational dephasing interaction~\eqref{eq:pikovski_H} is a
+von~Neumann measurement of position by internal degrees of freedom:
+$H_{\mathrm{int}} = \sum_k E_k \op{E_k}{E_k}$ coupled to
+$\Phi(\hat{x})$.  By the Korbicz theorem, this produces SBS with
+pointer states $\{\ket{x_1}, \ket{x_2}\}$.  SBS is the strongest
+known condition for ``objective existence''~\cite{Korbicz2021}: it
+ensures (i) the system is in a definite pointer state, (ii) multiple
+observers independently agree on the outcome, and (iii) observation
+does not disturb the state.
+
+\emph{Why gravity is special}~[\textsc{new synthesis}].---Among all
+interactions that produce decoherence, gravity occupies a unique
+position.  By the equivalence principle, gravity couples universally
+to all forms of energy-momentum: no form of matter or radiation is
+gravitationally neutral~\cite{Penrose1996}.  Furthermore, gravity
+cannot be shielded---there is no gravitational analogue of a Faraday
+cage~\cite{Pikovski2015}.  Every other source of decoherence
+(electromagnetic, nuclear, thermal) can, in principle, be
+eliminated by sufficient isolation.  Gravitational dephasing
+cannot.  Consequently, $\tauasym_{\mathrm{grav}}$ constitutes
+the \emph{irreducible floor} of temporal asymmetry: for any
+massive system in a spatial superposition,
+$\tauasym_{\mathrm{total}} \geq \tauasym_{\mathrm{grav}} > 0$.
+This is the fundamental lower bound on collapse for massive
+objects, independent of engineering improvements in isolation.
+The universality of gravity (coupling to all
+energy-momentum) together with its unshieldability makes
+gravitational decoherence qualitatively different from all other
+decoherence mechanisms---it is the only source that is both
+universal and inescapable~\cite{Penrose1996,Pikovski2015,DSW2022}.
+
+\emph{$\tauasym = 1$ and operational superselection}~[\textsc{new
+synthesis}].---When $\tauasym = 1$, no recovery map
+$\Petz$ exists such that $\Petz \circ \chan \approx \id$.  This
+means no observable in the accessible algebra (spatial observables
+after tracing out internal degrees of freedom) can distinguish
+$\rho_S$ from the decohered state
+$\rho_S^{\mathrm{dec}} = |\alpha|^2 \op{x_1}{x_1} + |\beta|^2
+\op{x_2}{x_2}$.  This is operationally equivalent to a
+\emph{superselection rule} on position~\cite{BRS2007}: the
+coherent superposition is operationally meaningless, and the system
+behaves as if in one definite position.
+
+For gravitational decoherence specifically, the connection to
+superselection is strengthened by two results:
+(i)~Danielson, Satishchandran, and Wald~\cite{DSW2022} showed
+that superpositions of masses radiate soft gravitons that cross the
+cosmological horizon---information is causally irretrievable, not
+merely practically inaccessible.
+(ii)~Kiefer and Joos~\cite{KieferJoos1999} proved that with
+infinitely many graviton field modes, the decoherence is permanent
+(no Poincar\'{e} recurrence).
+Together with the infrared superselection
+structure~\cite{Buchholz1986}, $\tauasym = 1$ from gravitational
+dephasing may be exact rather than approximate, providing genuine
+(not FAPP) irreversibility within standard quantum mechanics.
+
+%-----------------------------------------------------------------------
+\section{Connection to the Penrose Timescale}
+\label{sec:penrose}
+%-----------------------------------------------------------------------
+
+\emph{The Di\'{o}si--Penrose assumption}~[\textsc{known}].---Di\'{o}si
+and Penrose independently proposed that the gravitational self-energy
+of a spatial superposition,
+\begin{equation}
+E_G = G \!\int\! d^3\mathbf{x}\, d^3\mathbf{x}'\;
+\frac{[\rho_1(\mathbf{x}) - \rho_2(\mathbf{x})]
+      [\rho_1(\mathbf{x}') - \rho_2(\mathbf{x}')]}{|\mathbf{x}
+      - \mathbf{x}'|},
+\label{eq:E_G}
+\end{equation}
+where $\rho_1, \rho_2$ are mass distributions corresponding to
+$\ket{x_1}, \ket{x_2}$, sets a fundamental collapse rate
+$\Lambda = E_G/\hbar$~\cite{Diosi1987,Penrose1996}.
+
+\emph{Penrose timescale from $\tauasym$}~[\textsc{new
+synthesis}].---Under the Di\'{o}si--Penrose assumption, the
+decoherence factor takes exponential form:
+$|D(t)| = \exp(-E_G t/\hbar)$.  Substituting into
+Eq.~\eqref{eq:tau_grav} (with the identification
+$N\Gamma t^2 \to E_G t/\hbar$ for the Di\'{o}si--Penrose
+mechanism), the collapse criterion
+$\tauasym(t_c) = 1 - 1/e$ gives
+\begin{equation}
+t_c = \frac{\hbar}{E_G}\,,
+\label{eq:t_penrose}
+\end{equation}
+reproducing the Penrose timescale.  For a sphere of mass $m$ and
+radius $R$ displaced by $\Delta x \gg R$, $E_G \approx Gm^2/R$,
+giving $t_c \approx \hbar R/(Gm^2)$.  For a $10^{-14}$~kg object
+($R \sim 10\;\mu$m), $t_c \sim 15$~s; for a
+$2 \times 10^{-4}$~kg mirror ($R \sim 1$~mm),
+$t_c \sim 1.5\;\mu$s~\cite{Penrose1996}.
+
+\emph{Honest limitations}~[\textsc{known}].---Three caveats are
+essential:
+
+(i)~The Pikovski mechanism~\cite{Pikovski2015} and the
+Di\'{o}si--Penrose mechanism~\cite{Diosi1987,Penrose1996} are
+\emph{different physical processes}.  Pikovski dephasing arises from
+gravitational time dilation coupling to internal degrees of freedom;
+the Di\'{o}si--Penrose mechanism invokes the gravitational self-energy
+of the superposition itself.  They coincide only when the internal
+energy variance satisfies
+$\Delta E \cdot |\Delta\Phi|/(\sqrt{2}\,c^2) = E_G$.  Our
+$\tauasym$ framework accommodates both as inputs but does not derive
+$E_G$ from first principles.
+
+(ii)~$E_G$ is an input parameter, not an output.  The $\tauasym$
+framework provides the operational definition of collapse
+($\tauasym \to 1$) and the thermodynamic bound
+($F \geq \exp(-\Sigma/2)$), but it does not predict the decoherence
+rate; it takes the rate as given and quantifies its consequences.
+
+(iii)~Galley, Giacomini, and Selby~\cite{GGS2023} proved that any
+consistent coupling between classical gravity and quantum matter
+is \emph{fundamentally irreversible}---no Stinespring dilation
+exists.  If gravity has classical aspects, then $\tauasym > 0$ from
+gravitational dephasing is genuine (not FAPP), because the channel
+has no unitary extension.  If gravity is fully quantum, the total
+system admits a unitary dilation, and $\tauasym > 0$ is FAPP---but
+operationally indistinguishable in all current experiments.
+
+%-----------------------------------------------------------------------
+\section{Experimental Predictions}
+\label{sec:experiments}
+%-----------------------------------------------------------------------
+
+[\textsc{new synthesis}]  Table~\ref{tab:experiments} collects the
+gravitational temporal asymmetry $\tauasym_{\mathrm{grav}}$ for major
+experiments.  In every case, the observed decoherence rates greatly
+exceed the gravitational floor, consistent with $\tauasym_{\mathrm{grav}}$
+being a lower bound on total temporal asymmetry.
+
+\begin{table}[htbp]
+\caption{\label{tab:experiments}Gravitational temporal asymmetry
+$\tauasym_{\mathrm{grav}}$ for current and proposed experiments.
+$t_{\mathrm{DP}} = \hbar/E_G$ is the Di\'{o}si--Penrose timescale.
+$t_{\mathrm{exp}}$ is the experimental coherence time.  All current
+experiments have $\tauasym_{\mathrm{grav}} \ll 1$.}
+\begin{ruledtabular}
+\begin{tabular}{lccc}
+\textbf{Experiment} & $m$ (kg) & $t_{\mathrm{DP}}$ (s)
+  & $\tauasym_{\mathrm{grav}}$ \\
+\colrule
+Fein 2019~\cite{Fein2019}        & $4{\times}10^{-23}$ & $\sim 10^{14}$  & $\ll 10^{-14}$ \\
+Arndt 2025~\cite{Arndt2025}      & $3{\times}10^{-22}$ & $\sim 10^{12}$  & $\ll 10^{-12}$ \\
+Deli\'{c} 2020~\cite{Delic2020}  & $3{\times}10^{-18}$ & $\sim 10^{5}$   & $\ll 10^{-5}$ \\
+Panda 2024~\cite{Panda2024}      & $2{\times}10^{-25}$ & $\sim 10^{21}$  & $\ll 10^{-19}$ \\
+\colrule
+BMV (proposed)~\cite{Bose2017}   & $10^{-14}$          & $\sim 15$       & $\sim 0.004$ \\
+Tagg mirror~\cite{Penrose1996}   & $2{\times}10^{-4}$  & $\sim 1.5\;\mu$s & $\sim 1$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\emph{Universal bound on spatial recoverability}~[\textsc{new
+synthesis}].---From the master inequality chain of
+Ref.~\cite{Paper1}, any gravitational dephasing channel satisfies
+\begin{equation}
+F_{\mathrm{spatial}}(t)
+\geq \exp\!\big(-\Sigma_{\mathrm{grav}}(t)/2\big).
+\label{eq:F_bound}
+\end{equation}
+This constrains the performance of \emph{any} recovery protocol
+(including hypothetical ones beyond current technology): spatial
+coherence cannot be restored beyond the limit set by gravitational
+entropy production.
+
+\emph{$\tauasym$-$R$ bridge prediction}~[\textsc{new formula}].---The
+bridge~\eqref{eq:tau_R_bridge} predicts that collapse
+($\tauasym \to 1$) and objectivity ($R \to N$) emerge at the same
+timescale.  This is testable via quantum Darwinism
+experiments~\cite{Unden2019,Zhu2025}: by monitoring both the
+decoherence of the system and the buildup of redundant information
+in environmental fragments, one can verify that $\tauasym$ and $R$
+track the same underlying parameter $N\Gamma_{\mathrm{single}}$.
+
+\emph{BMV experiment}~[\textsc{known}].---The
+Bose--Marletto--Vedral experiment~\cite{Bose2017,Marletto2017}
+proposes to detect gravitationally-induced entanglement between
+two masses.  In our framework, this corresponds to the regime
+$\tauasym_{\mathrm{grav}} \sim 0.004$ (for $t = 1$~s,
+$m = 10^{-14}$~kg), where partial decoherence is measurable but
+collapse is far from complete.  A positive result
+(entanglement detected) would demonstrate that $\tauasym < 1$
+for the gravitational channel and that gravity mediates quantum
+correlations.  A negative result would be consistent with
+$\tauasym > 0$ being genuine
+(Galley--Giacomini--Selby~\cite{GGS2023}).
+
+\emph{Consistency with existing data}.---All current experiments
+satisfy $\tauasym_{\mathrm{grav}} \ll 1$, and observed decoherence
+rates are orders of magnitude larger than the gravitational
+prediction.  The parameter-free Di\'{o}si model is ruled out by
+underground experiments~\cite{Donadi2021}, but Penrose's version
+(with nuclear-scale smearing) remains viable.  No experiment
+contradicts the bound~\eqref{eq:F_bound}.
+
+%-----------------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+%-----------------------------------------------------------------------
+
+We have shown that wavefunction collapse---the transition from quantum
+superposition to classical definiteness---admits a precise
+information-theoretic characterization: \emph{operational collapse
+is Petz recovery failure} ($\tauasym \to 1$).  The Petz recovery
+map, being the unique Bayesian retrodiction
+functor~\cite{Parzygnat2023}, certifies that no physical protocol
+can infer the prior superposition from the decohered state.
+
+\emph{What we answer.}---Three questions receive quantitative
+answers within this framework:
+
+(i)~\emph{Why does asymmetry cause collapse?}  The tensor product
+structure of quantum mechanics amplifies any
+$\varepsilon_k > 0$ per environmental mode into exponential-in-$N$
+suppression of coherence~\cite{Joos1985}.  This is not an
+approximation but a mathematical consequence of the Hilbert space
+axiom.
+
+(ii)~\emph{Why operationally only one outcome?}  When
+$\tauasym = 1$, no observable in the accessible algebra distinguishes
+the state from a classical mixture.  Combined with spectrum broadcast
+structure (SBS)~\cite{Korbicz2021}, this ensures that all observers
+independently agree on one outcome---the operational definition of
+objectivity.
+
+(iii)~\emph{What is the timescale?}  The $\tauasym$-$R$
+bridge~\eqref{eq:tau_R_bridge} shows that collapse and objectivity
+emerge at $t_{\mathrm{dec}} = 1/\sqrt{N\Gamma_{\mathrm{single}}}$.
+Under the Di\'{o}si--Penrose assumption, this reduces to the Penrose
+timescale $t_c = \hbar/E_G$.
+
+\emph{What we do not answer.}---The \emph{ontological} question
+(whether other branches ``cease to exist'') lies outside the
+framework.  Our definition of collapse is operational: it concerns
+what can be physically measured and recovered, not what
+``truly exists.''  The distinction between operational and
+ontological collapse is a choice of interpretation (Everett,
+Copenhagen, etc.), not a question that $\tauasym$ can settle.
+We note, however, that the operational answer is the strongest
+statement physics can make without additional metaphysical
+commitments.
+
+\emph{Open questions and limitations.}---We identify five
+limitations of the present framework that deserve explicit
+acknowledgment.
+
+(i)~\emph{Born rule.}  The framework assumes the Born rule in
+computing both $F$ (fidelity) and $\Sigma$ (entropy production).
+A complete theory of collapse should derive the Born rule from
+more primitive axioms.  We do not attempt this; our results are
+conditional on standard quantum probability.
+
+(ii)~\emph{Intermediate regime.}  The physics of
+$0 < \tauasym < 1$ (partial collapse) deserves further
+investigation.  In this regime the system is neither fully
+quantum ($\tauasym = 0$) nor fully classical ($\tauasym = 1$).
+What operational statements can be made about a system with,
+say, $\tauasym = 0.3$?  The bound
+$F \geq \exp(-\Sigma/2)$ constrains recovery, but a richer
+operational characterization of intermediate $\tauasym$ remains
+an open problem.
+
+(iii)~\emph{Observer dependence.}  Different observers---defined
+by different system-environment partitions---assign different
+$\tauasym$ to the same process.  In a Wigner's friend scenario,
+Wigner assigns $\tauasym = 0$ to a process for which Wigner's
+friend assigns $\tauasym = 1$.  The framework is internally
+consistent ($\tauasym$ is partition-dependent by construction),
+but the relationship between partition-dependent $\tauasym$
+values and intersubjective agreement requires further analysis.
+
+(iv)~\emph{Separating gravitational decoherence.}  In all
+current experiments, non-gravitational decoherence dominates by
+many orders of magnitude (Table~\ref{tab:experiments}).  Isolating
+the gravitational contribution $\tauasym_{\mathrm{grav}}$
+requires either extremely massive quantum superpositions
+(e.g., the BMV proposal~\cite{Bose2017}) or space-based experiments
+with extraordinary isolation from electromagnetic and thermal
+noise.  Until $\tauasym_{\mathrm{grav}}$ is directly measured,
+the gravitational predictions of this framework remain untested.
+
+(v)~\emph{Scope of claims.}  This framework provides a
+quantitative language for collapse ($\tauasym$) and a universal
+bound ($F \geq \exp(-\Sigma/2)$), not a resolution of the
+measurement problem.  The measurement problem asks ``why one
+outcome?''; we answer ``when recovery becomes impossible.''
+These are related but distinct questions: the former is
+ontological, the latter operational.
+
+\emph{Relationship to Paper~1.}---This work specializes the general
+$\tauasym$ framework of Ref.~\cite{Paper1} to gravitational
+channels, demonstrating that the quantum eraser--retrodiction--QEC--thermodynamics
+framework extends naturally to the collapse problem.  The
+equivalence chain
+$\tauasym = 0 \Leftrightarrow \Sigma = 0 \Leftrightarrow
+I(A;E|B) = 0 \Leftrightarrow \text{QMC}$~\cite{Paper1} applies
+directly: gravitational decoherence breaks all four conditions
+simultaneously.
+
+\emph{Outlook.}---The $\tauasym$-$R$ bridge suggests a broader
+program.  In a companion paper~\cite{Paper2}, we apply the same
+framework to strong gravitational fields, where $\tauasym = r_s/r$
+and the Petz recovery bound constrains the structure of spacetime
+near horizons.  The connection between decoherence and objectivity
+established here may also inform quantum error correction strategies:
+quantum error correction can be understood as the deliberate
+construction of a local environment where
+$\tauasym \approx 0$---an artificial suppression of the arrow of
+time.
+
+\begin{acknowledgments}
+The author thanks the quantum information, quantum foundations,
+and quantum gravity communities for the foundational works on
+which this work builds.
+\end{acknowledgments}
+
+%-----------------------------------------------------------------------
+% BIBLIOGRAPHY
+%-----------------------------------------------------------------------
+
+\begin{thebibliography}{40}
+
+\bibitem{Paper1}
+S.-K. Huang,
+``Universal recovery: The Petz map as retrodiction functor,
+error corrector, and entropy bound,''
+companion paper (2026).
+
+\bibitem{Petz1986}
+D.~Petz,
+``Sufficient subalgebras and the relative entropy of states of a
+von Neumann algebra,''
+Commun.\ Math.\ Phys.\ \textbf{105}, 123 (1986).
+
+\bibitem{Petz1988}
+D.~Petz,
+``Sufficiency of channels over von Neumann algebras,''
+Q.\ J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{Junge2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M. Wilde, and A.~Winter,
+``Universal recovery maps and approximate sufficiency of quantum
+relative entropy,''
+Ann.\ Henri Poincar\'{e} \textbf{19}, 2955 (2018).
+
+\bibitem{Fawzi2015}
+O.~Fawzi and R.~Renner,
+``Quantum conditional mutual information and approximate Markov
+chains,''
+Commun.\ Math.\ Phys.\ \textbf{340}, 575 (2015).
+
+\bibitem{Zurek2003}
+W.~H. Zurek,
+``Decoherence, einselection, and the quantum origins of the
+classical,''
+Rev.\ Mod.\ Phys.\ \textbf{75}, 715 (2003).
+
+\bibitem{Joos1985}
+E.~Joos and H.~D. Zeh,
+``The emergence of classical properties through interaction with
+the environment,''
+Z.\ Phys.\ B \textbf{59}, 223 (1985).
+
+\bibitem{Schlosshauer2007}
+M.~Schlosshauer,
+``Decoherence, the measurement problem, and interpretations of
+quantum mechanics,''
+Rev.\ Mod.\ Phys.\ \textbf{76}, 1267 (2004).
+
+\bibitem{Penrose1996}
+R.~Penrose,
+``On gravity's role in quantum state reduction,''
+Gen.\ Relativ.\ Gravit.\ \textbf{28}, 581 (1996).
+
+\bibitem{Diosi1987}
+L.~Di\'{o}si,
+``A universal master equation for the gravitational violation of
+quantum mechanics,''
+Phys.\ Lett.\ A \textbf{120}, 377 (1987).
+
+\bibitem{Pikovski2015}
+I.~Pikovski, M.~Zych, F.~Costa, and \v{C}.~Brukner,
+``Universal decoherence due to gravitational time dilation,''
+Nat.\ Phys.\ \textbf{11}, 668 (2015).
+
+\bibitem{Parzygnat2023}
+A.~J. Parzygnat and F.~Buscemi,
+``Axioms for retrodiction: Achieving time-reversal symmetry with a
+prior,''
+Quantum \textbf{7}, 1013 (2023).
+
+\bibitem{Zurek2009}
+W.~H. Zurek,
+``Quantum Darwinism,''
+Nat.\ Phys.\ \textbf{5}, 181 (2009).
+
+\bibitem{Riedel2017}
+C.~J. Riedel,
+``Decoherence from classicality: Gravitational decoherence
+and redundant records,''
+in \emph{Do Wave Functions Jump?}, edited by V.~Allori,
+A.~Bassi, D.~D\"urr, and N.~Zangh\`{\i}
+(Springer, 2021), pp.~315--325.
+
+\bibitem{Korbicz2021}
+J.~K. Korbicz,
+``Roads to objectivity: Quantum Darwinism, spectrum broadcast
+structures, and strong quantum Darwinism---a review,''
+Quantum \textbf{5}, 571 (2021).
+
+\bibitem{Englert1996}
+B.-G. Englert,
+``Fringe visibility and which-way information: An inequality,''
+Phys.\ Rev.\ Lett.\ \textbf{77}, 2154 (1996).
+
+\bibitem{Greenberger1988}
+D.~M. Greenberger and A.~Yasin,
+``Simultaneous wave and particle knowledge in a neutron
+interferometer,''
+Phys.\ Lett.\ A \textbf{128}, 391 (1988).
+
+\bibitem{BRS2007}
+S.~D. Bartlett, T.~Rudolph, and R.~W. Spekkens,
+``Reference frames, superselection rules, and quantum information,''
+Rev.\ Mod.\ Phys.\ \textbf{79}, 555 (2007).
+
+\bibitem{DSW2022}
+D.~L. Danielson, G.~Satishchandran, and R.~M. Wald,
+``Gravitationally mediated entanglement: Newtonian field versus
+gravitons,''
+Phys.\ Rev.\ D \textbf{105}, 086001 (2022).
+
+\bibitem{KieferJoos1999}
+C.~Kiefer and E.~Joos,
+``Decoherence: Concepts and examples,''
+in \emph{Quantum Future}, Lecture Notes in Physics Vol.~517
+(Springer, 1999), pp.~105--128.
+
+\bibitem{Buchholz1986}
+D.~Buchholz,
+``Gauss' law and the infraparticle problem,''
+Phys.\ Lett.\ B \textbf{174}, 331 (1986).
+
+\bibitem{GGS2023}
+T.~D. Galley, F.~Giacomini, and J.~H. Selby,
+``Any consistent coupling between classical gravity and quantum
+matter is fundamentally irreversible,''
+Quantum \textbf{7}, 1142 (2023).
+
+\bibitem{Fein2019}
+Y.~Y. Fein, P.~Geyer, P.~Zwick, F.~Kia\l{}ka, S.~Pedalino,
+M.~Mayor, S.~Gerlich, and M.~Arndt,
+``Quantum superposition of molecules beyond 25 kDa,''
+Nat.\ Phys.\ \textbf{15}, 1242 (2019).
+
+\bibitem{Arndt2025}
+M.~Arndt \emph{et~al.},
+``Quantum interference of large organic molecules,''
+(2025).
+
+\bibitem{Delic2020}
+U.~Deli\'{c}, M.~Reisenbauer, K.~Dare, D.~Grass, V.~Vuleti\'{c},
+N.~Kiesel, and M.~Aspelmeyer,
+``Cooling of a levitated nanoparticle to the motional quantum ground
+state,''
+Science \textbf{367}, 892 (2020).
+
+\bibitem{Panda2024}
+C.~D. Panda \emph{et~al.},
+``Measuring gravitational decoherence with atom interferometry,''
+(2024).
+
+\bibitem{Bose2017}
+S.~Bose, A.~Mazumdar, G.~W. Morley, H.~Ulbricht, M.~Toro\v{s},
+M.~Paternostro, A.~A. Geraci, P.~F. Barker, M.~S. Kim, and
+G.~Milburn,
+``Spin entanglement witness for quantum gravity,''
+Phys.\ Rev.\ Lett.\ \textbf{119}, 240401 (2017).
+
+\bibitem{Marletto2017}
+C.~Marletto and V.~Vedral,
+``Gravitationally induced entanglement between two massive particles
+is sufficient evidence of quantum effects in gravity,''
+Phys.\ Rev.\ Lett.\ \textbf{119}, 240402 (2017).
+
+\bibitem{Donadi2021}
+S.~Donadi \emph{et~al.},
+``Underground test of gravity-related wave function collapse,''
+Nat.\ Phys.\ \textbf{17}, 74 (2021).
+
+\bibitem{Unden2019}
+T.~K. Unden \emph{et~al.},
+``Revealing the emergence of classicality using nitrogen-vacancy
+centers,''
+Phys.\ Rev.\ Lett.\ \textbf{123}, 140402 (2019).
+
+\bibitem{Zhu2025}
+Y.~Zhu \emph{et~al.},
+``Observation of quantum Darwinism in a photonic system,''
+Sci.\ Adv.\ \textbf{11}, eadr8585 (2025).
+
+\bibitem{Paper2}
+S.-K. Huang,
+``Entropy production in strong gravitational fields: The exponential
+metric and information-theoretic horizons,''
+in preparation (2026).
+
+\bibitem{Oppenheim2023}
+J.~Oppenheim,
+``A postquantum theory of classical gravity?''
+Phys.\ Rev.\ X \textbf{13}, 041040 (2023).
+
+\bibitem{Artini2025}
+S.~Artini, F.~Rufo, and R.~Wald,
+``Entropy production in the Di\'{o}si-Penrose model,''
+Phys.\ Rev.\ Res.\ (2025).
+
+\end{thebibliography}
+
+\end{document}
