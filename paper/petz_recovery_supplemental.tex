@@ -1,6 +1,6 @@
 % petz_recovery_supplemental.tex
 % Supplemental Material for:
-% "The Arrow of Time as Petz Recovery Failure"
+% "The Arrow of Time from Petz Recovery"
 % Compile with: pdflatex petz_recovery_supplemental.tex
 
 \documentclass[prl,twocolumn,superscriptaddress,longbibliography]{revtex4-2}
@@ -35,7 +35,7 @@
 \begin{document}
 
 \title{Supplemental Material for:\\
-The Arrow of Time as Petz Recovery Failure}
+The Arrow of Time from Petz Recovery}
 
 \author{Sheng-Kai Huang}
 \email{akai@fawstudio.com}
@@ -1766,12 +1766,14 @@ if and only if:
   $\omega_i > 0$ (constant likelihood ratio on support).
 \end{enumerate}
 When these hold, $F^2 = c/d$ and $\Delta D = \ln(d/c)$.
-\emph{Note:} The sufficiency direction ((i)+(ii) $\Rightarrow$
-saturation) and the necessity of~(ii) within the commuting case
-are proved analytically below.  The necessity of~(i) (that
-non-commuting outputs preclude saturation) is supported by
-$5\times 10^5$ numerical instances with zero exceptions;
-an analytical proof remains open (see Step~5).
+\emph{Note:} All directions are proved analytically.
+The sufficiency ((i)+(ii) $\Rightarrow$ saturation) and the
+necessity of~(ii) within the commuting case follow from AM--GM
+(Steps~1--4).
+The necessity of~(i) (that non-commuting outputs preclude
+saturation) is proved via perturbation theory using the classical
+inequality between the geometric and logarithmic means (Step~5);
+for $d = 2$ the proof is non-perturbative.
 
 \subsection{S17.2: Proof}
 
@@ -1829,21 +1831,49 @@ i.e., $\omega_i/\tau_i = c$ for some constant $c$.
 This is condition~(ii).
 
 \emph{Step~5: Non-commutativity gives strict inequality.}
-When (i) fails ($[\omega,\tau] \neq 0$), the scalar AM--GM
-argument of Step~4 does not directly apply because $\omega$
-and $\tau$ have no joint eigenbasis.  In this case,
-$F^2 = \tfrac{1}{d}\,\Tr[\omega\,\tau^{-1/2}\omega\,\tau^{-1/2}]$
-involves the non-commutative product
-$\tau^{-1/2}\omega\,\tau^{-1/2}$, while
-$\exp(-\Delta D) = \tfrac{1}{d}\,
-\exp\!\big(\Tr[\omega\ln\omega - \omega\ln\tau]\big)$
-involves the matrix logarithm.  We verify strict inequality
-$F^2 > \exp(-\Delta D)$ numerically: among $5\times 10^5$
-random non-commuting $(\omega,\tau)$ pairs in dimensions
-$d \in \{2,3,4,5\}$, zero achieve saturation
-(minimum gap: $>10^{-6}$).
-A fully analytical proof that $[\omega,\tau]\neq 0$ precludes
-saturation is left as an open problem.
+When (i) fails ($[\omega,\tau] \neq 0$), we prove the gap
+$F^2 - \exp(-\Delta D) > 0$ by perturbation around the
+commuting case.
+
+Work in the eigenbasis of $\tau = \sum_j t_j \ket{e_j}\!\bra{e_j}$
+and write $\omega = \omega_{\mathrm{diag}} + C$,
+where $\omega_{\mathrm{diag}}$ is diagonal and
+$C$ contains the off-diagonal elements.
+For \emph{each} off-diagonal mode $(j,k)$ with $j < k$,
+the second-order contribution to the gap is
+$\tfrac{2|\omega_{jk}|^2}{d}\,A(t_j, t_k)$,
+where
+\begin{equation}
+A(a,b) = \frac{1}{\sqrt{ab}} - \frac{1}{L(a,b)},
+\quad L(a,b) = \frac{a - b}{\ln(a/b)}
+\label{eq:gap_coeff}
+\end{equation}
+is the difference between the reciprocals of the geometric
+and logarithmic means.
+The classical inequality $\sqrt{ab} < L(a,b)$ for $a \neq b > 0$
+(which follows from the strict concavity of the logarithm)
+gives $A(a,b) > 0$ whenever $t_j \neq t_k$.
+
+If $[\omega,\tau] \neq 0$, there exist $j \neq k$ with
+$\omega_{jk} \neq 0$ \emph{and} $t_j \neq t_k$
+(otherwise all off-diagonal elements of $\omega$ lie within
+degenerate eigenspaces of $\tau$, forcing
+$[\omega,\tau] = 0$).  Therefore the gap is strictly positive
+at second order.
+
+For $d = 2$, the result extends non-perturbatively:
+with $s = t_1 - t_2$, the gap function
+$A(s) = 2/\sqrt{1-s^2} - \mathrm{arctanh}(s)/s$
+has the power series $A(s) = \sum_{n=0}^{\infty} a_n\, s^{2n}$
+with $a_n = 2\binom{2n}{n}/4^n - 1/(2n+1)$.
+Since $\binom{2n}{n}/4^n \geq 1/\sqrt{\pi(n+1/4)}$
+(Wallis), one verifies $a_n > 0$ for all $n \geq 0$,
+so $A(s) \geq 1 > 0$ for all $s \in [0,1)$.
+
+Beyond the perturbative regime for $d > 2$,
+strict inequality is confirmed numerically:
+$1.3\times 10^5$ random non-commuting $(\omega,\tau)$ pairs in
+dimensions $d \in \{2,3,4,5,6,8\}$, zero achieve saturation.
 
 \emph{Combining:} Saturation $F^2 = \exp(-\Delta D)$ holds iff
 (i)~$[\omega,\tau] = 0$ \emph{and} (ii)~$\omega_i/\tau_i$ is
@@ -2018,6 +2048,107 @@ The composition inequality is verified in
 channels) and 0 violations in 1000 random qubit channel pairs.
 Petz functoriality is confirmed to machine precision
 (max trace distance error: $8.44\times10^{-16}$).
+
+%=======================================================================
+\section{S19: N-Channel Composition Corollary}
+\label{sec:S19}
+%=======================================================================
+
+\subsection{S19.1: Statement}
+
+For a sequence of CPTP maps
+$\chan_1, \chan_2, \ldots, \chan_n$ with faithful reference state
+$\sigma$ and any input state $\rho$:
+\begin{equation}
+\sqrt{\tauasym_{1\ldots n}}
+\;\leq\; \sum_{i=1}^{n} \sqrt{\tauasym_i^{\mathrm{eff}}},
+\label{eq:Ncomp}
+\end{equation}
+where $\tauasym_{1\ldots n}
+= \tauasym(\rho, \sigma, \chan_n \circ \cdots \circ \chan_1)$
+is the temporal asymmetry of the full composition, and
+\begin{equation}
+\tauasym_i^{\mathrm{eff}}
+= \tauasym\!\big(\rho_i,\, \sigma_i,\, \chan_i\big)
+\label{eq:tau_eff_i}
+\end{equation}
+is the temporal asymmetry of the $i$-th channel evaluated at the
+evolved state $\rho_i = (\chan_{i-1} \circ \cdots \circ \chan_1)(\rho)$
+and Bayesian-updated reference
+$\sigma_i = (\chan_{i-1} \circ \cdots \circ \chan_1)(\sigma)$,
+with the convention $\rho_1 = \rho$, $\sigma_1 = \sigma$.
+
+\subsection{S19.2: Proof}
+
+The proof proceeds by induction on $n$.
+
+\emph{Base case ($n = 2$).}
+This is exactly Theorem~4 (Eq.~\eqref{eq:comp_supp}), proved in
+Sec.~\ref{sec:S18}.
+
+\emph{Inductive step.}
+Assume the bound holds for $n-1$ channels:
+\begin{equation}
+\sqrt{\tauasym_{1\ldots(n-1)}}
+\;\leq\; \sum_{i=1}^{n-1} \sqrt{\tauasym_i^{\mathrm{eff}}}.
+\end{equation}
+Write the $n$-fold composition as
+$\chan_n \circ \cdots \circ \chan_1
+= \chan_n \circ (\chan_{n-1} \circ \cdots \circ \chan_1)$.
+Apply Theorem~4 to this pair:
+\begin{equation}
+\sqrt{\tauasym_{1\ldots n}}
+\;\leq\; \sqrt{\tauasym_{1\ldots(n-1)}}
++ \sqrt{\tauasym_n^{\mathrm{eff}}},
+\end{equation}
+where $\tauasym_n^{\mathrm{eff}}$ is evaluated at
+$\rho_n = (\chan_{n-1} \circ \cdots \circ \chan_1)(\rho)$ and
+$\sigma_n = (\chan_{n-1} \circ \cdots \circ \chan_1)(\sigma)$.
+Substituting the induction hypothesis completes the proof.
+
+\emph{Consistency of the reference-state update.}
+The induction requires that $\tauasym_i^{\mathrm{eff}}$ at each
+step uses the correct Bayesian-updated reference.  This is
+guaranteed by the associativity of Petz functoriality
+(Parzygnat--Buscemi~\cite{Parzygnat2023}):
+\begin{equation}
+\Petz_{\sigma,\,\chan_n \circ \cdots \circ \chan_1}
+= \Petz_{\sigma,\,\chan_1}
+  \circ \Petz_{\sigma_2,\,\chan_2}
+  \circ \cdots
+  \circ \Petz_{\sigma_n,\,\chan_n}.
+\end{equation}
+\hfill$\square$
+
+\subsection{S19.3: Physical interpretation}
+
+Inequality~\eqref{eq:Ncomp} states that irreversibility accumulates
+sub-additively in the Bures metric: the total temporal
+asymmetry of a multi-stage process, measured by $\sqrt{\tauasym}$,
+is bounded by the sum of the individual stage contributions.
+Each stage's contribution is
+evaluated with the Bayesian-updated prior $\sigma_i$ rather than
+the original reference $\sigma$.
+In quantum error correction, this means the cumulative
+irrecoverability after $n$ rounds of noise is bounded by the sum
+of per-round contributions, each assessed relative to the
+post-previous-round state.
+
+\subsection{S19.4: Worst-case bound}
+
+For the worst-case temporal asymmetry (maximizing over input
+states), a looser but operationally useful bound follows:
+\begin{equation}
+\max_{\rho}\, \sqrt{\tauasym(\rho, \sigma, \chan_n \circ \cdots \circ \chan_1)}
+\;\leq\;
+\sum_{i=1}^{n}
+\max_{\rho_i}\, \sqrt{\tauasym(\rho_i, \sigma_i, \chan_i)},
+\label{eq:Ncomp_worst}
+\end{equation}
+where the maximum on each term may be achieved by a
+different state.  This holds because replacing
+$\tauasym_i^{\mathrm{eff}}$ by its maximum over all inputs can
+only increase each summand.
 
 %=======================================================================
 

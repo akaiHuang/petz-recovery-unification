@@ -1,4 +1,4 @@
-# The Arrow of Time as Petz Recovery Failure
+# The Arrow of Time from Petz Recovery
 
 **Connecting quantum erasers, error correction, retrodiction, and thermodynamics through a single parameter.**
 

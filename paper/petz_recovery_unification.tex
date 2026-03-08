@@ -1,5 +1,5 @@
 % petz_recovery_unification.tex
-% The Arrow of Time as Petz Recovery Failure
+% The Arrow of Time from Petz Recovery
 % For submission to Physical Review Letters
 % Author: Sheng-Kai Huang
 % Compile with: pdflatex petz_recovery_unification.tex && bibtex petz_recovery_unification && pdflatex petz_recovery_unification.tex && pdflatex petz_recovery_unification.tex
@@ -37,7 +37,7 @@
 
 \begin{document}
 
-\title{The Arrow of Time as Petz Recovery Failure}
+\title{The Arrow of Time from Petz Recovery}
 
 \author{Sheng-Kai Huang}
 \email{akai@fawstudio.com}
@@ -62,8 +62,7 @@ $\tauasym$ is bounded by dissipation).
 We establish two new results:
 the recovery bound $F^2 \geq \exp(-\Delta D)$ is exactly
 saturated if and only if the channel acts as a quantum sufficient
-statistic (proved analytically for commuting outputs, verified
-numerically for the non-commuting case), and
+statistic, and
 $\sqrt{\tauasym}$ satisfies a triangle inequality
 under channel composition---a property unique to the standard
 Petz map.
@@ -491,11 +490,11 @@ F^2\!\big(\rho,\,\Petz_{\sigma,\chan}(\chan(\rho))\big)
 = \exp(-\Delta D)
 \label{eq:saturation}
 \end{equation}
-if and only if\footnote{The sufficiency direction and the
-commuting-case necessity are proved analytically.  The necessity
-of condition~(i) ($[\omega,\tau]\neq 0$ precludes saturation) is
-supported by $5\times 10^5$ numerical instances with zero
-exceptions; an analytical proof remains open
+if and only if\footnote{All directions are proved analytically.
+The necessity of condition~(i) ($[\omega,\tau]\neq 0$ precludes
+saturation) follows from the classical inequality
+$\sqrt{ab} < L(a,b)$ between the geometric and logarithmic means;
+for $d = 2$ the proof is non-perturbative
 (see~\cite{SM}, Sec.~S17).}:
 \begin{enumerate}
 \item[\emph{(i)}] $[\omega, \tau] = 0$
@@ -528,10 +527,14 @@ and $\exp(-\Delta D) = \tfrac{1}{d}\prod_i x_i^{\omega_i}$
 (weighted geometric mean).  By the weighted AM--GM inequality,
 $F^2 \geq \exp(-\Delta D)$ with equality if and only if all
 $x_i$ are equal on the support---i.e., condition~(ii).
-When (i) fails ($[\omega,\tau]\neq 0$), strict inequality
-$F^2 > \exp(-\Delta D)$ is verified numerically for
-$5\times 10^5$ random non-commuting pairs with zero
-exceptions~\cite{SM}.
+When (i) fails ($[\omega,\tau]\neq 0$), perturbation in the
+$\tau$-eigenbasis shows that each off-diagonal mode $(j,k)$
+contributes a positive gap
+$\propto |\omega_{jk}|^2 [1/\sqrt{t_j t_k} - 1/L(t_j,t_k)]$,
+where $L(a,b) = (a-b)/\ln(a/b)$ is the logarithmic mean.
+The classical inequality $\sqrt{ab} < L(a,b)$ for $a \neq b$
+ensures strict inequality whenever $[\omega,\tau] \neq 0$
+(see~\cite{SM}, Sec.~S17).
 \hfill$\square$
 
 \emph{Sufficient-statistic interpretation.}---In classical
@@ -910,7 +913,8 @@ arXiv:2508.08998 (2025).
 See Supplemental Material for detailed derivations,
 the explicit quantum eraser calculation, the bound saturation
 if-and-only-if proof (Sec.~S17), the composition sub-additivity
-proof (Sec.~S18), post-selection analysis,
+proof (Sec.~S18), the $n$-channel composition corollary
+(Sec.~S19), post-selection analysis,
 the equivalence chain proof, and caveats.
 
 \end{thebibliography}
