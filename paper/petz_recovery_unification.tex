@@ -16,6 +16,7 @@
 \usepackage{graphicx}
 
 \newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
 
 % Convenience macros
 \newcommand{\kB}{k_{\mathrm{B}}}
@@ -45,28 +46,27 @@
 \date{\today}
 
 \begin{abstract}
-The Petz recovery map plays a central role across quantum
-information, error correction, and thermodynamics.
-Here we offer a physical
-interpretation of this mathematical unity: we define a temporal
-asymmetry parameter $\tauasym = 1 - F$, where $F$ is the fidelity
-of Petz recovery, and show that $\tauasym$ continuously quantifies
-the arrow of time.  For closed systems $\tauasym = 0$: forward and
-reverse processes are indistinguishable.  For open systems
-$\tauasym > 0$, bounded by entropy production via $\tauasym \leq 1
-- \exp(-\Sigma/2)$ (a consequence of the universal recovery bound of
-Junge et~al.).  This interpretation connects the quantum eraser
-($\tauasym = 0$ because the signal-idler pair is closed), quantum
-error correction ($\tauasym > 0$ sets the decoder's task), and
-thermodynamic irreversibility ($\tauasym$ bounded by dissipation)
-within a single physical picture.
-We present two new results.  First, we prove that the recovery
-bound is exactly saturated ($F^2 = \exp(-\Delta D)$) if and
-only if the channel acts as a quantum sufficient statistic---the
-likelihood ratio of the outputs is constant on their support.
-Second, we prove that $\sqrt{\tauasym}$ satisfies a triangle
-inequality under channel composition---a property unique to the
-Petz map that fails for the rotated Petz map of Junge et~al.
+We define a temporal asymmetry parameter
+$\tauasym = 1 - F$, where $F$ is the fidelity of Petz recovery,
+and argue that it provides a continuous, operational measure of
+the arrow of time: $\tauasym = 0$ for closed, unitary evolution
+and $\tauasym > 0$ for irreversible processes, bounded by entropy
+production via $\tauasym \leq 1 - \exp(-\Sigma/2)$ (restating
+the universal recovery bound of Junge et~al.).
+Because the Petz map is the unique retrodiction functor satisfying
+Bayesian consistency, this single parameter links the quantum
+eraser (where $\tauasym = 0$ because the signal-idler pair is
+closed), quantum error correction (where $\tauasym > 0$ sets the
+decoder's task), and thermodynamic irreversibility (where
+$\tauasym$ is bounded by dissipation).
+We establish two new results:
+the recovery bound $F^2 \geq \exp(-\Delta D)$ is exactly
+saturated if and only if the channel acts as a quantum sufficient
+statistic (proved analytically for commuting outputs, verified
+numerically for the non-commuting case), and
+$\sqrt{\tauasym}$ satisfies a triangle inequality
+under channel composition---a property unique to the standard
+Petz map.
 \end{abstract}
 
 \maketitle
@@ -300,7 +300,7 @@ $\tilde{\Petz}(\cdot) = \int\!dt\;p(t)\,\sigma^{it}
 where $p(t) = (\pi/2)(\cosh(\pi t)+1)^{-1}$; the bound follows
 from Ref.~\cite{Junge2018}. \hfill$\square$
 
-In this light, QEC decoding is retrodiction: the decoder
+QEC decoding is therefore retrodiction: the decoder
 retrodicts the original $\rho$ from the corrupted
 $\chan(\rho)$ using the code state as prior.  The Petz map is the
 unique Bayesian-consistent choice
@@ -319,7 +319,7 @@ into a chain linking recovery fidelity to entropy production.  We
 state this chain to establish the connection to the temporal
 asymmetry parameter $\tauasym$.
 
-\begin{theorem}[Master Inequality Chain
+\begin{proposition}[Master Inequality Chain
   (assembling~\cite{Junge2018,Fawzi2015,Kolchinsky2017,ReebWolf2014})]
 \label{thm:master}
 For any quantum channel $\chan$, reference state $\sigma$, and state
@@ -352,7 +352,7 @@ state:
 \end{equation}
 yielding a thermodynamic bound on recovery:
 $F^2 \geq e^{-\Delta S_{\mathrm{irr}}/\kB}$.
-\end{theorem}
+\end{proposition}
 
 \emph{Proof.}---Here $F$ denotes the fidelity with the rotated
 Petz map~$\tilde{\Petz}_{\sigma,\chan}$ of
@@ -412,7 +412,7 @@ reversible processes---those that are their own Petz reversal.
 \end{equation}
 This parameter quantifies the degree to which the channel $\chan$
 distinguishes past from future when $\sigma$ is the reference state.
-A remark on the two Petz maps is in order. The retrodiction
+Two Petz maps appear in this work. The retrodiction
 uniqueness theorem~\cite{Parzygnat2023} singles out
 the \emph{standard} Petz map $\Petz_{\sigma,\chan}$ as the unique
 retrodiction functor; the quantum Crooks theorem likewise uses
@@ -431,22 +431,16 @@ $F^2 \geq \exp(-\Delta D)$ holds universally.
 When $[\rho,\sigma] = 0$ (classical limit) or $\Delta D = 0$
 (exact recovery), $\tilde{\Petz}$ reduces to $\Petz$ and the
 distinction vanishes.
-Three properties follow from the master chain~\eqref{eq:master}:
-
-(i)~\emph{Closed systems:} If $\chan$ is unitary,
-$\Petz_{\sigma,\mathcal{U}} = \mathcal{U}^\dagger$ and $F = 1$,
-so $\tauasym = 0$. There is no temporal asymmetry.
-
-(ii)~\emph{Bound by entropy production:} From
-$F^2 \geq \exp(-\Sigma)$,
+For a unitary channel $\chan = \mathcal{U}$, the Petz map reduces
+to $\mathcal{U}^\dagger$ and $F = 1$, so $\tauasym = 0$: closed
+systems have no temporal asymmetry.  More generally,
+$F^2 \geq \exp(-\Sigma)$ gives
 \begin{equation}
-\tauasym \;\leq\; 1 - \exp(-\Sigma/2).
+\tauasym \;\leq\; 1 - \exp(-\Sigma/2),
 \label{eq:tau_bound}
 \end{equation}
-When $\Sigma = 0$ (zero entropy production), $\tauasym = 0$ is
-enforced.
-
-(iii)~\emph{Equivalence chain:} For faithful $\sigma$
+which enforces $\tauasym = 0$ whenever $\Sigma = 0$.
+The converse also holds.  For faithful $\sigma$
 (the Crooks link requires Gibbs $\sigma$;
 see~\cite{SM}, Sec.~S11):
 \begin{equation}
@@ -458,11 +452,10 @@ see~\cite{SM}, Sec.~S11):
 where QMC denotes the quantum Markov chain
 condition~\cite{Fawzi2015}. Each individual equivalence is
 established~\cite{Petz1988,Fawzi2015,Landi2021}; the full
-chain~\eqref{eq:equiv_chain} states them as a single result,
-formalizing the physical content: the arrow of time ($\tauasym > 0$)
-is equivalent to environmental coupling ($I(A;E|B) > 0$), entropy
-production ($\Sigma > 0$), and imperfect recoverability
-($F < 1$).
+chain~\eqref{eq:equiv_chain} states them as a single result.
+The arrow of time ($\tauasym > 0$) is equivalent to environmental
+coupling ($I(A;E|B) > 0$), entropy production ($\Sigma > 0$),
+and imperfect recoverability ($F < 1$).
 
 The quantum eraser illustrates this directly.
 The signal-idler pair is a closed bipartite system with
@@ -566,7 +559,7 @@ unequal. Not saturated.
 \emph{Experimental relevance.}---Amplitude damping ($T_1$ decay)
 is the dominant noise in superconducting qubits and ion traps,
 and Petz recovery has been implemented on both
-platforms~\cite{Pino2025,Singh2025}.  The prediction
+platforms~\cite{Png2025,Singh2025}.  The prediction
 $F^2 = 1/(1+\gamma)$ for ground-state input is directly
 testable.
 
@@ -681,16 +674,19 @@ $\mathcal{D}$, which we leave to future work.
 \label{sec:discussion}
 %-----------------------------------------------------------------------
 
-We summarize our contributions: (1)~the interpretation of
-$\tauasym = 1 - F$ as a continuous measure of the arrow of time,
-together with the equivalence chain~\eqref{eq:equiv_chain};
-(2)~a complete (if-and-only-if) characterization of when the
-recovery bound is exactly saturated, connecting to the classical
-theory of sufficient statistics
-(Theorem~\ref{thm:saturation}); and (3)~a composition
-sub-additivity theorem showing that $\sqrt{\tauasym}$ forms a
-metric-like quantity unique to the Petz map
-(Theorem~\ref{thm:composition}).
+The parameter $\tauasym = 1 - F$ reads the Petz recovery
+fidelity as a continuous measure of temporal asymmetry:
+$\tauasym = 0$ for closed systems, $\tauasym > 0$ whenever
+the process is irreversible.  The equivalence
+chain~\eqref{eq:equiv_chain} makes this precise by connecting
+$\tauasym = 0$ to vanishing entropy production, the quantum
+Markov condition, and detailed balance.
+Beyond this interpretive framework, Theorem~\ref{thm:saturation}
+gives a complete characterization of when the recovery bound
+saturates---the quantum analogue of a sufficient
+statistic---and Theorem~\ref{thm:composition} shows that
+$\sqrt{\tauasym}$ satisfies a triangle inequality unique to the
+standard Petz map.
 
 The $\tauasym$ parameter provides a unified language for
 phenomena across quantum information:
@@ -713,11 +709,10 @@ Composition (new) & Thm.~\ref{thm:composition}
 \end{tabular}
 \end{center}
 
-The physical picture connects to the decoherence
-program~\cite{Zurek2003,Zeh1970}: environment-induced decoherence
-produces entropy ($\Sigma > 0$), implying $\tauasym > 0$.  The
-arrow of time, in this interpretation, is a consequence of
-system-environment coupling quantified by Petz recovery failure.
+This is the content of the decoherence
+program~\cite{Zurek2003,Zeh1970} restated in the Petz
+language: environment-induced decoherence
+produces entropy ($\Sigma > 0$), so $\tauasym > 0$.
 
 \emph{Limitations.}---Theorem~\ref{thm:saturation} is proved
 for maximally mixed reference $\sigma = I/d$; the extension to
@@ -894,7 +889,7 @@ J.~Bausch, A.~W. Senior \emph{et~al.},
 ``Learning high-accuracy error decoding for quantum processors,''
 Nature \textbf{635}, 834 (2024).
 
-\bibitem{Acharya2024}
+\bibitem{Acharya2025}
 R.~Acharya \emph{et~al.} (Google Quantum AI),
 ``Quantum error correction below the surface code threshold,''
 Nature \textbf{638}, 920 (2025).
@@ -931,7 +926,7 @@ G.~Bai, F.~Buscemi, and V.~Scarani,
 ``Fully quantum stochastic entropy production,''
 arXiv:2412.12489 (2024).
 
-\bibitem{Pino2025}
+\bibitem{Png2025}
 W.-H. Png and V.~Scarani,
 ``Petz recovery maps of single-qubit decoherence channels in an
 ion trap quantum processor,''

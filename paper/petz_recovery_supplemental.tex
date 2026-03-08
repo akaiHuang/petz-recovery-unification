@@ -1,6 +1,6 @@
 % petz_recovery_supplemental.tex
 % Supplemental Material for:
-% "Universal Recovery: The Petz Map as Retrodiction Functor, Error Corrector, and Entropy Bound"
+% "The Arrow of Time as Petz Recovery Failure"
 % Compile with: pdflatex petz_recovery_supplemental.tex
 
 \documentclass[prl,twocolumn,superscriptaddress,longbibliography]{revtex4-2}
@@ -327,7 +327,7 @@ The Petz decoder achieves 99.95\% fidelity vs.\ the optimal 99.97\%
 ---a gap of only $0.02\%$.
 
 %=======================================================================
-\section{S4. Detailed Proof of Theorem 3 (Master Inequality Chain)}
+\section{S4. Detailed Proof of Proposition 3 (Master Inequality Chain)}
 \label{sec:proof_theorem3}
 %=======================================================================
 
@@ -734,7 +734,7 @@ This prediction is supported by: quadratic post-selection
 gains~\cite{SmithBrownBartlett2024}, Ising-based
 thresholds~\cite{EnglishWilliamsonBartlett2025}, scalable gains
 $p_f \to p_f^b$ with $b \geq 2$~\cite{ChenEtAl2025}, and
-below-threshold surface code operation~\cite{Acharya2024}.
+below-threshold surface code operation~\cite{Acharya2025}.
 
 %=======================================================================
 \section{S10. Decoder Retrodiction Hierarchy}
@@ -802,7 +802,7 @@ information.
   minimal information erasure ($\delta \approx 0$).
 \end{itemize}
 
-\subsection{Honest Assessment}
+\subsection{Regime of Applicability}
 
 Preliminary numerical experiments on $d = 3$ surface codes show that
 decoder \emph{expressiveness} (the ability to represent complex
@@ -904,7 +904,7 @@ This completes the chain. \hfill$\square$
 
 \subsection{Bound: $\tauasym \leq 1 - \exp(-\Sigma/2)$}
 
-From Theorem~3 of the main text (master inequality chain):
+From Proposition~3 of the main text (master inequality chain):
 \begin{equation}
 F^2 \geq \exp(-\Sigma).
 \end{equation}
@@ -1020,20 +1020,14 @@ In this section we describe numerical experiments designed to test the
 main text), and explain why these experiments go beyond verifying
 known mathematics.
 
-\subsection{Why Not Simply Verify the DPI Bound?}
+\subsection{Scope of Numerical Tests}
 
 The individual inequalities in the master chain~(8) of the main text
---- $F^2 \geq \exp(-\Delta D)$ (Junge~et~al.~\cite{Junge2018}),
-$I(A;E|B) \geq -\log F^2$ (Fawzi--Renner~\cite{Fawzi2015}), and
-$\Delta D \geq \Sigma$ (Reeb--Wolf~\cite{ReebWolf2014}) --- are
-rigorously proven mathematical results.  Computing them numerically
-for specific channels and confirming that they hold is analogous to
-verifying that $2 + 2 = 4$ on a calculator: it confirms implementation
+are rigorously proven~\cite{Junge2018,Fawzi2015,ReebWolf2014};
+computing them for specific channels confirms implementation
 correctness but does not test any physical prediction.
-
-Our numerical experiments are therefore designed \emph{not} to
-recheck these known bounds, but to test consequences that follow
-specifically from the \emph{uniqueness} of the Petz map as a
+The numerical experiments below instead test consequences that follow
+from the \emph{uniqueness} of the Petz map as a
 retrodiction functor (Theorem~1) and from the \emph{structure} of
 the master inequality chain when applied to error correction.
 
@@ -1079,10 +1073,9 @@ sufficiently good decoder must converge toward it.
   known performance ordering.
 \end{enumerate}
 
-\emph{What would falsify the prediction:} If a decoder with
+The prediction fails if a decoder with
 \emph{larger} $\delta_{\mathcal{D}}$ consistently outperforms one
-with \emph{smaller} $\delta_{\mathcal{D}}$, the retrodiction
-hierarchy interpretation would be falsified. This would indicate that
+with \emph{smaller} $\delta_{\mathcal{D}}$, which would indicate that
 the Petz map's uniqueness as a retrodiction functor does not
 constrain the structure of practical decoders.
 
@@ -1132,11 +1125,9 @@ of the channel.
   \end{itemize}
 \end{enumerate}
 
-\emph{What would falsify the prediction:} If $\alpha$ depends
-significantly on the decoder --- for example, if MWPM and Union-Find
-give different slopes $\alpha$ at the same noise rate --- this would
-indicate that the thermodynamic filtering interpretation of
-post-selection is incomplete.
+A decoder-dependent $\alpha$ --- e.g., MWPM and Union-Find
+giving different slopes at the same noise rate --- would indicate
+that the thermodynamic filtering picture is incomplete.
 
 \subsection{Relationship to the Quantum Eraser Calculation}
 
@@ -1198,7 +1189,7 @@ been performed.
 
 \emph{Petz recovery experiments.}---Singh et~al.~\cite{Singh2025}
 implemented the Petz recovery map on a nuclear magnetic resonance
-(NMR) platform, and Png and Scarani~\cite{Pino2025} realized it on a
+(NMR) platform, and Png and Scarani~\cite{Png2025} realized it on a
 trapped-ion quantum processor. Both experiments measured aspects of
 recovery fidelity under controlled noise channels.
 Our framework predicts $F \geq \exp(-\Sigma/2)$, where $\Sigma$ is
@@ -1293,7 +1284,7 @@ main text) can be tested on any surface code platform.
 
 \emph{System.}---Any platform supporting surface codes of distance
 $d = 3, 5, 7$ (or higher) under circuit-level noise. Suitable
-platforms include Google Sycamore/Willow~\cite{Acharya2024}, IBM
+platforms include Google Sycamore/Willow~\cite{Acharya2025}, IBM
 Eagle/Heron, or Quantinuum ion-trap processors.
 
 \emph{Protocol:}
@@ -1302,7 +1293,7 @@ Eagle/Heron, or Quantinuum ion-trap processors.
   device, collecting syndrome measurement data over $N \geq 10^6$
   rounds per code distance.
 \item Decode the data using at least two decoders of different
-  architecture: MWPM (e.g., via PyMatching~\cite{Higgott2023}) and
+  architecture: MWPM (e.g., via PyMatching~\cite{Higgott2025}) and
   Union-Find.
 \item For each decoder, compute the logical error rate with and without
   post-selection at rejection fractions
@@ -1320,14 +1311,12 @@ within statistical uncertainty, because $\alpha$ is determined by the
 noise channel and code structure (via $\Delta D(s)$), not by the
 decoder.
 
-\emph{What would falsify:} If $\alpha$ differs significantly between
-decoders, it would indicate that the thermodynamic filtering
-interpretation of post-selection is incomplete---that decoder-specific
-correlations contribute to the per-distance scaling in a way not
-captured by $\Delta D(s)$ alone.
+Significant decoder-dependence of $\alpha$ would point to
+decoder-specific correlations contributing to the per-distance scaling
+beyond what $\Delta D(s)$ alone captures.
 
 \emph{Resources.}---This experiment can potentially be performed using
-\emph{already published data}. Google's Willow experiment~\cite{Acharya2024}
+\emph{already published data}. Google's Willow experiment~\cite{Acharya2025}
 reported surface code data at $d = 3, 5, 7$. If the raw syndrome data
 is available, one can apply different decoders and compute
 $\alpha$ for each. Similarly, IBM's published surface code
@@ -1347,13 +1336,13 @@ circuit-level noise including:
 (iv)~hook errors from the circuit geometry.
 This noise model matches the error structure of real quantum
 processors and is the same tool used by Google to benchmark the
-Willow chip~\cite{Acharya2024}. Crucially, \texttt{stim} operates at
+Willow chip~\cite{Acharya2025}. Crucially, \texttt{stim} operates at
 the circuit level rather than using simplified phenomenological or
 independent identically distributed (i.i.d.) noise models, ensuring
 that our simulation results are directly comparable to experimental
 data.
 
-\emph{PyMatching}~\cite{Higgott2023}.---We use
+\emph{PyMatching}~\cite{Higgott2025}.---We use
 \texttt{PyMatching~v2} as the MWPM decoder, which is the
 industry-standard decoder for benchmarking surface codes. It
 constructs a detector error model from the \texttt{stim} circuit
@@ -1440,38 +1429,31 @@ effects)~\cite{Breuer2016}:
   times.
 \end{itemize}
 
-\subsection{What Is Novel vs.\ What Is Known}
+\subsection{Scope of Contributions}
 
-We are transparent about the novelty content:
+The individual mathematical ingredients---Petz recovery ($F = 1$ for
+unitaries)~\cite{Petz1988}, the Crooks theorem~\cite{Crooks1999},
+the Fawzi--Renner characterization of quantum Markov
+chains~\cite{Fawzi2015}, decoherence as the origin of
+classicality~\cite{Zurek2003,Zeh1970}, and the Landi--Paternostro
+review of entropy production~\cite{Landi2021}---are all established
+results.
 
-\emph{Known individually:}
-\begin{itemize}
-\item Petz recovery for unitary channels gives $F = 1$~\cite{Petz1988}.
-\item Crooks theorem: $\Sigma = 0 \Leftrightarrow$
-  reversible~\cite{Crooks1999}.
-\item Fawzi--Renner: $I(A;E|B) = 0 \Leftrightarrow$ quantum Markov
-  chain~\cite{Fawzi2015}.
-\item Decoherence as origin of the arrow of
-  time~\cite{Zurek2003,Zeh1970}.
-\item Landi--Paternostro: $\Sigma = 0 \Leftrightarrow$ detailed
-  balance~\cite{Landi2021}.
-\end{itemize}
-
-\emph{Novel in this work:}
-\begin{enumerate}
-\item The \emph{full equivalence chain} connecting all five
-  conditions ($\tauasym = 0$, $\Delta D = 0$, $I(A;E|B) = 0$,
-  $\Sigma = 0$, detailed balance) as a single unified result.
-\item The parameter $\tauasym$ as an explicit, computable measure of
-  temporal asymmetry via Petz recovery fidelity.
-\item The bound $\tauasym \leq 1 - \exp(-\Sigma/2)$ connecting
-  temporal asymmetry to entropy production.
-\item The retrodiction Landauer principle
-  $E_{\mathrm{retro}} \geq \kB T \Sigma$.
-\item The interpretation of the quantum eraser as the
-  $\tauasym = 0$ special case, with ``waiting'' explained by the
-  open-system description of a closed bipartite system.
-\end{enumerate}
+This work contributes at two levels.
+\emph{New mathematical results:}
+Theorem~4 (saturation if and only if quantum sufficient statistic)
+and Theorem~5 (composition sub-additivity of $\sqrt{\tauasym}$
+for the standard Petz map).
+\emph{Synthesis and interpretation:}
+(a)~the definition $\tauasym = 1 - F$ and its reading as temporal
+asymmetry;
+(b)~the equivalence chain~(12) assembling known individual
+equivalences into a single statement;
+(c)~the bound $\tauasym \leq 1 - \exp(-\Sigma/2)$, which restates
+the Junge~et~al.\ recovery bound~\cite{Junge2018} in terms of
+$\tauasym$;
+(d)~the explicit Petz recovery calculation for the quantum eraser;
+(e)~the retrodiction Landauer observation (Sec.~S9).
 
 %=======================================================================
 \section{S15. Extended Numerical Evidence}
@@ -1498,7 +1480,7 @@ production).
 
 We also compute predicted $(F, \Delta D)$ values using the
 \emph{reported experimental parameters} from Singh~et~al.~\cite{Singh2025}
-(NMR, $\gamma = 0.1$--$0.9$) and Png and Scarani~\cite{Pino2025}
+(NMR, $\gamma = 0.1$--$0.9$) and Png and Scarani~\cite{Png2025}
 (ion trap, $\gamma = 0.05$--$0.5$).
 \emph{Important caveat:} these $(F, \Delta D)$ values are computed
 from the published damping parameters $\gamma$ using the theoretical
@@ -2136,7 +2118,7 @@ Quantum \textbf{8}, 1498 (2024).
 J.~Bausch, A.~W. Senior \emph{et~al.},
 Nature \textbf{635}, 834 (2024).
 
-\bibitem{Acharya2024}
+\bibitem{Acharya2025}
 R.~Acharya \emph{et~al.} (Google Quantum AI),
 Nature \textbf{638}, 920 (2025).
 
@@ -2170,7 +2152,7 @@ N.~K. Bernardes, and K.~Dorai,
 ``Realizing the Petz recovery map on an NMR quantum processor,''
 arXiv:2508.08998 (2025).
 
-\bibitem{Pino2025}
+\bibitem{Png2025}
 W.-H. Png and V.~Scarani,
 ``Petz recovery maps of single-qubit decoherence channels in an
 ion trap quantum processor,''
@@ -2181,7 +2163,7 @@ C.~Gidney,
 ``Stim: A fast stabilizer circuit simulator,''
 Quantum \textbf{5}, 497 (2021).
 
-\bibitem{Higgott2023}
+\bibitem{Higgott2025}
 O.~Higgott and C.~Gidney,
 ``Sparse Blossom: Correcting a million errors per core second with
 minimum-weight matching,''
