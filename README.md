@@ -13,11 +13,11 @@
 
 ## Overview
 
-The Petz recovery map appears independently in quantum sufficiency theory, quantum error correction, categorical retrodiction, and quantum thermodynamics. This work connects these appearances through a single physical interpretation: we define a **temporal asymmetry parameter**
+The Petz recovery map appears independently in quantum sufficiency theory, quantum error correction, categorical retrodiction, and quantum thermodynamics. This work connects these appearances through a single physical interpretation. The standard infidelity $1-F$ of the Petz recovery map is reinterpreted as a **temporal asymmetry parameter**
 
 $$\tau = 1 - F\!\big(\rho,\, \widetilde{\mathcal{R}}_{\sigma,\mathcal{N}}(\mathcal{N}(\rho))\big)$$
 
-that quantifies the degree to which a quantum process distinguishes past from future:
+quantifying the degree to which a quantum process distinguishes past from future. The bound $\tau \leq 1 - \exp(-\Sigma/2)$ restates the universal recovery bound of Junge et al. (2018) in this language.
 - $\tau = 0$: closed, unitary evolution (no arrow of time)
 - $\tau > 0$: open system coupled to environment (arrow of time emerges)
 
@@ -25,18 +25,18 @@ Independent work by Bai, Buscemi, and Scarani ([arXiv:2412.12489](https://arxiv.
 
 ## Core Results
 
-### Theorem 1: Uniqueness of Retrodiction
-The Petz map is the **unique** retrodiction functor satisfying Bayesian consistency, normalization, and the classical limit (Parzygnat & Buscemi, 2023).
+### Theorem 1: Uniqueness of Retrodiction (Parzygnat & Buscemi, 2023)
+The Petz map is the **unique** retrodiction functor satisfying Bayesian consistency, normalization, and the classical limit.
 
-### Theorem 2: Retrodiction Implies Near-Optimal QEC
-The categorical uniqueness of the Petz map connects to its near-optimality as a quantum error correction decoder, combining Barnum & Knill (2002) and Junge et al. (2018).
+### Theorem 2: Retrodiction Implies Near-Optimal QEC (Barnum & Knill, 2002; Junge et al., 2018)
+The categorical uniqueness of the Petz map connects to its near-optimality as a quantum error correction decoder.
 
-### Theorem 3: Master Inequality Chain
-For any quantum channel $\mathcal{N}$, reference state $\sigma$ (fixed point of the channel, e.g., a Gibbs state), and input $\rho$:
+### Proposition: Master Inequality Chain (assembling known results)
+For any quantum channel $\mathcal{N}$, reference state $\sigma$, and input $\rho$:
 
 $$-\log F^2 \;\leq\; I(A;E|B) \;\leq\; \Sigma \;\leq\; \Delta D$$
 
-linking recovery fidelity, conditional mutual information, entropy production, and relative entropy decrease into a single chain.
+Each link is individually established (Junge et al., Fawzi & Renner, Kolchinsky & Wolpert, Reeb & Wolf); the contribution is assembling them into a single chain.
 
 ### Equivalence Chain
 For faithful $\sigma$:
@@ -45,14 +45,14 @@ $$\tau = 0 \;\Longleftrightarrow\; \Sigma = 0 \;\Longleftrightarrow\; I(A;E|B) =
 
 The arrow of time ($\tau > 0$) is equivalent to environmental coupling, entropy production, and imperfect recoverability.
 
-### Theorem 4: Bound Saturation (New)
+### Theorem 3: Bound Saturation (New)
 The recovery bound $F^2 \geq \exp(-\Delta D)$ is exactly saturated if and only if:
 1. The channel outputs commute: $[\omega, \tau] = 0$
 2. The likelihood ratio is constant on the support: $\omega_i/\tau_i = c$
 
 This is the quantum analogue of a **sufficient statistic** in classical statistics.
 
-### Theorem 5: Composition Sub-additivity (New)
+### Theorem 4: Composition Sub-additivity (New)
 For sequential channels $\mathcal{N}_1, \mathcal{N}_2$:
 
 $$\sqrt{\tau_{12}} \;\leq\; \sqrt{\tau_1} + \sqrt{\tau_2^{\text{eff}}}$$
@@ -161,8 +161,8 @@ python simulations/alpha_independence_large_d.py         # Alpha-independence (d
 python simulations/ibm_calibration_fidelity.py           # IBM/Google calibration validation
 
 # Numerical verification of new theorems
-python numerical/iff_saturation_rigorous.py              # Theorem 4: saturation iff verification
-python numerical/composition_verification.py             # Theorem 5: composition sub-additivity
+python numerical/iff_saturation_rigorous.py              # Theorem 3: saturation iff verification
+python numerical/composition_verification.py             # Theorem 4: composition sub-additivity
 ```
 
 ## Repository Structure
@@ -187,9 +187,9 @@ petz-recovery-unification/
 │   ├── master_inequality_chain.py         # DPI bound verification
 │   └── tau_vs_entropy_production.py       # τ bound visualization
 ├── numerical/
-│   ├── iff_saturation_rigorous.py         # Theorem 4: saturation iff (500K random pairs)
-│   ├── iff_saturation_fast.py             # Theorem 4: quick verification
-│   ├── composition_verification.py        # Theorem 5: composition sub-additivity
+│   ├── iff_saturation_rigorous.py         # Theorem 3: saturation iff (500K random pairs)
+│   ├── iff_saturation_fast.py             # Theorem 3: quick verification
+│   ├── composition_verification.py        # Theorem 4: composition sub-additivity
 │   └── saturation_verification.py         # Original saturation search
 ├── README.md
 └── LICENSE
