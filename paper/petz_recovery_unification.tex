@@ -55,11 +55,11 @@ the arrow of time.  For closed systems $\tauasym = 0$: forward and
 reverse processes are indistinguishable.  For open systems
 $\tauasym > 0$, bounded by entropy production via $\tauasym \leq 1
 - \exp(-\Sigma/2)$ (a consequence of the universal recovery bound of
-Junge et~al.).  This interpretation unifies the quantum eraser
+Junge et~al.).  This interpretation connects the quantum eraser
 ($\tauasym = 0$ because the signal-idler pair is closed), quantum
 error correction ($\tauasym > 0$ sets the decoder's task), and
 thermodynamic irreversibility ($\tauasym$ bounded by dissipation)
-under a single physical picture.
+within a single physical picture.
 We present two new results.  First, we prove that the recovery
 bound is exactly saturated ($F^2 = \exp(-\Delta D)$) if and
 only if the channel acts as a quantum sufficient statistic---the
@@ -120,13 +120,8 @@ The logical flow is:
 \label{eq:flow}
 \end{equation}
 
-The physical content is that the arrow of time---the empirical
-asymmetry between past and future---can be identified with Petz
-recovery failure.  For a closed system, the Petz map recovers the
-initial state exactly ($F = 1$, $\tauasym = 0$); there is no
-distinction between forward and reverse processes.  Openness to an
-environment ($\Sigma > 0$) breaks this symmetry, and
-$\tauasym \leq 1 - \exp(-\Sigma/2)$ quantifies the cost.
+The physical content---that Petz recovery failure quantifies the
+arrow of time---is made precise in Sec.~\ref{sec:thermo}.
 
 We present two new mathematical results.  First, we characterize
 exactly when the Junge et~al.\ bound
@@ -230,7 +225,8 @@ $\ket{A},\ket{B}$ are path states and $\ket{d_A},\ket{d_B}$ are
 orthogonal detector states. The which-path channel is
 $\chan = \Tr_E$, giving the fully decohered signal state
 $\rho_S = \frac{1}{2}(\op{A}{A} + \op{B}{B})$.
-Applying the Petz recovery~\eqref{eq:petz} with
+To our knowledge, the following explicit identification has not
+appeared previously. Applying the Petz recovery~\eqref{eq:petz} with
 $\sigma = \op{\psi}{\psi}_{SE}$ and $\chan = \Tr_E$:
 \begin{equation}
 \Petz_{\sigma,\Tr_E}(\rho_S) =
@@ -256,7 +252,7 @@ decomposes as retrodiction from the idler, then from the path.
 \emph{Connection to TSVF.}---The Aharonov--Bergmann--Lebowitz
 two-state vector formalism~\cite{ABL1964} assigns both a
 forward-evolving state $\ket{\psi}$ and a backward-evolving state
-$\bra{\phi}$. Theorem~\ref{thm:unique} suggests a canonical
+$\bra{\phi}$. We suggest that Theorem~\ref{thm:unique} provides a canonical
 choice for the backward state: the Petz-retrodicted state.
 
 %-----------------------------------------------------------------------
@@ -315,18 +311,20 @@ retrodicts the original $\rho$ from the corrupted
 $\chan(\rho)$ using the code state as prior.  The Petz map is the
 unique Bayesian-consistent choice
 (Theorem~\ref{thm:unique}), and its
-near-optimality~\cite{Barnum2002} follows from this
-uniqueness rather than from case-specific linear algebra.
+near-optimality~\cite{Barnum2002} can be understood as a
+consequence of this uniqueness rather than a coincidence of
+case-specific linear algebra.
 
 %-----------------------------------------------------------------------
 \section{The Thermodynamic Structure}
 \label{sec:thermo}
 %-----------------------------------------------------------------------
 
-When the reference state is thermal, known results combine into a
-chain linking recovery fidelity to entropy production.  We state
-this chain to establish the connection to the temporal asymmetry
-parameter $\tauasym$.
+When the reference state $\sigma$ is a fixed point of the channel
+(e.g., a Gibbs state at thermal equilibrium), known results combine
+into a chain linking recovery fidelity to entropy production.  We
+state this chain to establish the connection to the temporal
+asymmetry parameter $\tauasym$.
 
 \begin{theorem}[Master Inequality Chain
   (assembling~\cite{Junge2018,Fawzi2015,Kolchinsky2017,ReebWolf2014})]
@@ -663,7 +661,7 @@ $\mathcal{D}$, which we leave to future work.
 The quantum eraser is a pure bipartite system:
 $\chan = \Tr_E$, $\sigma = \ket{\psi}\bra{\psi}_{SE}$.
 As computed in~\cite{SM} (Sec.~S1), the Petz map achieves $F = 1$,
-hence $\tauasym = 0$. This is a direct consequence of the equivalence
+hence $\tauasym = 0$. In our framework, this is a direct consequence of the equivalence
 chain~\eqref{eq:equiv_chain}: for a pure bipartite state,
 $I(A;E|B) = 0$ (no environment beyond the idler) and $\Sigma = 0$
 (no dissipation). The quantum eraser ``works'' because the
@@ -679,11 +677,10 @@ delayed-choice experiment~\cite{Wheeler1978}, the signal-idler pair
 forms a time-symmetric ($\tauasym = 0$) system where forward and
 reverse processes are statistically indistinguishable. The \emph{order} of
 measurements is operationally irrelevant: measuring the signal
-first or the idler first yields identical statistics. In the $\tauasym$ language, the delayed-choice aspect requires
-no retrocausal explanation: the closed system has
-$\tauasym = 0$, so the temporal order of measurements is
-irrelevant---a conclusion consistent with the standard
-decoherence perspective~\cite{Zurek2003}. The ``need to wait'' for the idler measurement arises
+first or the idler first yields identical statistics. In the $\tauasym$ framework, the standard
+conclusion~\cite{Zurek2003} that delayed choice requires no
+retrocausal explanation follows directly: the closed system has
+$\tauasym = 0$, so the temporal order of measurements is irrelevant. The ``need to wait'' for the idler measurement arises
 only in the open-system description, where one traces out the
 idler and observes $\tauasym > 0$
 (decoherence)~\cite{Zurek2003}.
@@ -945,13 +942,15 @@ G.~Bai, F.~Buscemi, and V.~Scarani,
 arXiv:2412.12489 (2024).
 
 \bibitem{Pino2025}
-J.~M. Pino \emph{et~al.},
-``Experimental Petz recovery on a trapped-ion quantum processor,''
-Phys.\ Rev.\ A \textbf{111}, 032418 (2025).
+W.-H. Png and V.~Scarani,
+``Petz recovery maps of single-qubit decoherence channels in an
+ion trap quantum processor,''
+Phys.\ Rev.\ A \textbf{112}, 022613 (2025).
 
 \bibitem{Singh2025}
-K.~Singh \emph{et~al.},
-``NMR implementation of the Petz recovery map,''
+G.~Singh, R.~S. Sahani, V.~Jagadish, L.~Lautenbacher,
+N.~K. Bernardes, and K.~Dorai,
+``Realizing the Petz recovery map on an NMR quantum processor,''
 arXiv:2508.08998 (2025).
 
 \bibitem{SM}
