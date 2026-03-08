@@ -155,7 +155,7 @@ $\ket{\pm} = (\ket{d_A} \pm \ket{d_B})/\sqrt{2}$) then yields:
 each with probability $1/2$. Interference is restored. \hfill$\square$
 
 %=======================================================================
-\section{S2. Self-Contained Proof of Theorem 1 (Uniqueness)}
+\section{S2. Proof of Theorem 1 (Uniqueness)}
 \label{sec:proof_theorem1}
 %=======================================================================
 
@@ -498,7 +498,7 @@ Any measurement $\{M_k\}$ on $E$ followed by post-selection gives:
 \begin{align}
 \rho_S^{(k)} &= \frac{\Tr_E[(I_S \otimes M_k)\,\rho_{SE}\,
   (I_S \otimes M_k^\dagger)]}{p_k} \notag\\
-&= \frac{|\bra{d_{i_0}}M_k^\dagger\ket{d_{i_0}}|^2}{p_k}\,
+&= \frac{\bra{d_{i_0}}M_k^\dagger M_k\ket{d_{i_0}}}{p_k}\,
   \ket{i_0}\bra{i_0} = \ket{i_0}\bra{i_0}.
 \end{align}
 
@@ -758,27 +758,29 @@ by retrodicting the full quantum state including coherences.
 
 \subsection{The Retrodiction Gap Hierarchy}
 
-For decoder $\mathcal{D}$, define:
+For decoder $\mathcal{D}$, define the retrodiction gap as a
+channel divergence (e.g., the Choi-state relative entropy):
 \begin{equation}
-\delta_{\mathcal{D}} = D\!\left(\tilde{\Petz}_{\sigma_\code,\chan}
-  \;\big\|\; \mathcal{D}\right),
+\delta_{\mathcal{D}} = D\!\left(J_{\tilde{\Petz}_{\sigma_\code,\chan}}
+  \;\big\|\; J_{\mathcal{D}}\right),
 \end{equation}
-measuring the distinguishability from optimal retrodiction.
-The established hierarchy~\cite{deMartiOlius2024} becomes:
+where $J_{\mathcal{E}}$ denotes the Choi matrix of $\mathcal{E}$.
+In the classical limit where both maps act on syndrome
+probabilities, ML decoding coincides with Petz retrodiction
+(axiom~(iv)), so $\delta_{\mathrm{ML}} \approx 0$.
+The established performance hierarchy~\cite{deMartiOlius2024}
+suggests:
 \begin{equation}
-0 = \delta_{\mathrm{ML}}
-< \delta_{\mathrm{NN}}
-< \delta_{\mathrm{CM}}
-< \delta_{\mathrm{MWPM}}
-< \delta_{\mathrm{UF}}.
+\delta_{\mathrm{ML}}
+\lesssim \delta_{\mathrm{NN}}
+\lesssim \delta_{\mathrm{CM}}
+\lesssim \delta_{\mathrm{MWPM}}
+\lesssim \delta_{\mathrm{UF}}.
 \end{equation}
-
-The bound from the main text gives:
-\begin{equation}
-F(\rho,\, \mathcal{D} \circ \chan(\rho))^2
-\geq F(\rho,\, \tilde{\Petz} \circ \chan(\rho))^2
-\cdot e^{-\delta_{\mathcal{D}}}.
-\end{equation}
+If the ordering holds, then by the data-processing properties
+of relative entropy, decoders closer to the Petz map should
+achieve higher recovery fidelity, consistent with the observed
+hierarchy.
 
 \subsection{The Computational Entropy Conjecture}
 
@@ -875,11 +877,13 @@ theorem~\cite{Petz1988}. Exact recovery $F = 1$ holds if and only if
 $D(\rho\|\sigma) = D(\chan(\rho)\|\chan(\sigma))$ for all $\rho$ in
 the support of $\sigma$, i.e., $\Delta D = 0$.
 
-\emph{(b) $\Leftrightarrow$ (c):} By Fawzi--Renner~\cite{Fawzi2015},
-$I(A;E|B)_\omega = 0$ if and only if $\omega_{ABE}$ is a quantum
-Markov chain $A - B - E$. By the Stinespring structure, this is
-equivalent to perfect recoverability of $A$ from $B$, i.e.,
-$\Delta D = 0$.
+\emph{(b) $\Leftrightarrow$ (c):} The exact equivalence
+$I(A;E|B)_\omega = 0$ iff $\omega_{ABE}$ is a quantum
+Markov chain $A - B - E$ is due to Hayden, Jozsa, Petz, and
+Winter~\cite{HJPW2004} (the approximate version is due to
+Fawzi--Renner~\cite{Fawzi2015}). By the Stinespring structure,
+this is equivalent to perfect recoverability of $A$ from $B$,
+i.e., $\Delta D = 0$.
 
 \emph{(b) $\Leftrightarrow$ (d) (for Gibbs $\sigma$):} When $\sigma =
 e^{-\beta H}/Z$, the entropy production $\Sigma = \beta W_{\mathrm{diss}}
@@ -1492,7 +1496,7 @@ Key findings across 20,250 state-channel pairs:
 \item The identity map has higher raw fidelity for small noise
   parameters, but violates the retrodiction condition for non-unital
   channels---it is not a valid Bayesian inverse.
-\item The bound $F \geq \exp(-\Delta D)$ is satisfied at 100\% of
+\item The bound $F^2 \geq \exp(-\Delta D)$ is satisfied at 100\% of
   tested points.
 \end{enumerate}
 
@@ -1762,6 +1766,12 @@ if and only if:
   $\omega_i > 0$ (constant likelihood ratio on support).
 \end{enumerate}
 When these hold, $F^2 = c/d$ and $\Delta D = \ln(d/c)$.
+\emph{Note:} The sufficiency direction ((i)+(ii) $\Rightarrow$
+saturation) and the necessity of~(ii) within the commuting case
+are proved analytically below.  The necessity of~(i) (that
+non-commuting outputs preclude saturation) is supported by
+$5\times 10^5$ numerical instances with zero exceptions;
+an analytical proof remains open (see Step~5).
 
 \subsection{S17.2: Proof}
 
@@ -2032,6 +2042,10 @@ Ann.\ Henri Poincar\'e \textbf{19}, 2955 (2018).
 \bibitem{Barnum2002}
 H.~Barnum and E.~Knill,
 J.\ Math.\ Phys.\ \textbf{43}, 2097 (2002).
+
+\bibitem{HJPW2004}
+P.~Hayden, R.~Jozsa, D.~Petz, and A.~Winter,
+Commun.\ Math.\ Phys.\ \textbf{246}, 359 (2004).
 
 \bibitem{Fawzi2015}
 O.~Fawzi and R.~Renner,
