@@ -1,6 +1,6 @@
-# Universal Recovery: The Petz Map as Retrodiction Functor, Error Corrector, and Entropy Bound
+# The Arrow of Time as Petz Recovery Failure
 
-**Unifying Quantum Erasers, QEC, and Thermodynamics via the Petz Map.**
+**Connecting quantum erasers, error correction, retrodiction, and thermodynamics through a single parameter.**
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18897853.svg)](https://doi.org/10.5281/zenodo.18897853)
 [![arXiv](https://img.shields.io/badge/arXiv-TBD-b31b1b.svg)](https://arxiv.org/)
@@ -8,14 +8,12 @@
 
 ## Paper
 
-- **Main text** (PRL format, 5 pages): [petz_recovery_unification.pdf](paper/petz_recovery_unification.pdf)
-- **Supplemental material** (13 pages): [petz_recovery_supplemental.pdf](paper/petz_recovery_supplemental.pdf)
+- **Main text** (PRL format, 6 pages): [petz_recovery_unification.pdf](paper/petz_recovery_unification.pdf)
+- **Supplemental material** (17 pages): [petz_recovery_supplemental.pdf](paper/petz_recovery_supplemental.pdf)
 
 ## Overview
 
-The Petz recovery map appears independently in quantum sufficiency theory, quantum error correction, categorical retrodiction, and quantum thermodynamics. This work proves that these appearances are not analogies but manifestations of a **single mathematical structure**. (Independent validation: Buscemi, Fullwood & Parzygnat ([arXiv:2412.12489](https://arxiv.org/abs/2412.12489), 2024) concurrently constructed a closely related framework.)
-
-We define a **temporal asymmetry parameter**
+The Petz recovery map appears independently in quantum sufficiency theory, quantum error correction, categorical retrodiction, and quantum thermodynamics. This work connects these appearances through a single physical interpretation: we define a **temporal asymmetry parameter**
 
 $$\tau = 1 - F\!\big(\rho,\, \widetilde{\mathcal{R}}_{\sigma,\mathcal{N}}(\mathcal{N}(\rho))\big)$$
 
@@ -23,16 +21,18 @@ that quantifies the degree to which a quantum process distinguishes past from fu
 - $\tau = 0$: closed, unitary evolution (no arrow of time)
 - $\tau > 0$: open system coupled to environment (arrow of time emerges)
 
+Independent work by Bai, Buscemi, and Scarani ([arXiv:2412.12489](https://arxiv.org/abs/2412.12489), 2024) develops stochastic entropy production using the same Petz-retrodiction foundation.
+
 ## Core Results
 
 ### Theorem 1: Uniqueness of Retrodiction
 The Petz map is the **unique** retrodiction functor satisfying Bayesian consistency, normalization, and the classical limit (Parzygnat & Buscemi, 2023).
 
 ### Theorem 2: Retrodiction Implies Near-Optimal QEC
-The categorical uniqueness of the Petz map implies its near-optimality as a quantum error correction decoder, combining Barnum & Knill (2002) and Junge et al. (2018).
+The categorical uniqueness of the Petz map connects to its near-optimality as a quantum error correction decoder, combining Barnum & Knill (2002) and Junge et al. (2018).
 
 ### Theorem 3: Master Inequality Chain
-For any quantum channel $\mathcal{N}$, reference state $\sigma$, and input $\rho$:
+For any quantum channel $\mathcal{N}$, reference state $\sigma$ (fixed point of the channel, e.g., a Gibbs state), and input $\rho$:
 
 $$-\log F^2 \;\leq\; I(A;E|B) \;\leq\; \Sigma \;\leq\; \Delta D$$
 
@@ -45,11 +45,25 @@ $$\tau = 0 \;\Longleftrightarrow\; \Sigma = 0 \;\Longleftrightarrow\; I(A;E|B) =
 
 The arrow of time ($\tau > 0$) is equivalent to environmental coupling, entropy production, and imperfect recoverability.
 
+### Theorem 4: Bound Saturation (New)
+The recovery bound $F^2 \geq \exp(-\Delta D)$ is exactly saturated if and only if:
+1. The channel outputs commute: $[\omega, \tau] = 0$
+2. The likelihood ratio is constant on the support: $\omega_i/\tau_i = c$
+
+This is the quantum analogue of a **sufficient statistic** in classical statistics.
+
+### Theorem 5: Composition Sub-additivity (New)
+For sequential channels $\mathcal{N}_1, \mathcal{N}_2$:
+
+$$\sqrt{\tau_{12}} \;\leq\; \sqrt{\tau_1} + \sqrt{\tau_2^{\text{eff}}}$$
+
+This triangle inequality is unique to the standard Petz map and fails for the rotated Petz map of Junge et al.
+
 ## Physical Predictions
 
 1. **Post-selection as thermodynamic filtering**: For stabilizer codes under noise, rejecting high-entropy-production syndromes yields improvement $\ln R(\varepsilon, d) = \alpha(p)\, d + \beta(\varepsilon)$, where $\alpha$ is decoder-independent.
 
-2. **Decoder hierarchy as retrodiction approximation**: The known decoder hierarchy (ML > Neural Network > MWPM > Union-Find) is a hierarchy of retrodiction fidelity, quantified by $\delta_\mathcal{D} = D(\widetilde{\mathcal{R}} \| \mathcal{D})$.
+2. **Decoder hierarchy as retrodiction approximation**: The known decoder hierarchy (ML > Neural Network > MWPM > Union-Find) is consistent with being ordered by retrodiction fidelity, quantified by $\delta_\mathcal{D} = D(\widetilde{\mathcal{R}} \| \mathcal{D})$.
 
 ## Evidence
 
@@ -57,21 +71,21 @@ The arrow of time ($\tau > 0$) is equivalent to environmental coupling, entropy 
 
 ![Published Data Reanalysis](simulations/fig_published_data.png)
 
-We reanalyze data from four independent experimental groups. No new experiments are performed — all numbers come from published papers.
+We reanalyze data from four independent experimental groups. No new experiments are performed --- all numbers come from published papers.
 
-**(a-b) Decoder hierarchy matches retrodiction prediction.** Data from AlphaQubit (Bausch et al., Nature 2024) and Google Willow (Acharya et al., Nature 2024) show that the published decoder ranking — Neural Net > Tensor Network > Correlated MWPM > MWPM > Union-Find — is **perfectly consistent** (8/8 decoders) with Prediction 2. Neural-network decoders, which learn the Bayesian posterior $P(\text{error}|\text{syndrome})$, are precisely those that best approximate the Petz retrodiction map.
+**(a-b) Decoder hierarchy matches retrodiction prediction.** Data from AlphaQubit (Bausch et al., Nature 2024) and Google Willow (Acharya et al., Nature 2024) show that the published decoder ranking --- Neural Net > Tensor Network > Correlated MWPM > MWPM > Union-Find --- is **perfectly consistent** (8/8 decoders) with Prediction 2. Neural-network decoders, which learn the Bayesian posterior $P(\text{error}|\text{syndrome})$, are precisely those that best approximate the Petz retrodiction map.
 
 **(c) Post-selection scaling confirmed.** Three independent studies (English et al. PRL 2025, Smith et al. 2024, Chen et al. 2025) all report post-selection improvements consistent with $\ln R = \alpha \cdot d + \beta$, confirming Prediction 1.
 
-**(d) Recovery bound satisfied.** Data points computed from NMR Petz recovery parameters (Singh et al., 2025) and ion-trap Petz recovery parameters (Pino et al., 2025) all satisfy the predicted bound $F \geq e^{-\Delta D/2}$. **Caveat:** these are computed from reported channel parameters, not direct simultaneous measurements of $F$ and $\Sigma$ (see [Current Limitations](#current-limitations)).
+**(d) Recovery bound satisfied.** Data points computed from NMR Petz recovery parameters (Singh et al., 2025) and ion-trap Petz recovery parameters (Png and Scarani, 2025) all satisfy the predicted bound $F \geq e^{-\Delta D/2}$. **Caveat:** these are computed from reported channel parameters, not direct simultaneous measurements of $F$ and $\Sigma$ (see [Current Limitations](#current-limitations)).
 
 ### 2. Surface Code Simulation (stim + pymatching)
 
 ![Surface Code Predictions](simulations/fig_surface_code_predictions.png)
 
-We use **stim** (Google Quantum AI's circuit-level stabilizer simulator — the same tool used to benchmark Willow) and **pymatching** (industry-standard MWPM decoder) to test predictions on realistic rotated surface codes ($d = 3, 5, 7$) with circuit-level depolarizing noise.
+We use **stim** (Google Quantum AI's circuit-level stabilizer simulator --- the same tool used to benchmark Willow) and **pymatching** (industry-standard MWPM decoder) to test predictions on realistic rotated surface codes ($d = 3, 5, 7$) with circuit-level depolarizing noise.
 
-**(a) Decoder hierarchy: 36/36 match.** Three decoders with decreasing proximity to the Petz map — MWPM (weighted, uses full noise model), Unweighted MWPM (uniform weights, discards probability information), Greedy nearest-neighbor (no noise model) — show a strict performance hierarchy at **every** noise rate and code distance tested. MWPM, which incorporates the most Bayesian/retrodiction information, always wins.
+**(a) Decoder hierarchy: 36/36 match.** Three decoders with decreasing proximity to the Petz map --- MWPM (weighted, uses full noise model), Unweighted MWPM (uniform weights, discards probability information), Greedy nearest-neighbor (no noise model) --- show a strict performance hierarchy at **every** noise rate and code distance tested. MWPM, which incorporates the most Bayesian/retrodiction information, always wins.
 
 | $d$ | MWPM | Unwt. MWPM | Greedy NN |
 |-----|------|-----------|-----------|
@@ -79,57 +93,57 @@ We use **stim** (Google Quantum AI's circuit-level stabilizer simulator — the 
 | 5 | 1.4% | 3.3% | 26.6% |
 | 7 | 1.0% | 2.5% | 37.0% |
 
-**(b-c) Post-selection improvement is approximately decoder-independent.** The ratio $R_{\text{MWPM}} / R_{\text{Unwt}}$ averages $1.055 \pm 0.083$ across all configurations — close to the predicted value of 1.0. High syndrome-weight events (panel c, orange bars) have systematically higher failure rates, confirming that syndrome weight is a valid entropy-production proxy for thermodynamic filtering.
+**(b-c) Post-selection improvement is approximately decoder-independent.** The ratio $R_{\text{MWPM}} / R_{\text{Unwt}}$ averages $1.055 \pm 0.083$ across all configurations --- close to the predicted value of 1.0. High syndrome-weight events (panel c, orange bars) have systematically higher failure rates, confirming that syndrome weight is a valid entropy-production proxy for thermodynamic filtering.
 
 ### 3. Direct Test of the Retrodiction Landauer Principle
 
 ![Petz Fidelity vs Entropy](simulations/fig_petz_fidelity_vs_entropy.png)
 
-**(a) F vs ΔD for amplitude damping.** The Petz recovery fidelity F is plotted against the relative entropy drop ΔD for three input states. All 600 theoretical points satisfy F ≥ exp(−ΔD/2). Data points computed from Singh et al. (NMR, 2025) and Pino et al. (ion trap, 2025) reported parameters are overlaid — all satisfy the bound. **Note:** these are theoretical predictions at experimentally reported parameter values, not direct measurements of F and Σ on the same channel.
+**(a) F vs $\Delta D$ for amplitude damping.** The Petz recovery fidelity F is plotted against the relative entropy drop $\Delta D$ for three input states. All 600 theoretical points satisfy $F \geq \exp(-\Delta D/2)$. Data points computed from Singh et al. (NMR, 2025) and Png and Scarani (ion trap, 2025) reported parameters are overlaid --- all satisfy the bound. **Note:** these are theoretical predictions at experimentally reported parameter values, not direct measurements of F and $\Sigma$ on the same channel.
 
-**(b) Petz map is optimal among retrodiction-consistent maps.** Four recovery strategies are compared: Petz (red), identity (blue), reset (gray), transpose (green). The Petz map achieves the highest fidelity among all maps satisfying the retrodiction condition R(N(σ)) = σ.
+**(b) Petz map is optimal among retrodiction-consistent maps.** Four recovery strategies are compared: Petz (red), identity (blue), reset (gray), transpose (green). The Petz map achieves the highest fidelity among all maps satisfying the retrodiction condition $R(N(\sigma)) = \sigma$.
 
 ### 4. Explicit Petz Recovery Optimality
 
 ![Explicit Petz Recovery](simulations/fig_explicit_petz_recovery.png)
 
-Across three quantum channels (amplitude damping, depolarizing, phase damping) and 20,250 state-channel pairs, the Petz recovery map is provably optimal among retrodiction-consistent maps. This gives operational meaning to τ = 1 − F(Petz): it measures the minimum temporal asymmetry achievable by any valid Bayesian inverse.
+Across three quantum channels (amplitude damping, depolarizing, phase damping) and 20,250 state-channel pairs, the Petz recovery map is provably optimal among retrodiction-consistent maps. This gives operational meaning to $\tau = 1 - F(\text{Petz})$: it measures the minimum temporal asymmetry achievable by any valid Bayesian inverse.
 
-### 5. Non-Markovian Witness (Prediction 3 — New)
+### 5. Non-Markovian Witness (Prediction 3)
 
 ![Non-Markovian Witness](simulations/fig_non_markovian_witness.png)
 
-A new non-Markovianity witness based on fixed-Petz-recovery fidelity. **(a)** Markovian regime: F(t) monotonically decreases, zero false positives. **(b)** Non-Markovian regime: F(t) oscillates, 26 revival intervals detected. **(c)** The Petz witness and BLP trace-distance witness agree on the Markovian-to-non-Markovian transition at γ₀/λ ≈ 0.9. Advantage: single-state witness (no optimization over state pairs needed).
+A non-Markovianity witness based on fixed-Petz-recovery fidelity. **(a)** Markovian regime: F(t) monotonically decreases, zero false positives. **(b)** Non-Markovian regime: F(t) oscillates, 26 revival intervals detected. **(c)** The Petz witness and BLP trace-distance witness agree on the Markovian-to-non-Markovian transition at $\gamma_0/\lambda \approx 0.9$. Advantage: single-state witness (no optimization over state pairs needed).
 
-### 6. Decoder α-Independence (Extended, 6 Decoders)
+### 6. Decoder $\alpha$-Independence (Extended, 6 Decoders)
 
 ![Decoder Alpha Independence](simulations/fig_decoder_alpha_independence.png)
 
-Six decoders tested on surface codes d=3,5,7: MWPM, Unwt-MWPM, Union-Find, BP+OSD, Greedy-NN, Lookup. Overall CV = 0.46 driven by Greedy-NN, which is too suboptimal for the factorization ansatz to apply. Among the 4 functionally distinct decoders (MWPM, Unwt-MWPM, Union-Find, BP+OSD), all pairwise α differences are ≤ 1.4σ — consistent with decoder-independence.
+Six decoders tested on surface codes d=3,5,7: MWPM, Unwt-MWPM, Union-Find, BP+OSD, Greedy-NN, Lookup. Overall CV = 0.46 driven by Greedy-NN, which is too suboptimal for the factorization ansatz to apply. Among the 4 functionally distinct decoders (MWPM, Unwt-MWPM, Union-Find, BP+OSD), all pairwise $\alpha$ differences are $\leq 1.4\sigma$ --- consistent with decoder-independence.
 
-### 7. α-Independence at Large Code Distance (d=3–11)
+### 7. $\alpha$-Independence at Large Code Distance (d=3--11)
 
 ![Alpha Independence Large d](simulations/fig_alpha_independence_large_d.png)
 
-Extended test with $d \in \{3, 5, 7, 9, 11\}$ and three decoders (MWPM, Unwt-MWPM, Union-Find). **Result: SUPPORTED.** Mean CV = 0.091 (well below 0.15 threshold), all pairwise α differences ≤ 0.62σ. The CV improved 2.4× from d=3–7 (mean 0.215) to d=3–11 (mean 0.091), confirming the initial scatter was a finite-size effect, not a theory failure.
+Extended test with $d \in \{3, 5, 7, 9, 11\}$ and three decoders (MWPM, Unwt-MWPM, Union-Find). **Result: SUPPORTED.** Mean CV = 0.091 (well below 0.15 threshold), all pairwise $\alpha$ differences $\leq 0.62\sigma$. The CV improved 2.4x from d=3--7 (mean 0.215) to d=3--11 (mean 0.091), confirming the initial scatter was a finite-size effect, not a theory failure.
 
 ### 8. IBM/Google Calibration Validation
 
 ![IBM Calibration Fidelity](simulations/fig_ibm_calibration_fidelity.png)
 
-The Retrodiction Landauer bound $F \geq \exp(-\Delta D/2)$ is tested using real $T_1$/$T_2$ calibration data from five quantum processors (IBM Brisbane, Sherbrooke, Torino; Google Sycamore, Willow). Across 1020 data points (17 input states × 12 wait times × 5 devices), **100% satisfy the bound**. Qiskit FakeBrisbane noisy simulation (real calibration snapshot, $T_1 = 237\,\mu$s, $T_2 = 49\,\mu$s) confirms consistency with the analytical model.
+The Retrodiction Landauer bound $F \geq \exp(-\Delta D/2)$ is tested using real $T_1$/$T_2$ calibration data from five quantum processors (IBM Brisbane, Sherbrooke, Torino; Google Sycamore, Willow). Across 1020 data points (17 input states x 12 wait times x 5 devices), **100% satisfy the bound**. Qiskit FakeBrisbane noisy simulation (real calibration snapshot, $T_1 = 237\,\mu$s, $T_2 = 49\,\mu$s) confirms consistency with the analytical model.
 
 ### Current Limitations
 
 We report the following limitations transparently:
 
-1. **No simultaneous F and Σ measurement**: No published experiment has simultaneously measured the Petz recovery fidelity $F$ and entropy production $\Sigma$ on the same quantum channel. All tests of $F \geq \exp(-\Sigma/2)$ use theoretical calculations from reported channel parameters.
+1. **No simultaneous F and $\Sigma$ measurement**: No published experiment has simultaneously measured the Petz recovery fidelity $F$ and entropy production $\Sigma$ on the same quantum channel. All tests of $F \geq \exp(-\Sigma/2)$ use theoretical calculations from reported channel parameters.
 
-2. **τ = 1−F(Petz) is indirectly tested**: Singh et al. (NMR, 2025) and Pino et al. (ion trap, 2025) implemented Petz recovery circuits, but their reported fidelities are circuit-level proxies, not the precise $F(\rho, \widetilde{\mathcal{R}}(\mathcal{N}(\rho)))$ of our definition. We compute predicted values from their published parameters.
+2. **$\tau = 1-F(\text{Petz})$ is indirectly tested**: Singh et al. (NMR, 2025) and Png and Scarani (ion trap, 2025) implemented Petz recovery circuits, but their reported fidelities are circuit-level proxies, not the precise $F(\rho, \widetilde{\mathcal{R}}(\mathcal{N}(\rho)))$ of our definition. We compute predicted values from their published parameters.
 
-3. **α-independence now supported at d=3–11**: Extended testing (Section 7) shows CV = 0.091 at d=3–11 (below 0.15 threshold), resolving the initial d=3–7 ambiguity. Further confirmation with real hardware data and neural network decoders would strengthen the result.
+3. **$\alpha$-independence now supported at d=3--11**: Extended testing (Section 7) shows CV = 0.091 at d=3--11 (below 0.15 threshold), resolving the initial d=3--7 ambiguity. Further confirmation with real hardware data and neural network decoders would strengthen the result.
 
-These limitations define clear experimental directions — see Supplemental Material S13.2 for a concrete protocol.
+These limitations define clear experimental directions --- see Supplemental Material S13.2 for a concrete protocol.
 
 ### Running the Simulations
 
@@ -145,6 +159,10 @@ python simulations/non_markovian_witness.py              # Non-Markovian witness
 python simulations/decoder_alpha_independence.py         # Alpha-independence (d=3-7, ~10 min)
 python simulations/alpha_independence_large_d.py         # Alpha-independence (d=3-11, ~11 min)
 python simulations/ibm_calibration_fidelity.py           # IBM/Google calibration validation
+
+# Numerical verification of new theorems
+python numerical/iff_saturation_rigorous.py              # Theorem 4: saturation iff verification
+python numerical/composition_verification.py             # Theorem 5: composition sub-additivity
 ```
 
 ## Repository Structure
@@ -152,9 +170,9 @@ python simulations/ibm_calibration_fidelity.py           # IBM/Google calibratio
 ```
 petz-recovery-unification/
 ├── paper/
-│   ├── petz_recovery_unification.tex      # Main text (PRL format, 5 pages)
+│   ├── petz_recovery_unification.tex      # Main text (PRL format, 6 pages)
 │   ├── petz_recovery_unification.pdf      # Compiled PDF
-│   ├── petz_recovery_supplemental.tex     # Supplemental material
+│   ├── petz_recovery_supplemental.tex     # Supplemental material (17 pages)
 │   └── petz_recovery_supplemental.pdf     # Compiled PDF
 ├── simulations/
 │   ├── published_data_reanalysis.py       # Reanalysis of AlphaQubit, Willow, NMR, ion-trap
@@ -165,11 +183,14 @@ petz-recovery-unification/
 │   ├── decoder_alpha_independence.py      # 6-decoder α-independence test (d=3-7)
 │   ├── alpha_independence_large_d.py      # 3-decoder α-independence (d=3-11)
 │   ├── ibm_calibration_fidelity.py        # IBM/Google calibration validation
-│   ├── decoder_retrodiction_hierarchy.py  # Proof-of-concept: decoder hierarchy (toy)
-│   ├── postselection_filtering.py         # Proof-of-concept: post-selection (toy)
 │   ├── quantum_eraser_petz.py             # Quantum eraser = Petz recovery
-│   ├── master_inequality_chain.py         # DPI bound verification (supplementary)
-│   └── tau_vs_entropy_production.py       # tau bound visualization (supplementary)
+│   ├── master_inequality_chain.py         # DPI bound verification
+│   └── tau_vs_entropy_production.py       # τ bound visualization
+├── numerical/
+│   ├── iff_saturation_rigorous.py         # Theorem 4: saturation iff (500K random pairs)
+│   ├── iff_saturation_fast.py             # Theorem 4: quick verification
+│   ├── composition_verification.py        # Theorem 5: composition sub-additivity
+│   └── saturation_verification.py         # Original saturation search
 ├── README.md
 └── LICENSE
 ```
@@ -186,7 +207,7 @@ petz-recovery-unification/
 ### Retrodiction and Categorical Quantum Mechanics
 
 - A. J. Parzygnat and F. Buscemi, "Axioms for retrodiction: Achieving time-reversal symmetry with a prior," Quantum **7**, 1013 (2023).
-- F. Buscemi, J. Fullwood, and A. J. Parzygnat, "Information-theoretic foundations of quantum data science," arXiv:2412.12489 (2024). *(Independent construction of closely related framework)*
+- G. Bai, F. Buscemi, and V. Scarani, "Fully quantum stochastic entropy production," arXiv:2412.12489 (2024). *(Independent work using the same Petz-retrodiction foundation)*
 - J. Fullwood and A. J. Parzygnat, "From time-reversal symmetry to quantum Bayes' rules," PRX Quantum **4**, 020334 (2023).
 - Y. Aharonov, P. G. Bergmann, and J. L. Lebowitz, "Time symmetry in the quantum process of measurement," Phys. Rev. **134**, B1410 (1964).
 
@@ -210,6 +231,11 @@ petz-recovery-unification/
 - H. Kwon and M. S. Kim, "Fluctuation theorems for a quantum channel," Phys. Rev. X **9**, 031029 (2019).
 - G. T. Landi and M. Paternostro, "Irreversible entropy production: From classical to quantum," Rev. Mod. Phys. **93**, 035008 (2021).
 - C. C. Aw, L. H. Zaw, M. Balanzo-Juando, and V. Scarani, "Role of dilations in reversing physical processes," PRX Quantum **5**, 010332 (2024).
+
+### Experimental Petz Recovery
+
+- W.-H. Png and V. Scarani, "Petz recovery maps of single-qubit decoherence channels in an ion trap quantum processor," Phys. Rev. A **112**, 022613 (2025).
+- G. Singh, R. S. Sahani, V. Jagadish, L. Lautenbacher, N. K. Bernardes, and K. Dorai, "Realizing the Petz recovery map on an NMR quantum processor," arXiv:2508.08998 (2025).
 
 ### Quantum Eraser and Delayed Choice
 
@@ -236,7 +262,7 @@ petz-recovery-unification/
 ```bibtex
 @article{Huang2026petz,
   author  = {Sheng-Kai Huang},
-  title   = {Universal Recovery: The Petz Map as Retrodiction Functor, Error Corrector, and Entropy Bound},
+  title   = {The Arrow of Time as Petz Recovery Failure},
   year    = {2026},
   doi     = {10.5281/zenodo.18897853},
   note    = {arXiv:TBD}
@@ -245,7 +271,7 @@ petz-recovery-unification/
 
 ## Author
 
-**Sheng-Kai Huang** — Independent Researcher
+**Sheng-Kai Huang** --- Independent Researcher
 - Email: akai@fawstudio.com
 
 ## License
