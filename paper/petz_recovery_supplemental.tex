@@ -326,7 +326,7 @@ The Petz decoder achieves 99.95\% fidelity vs.\ the optimal 99.97\%
 ---a gap of only $0.02\%$.
 
 %=======================================================================
-\section{S4. Detailed Proof of Proposition 3 (Master Inequality Chain)}
+\section{S4. Detailed Proof of the Proposition (Master Inequality Chain)}
 \label{sec:proof_theorem3}
 %=======================================================================
 
@@ -846,19 +846,15 @@ input $\rho$, define:
 where $\tilde{\Petz}$ is the rotated Petz map of
 Junge~et~al.~\cite{Junge2018}.
 
-\emph{Basic properties:}
-\begin{enumerate}
-\item $0 \leq \tauasym \leq 1$ (from $0 \leq F \leq 1$).
-\item $\tauasym = 0$ if and only if exact Petz recovery:
-  $\tilde{\Petz}_{\sigma,\chan} \circ \chan(\rho) = \rho$.
-\item $\tauasym$ is continuous in all arguments (by continuity of
-  fidelity).
-\item $\tauasym$ is monotone under composition: for composable
-  $\chan_1, \chan_2$,
-  $\tauasym(\rho, \sigma, \chan_2 \circ \chan_1) \geq
-  \tauasym(\rho, \sigma, \chan_1)$, since additional processing
-  cannot improve recovery.
-\end{enumerate}
+By construction, $0 \leq \tauasym \leq 1$, with
+$\tauasym = 0$ if and only if exact Petz recovery holds:
+$\tilde{\Petz}_{\sigma,\chan} \circ \chan(\rho) = \rho$.
+Continuity of fidelity implies continuity of $\tauasym$ in all
+arguments. Monotonicity under composition also follows: for
+composable $\chan_1, \chan_2$,
+$\tauasym(\rho, \sigma, \chan_2 \circ \chan_1) \geq
+\tauasym(\rho, \sigma, \chan_1)$, since additional processing
+cannot improve recovery.
 
 \subsection{The Equivalence Chain: Proof}
 
@@ -903,7 +899,7 @@ This completes the chain. \hfill$\square$
 
 \subsection{Bound: $\tauasym \leq 1 - \exp(-\Sigma/2)$}
 
-From Proposition~3 of the main text (master inequality chain):
+From the Proposition of the main text (master inequality chain):
 \begin{equation}
 F^2 \geq \exp(-\Sigma).
 \end{equation}
@@ -1009,7 +1005,7 @@ accessing the idler---this is the operational meaning of ``waiting
 for the future measurement.''
 
 %=======================================================================
-\section{S12. Numerical Verification: Design Rationale and Results}
+\section{S12. Numerical Verification}
 \label{sec:numerical}
 %=======================================================================
 
@@ -1372,49 +1368,37 @@ than postulated.
 
 The quantity $\Sigma$ in our framework is the \emph{entropy
 production} of the system-environment interaction, not the von~Neumann
-entropy of the system state. Key distinctions:
-
-\begin{itemize}
-\item A system can have high state entropy ($S(\rho)$ large) but
-  zero entropy production ($\Sigma = 0$) if it evolves unitarily.
-\item Conversely, a pure state ($S(\rho) = 0$) interacting with an
-  environment can have $\Sigma > 0$.
-\item The relevant quantity for temporal asymmetry is $\Sigma$
-  (process irreversibility), not $S(\rho)$ (state uncertainty).
-\end{itemize}
+entropy of the system state.
+A system can have high state entropy ($S(\rho)$ large) but
+zero entropy production ($\Sigma = 0$) if it evolves unitarily;
+conversely, a pure state ($S(\rho) = 0$) interacting with an
+environment can have $\Sigma > 0$.
+The relevant quantity for temporal asymmetry is $\Sigma$
+(process irreversibility), not $S(\rho)$ (state uncertainty).
 
 \subsection{Measurement Back-Action}
 
 Any projective measurement on a quantum system produces entropy:
 the measurement process couples the system to a macroscopic
-apparatus (environment), creating $\Sigma > 0$. Therefore:
-
-\begin{itemize}
-\item Verifying $\tauasym = 0$ directly requires non-demolition or
-  weak measurements.
-\item Projective measurement itself breaks the closed-system
-  condition.
-\item The quantum eraser ``resolves'' this by deferring the
-  measurement to the idler subsystem, preserving the closed-system
-  condition on the signal-idler pair until the erasure measurement
-  is performed.
-\end{itemize}
+apparatus (environment), creating $\Sigma > 0$.
+Verifying $\tauasym = 0$ directly therefore requires non-demolition or
+weak measurements, since projective measurement itself breaks the
+closed-system condition.
+The quantum eraser resolves this tension by deferring the
+measurement to the idler subsystem, preserving the closed-system
+condition on the signal-idler pair until the erasure measurement
+is performed.
 
 \subsection{Non-Markovian Subtleties}
 
 For non-Markovian processes (system-environment memory
-effects)~\cite{Breuer2016}:
-
-\begin{itemize}
-\item $\Sigma$ can be temporarily negative (information backflow
-  from environment to system).
-\item This corresponds to transient $\tauasym$ decrease: the system
-  partially ``reverses'' its temporal asymmetry.
-\item The equivalence chain holds for CP-divisible (Markovian)
-  processes. For non-Markovian dynamics, the chain holds at the
-  level of the total process map but not necessarily at intermediate
-  times.
-\end{itemize}
+effects)~\cite{Breuer2016}, $\Sigma$ can be temporarily negative
+(information backflow from environment to system), corresponding to
+a transient decrease in $\tauasym$: the system partially reverses
+its temporal asymmetry.
+The equivalence chain holds for CP-divisible (Markovian) processes;
+for non-Markovian dynamics, it holds at the level of the total
+process map but not necessarily at intermediate times.
 
 The individual mathematical
 ingredients---Petz recovery~\cite{Petz1988}, the Crooks

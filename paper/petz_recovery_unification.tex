@@ -16,7 +16,7 @@
 \usepackage{graphicx}
 
 \newtheorem{theorem}{Theorem}
-\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{proposition}{Proposition}
 
 % Convenience macros
 \newcommand{\kB}{k_{\mathrm{B}}}
@@ -94,14 +94,14 @@ argue that $\tauasym$ provides a continuous, operational measure of
 the arrow of time.
 
 The interpretive framework rests on known results assembled into a
-single picture:
-(1)~the quantum eraser~\cite{Scully1982,Kim2000} is a physical
-instantiation of Petz recovery;
-(2)~the uniqueness of the Petz map as retrodiction functor (due to
+single picture.
+The quantum eraser~\cite{Scully1982,Kim2000} is a physical
+instantiation of Petz recovery, and
+the uniqueness of the Petz map as retrodiction functor (due to
 Parzygnat--Buscemi~\cite{Parzygnat2023}) explains why it also
 serves as a near-optimal QEC
-decoder~\cite{Barnum2002,Junge2018};
-(3)~the universal recovery bound of Junge
+decoder~\cite{Barnum2002,Junge2018}.
+The universal recovery bound of Junge
 et~al.~\cite{Junge2018} (Corollary~5.1 therein) and the
 Fawzi--Renner inequality~\cite{Fawzi2015}, combined with the
 Kolchinsky--Wolpert decomposition~\cite{Kolchinsky2017} and the
@@ -222,7 +222,10 @@ orthogonal detector states. The which-path channel is
 $\chan = \Tr_E$, giving the fully decohered signal state
 $\rho_S = \frac{1}{2}(\op{A}{A} + \op{B}{B})$.
 To our knowledge, the following explicit identification has not
-appeared previously. Applying the Petz recovery~\eqref{eq:petz} with
+appeared previously (concurrent work by Bai, Buscemi, and
+Scarani~\cite{Buscemi2024} develops related ideas in the stochastic
+entropy production setting).
+Applying the Petz recovery~\eqref{eq:petz} with
 $\sigma = \op{\psi}{\psi}_{SE}$ and $\chan = \Tr_E$:
 \begin{equation}
 \Petz_{\sigma,\Tr_E}(\rho_S) =
