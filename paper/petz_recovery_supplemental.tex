@@ -1856,12 +1856,21 @@ i.e., $\omega_i/\tau_i = c$ for some constant $c$.
 This is condition~(ii).
 
 \emph{Step~5: Non-commutativity gives strict inequality.}
-When (i) fails ($[\omega,\tau] \neq 0$), $F^2$ cannot be written
-as a simple scalar arithmetic mean of likelihood ratios.
-The matrix version of the AM--GM inequality (operator AM--GM)
-gives strict inequality.  This is confirmed
-numerically: among $5\times 10^5$ random non-commuting
-$(\omega,\tau)$ pairs, zero achieve saturation.
+When (i) fails ($[\omega,\tau] \neq 0$), the scalar AM--GM
+argument of Step~4 does not directly apply because $\omega$
+and $\tau$ have no joint eigenbasis.  In this case,
+$F^2 = \tfrac{1}{d}\,\Tr[\omega\,\tau^{-1/2}\omega\,\tau^{-1/2}]$
+involves the non-commutative product
+$\tau^{-1/2}\omega\,\tau^{-1/2}$, while
+$\exp(-\Delta D) = \tfrac{1}{d}\,
+\exp\!\big(\Tr[\omega\ln\omega - \omega\ln\tau]\big)$
+involves the matrix logarithm.  We verify strict inequality
+$F^2 > \exp(-\Delta D)$ numerically: among $5\times 10^5$
+random non-commuting $(\omega,\tau)$ pairs in dimensions
+$d \in \{2,3,4,5\}$, zero achieve saturation
+(minimum gap: $>10^{-6}$).
+A fully analytical proof that $[\omega,\tau]\neq 0$ precludes
+saturation is left as an open problem.
 
 \emph{Combining:} Saturation $F^2 = \exp(-\Delta D)$ holds iff
 (i)~$[\omega,\tau] = 0$ \emph{and} (ii)~$\omega_i/\tau_i$ is
