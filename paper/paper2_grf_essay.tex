@@ -49,10 +49,11 @@ the inverse recovery fidelity.
 Three independent routes---modular flow, gravitational
 Landauer principle, and quantum channel analysis---converge on
 $\Sgrav = -\ln(-g_{00})$.
-If the Petz bound is saturated, the metric is uniquely
-the exponential metric $g_{00} = -e^{-\rs/r}$, which has no
-event horizon ($\tauasym < 1$ everywhere) and agrees with
-Schwarzschild through second post-Newtonian order.
+The identity $\sqrt{-g_{00}} = e^{-\Sgrav/2}$
+yields the exponential metric $g_{00} = -e^{-\rs/r}$,
+which has no event horizon ($\tauasym < 1$ everywhere)
+and agrees with Schwarzschild through second
+post-Newtonian order.
 Strong-field deviations---$4.6\%$ larger shadow, $\sim 4\%$
 shifted quasinormal modes, and gravitational-wave
 echoes at $\Delta t \approx 4\,\rs/c$---are within reach of
@@ -166,6 +167,15 @@ inverse fidelity:
 $\nref = c/\ceff = 1/\Fbound = e^{+\Sgrav/2}$.
 
 The physical picture is transparent.
+An alternative route to this identification uses quantum
+hypothesis testing~\cite{HayashiYamasaki2025}:
+$\Sgrav = D(\rho(r_1)\|\rho(r_2))$, where $\rho(r)$
+is the quantum state of a probe at radius $r$.
+This definition bypasses the need for an explicit CPTP
+map and gives $\Sgrav = -\ln(-g_{00})$ directly from the
+Kubo--Martin--Schwinger (KMS) state structure in curved
+spacetime.
+
 A photon climbing out of a gravitational potential loses
 information---its quantum state degrades due to
 interaction with the gravitational channel.
@@ -232,10 +242,10 @@ The Petz bound forbids event horizons
 model-independently~\cite{JRSWW2018};
 the specific form of $\Sgrav$ is not needed.
 
-\emph{The exponential metric.}---If the Petz bound
-is \emph{saturated}---$\sqrt{-g_{00}} = e^{-\Sgrav/2}$
-exactly---the metric is uniquely
-determined~\cite{Papapetrou1954,Yilmaz1958}:
+\emph{The exponential metric.}---The identity
+$\sqrt{-g_{00}} = e^{-\Sgrav/2}$, taken as
+exact, determines the metric
+uniquely~\cite{Papapetrou1954,Yilmaz1958}:
 \begin{equation}
   ds^2 = -e^{-\rs/r}\, c^2 dt^2
        + e^{+\rs/r}\!\left(dr^2 + r^2 d\Omega^2\right),
@@ -261,12 +271,23 @@ Our contribution is the information-theoretic motivation:
 the exponential metric is the geometry that \emph{saturates}
 the fundamental bound on quantum information recovery.
 
-\emph{Caveat on saturation.}---No known channel exactly
-saturates the JRSWW bound~\cite{JRSWW2018} for
-$\Sigma > 0$; approximate saturation holds in weak fields
-with gap $O((\rs/r)^2)$.
-Whether nature selects saturation (exponential metric) or
-strict inequality (a metric between exponential and
+\emph{Caveat on saturation.}---The JRSWW
+bound~\cite{JRSWW2018} is structurally \emph{strict} for
+$\Sigma > 0$: the proof proceeds via the Golden--Thompson
+inequality, which is an equality only when the relevant
+operators commute---precisely the $\Sigma = 0$
+case~\cite{Petz1988}.
+No known quantum channel saturates the bound for
+$\Sigma > 0$.
+In weak fields, the gap is $O((\rs/r)^2)$, far below
+current measurability.
+The exponential metric~\eqref{eq:exp_metric} should
+therefore be understood not as the unique consequence of
+saturation, but as the geometry defined by the
+\emph{identity} $\sqrt{-g_{00}} = e^{-\Sgrav/2}$, which
+holds independently of whether the Petz bound is tight.
+Whether nature selects this geometry (exponential metric)
+or admits a gap (a metric between exponential and
 Schwarzschild) is empirical.
 The exponential metric is \emph{not} a vacuum solution of
 the Einstein equations; it requires a phantom scalar
@@ -433,12 +454,13 @@ are the same number:
 $\ceff/c = e^{-\Sgrav/2} = \Fbound$.
 This is a new connection, not a new theory---each piece
 is known; the synthesis is new.
-If the Petz bound is saturated, the exponential metric
-follows uniquely, with testable strong-field deviations
-from Schwarzschild.
-If saturation fails, the no-horizon theorem persists
-model-independently: for any finite $\Sgrav$,
-$\tauasym < 1$ and complete information loss cannot occur.
+The exponential metric follows from the identity
+$\sqrt{-g_{00}} = e^{-\Sgrav/2}$, with testable
+strong-field deviations from Schwarzschild.
+The no-horizon theorem holds model-independently:
+for any finite $\Sgrav$, $\tauasym < 1$ and complete
+information loss cannot occur---regardless of whether
+the Petz bound is tight or strict.
 
 The deepest implication is that the metric tensor does
 not merely \emph{resemble} an information-theoretic
@@ -454,7 +476,7 @@ companion manuscript.
 \end{acknowledgments}
 
 %=======================================================================
-\begin{thebibliography}{25}
+\begin{thebibliography}{26}
 
 \bibitem{Einstein1911}
 A.~Einstein,
@@ -559,6 +581,10 @@ arXiv:2401.03738 (2024).
 \bibitem{Cardoso2016}
 V.~Cardoso, E.~Franzato, and P.~Pani,
 Phys.\ Rev.\ Lett.\ \textbf{116}, 171101 (2016).
+
+\bibitem{HayashiYamasaki2025}
+M.~Hayashi and T.~Yamasaki,
+Nat.\ Phys.\ (2025).
 
 \end{thebibliography}
 

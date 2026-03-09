@@ -58,8 +58,8 @@ $\tauasym(t) = 1 - \exp(-N\Gamma t^2)$ is derived, with collapse and
 objectivity (quantum Darwinism redundancy $R \to N$) emerging at the
 same timescale.  The Penrose--Di\'{o}si timescale $t_c = \hbar/E_G$ is
 recovered as a special case, with
-$\tauasym(t) = 1 - \exp(-E_G t/2\hbar)$ providing the full dynamics
-where Penrose gives only one time point.  Three recent results sharpen
+$\tauasym(t) \leq 1 - \exp(-E_G t/2\hbar)$ providing an upper bound
+on the full dynamics where Penrose gives only one time point.  Three recent results sharpen
 the physical content: Liu, Bai, and Scarani show that the
 improper-to-proper mixture transition (AND$\to$OR) changes the
 retrodictive structure itself---this transition \emph{is} collapse,
@@ -141,8 +141,8 @@ develop the AND$\to$OR transition as the operational meaning of
 collapse [Sec.~\ref{sec:and_or}], and tabulate predictions for
 current and proposed experiments [Sec.~\ref{sec:experiments}].
 
-Each result is labeled [\textsc{known}], [\textsc{new synthesis}], or
-[\textsc{new formula}].  Attribution to Liu et~al., Jean et~al., and
+Each result is labeled [\textsc{known}], [\textsc{new synthesis}],
+[\textsc{new formula}], or [\textsc{new bound}].  Attribution to Liu et~al., Jean et~al., and
 Kuang et~al.\ is marked explicitly throughout.
 
 %-----------------------------------------------------------------------
@@ -246,6 +246,11 @@ $\Sigma(t) = H_{\mathrm{bin}}((1+p(t))/2)$, where
 $H_{\mathrm{bin}}(x) = -x\log x - (1-x)\log(1-x)$ is the binary
 entropy.  The bound~$\tauasym \leq 1 - \exp(-\Sigma/2)$
 from Ref.~\cite{Paper1} is satisfied identically.
+Note that $\Sigma$ here is the JRSWW entropy production of the
+dephasing channel, $\Sigma = H_{\mathrm{bin}}((1+p)/2)$, not the
+linear identification $E_G t/\hbar$ used in
+Sec.~\ref{sec:penrose}.  The two coincide at leading order for small
+dephasing but differ at higher orders.
 
 %-----------------------------------------------------------------------
 \section{Internal--Spatial Bridge}
@@ -420,21 +425,23 @@ argument~\cite{Penrose2014} rests on the principle that superpositions
 of distinct spacetime geometries are fundamentally
 unstable---``objective reduction'' (OR).
 
-\emph{$\tauasym(t)$ dynamics}~[\textsc{new formula}].---Under the
-Di\'{o}si--Penrose assumption, the decoherence factor takes
-exponential form: $|D(t)| = \exp(-E_G t/\hbar)$.  Substituting into
-the entropy production
-$\Sigma(t) = E_G t / \hbar$ and the recovery bound, the full
-$\tauasym$ dynamics becomes
+\emph{$\tauasym$ bound from Penrose--Di\'{o}si entropy
+production}~[\textsc{new bound}].---The Di\'{o}si--Penrose model
+posits exponential decoherence $|D(t)| = \exp(-E_G t/\hbar)$.
+Artini et~al.~\cite{Artini2025} computed the entropy production rate
+for the DP model.  Following their identification
+$\Sigma_{\mathrm{DP}}(t) = E_G t/\hbar$, the JRSWW bound gives
+the \emph{upper bound}
 \begin{equation}
 \boxed{
-\tauasym(t) = 1 - \exp\!\left(-\frac{E_G\, t}{2\hbar}\right).
+\tauasym(t) \;\leq\; 1 - \exp\!\left(-\frac{E_G\, t}{2\hbar}\right).
 }
 \label{eq:tau_penrose}
 \end{equation}
+The actual $\tauasym(t)$ depends on the specific CPTP map implementing
+the DP dynamics; the bound constrains any such implementation.
 At Penrose's timescale $t_P = \hbar/E_G$:
-$\tauasym(t_P) = 1 - e^{-1/2} \approx 0.39$.  This is one point on
-the continuous curve~\eqref{eq:tau_penrose}.
+$\tauasym(t_P) \leq 1 - e^{-1/2} \approx 0.39$.
 
 Table~\ref{tab:penrose_comparison} summarizes the structural
 differences.
@@ -616,7 +623,7 @@ emergence of a preferred temporal direction.
 
 For the gravitational dephasing channel specifically, the loss of
 P-CTC structure is controlled by the entropy production:
-$\tauasym(t) = 1 - \exp(-\Sigma(t)/2)$ traces the continuous
+$\tauasym(t) \leq 1 - \exp(-\Sigma(t)/2)$ traces the continuous
 degradation from $\tauasym = 0$ (P-CTC-equivalent, no collapse)
 to $\tauasym \to 1$ (no time-symmetry, full collapse).
 
@@ -786,6 +793,15 @@ framework.  Our definition of collapse is operational.  The
 distinction between operational and ontological collapse is a choice
 of interpretation.  Nor do we explain \emph{why} only one outcome
 occurs---the Born rule is assumed, not derived.
+
+\emph{Alternative mathematical route.}---The recovery bound
+$F \geq \exp(-\Sigma/2)$ requires identifying a CPTP map whose
+entropy production equals $\Sigma$.  An alternative approach via
+quantum hypothesis testing~\cite{HayashiYamasaki2025} defines
+$\Sigma = D(\rho(z_1)\|\rho(z_2))$ directly from quantum states at
+different spacetime points, bypassing the need for an explicit channel.
+This may strengthen the gravitational applications in
+Paper~II~\cite{Paper2}.
 
 \emph{Open questions.}---(i)~The intermediate regime
 $0 < \tauasym < 1$ deserves richer operational characterization.
@@ -1082,6 +1098,11 @@ Phys.\ Rev.\ X \textbf{13}, 041040 (2023).
 G.~Bai, F.~Buscemi, and V.~Scarani,
 ``The Petz recovery map as the optimal retrodiction map,''
 Phys.\ Rev.\ Lett.\ \textbf{135}, 200201 (2025).
+
+\bibitem{HayashiYamasaki2025}
+M.~Hayashi and T.~Yamasaki,
+``Quantum hypothesis testing and non-equilibrium statistical mechanics,''
+Nat.\ Phys.\ (2025).
 
 \end{thebibliography}
 
