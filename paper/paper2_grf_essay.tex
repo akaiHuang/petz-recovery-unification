@@ -1,0 +1,565 @@
+% paper2_grf_essay.tex
+% Gravity as Information Recovery: The Refractive Index is the Petz Fidelity
+% Gravity Research Foundation Essay (2026)
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper2_grf_essay.tex (run 3x)
+
+\documentclass[prl,twocolumn,superscriptaddress,floatfix,nofootinbib]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+% Macros
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\tauasym}{\tau}
+\newcommand{\ceff}{c_{\mathrm{eff}}}
+\newcommand{\rs}{r_{\mathrm{s}}}
+\newcommand{\Sgrav}{\Sigma_{\mathrm{grav}}}
+\newcommand{\Fbound}{F_{\mathrm{bound}}}
+\newcommand{\nref}{n_{\mathrm{grav}}}
+
+\begin{document}
+
+\title{Gravity as Information Recovery:\\
+The Gravitational Refractive Index is the Petz Fidelity Bound}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+Three quantities from three fields turn out to be the same number.
+From general relativity: the coordinate speed of light
+$\ceff/c = e^{\Phi/c^2}$.
+From thermodynamics: the entropy production cost
+$e^{-\Sgrav/2}$ with $\Sgrav = 2|\Phi|/c^2$.
+From quantum information: the Petz recovery fidelity bound
+$\Fbound \geq e^{-\Sigma/2}$.
+The identification $\ceff/c = e^{-\Sgrav/2} = \Fbound$
+states that light slowing in a gravitational field \emph{is}
+information loss, and the gravitational refractive index \emph{is}
+the inverse recovery fidelity.
+Three independent routes---modular flow, gravitational
+Landauer principle, and quantum channel analysis---converge on
+$\Sgrav = -\ln(-g_{00})$.
+If the Petz bound is saturated, the metric is uniquely
+the exponential metric $g_{00} = -e^{-\rs/r}$, which has no
+event horizon ($\tauasym < 1$ everywhere) and agrees with
+Schwarzschild through second post-Newtonian order.
+Strong-field deviations---$4.6\%$ larger shadow, $\sim 4\%$
+shifted quasinormal modes, and gravitational-wave
+echoes at $\Delta t \approx 4\,\rs/c$---are within reach of
+current observatories.
+\end{abstract}
+
+\maketitle
+
+%=======================================================================
+\section{Introduction}
+%=======================================================================
+
+In 1911, Einstein observed that the speed of light varies in a
+gravitational field~\cite{Einstein1911}.
+Dicke later showed that general relativity (GR) can be exactly
+reformulated as flat-spacetime optics with a gravitational
+refractive index~\cite{Dicke1957}:
+in a static field with Newtonian potential $\Phi < 0$,
+\begin{equation}
+  \frac{\ceff}{c} = e^{\Phi/c^2}\,.
+  \label{eq:ceff}
+\end{equation}
+Meanwhile, quantum information theory has established that
+any quantum channel $\chan$ with entropy production
+$\Sigma \equiv D(\rho\|\sigma) - D(\chan(\rho)\|\chan(\sigma))$
+admits a universal recovery bound~\cite{Petz1988,JRSWW2018}:
+\begin{equation}
+  F\!\bigl(\rho,\;\Petz_\sigma \circ \chan(\rho)\bigr)
+  \;\geq\; e^{-\Sigma/2}\,,
+  \label{eq:petz_bound}
+\end{equation}
+where $\Petz_\sigma$ is the (rotated) Petz recovery
+map~\cite{Petz1988} and $F$ is the Uhlmann fidelity.
+The Petz map is the \emph{unique} retrodiction functor
+satisfying Bayesian consistency~\cite{Parzygnat2023}---the
+quantum generalization of Bayes' rule.
+In a companion paper~\cite{Huang2026}, we showed that the temporal
+asymmetry parameter $\tauasym = 1 - F \in [0,1]$ provides an
+operational measure of the arrow of time, with
+$\tauasym = 0$ for closed systems and
+$\tauasym \leq 1 - e^{-\Sigma/2}$ in general.
+
+Here we connect these two results.
+Equations~\eqref{eq:ceff} and~\eqref{eq:petz_bound} share the same
+exponential structure. This is not a coincidence: they are the same
+physical statement in different languages.
+
+%=======================================================================
+\section{The Triple Identification}
+\label{sec:identification}
+%=======================================================================
+
+We define the dimensionless gravitational entropy
+production as
+\begin{equation}
+  \Sgrav \;\equiv\; \frac{2|\Phi|}{c^2}
+  \;=\; \frac{\rs}{r}\,,
+  \label{eq:Sgrav}
+\end{equation}
+where $\rs = 2GM/c^2$ is the Schwarzschild radius.
+This is an \emph{informational} entropy production---the
+cost of retrodiction from infinity to radius $r$---not a
+Clausius entropy. The Clausius entropy production for a
+photon in Tolman thermal equilibrium vanishes, since
+$T(r)\sqrt{-g_{00}} = T_\infty$~\cite{Tolman1930}. The
+quantity $\Sgrav$ persists even in equilibrium: it measures
+the informational cost of climbing the gravitational
+potential.
+
+Three independent arguments converge on
+Eq.~\eqref{eq:Sgrav}, all sharing the mathematical core
+$\Sgrav = -\ln(-g_{00})$:
+
+\emph{(a) Modular flow} [known].---In algebraic QFT on
+Schwarzschild, the quantum relative entropy (QRE)
+between the vacuum and a coherent excitation is
+computable via modular theory~\cite{DorauMuch2025}.
+The Tolman blueshift and energy redshift together give
+a fractional QRE loss
+$(D_{\mathrm{in}} - D_{\mathrm{out}})/D_{\mathrm{in}}
+= \rs/r$, exactly.
+
+\emph{(b) Gravitational Landauer principle} [known].---The
+Tolman-modified cost of erasing one bit at radius $r$
+exceeds the cost at infinity by
+$1/\sqrt{-g_{00}}$~\cite{Herrera2020}.
+The dimensionless excess erasure cost yields
+$\Sgrav = -\ln(-g_{00})$, which equals $\rs/r$ for the
+exponential metric and
+$-\ln(1 - \rs/r) \approx \rs/r + O((\rs/r)^2)$ for
+Schwarzschild.
+
+\emph{(c) Quantum channel} [known].---Modeling gravitational
+redshift as a pure-loss bosonic channel with intensity
+transmissivity $\eta = -g_{00}$, the QRE decrease is
+$\Sigma = -\ln\eta = \rs/r$~\cite{AhmadiFuentes2014}.
+
+Substituting Eq.~\eqref{eq:Sgrav} into the Petz
+bound~\eqref{eq:petz_bound} gives $\Fbound = e^{-\Sgrav/2}
+= e^{\Phi/c^2}$. Comparing with Eq.~\eqref{eq:ceff}:
+\begin{equation}
+  \boxed{\;\frac{\ceff}{c}
+  \;=\; e^{-\Sgrav/2}
+  \;=\; \Fbound\,.\;}
+  \label{eq:triple}
+\end{equation}
+This is the central result [new synthesis]: the coordinate
+speed of light \emph{is} the Petz recovery fidelity bound.
+Equivalently, the gravitational refractive index is the
+inverse fidelity:
+$\nref = c/\ceff = 1/\Fbound = e^{+\Sgrav/2}$.
+
+The physical picture is transparent.
+A photon climbing out of a gravitational potential loses
+information---its quantum state degrades due to
+interaction with the gravitational channel.
+The recovery fidelity $\Fbound$ quantifies
+how well the original state can be retrodicted.
+At the would-be event horizon, $\Fbound \to 0$ and
+$\ceff \to 0$: complete information loss
+coincides with the vanishing of the coordinate speed
+of light. The event horizon \emph{is} an information
+horizon, literally.
+
+Table~\ref{tab:numerical} verifies the identification
+across four orders of magnitude in gravitational
+compactness.
+The agreement is exact for the exponential metric and
+holds through $O(\rs/r)$ for Schwarzschild; the first
+discrepancy is at $O((\rs/r)^3)$, which is
+$\sim 10^{-18}$ in the solar
+system~\cite{Bertotti2003}---far below measurability.
+
+\begin{table}[b]
+\caption{\label{tab:numerical}%
+Numerical verification of the triple identification.
+$\Phi/c^2$ is the dimensionless potential,
+$\Sgrav = 2|\Phi|/c^2$, and
+$\Fbound = e^{-\Sgrav/2} = \ceff/c$.}
+\begin{ruledtabular}
+\begin{tabular}{lcccc}
+  \textbf{Location} & $\Phi/c^2$ & $\Sgrav$ & $\Fbound$ & $\ceff/c$ \\
+  \colrule
+  Earth
+    & $-7{\times}10^{-10}$
+    & $1.4{\times}10^{-9}$ & $1{-}7{\times}10^{-10}$
+    & $1{-}7{\times}10^{-10}$ \\
+  Sun
+    & $-2.1{\times}10^{-6}$
+    & $4.2{\times}10^{-6}$ & $1{-}2.1{\times}10^{-6}$
+    & $1{-}2.1{\times}10^{-6}$ \\
+  NS
+    & $-0.2$
+    & $0.4$ & $0.819$ & $0.819$ \\
+  Horizon
+    & $-\infty$
+    & $\infty$ & $0$ & $0$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+%=======================================================================
+\section{Consequences}
+\label{sec:consequences}
+%=======================================================================
+
+\emph{Model-independent no-horizon theorem.}---The Petz
+bound alone, before specifying $\Sgrav$, has a
+consequence: if gravitational redshift is a quantum
+channel with \emph{finite} entropy production, then
+$F \geq e^{-\Sigma/2} > 0$, so $\tauasym < 1$.
+An event horizon requires $F = 0$
+(complete information loss), which demands
+$\Sigma \to \infty$---impossible for a finite-mass
+object at finite distance.
+The Petz bound forbids event horizons
+model-independently~\cite{JRSWW2018};
+the specific form of $\Sgrav$ is not needed.
+
+\emph{The exponential metric.}---If the Petz bound
+is \emph{saturated}---$\sqrt{-g_{00}} = e^{-\Sgrav/2}$
+exactly---the metric is uniquely
+determined~\cite{Papapetrou1954,Yilmaz1958}:
+\begin{equation}
+  ds^2 = -e^{-\rs/r}\, c^2 dt^2
+       + e^{+\rs/r}\!\left(dr^2 + r^2 d\Omega^2\right),
+  \label{eq:exp_metric}
+\end{equation}
+in isotropic coordinates.
+Since $e^{-\rs/r} > 0$ for all $r > 0$, there is no
+event horizon: $\tauasym < 1$ everywhere.
+This metric has a long independent pedigree:
+Papapetrou~\cite{Papapetrou1954},
+Yilmaz~\cite{Yilmaz1958},
+Rosen's bimetric theory~\cite{Rosen1973},
+and three scalar-field families within GR that all
+reduce to it when scalar charge equals gravitational
+mass~\cite{Makukov2020}.
+Boonserm et~al.\ classified it as a traversable
+wormhole with throat at
+$R_{\text{thr}} = (e/2)\,\rs$~\cite{Boonserm2018}.
+It shares PPN parameters $\gamma = \beta = 1$ with
+Schwarzschild and passes all solar-system
+tests~\cite{Bertotti2003}.
+Our contribution is the information-theoretic motivation:
+the exponential metric is the geometry that \emph{saturates}
+the fundamental bound on quantum information recovery.
+
+\emph{Caveat on saturation.}---No known channel exactly
+saturates the JRSWW bound~\cite{JRSWW2018} for
+$\Sigma > 0$; approximate saturation holds in weak fields
+with gap $O((\rs/r)^2)$.
+Whether nature selects saturation (exponential metric) or
+strict inequality (a metric between exponential and
+Schwarzschild) is empirical.
+The exponential metric is \emph{not} a vacuum solution of
+the Einstein equations; it requires a phantom scalar
+source~\cite{Makukov2020,Boonserm2018}.
+We motivate the \emph{metric} from information theory,
+not field equations---an important distinction from
+the Yilmaz program~\cite{Yilmaz1958},
+whose modified field equations face well-documented
+difficulties~\cite{Misner1995}.
+
+\emph{Gravitational decoherence.}---Pikovski
+et~al.~\cite{Pikovski2015} showed that gravitational time
+dilation universally dephases composite quantum systems in
+spatial superposition.
+In the $\tauasym$ framework~\cite{Huang2026}, the resulting
+temporal asymmetry is $\tauasym_{\mathrm{grav}}(t)
+= 1 - e^{-N\Gamma t^2}$, where $\Gamma \propto
+(\Delta E)^2(\Delta\Phi)^2/(\hbar^2 c^4)$.
+The dephasing rate is controlled by
+$\Delta\Phi/c^2 \sim \Sgrav/2$: the gravitational entropy
+production governs both the static (refractive index)
+and dynamic (decoherence) aspects of gravitational
+information loss.
+Bonder et~al.~\cite{Bonder2015} noted that the Pikovski
+effect is frame-dependent; our framework is consistent
+with this, since $\tauasym$ depends on the observer's
+channel, not on an absolute decoherence rate.
+
+%=======================================================================
+\section{Relation to Prior Work}
+\label{sec:prior}
+%=======================================================================
+
+The logic here is complementary to the Jacobson
+program~\cite{Jacobson1995}.
+Jacobson derives \emph{field equations} from
+thermodynamic entropy applied to local Rindler horizons:
+$\delta Q = T\delta S$ $\to$ Einstein equations $\to$
+Schwarzschild.
+We derive the \emph{metric component} directly from
+information recoverability:
+$\Fbound = e^{-\Sgrav/2}$ $\to$ $g_{00}$ $\to$
+exponential metric.
+Both programs share the premise that geometry is
+information-theoretic; they differ in what is derived
+first (field equations vs.\ metric) and consequently
+arrive at different strong-field predictions.
+The Dorau--Much result~\cite{DorauMuch2025}---deriving
+the semiclassical Einstein equations from quantum
+relative entropy via modular theory---suggests that the
+two programs share a common informational foundation and
+may ultimately converge.
+
+In holographic settings, the Petz map reconstructs bulk
+quantum fields from boundary data~\cite{Cotler2019}, with
+fidelity $F_{\text{bulk}} \geq e^{-\Delta S_{\text{gen}}/2}$,
+where $\Delta S_{\text{gen}}$ is the change in generalized
+entropy.
+Our identification~\eqref{eq:triple} extends this
+structure beyond AdS/CFT: the bulk metric
+\emph{itself} encodes the recovery fidelity, with
+$\sqrt{-g_{00}}$ playing the role of $\Fbound$.
+The Crooks fluctuation theorem has recently been
+established in curved spacetimes~\cite{BassoCeleri2025},
+confirming that the Crooks--Petz connection of
+Paper~I~\cite{Huang2026} extends to general-relativistic
+settings---entropy production in curved spacetime is
+observer-dependent and quantified by $\Sgrav$.
+
+%=======================================================================
+\section{Testable Predictions}
+\label{sec:predictions}
+%=======================================================================
+
+The exponential and Schwarzschild metrics agree through
+second post-Newtonian order but diverge in strong
+fields, yielding three testable predictions ordered by
+near-term feasibility.
+
+\emph{(1) Shadow size.}---The exponential photon sphere
+at $r_{\text{ph}} = \rs$ (isotropic coordinates)
+yields a critical impact parameter
+$b_{\text{crit}} = 2e\, m \approx 5.44\, m$
+versus Schwarzschild's $3\sqrt{3}\,m \approx 5.20\,m$
+($m = GM/c^2$): a $4.6\%$ larger shadow.
+For M87*, this gives $41.5\;\mu$as versus
+$39.7\;\mu$as; the EHT measurement of
+$42 \pm 3\;\mu$as~\cite{EHT2019} is consistent with
+both but closer to the exponential value.
+Next-generation EHT, targeting sub-$\mu$as precision,
+can distinguish the two.
+
+\emph{(2) Quasinormal modes.}---In the eikonal limit,
+$f_{\text{QNM}}^{\text{exp}}/f_{\text{QNM}}^{\text{Schw}}
+= 3\sqrt{3}/(2e) \approx 0.956$,
+a $\sim 4.4\%$ downward shift.
+This estimate should be treated with caution: the
+exponential photon sphere coincides with the wormhole
+throat, where the effective potential differs
+qualitatively from Schwarzschild.
+WKB calculations for a generalized exponential
+wormhole find a $-7.8\%$ shift~\cite{NathSarma2024}.
+Current LIGO ringdown analyses constrain QNM deviations
+at the $\sim 5$--$10\%$ level; next-generation
+detectors (Einstein Telescope, Cosmic Explorer) will
+reach $\sim 1\%$ precision.
+
+\emph{(3) Gravitational-wave echoes.}---The most
+distinctive signature.
+The exponential metric's traversable wormhole structure
+produces echoes---repeated, damped pulses following the
+initial ringdown---with time delay
+\begin{equation}
+  \Delta t_{\text{echo}} \approx \frac{4.2\,\rs}{c}\,,
+  \label{eq:echo}
+\end{equation}
+giving $\sim 2.5$~ms for a $60\,M_\odot$
+remnant at $\sim 400$~Hz, squarely in the LIGO band.
+This is $\sim 90\times$ shorter than Planck-wall
+models~\cite{Cardoso2016}, because the exponential
+metric has no horizon and its tortoise coordinate
+$r^* = \int e^{\rs/r}\,dr$ remains bounded.
+Current echo searches use $\sim 200$~ms
+templates; dedicated short-delay searches are needed
+to test this prediction.
+
+%=======================================================================
+\section{Scope and Limitations}
+\label{sec:scope}
+%=======================================================================
+
+The identification~\eqref{eq:triple} \emph{can}:
+unify quantum error correction, thermodynamic
+irreversibility, and gravitational physics under a
+single parameter $\tauasym$; provide universal recovery
+bounds that hold independently of the specific protocol;
+connect the Hayden--Preskill decoder---which \emph{is}
+the Petz map~\cite{Cotler2019}---to gravitational
+physics; and provide a precise, computable definition
+of the gravitational arrow of time: $\tauasym > 0$
+whenever $\Sgrav > 0$, with $\tauasym = 0$ if and only
+if spacetime is flat.
+
+It \emph{cannot}: explain dark matter ($\Sgrav \sim 10^{-6}$
+at galactic scales, far too small);
+explain the cosmological constant or dark energy;
+derive the full metric tensor $g_{ab}$ from $\tauasym$
+(the relation $g_{00} \to \Sgrav \to \tauasym$
+is one-directional; $\tauasym$ constrains only $g_{00}$,
+not the spatial components);
+or extend to dynamical spacetimes without
+modification (the covariant formulation
+$\Fbound(A \!\to\! B) = |\xi|_A/|\xi|_B$, where
+$\xi^a$ is a timelike Killing vector, requires
+stationarity).
+
+%=======================================================================
+\section{Conclusion}
+%=======================================================================
+
+The coordinate speed of light, the informational entropy
+production cost, and the Petz recovery fidelity bound
+are the same number:
+$\ceff/c = e^{-\Sgrav/2} = \Fbound$.
+This is a new connection, not a new theory---each piece
+is known; the synthesis is new.
+If the Petz bound is saturated, the exponential metric
+follows uniquely, with testable strong-field deviations
+from Schwarzschild.
+If saturation fails, the no-horizon theorem persists
+model-independently: for any finite $\Sgrav$,
+$\tauasym < 1$ and complete information loss cannot occur.
+
+The deepest implication is that the metric tensor does
+not merely \emph{resemble} an information-theoretic
+quantity---$\sqrt{-g_{00}}$ \emph{is} the recovery
+fidelity bound.
+Whether nature saturates this bound is a question that
+the strong-field observational program of the coming
+decade can answer.
+
+\begin{acknowledgments}
+The author thanks M.~M.~Wilde for feedback on a
+companion manuscript.
+\end{acknowledgments}
+
+%=======================================================================
+\begin{thebibliography}{25}
+
+\bibitem{Einstein1911}
+A.~Einstein,
+Ann.\ Phys.\ (Leipzig) \textbf{35}, 898 (1911).
+
+\bibitem{Dicke1957}
+R.~H.~Dicke,
+Rev.\ Mod.\ Phys.\ \textbf{29}, 363 (1957).
+
+\bibitem{Petz1988}
+D.~Petz,
+Q.\ J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{JRSWW2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M.~Wilde, and A.~Winter,
+Ann.\ Henri Poincar\'{e} \textbf{19}, 2955 (2018).
+
+\bibitem{Parzygnat2023}
+A.~J.~Parzygnat and F.~Buscemi,
+Quantum \textbf{7}, 1013 (2023).
+
+\bibitem{Huang2026}
+S.-K.~Huang,
+``The Arrow of Time from Petz Recovery,''
+companion paper (2026).
+
+\bibitem{Tolman1930}
+R.~C.~Tolman,
+Phys.\ Rev.\ \textbf{35}, 904 (1930).
+
+\bibitem{DorauMuch2025}
+L.~Dorau and A.~Much,
+Phys.\ Rev.\ Lett.\ (2025);
+arXiv:2510.24491.
+
+\bibitem{Herrera2020}
+L.~Herrera,
+Entropy \textbf{22}, 340 (2020).
+
+\bibitem{AhmadiFuentes2014}
+M.~Ahmadi, D.~E.~Bruschi, C.~Sabin, G.~Adesso,
+and I.~Fuentes,
+Sci.\ Rep.\ \textbf{4}, 4996 (2014).
+
+\bibitem{Bertotti2003}
+B.~Bertotti, L.~Iess, and P.~Tortora,
+Nature \textbf{425}, 374 (2003).
+
+\bibitem{Papapetrou1954}
+A.~Papapetrou,
+Z.\ Phys.\ \textbf{139}, 518 (1954).
+
+\bibitem{Yilmaz1958}
+H.~Yilmaz,
+Phys.\ Rev.\ \textbf{111}, 1417 (1958).
+
+\bibitem{Rosen1973}
+N.~Rosen,
+Gen.\ Relativ.\ Gravit.\ \textbf{4}, 435 (1973).
+
+\bibitem{Makukov2020}
+M.~A.~Makukov and E.~G.~Mychelkin,
+Found.\ Phys.\ \textbf{50}, 1346 (2020).
+
+\bibitem{Boonserm2018}
+P.~Boonserm, T.~Ngampitipan, A.~Simpson, and M.~Visser,
+Phys.\ Rev.\ D \textbf{98}, 084048 (2018).
+
+\bibitem{Misner1995}
+C.~W.~Misner,
+arXiv:gr-qc/9504050 (1995).
+
+\bibitem{Pikovski2015}
+I.~Pikovski, M.~Zych, F.~Costa, and \v{C}.~Brukner,
+Nat.\ Phys.\ \textbf{11}, 668 (2015).
+
+\bibitem{Bonder2015}
+Y.~Bonder, E.~Okon, and D.~Sudarsky,
+Phys.\ Rev.\ D \textbf{92}, 124050 (2015).
+
+\bibitem{Jacobson1995}
+T.~Jacobson,
+Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995).
+
+\bibitem{Cotler2019}
+J.~Cotler, P.~Hayden, G.~Penington, G.~Salton,
+B.~Swingle, and M.~Walter,
+Phys.\ Rev.\ X \textbf{9}, 031011 (2019).
+
+\bibitem{BassoCeleri2025}
+M.~L.~W.~Basso, J.~Maziero, and L.~C.~Celeri,
+Phys.\ Rev.\ Lett.\ \textbf{134}, 050406 (2025).
+
+\bibitem{EHT2019}
+Event Horizon Telescope Collaboration,
+Astrophys.\ J.\ Lett.\ \textbf{875}, L1 (2019).
+
+\bibitem{NathSarma2024}
+S.~Nath and D.~Sarma,
+arXiv:2401.03738 (2024).
+
+\bibitem{Cardoso2016}
+V.~Cardoso, E.~Franzato, and P.~Pani,
+Phys.\ Rev.\ Lett.\ \textbf{116}, 171101 (2016).
+
+\end{thebibliography}
+
+\end{document}
