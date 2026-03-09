@@ -22,3 +22,6 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Internal only (not for public sharing)
+research/MAXWELL_COMPARISON.md
