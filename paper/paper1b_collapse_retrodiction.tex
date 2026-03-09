@@ -1,6 +1,6 @@
 % paper1b_collapse_retrodiction.tex
-% Wavefunction Collapse as Retrodiction Failure: Gravitational Decoherence,
-% Objectivity, and the τ-R Bridge
+% Wavefunction Collapse as Retrodiction Failure: From Gravitational
+% Decoherence to the AND-OR Transition
 % Companion paper to Paper 1 (Petz Recovery Unification)
 % Author: Sheng-Kai Huang
 % Compile with: pdflatex paper1b_collapse_retrodiction.tex
@@ -38,7 +38,7 @@
 \begin{document}
 
 \title{Wavefunction Collapse as Retrodiction Failure:\\
-Gravitational Decoherence, Objectivity, and the $\tauasym$-$R$ Bridge}
+From Gravitational Decoherence to the AND--OR Transition}
 
 \author{Sheng-Kai Huang}
 \email{akai@fawstudio.com}
@@ -47,28 +47,37 @@ Gravitational Decoherence, Objectivity, and the $\tauasym$-$R$ Bridge}
 \date{\today}
 
 \begin{abstract}
-We apply the temporal asymmetry parameter $\tauasym = 1 - F$ from the
-Petz recovery framework [S.-K.\ Huang, companion paper] to the
-gravitational dephasing channel of Pikovski et~al., obtaining an
-explicit, time-dependent quantification of ``collapse'' as Petz
-recovery failure. For a system with $N$ internal degrees of freedom,
-$\tauasym(t) = 1 - \exp(-N\Gamma t^2)$ and the quantum Darwinism
-redundancy $R(t) = N[1 - \exp(-\Gamma t^2)]$ are governed by the same
-parameter $N\Gamma$, establishing a \emph{$\tauasym$-$R$ bridge}:
-irreversibility ($\tauasym \to 1$) and objectivity ($R \to N$) emerge
-at the same timescale. Under the Diósi--Penrose assumption, the
-collapse timescale reduces to $t_c = \hbar/E_G$. We connect
-$\tauasym = 1$ to operational superselection via the
-Englert--Greenberger wave-particle duality relation and spectrum
-broadcast structure, providing a quantitative language for collapse within standard
-quantum mechanics, with explicit bounds on spatial recoverability.
-Predictions for molecule
-interferometry, optomechanical, and gravitational entanglement
-experiments are tabulated and shown to be consistent with all
-existing data. The universal bound
+Wavefunction collapse---the transition from quantum superposition to
+classical definiteness---is given a precise information-theoretic
+characterization: \emph{collapse is Petz recovery failure}
+($\tauasym \to 1$).  Applying the temporal asymmetry parameter
+$\tauasym = 1 - F$ from the Petz recovery framework~[S.-K.\ Huang,
+companion paper] to the gravitational dephasing channel of
+Pikovski et~al., the full time-dependent collapse curve
+$\tauasym(t) = 1 - \exp(-N\Gamma t^2)$ is derived, with collapse and
+objectivity (quantum Darwinism redundancy $R \to N$) emerging at the
+same timescale.  The Penrose--Di\'{o}si timescale $t_c = \hbar/E_G$ is
+recovered as a special case, with
+$\tauasym(t) = 1 - \exp(-E_G t/2\hbar)$ providing the full dynamics
+where Penrose gives only one time point.  Three recent results sharpen
+the physical content: Liu, Bai, and Scarani show that the
+improper-to-proper mixture transition (AND$\to$OR) changes the
+retrodictive structure itself---this transition \emph{is} collapse,
+operationally defined; Jean, Silva, and Vilasini prove that
+$\tauasym = 0$ is operationally equivalent to post-selected closed
+timelike curves, giving $\tauasym$ the role of continuous interpolation
+between time-symmetric and time-directed regimes; Kuang, Torii, and
+Buscemi show that for measurement channels, all $f$-divergences yield
+the same retrodiction, making $\tauasym$ the unique irreversibility
+measure.  The causal chain from non-uniform gravitational redshift to
+collapse is traced explicitly: $c$ non-uniform $\to$ differential
+phase accumulation $\to$ $\Sigma > 0$ $\to$ $\tauasym > 0$ $\to$
+AND$\to$OR.  Predictions for molecule interferometry, optomechanical,
+and gravitational entanglement experiments are tabulated.  The
+universal bound
 $F_{\mathrm{spatial}}(t) \geq \exp(-\Sigma_{\mathrm{grav}}(t)/2)$
-constrains the recoverability of spatial coherence for any
-gravitational channel.
+constrains any recovery protocol; deviations from the standard-QM
+baseline $\tauasym(t)$ would signal new physics.
 \end{abstract}
 
 \maketitle
@@ -81,7 +90,7 @@ gravitational channel.
 In a companion paper~\cite{Paper1}, we established that the Petz
 recovery map~\cite{Petz1986,Petz1988} connects quantum erasure,
 Bayesian retrodiction, quantum error correction, and thermodynamic
-irreversibility. The temporal asymmetry parameter
+irreversibility.  The temporal asymmetry parameter
 \begin{equation}
 \tauasym = 1 - F\!\big(\rho,\,
   \tilde{\Petz}_{\sigma,\chan}(\chan(\rho))\big)
@@ -98,26 +107,43 @@ superposition become a classical mixture?  The decoherence
 program~\cite{Zurek2003,Joos1985,Schlosshauer2007} identifies
 environment-induced decoherence as the mechanism, but leaves open
 what distinguishes ``for all practical purposes'' (FAPP) collapse
-from genuine irreversibility. Meanwhile, Penrose~\cite{Penrose1996}
+from genuine irreversibility.  Meanwhile, Penrose~\cite{Penrose1996}
 and Di\'{o}si~\cite{Diosi1987} have argued that gravitational
 self-energy sets a fundamental collapse timescale $t_c = \hbar/E_G$.
 
-In this Letter, we show that the $\tauasym$ framework provides a
-precise, quantitative answer.  We define \emph{operational collapse}
+Three recent results transform the landscape.  Liu, Bai, and
+Scarani~\cite{Liu2026} proved that proper and improper mixtures---though
+sharing the same density matrix---give different retrodictions via the
+Petz map.  The decoherence transition from improper to proper mixture
+(AND$\to$OR) is not merely a practical change but a qualitative shift
+in the retrodictive structure.  Jean, Silva, and
+Vilasini~\cite{Jean2025} established that every time-symmetric quantum
+process is operationally equivalent to a post-selected closed timelike
+curve (P-CTC) circuit, and vice versa.  Kuang, Torii, and
+Buscemi~\cite{Kuang2025} showed that for measurement channels (quantum-to-classical maps), \emph{all} standard divergences yield the same
+retrodiction: the Petz map.
+
+In this paper, we show that the $\tauasym$ framework provides a
+precise, quantitative characterization of collapse that integrates
+all three results.  We define \emph{operational collapse}
 as $\tauasym \to 1$: the Petz recovery map---the unique Bayesian
 retrodiction functor~\cite{Parzygnat2023}---fails completely,
 certifying that no physical protocol can recover the prior
-superposition. We derive $\tauasym(t)$ explicitly for the
+superposition.  We derive $\tauasym(t)$ explicitly for the
 gravitational dephasing channel of Pikovski et~al.~\cite{Pikovski2015}
 [Sec.~\ref{sec:channel}], connect internal and spatial decoherence
 via an entanglement complementarity bridge [Sec.~\ref{sec:bridge}],
 establish a quantitative link between irreversibility and objectivity
-(the $\tauasym$-$R$ bridge) [Sec.~\ref{sec:tau_R}], recover the
-Penrose timescale under the Di\'{o}si--Penrose assumption
-[Sec.~\ref{sec:penrose}], and tabulate predictions for current and
-proposed experiments [Sec.~\ref{sec:experiments}].  Each result is
-labeled [\textsc{known}], [\textsc{new synthesis}], or
-[\textsc{new formula}].
+(the $\tauasym$-$R$ bridge) [Sec.~\ref{sec:tau_R}], show that
+Penrose's $E_G$ is subsumed as a special case giving only one point
+on the full $\tauasym(t)$ curve [Sec.~\ref{sec:penrose}],
+develop the AND$\to$OR transition as the operational meaning of
+collapse [Sec.~\ref{sec:and_or}], and tabulate predictions for
+current and proposed experiments [Sec.~\ref{sec:experiments}].
+
+Each result is labeled [\textsc{known}], [\textsc{new synthesis}], or
+[\textsc{new formula}].  Attribution to Liu et~al., Jean et~al., and
+Kuang et~al.\ is marked explicitly throughout.
 
 %-----------------------------------------------------------------------
 \section{Gravitational Dephasing as a Quantum Channel}
@@ -175,8 +201,6 @@ K_1 = \sqrt{\frac{1-p}{2}}\, \sigma_z,
 \label{eq:kraus}
 \end{equation}
 where $p(t) = |D(t)|$ and $\sigma_z = \op{x_1}{x_1} - \op{x_2}{x_2}$.
-One verifies $K_0^\dagger K_0 + K_1^\dagger K_1 = I$ and
-$\chan_{\mathrm{grav}}(\rho)_{12} = p(t)\,\rho_{12}$.
 
 \emph{Many internal modes}~[\textsc{known}].---For $N$ internal modes
 in a thermal state at temperature $T$, the decoherence factor
@@ -265,9 +289,7 @@ entropy:
 \label{eq:sigma_ent}
 \end{equation}
 This identity~[\textsc{new synthesis}] follows because both channels
-arise from tracing out the complementary subsystem of a pure state,
-so the DPI decrease $\Delta D$ equals $S_{\mathrm{ent}}$ in both
-cases.
+arise from tracing out the complementary subsystem of a pure state.
 
 \emph{Englert--Greenberger complementarity}~[\textsc{new
 synthesis}].---The wave-particle duality relation of Englert and
@@ -283,30 +305,17 @@ which-path distinguishability.  In the $\tauasym$ language:
 The duality relation becomes
 $\mathcal{V}^2 + \mathcal{D}_{\mathrm{wp}}^2
 = (1 - 2\tauasym_S)^2 + 2\tauasym_I = 1$, which follows identically
-from Eq.~\eqref{eq:bridge}.  When $\tauasym_I = 1/2$ (the internal
-degrees of freedom carry complete which-path information),
-$\mathcal{V} = 0$: spatial coherence vanishes.  This is operationally
-indistinguishable from ``collapse'' into a position eigenstate.
+from Eq.~\eqref{eq:bridge}.
 
 \emph{Pointer basis from the equivalence principle}~[\textsc{new
-synthesis}].---The equivalence principle dictates that the
-gravitational potential $\Phi(\hat{x})$ in
-Eq.~\eqref{eq:pikovski_H} couples to \emph{position}:
-the internal Hamiltonian acquires a position-dependent
-correction $H_{\mathrm{int}} \cdot \Phi(\hat{x})/c^2$.
-By Zurek's einselection criterion~\cite{Zurek2003}, the
-interaction Hamiltonian selects the pointer basis as the
-eigenbasis of the system observable that commutes with the
-coupling.  Since $\Phi(\hat{x})$ is diagonal in position,
-gravity universally selects \emph{position} as the pointer
-basis.  Unlike electromagnetic or nuclear decoherence, where
-the pointer basis depends on the details of the specific
-interaction, gravitational einselection is universal---it
-applies to any massive system regardless of its internal
-composition.  This explains why macroscopic objects always
-have definite positions (not definite momenta or energy
-superpositions): the equivalence principle singles out
-position as the only gravitationally robust observable.
+synthesis}].---The equivalence principle dictates that
+$\Phi(\hat{x})$ in Eq.~\eqref{eq:pikovski_H} couples to
+\emph{position}: the interaction is diagonal in position,
+so by Zurek's einselection criterion~\cite{Zurek2003},
+gravity universally selects position as the pointer basis.
+Unlike electromagnetic or nuclear decoherence, gravitational
+einselection applies to any massive system regardless of
+internal composition.
 
 %-----------------------------------------------------------------------
 \section{From Decoherence to Objectivity: The $\tauasym$-$R$ Bridge}
@@ -322,27 +331,22 @@ irreversibility.  We now show that $\tauasym \to 1$ and objectivity
 decoherence factor~\eqref{eq:D_product} is a product over $N$
 independent modes.  Each mode records which-path information
 $\varepsilon_k \ll 1$, but the product decays exponentially:
-$|D| \approx \exp(-N\langle\varepsilon\rangle)$.  This
-exponential-in-$N$ suppression is a direct consequence of the tensor
-product structure of quantum mechanics (an axiom, not derived from
-dynamics)~\cite{Joos1985,Schlosshauer2007}.  Even for
+$|D| \approx \exp(-N\langle\varepsilon\rangle)$.  Even for
 $\langle\varepsilon\rangle \sim 10^{-20}$, the factor $N \sim
 10^{23}$ of a macroscopic object drives
 $|D| \to 0$ and $\tauasym \to 1$.
 
-\emph{Quantum Darwinism redundancy}~[\textsc{known}].---In the
-framework of quantum Darwinism~\cite{Zurek2009}, the redundancy $R$
-counts the number of independent environmental fragments that each
+\emph{Quantum Darwinism redundancy}~[\textsc{known}].---The redundancy
+$R$ counts the number of independent environmental fragments that each
 contain sufficient information to determine the system's state.  For
-the gravitational dephasing channel with $N$ internal modes, each
-mode acquires which-path information at rate $\Gamma_{\mathrm{single}}
-= \Gamma/N$.  A fragment of size $f\cdot N$ modes gives partial
-decoherence factor $|D_f| = \exp(-fN\Gamma_{\mathrm{single}}t^2) =
-\exp(-f\Gamma t^2)$, which becomes negligible when
+the gravitational dephasing channel with $N$ internal modes,
+a fragment of size $f\cdot N$ modes gives partial
+decoherence factor $|D_f| = \exp(-fN\Gamma_{\mathrm{single}}t^2)$,
+which becomes negligible when
 $f > f_c = 1/(\Gamma t^2)$.  The redundancy
 is~\cite{Zurek2009,Riedel2017}
 \begin{equation}
-R(t) = \frac{1}{f_c} = N\!\left[1 - \exp(-\Gamma_{\mathrm{single}}
+R(t) = N\!\left[1 - \exp(-\Gamma_{\mathrm{single}}
   t^2)\right].
 \label{eq:R_darwin}
 \end{equation}
@@ -362,91 +366,47 @@ R(t) &= N\!\left[1 - \exp(-\Gamma_{\mathrm{single}} t^2)\right].
 At the decoherence time $t_{\mathrm{dec}} = 1/\sqrt{N
 \Gamma_{\mathrm{single}}}$, we have $\tauasym(t_{\mathrm{dec}})
 = 1 - 1/e \approx 0.63$ and
-$R(t_{\mathrm{dec}}) \approx N(1 - e^{-1/N}) \approx 1$ for
-$N \gg 1$.  At time $t = \sqrt{\ln N/\Gamma_{\mathrm{single}}}$,
-$\tauasym \to 1 - N^{-N} \approx 1$ and $R \to N(1 - 1/N) \approx N$.
+$R(t_{\mathrm{dec}}) \approx 1$ for $N \gg 1$.
 This demonstrates that \emph{collapse ($\tauasym \to 1$) and
-objectivity ($R \to N$) occur at the same timescale}---they are
-two manifestations of the same exponential-in-$N$ decoherence
-process.
+objectivity ($R \to N$) occur at the same timescale}.
 
-\emph{Spectrum broadcast structure (SBS)}~[\textsc{new
+\emph{Spectrum broadcast structure}~[\textsc{new
 synthesis}].---Korbicz et~al.~\cite{Korbicz2021} proved that any
 von~Neumann-type interaction with $N \gg 1$ sub-environments
-generically produces spectrum broadcast structure:
+generically produces spectrum broadcast structure (SBS):
 \begin{equation}
 \rho_{SE}(t) = \sum_i p_i\, \op{i}{i}_S \otimes
-  \rho^{(1)}_i \otimes \rho^{(2)}_i \otimes \cdots \otimes
-  \rho^{(N)}_i,
+  \rho^{(1)}_i \otimes \cdots \otimes \rho^{(N)}_i,
 \label{eq:SBS}
 \end{equation}
-where $\{\ket{i}\}$ are the pointer states and $\rho^{(k)}_i$ are
-distinguishable states for each environmental fragment.  The
-gravitational dephasing interaction~\eqref{eq:pikovski_H} is a
-von~Neumann measurement of position by internal degrees of freedom:
-$H_{\mathrm{int}} = \sum_k E_k \op{E_k}{E_k}$ coupled to
-$\Phi(\hat{x})$.  By the Korbicz theorem, this produces SBS with
-pointer states $\{\ket{x_1}, \ket{x_2}\}$.  SBS is the strongest
-known condition for ``objective existence''~\cite{Korbicz2021}: it
-ensures (i) the system is in a definite pointer state, (ii) multiple
-observers independently agree on the outcome, and (iii) observation
-does not disturb the state.
-
-\emph{Why gravity is special}~[\textsc{new synthesis}].---Among all
-interactions that produce decoherence, gravity occupies a unique
-position.  By the equivalence principle, gravity couples universally
-to all forms of energy-momentum: no form of matter or radiation is
-gravitationally neutral~\cite{Penrose1996}.  Furthermore, gravity
-cannot be shielded---there is no gravitational analogue of a Faraday
-cage~\cite{Pikovski2015}.  Every other source of decoherence
-(electromagnetic, nuclear, thermal) can, in principle, be
-eliminated by sufficient isolation.  Gravitational dephasing
-cannot.  Consequently, $\tauasym_{\mathrm{grav}}$ constitutes
-the \emph{irreducible floor} of temporal asymmetry: for any
-massive system in a spatial superposition,
-$\tauasym_{\mathrm{total}} \geq \tauasym_{\mathrm{grav}} > 0$.
-This is the fundamental lower bound on collapse for massive
-objects, independent of engineering improvements in isolation.
-The universality of gravity (coupling to all
-energy-momentum) together with its unshieldability makes
-gravitational decoherence qualitatively different from all other
-decoherence mechanisms---it is the only source that is both
-universal and inescapable~\cite{Penrose1996,Pikovski2015,DSW2022}.
+where $\{\ket{i}\}$ are the pointer states.  The gravitational
+dephasing interaction~\eqref{eq:pikovski_H} produces SBS with
+pointer states $\{\ket{x_1}, \ket{x_2}\}$, ensuring objective
+existence~\cite{Korbicz2021}.
 
 \emph{$\tauasym = 1$ and operational superselection}~[\textsc{new
-synthesis}].---When $\tauasym = 1$, no recovery map
-$\Petz$ exists such that $\Petz \circ \chan \approx \id$.  This
-means no observable in the accessible algebra (spatial observables
-after tracing out internal degrees of freedom) can distinguish
-$\rho_S$ from the decohered state
-$\rho_S^{\mathrm{dec}} = |\alpha|^2 \op{x_1}{x_1} + |\beta|^2
-\op{x_2}{x_2}$.  This is operationally equivalent to a
-\emph{superselection rule} on position~\cite{BRS2007}: the
-coherent superposition is operationally meaningless, and the system
-behaves as if in one definite position.
+synthesis}].---When $\tauasym = 1$, no observable in the accessible
+algebra can distinguish the state from a classical mixture.  This is
+operationally equivalent to a superselection rule on
+position~\cite{BRS2007}.
 
-For gravitational decoherence specifically, the connection to
-superselection is strengthened by two results:
+For gravitational decoherence, two results strengthen this.
 (i)~Danielson, Satishchandran, and Wald~\cite{DSW2022} showed
-that superpositions of masses radiate soft gravitons that cross the
-cosmological horizon---information is causally irretrievable, not
-merely practically inaccessible.
+that superpositions of masses radiate soft gravitons crossing the
+cosmological horizon---information is causally irretrievable.
 (ii)~Kiefer and Joos~\cite{KieferJoos1999} proved that with
-infinitely many graviton field modes, the decoherence is permanent
-(no Poincar\'{e} recurrence).
-Together with the infrared superselection
-structure~\cite{Buchholz1986}, $\tauasym = 1$ from gravitational
-dephasing may be exact rather than approximate, providing genuine
-(not FAPP) irreversibility within standard quantum mechanics.
+infinitely many graviton modes, the decoherence is permanent.
+Together with infrared superselection~\cite{Buchholz1986},
+$\tauasym = 1$ from gravitational dephasing may be exact rather
+than approximate.
 
 %-----------------------------------------------------------------------
-\section{Connection to the Penrose Timescale}
+\section{Penrose as a Special Case}
 \label{sec:penrose}
 %-----------------------------------------------------------------------
 
-\emph{The Di\'{o}si--Penrose assumption}~[\textsc{known}].---Di\'{o}si
-and Penrose independently proposed that the gravitational self-energy
-of a spatial superposition,
+\emph{The Di\'{o}si--Penrose proposal}~[\textsc{known}].---Di\'{o}si
+and Penrose independently proposed that the gravitational self-energy,
 \begin{equation}
 E_G = G \!\int\! d^3\mathbf{x}\, d^3\mathbf{x}'\;
 \frac{[\rho_1(\mathbf{x}) - \rho_2(\mathbf{x})]
@@ -454,45 +414,76 @@ E_G = G \!\int\! d^3\mathbf{x}\, d^3\mathbf{x}'\;
       - \mathbf{x}'|},
 \label{eq:E_G}
 \end{equation}
-where $\rho_1, \rho_2$ are mass distributions corresponding to
-$\ket{x_1}, \ket{x_2}$, sets a fundamental collapse rate
-$\Lambda = E_G/\hbar$~\cite{Diosi1987,Penrose1996}.
+sets a fundamental collapse rate
+$\Lambda = E_G/\hbar$~\cite{Diosi1987,Penrose1996}.  Penrose's
+argument~\cite{Penrose2014} rests on the principle that superpositions
+of distinct spacetime geometries are fundamentally
+unstable---``objective reduction'' (OR).
 
-\emph{Penrose timescale from $\tauasym$}~[\textsc{new
-synthesis}].---Under the Di\'{o}si--Penrose assumption, the
-decoherence factor takes exponential form:
-$|D(t)| = \exp(-E_G t/\hbar)$.  Substituting into
-Eq.~\eqref{eq:tau_grav} (with the identification
-$N\Gamma t^2 \to E_G t/\hbar$ for the Di\'{o}si--Penrose
-mechanism), the collapse criterion
-$\tauasym(t_c) = 1 - 1/e$ gives
+\emph{$\tauasym(t)$ dynamics}~[\textsc{new formula}].---Under the
+Di\'{o}si--Penrose assumption, the decoherence factor takes
+exponential form: $|D(t)| = \exp(-E_G t/\hbar)$.  Substituting into
+the entropy production
+$\Sigma(t) = E_G t / \hbar$ and the recovery bound, the full
+$\tauasym$ dynamics becomes
 \begin{equation}
-t_c = \frac{\hbar}{E_G}\,,
-\label{eq:t_penrose}
+\boxed{
+\tauasym(t) = 1 - \exp\!\left(-\frac{E_G\, t}{2\hbar}\right).
+}
+\label{eq:tau_penrose}
 \end{equation}
-reproducing the Penrose timescale.  For a sphere of mass $m$ and
-radius $R$ displaced by $\Delta x \gg R$, $E_G \approx Gm^2/R$,
-giving $t_c \approx \hbar R/(Gm^2)$.  For a $10^{-14}$~kg object
-($R \sim 10\;\mu$m), $t_c \sim 15$~s; for a
-$2 \times 10^{-4}$~kg mirror ($R \sim 1$~mm),
-$t_c \sim 1.5\;\mu$s~\cite{Penrose1996}.
+At Penrose's timescale $t_P = \hbar/E_G$:
+$\tauasym(t_P) = 1 - e^{-1/2} \approx 0.39$.  This is one point on
+the continuous curve~\eqref{eq:tau_penrose}.
 
-\emph{Honest limitations}~[\textsc{known}].---Three caveats are
-essential:
+Table~\ref{tab:penrose_comparison} summarizes the structural
+differences.
 
-(i)~The Pikovski mechanism~\cite{Pikovski2015} and the
-Di\'{o}si--Penrose mechanism~\cite{Diosi1987,Penrose1996} are
-\emph{different physical processes}.  Pikovski dephasing arises from
-gravitational time dilation coupling to internal degrees of freedom;
-the Di\'{o}si--Penrose mechanism invokes the gravitational self-energy
-of the superposition itself.  They coincide only when the internal
-energy variance satisfies
-$\Delta E \cdot |\Delta\Phi|/(\sqrt{2}\,c^2) = E_G$.  Our
+\begin{table}[htbp]
+\caption{\label{tab:penrose_comparison}Penrose
+versus $\tauasym$ framework.}
+\begin{ruledtabular}
+\begin{tabular}{lcc}
+ & \textbf{Penrose} & \textbf{$\tauasym$ framework} \\
+\colrule
+Output & One time $t_P$ & Full curve $\tauasym(t)$ \\
+Proof & Heuristic & Theorem (JRSWW~\cite{Junge2018}) \\
+Scope & Gravity only & Any CPTP map \\
+New physics? & Yes (OR) & No (standard QM) \\
+$\tauasym = 0$? & Still collapses & No collapse (theorem) \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\emph{Artini et~al.\ connection}~[\textsc{new synthesis}].---Artini,
+Lo~Monaco, Donadi, and Paternostro~\cite{Artini2025} computed the
+entropy production rate $\Pi(t)$ for the Di\'{o}si--Penrose
+model using the Wigner-function Fokker--Planck equation, finding that
+the frictionless DP model produces dynamics consistent with the second
+law only for an infinite-temperature noise field, while the
+dissipative extension achieves thermalization.  Their entropy
+production $\Sigma_{\mathrm{Artini}}$ is computed from the
+Kullback--Leibler divergence between the Wigner function and the
+thermal equilibrium distribution [Eq.~(2) of
+Ref.~\cite{Artini2025}]---the same quantity that, through the JRSWW
+bound, constrains our recovery fidelity via
+$F \geq \exp(-\Sigma/2)$.  They did not use Petz recovery or
+compute recovery fidelity.  Our contribution is to close this gap:
+connecting their $\Sigma$ to the Petz bound gives the first
+thermodynamic constraint on spatial recoverability within the DP model.
+
+\emph{Honest limitations}.---Three caveats are essential.
+
+(i)~The Pikovski mechanism~\cite{Pikovski2015} (gravitational time
+dilation coupling to internal DOF) and the Di\'{o}si--Penrose
+mechanism~\cite{Diosi1987,Penrose1996} (gravitational self-energy of
+the superposition) are \emph{different physical processes}.  They
+coincide only when specific parameter relations hold.  The
 $\tauasym$ framework accommodates both as inputs but does not derive
 $E_G$ from first principles.
 
-(ii)~$E_G$ is an input parameter, not an output.  The $\tauasym$
-framework provides the operational definition of collapse
+(ii)~$E_G$ is an input parameter, not an output.  The framework
+provides the operational definition of collapse
 ($\tauasym \to 1$) and the thermodynamic bound
 ($F \geq \exp(-\Sigma/2)$), but it does not predict the decoherence
 rate; it takes the rate as given and quantifies its consequences.
@@ -501,10 +492,171 @@ rate; it takes the rate as given and quantifies its consequences.
 consistent coupling between classical gravity and quantum matter
 is \emph{fundamentally irreversible}---no Stinespring dilation
 exists.  If gravity has classical aspects, then $\tauasym > 0$ from
-gravitational dephasing is genuine (not FAPP), because the channel
-has no unitary extension.  If gravity is fully quantum, the total
-system admits a unitary dilation, and $\tauasym > 0$ is FAPP---but
-operationally indistinguishable in all current experiments.
+gravitational dephasing is genuine (not FAPP).  If gravity is fully
+quantum, $\tauasym > 0$ is FAPP---but operationally indistinguishable
+in all current experiments.
+
+%-----------------------------------------------------------------------
+\section{The AND--OR Transition}
+\label{sec:and_or}
+%-----------------------------------------------------------------------
+
+[\textsc{new synthesis}, building on Liu, Bai, and
+Scarani~\cite{Liu2026}]
+
+The density matrix $\rho_S = I/2$ admits two fundamentally different
+prior beliefs (in the retrodictive sense of
+Ref.~\cite{Parzygnat2023}):
+
+(a)~\emph{Proper mixture} (OR state): the system was in $\ket{0}$ OR
+$\ket{1}$ with equal probability.  The prior is
+$\beta_1 = \frac{1}{2}(\op{0}{0}_S \otimes \op{\underline{0}}
+{\underline{0}}_R + \op{1}{1}_S \otimes \op{\underline{1}}
+{\underline{1}}_R)$,
+where $R$ is a classical register.  Liu et~al.~\cite{Liu2026} showed
+that upon observing $\ket{0}$, the Petz retrodiction updates the
+belief: the system was in $\ket{0}$ with certainty.  A definite past
+exists, and observation refines it.
+
+(b)~\emph{Improper mixture} (AND state): the system is half of a
+Bell state $\ket{\Phi^+} = (\ket{00} + \ket{11})/\sqrt{2}$.
+The prior is $\beta_2 = \op{\Phi^+}{\Phi^+}_{SR}$.  Upon observing
+$\ket{0}$, the Petz retrodiction returns $I/2$---no update.  No
+definite past exists; the system was in $\ket{0}$ \emph{and}
+$\ket{1}$ simultaneously.  The belief is immune to evidence because it
+is already maximal (pure on the global system).
+
+\emph{Decoherence as AND$\to$OR}~[\textsc{new synthesis}].---The
+gravitational dephasing channel converts an improper mixture (AND) to
+a state that increasingly resembles a proper mixture (OR) as
+$\tauasym$ grows.  Specifically, as
+$\tauasym \to 1$:
+\begin{enumerate}
+\item The off-diagonal elements of $\rho_S$ vanish ($D(t) \to 0$).
+\item The entanglement between spatial and internal DOF becomes
+  maximal ($S_{\mathrm{ent}} \to \log 2$).
+\item The internal degrees of freedom carry complete which-path
+  information (distinguishability
+  $\mathcal{D}_{\mathrm{wp}} \to 1$).
+\item The retrodictive structure transitions from ``no definite past
+  exists'' to ``a definite past exists and can be inferred.''
+\end{enumerate}
+At the operational level, the AND$\to$OR transition
+\emph{is} collapse.  The parameter $\tauasym$ quantifies its
+progress:
+\begin{equation}
+\begin{array}{l}
+\tauasym = 0: \quad \text{pure AND (no definite past)}, \\
+0 < \tauasym < 1: \quad \text{partial transition}, \\
+\tauasym = 1: \quad \text{pure OR (definite past exists)}.
+\end{array}
+\label{eq:and_or_spectrum}
+\end{equation}
+
+\emph{Divergence-independence for measurements}
+(Kuang, Torii, Buscemi~\cite{Kuang2025}).---A potential objection is
+that $\tauasym$ depends on the choice of Uhlmann fidelity.  Kuang
+et~al.\ proved that for measurement channels---quantum-to-classical
+maps of the form
+$\mathcal{M}(\gamma_Q) = \sum_x \Tr\{M_x\, \gamma_Q\}\, \op{x}{x}$---\emph{all} standard $f$-divergences (Umegaki,
+Petz--R\'{e}nyi, sandwiched R\'{e}nyi, geometric R\'{e}nyi,
+Belavkin--Staszewski, trace distance) yield the same retrodiction
+map.  The unique optimizer is
+\begin{equation}
+\hat{\gamma}_{Q|x} = \frac{\sqrt{\gamma_Q}\, M_x\, \sqrt{\gamma_Q}}
+{\Tr\{M_x \gamma_Q\}},
+\label{eq:kuang_retrodiction}
+\end{equation}
+which is the Petz transpose output.  The mathematical reason is the
+semiclassical (direct-sum) structure of measurement channels, which
+allows the divergence to decompose into independent conditional terms.
+
+For the collapse problem, this means the AND$\to$OR
+transition---diagnosed by any of these divergences---yields the same
+retrodiction.  The measure $\tauasym = 1 - F_{\mathrm{Petz}}$ is not
+one choice among many; it is \emph{the} canonical irreversibility
+measure for measurement channels.
+
+%-----------------------------------------------------------------------
+\section{$\tauasym = 0$ and P-CTC Equivalence}
+\label{sec:pctc}
+%-----------------------------------------------------------------------
+
+[\textsc{new synthesis}, building on Jean, Silva, and
+Vilasini~\cite{Jean2025}]
+
+Jean et~al.\ proved a bidirectional operational equivalence: every
+(possibly mixed) multi-time state (MTS) has an operationally
+equivalent P-CTC-assisted comb, and vice versa (Theorem~1.1 of
+Ref.~\cite{Jean2025}).  P-CTCs---post-selected closed timelike curves
+in the sense of Lloyd et~al.~\cite{Lloyd2011}---allow cyclic causal
+influences through post-selected teleportation on maximally entangled
+states.
+
+In the $\tauasym$ language, this yields:
+\begin{equation}
+\tauasym = 0 \;\Longleftrightarrow\; \text{time-symmetric}
+\;\Longleftrightarrow\; \text{P-CTC-equivalent}.
+\label{eq:pctc_equiv}
+\end{equation}
+A closed system with $\tauasym = 0$ is not merely ``reversible'' in
+the colloquial sense---it is operationally equivalent to a process
+with bidirectional information flow.  The ``retrocausal'' appearance
+of the quantum eraser~\cite{Scully1982,Kim2000} is not
+mysterious---it is the expected behavior of any time-symmetric
+($\tauasym = 0$) process.
+
+Jean et~al.\ establish a binary equivalence: a process either has
+P-CTC structure or it does not.  What $\tauasym$ adds is the
+\emph{continuous interpolation}: the bound $F \geq \exp(-\Sigma/2)$
+quantifies how the P-CTC structure degrades as the system opens
+($\tauasym > 0$).  The transition from $\tauasym = 0$ to
+$\tauasym > 0$ is the loss of time-symmetric structure---the
+emergence of a preferred temporal direction.
+
+For the gravitational dephasing channel specifically, the loss of
+P-CTC structure is controlled by the entropy production:
+$\tauasym(t) = 1 - \exp(-\Sigma(t)/2)$ traces the continuous
+degradation from $\tauasym = 0$ (P-CTC-equivalent, no collapse)
+to $\tauasym \to 1$ (no time-symmetry, full collapse).
+
+%-----------------------------------------------------------------------
+\section{Why Gravity Causes Collapse: The Causal Chain}
+\label{sec:causal_chain}
+%-----------------------------------------------------------------------
+
+[\textsc{new synthesis}]  Each step in the following chain has
+explicit mathematical justification:
+\begin{equation}
+\begin{aligned}
+&\Phi(x_1) \neq \Phi(x_2) \\
+&\quad\xrightarrow{\text{Eq.~\eqref{eq:pikovski_H}}}
+  U_1 \neq U_2 \;\text{(different internal evolution)} \\
+&\quad\xrightarrow{\text{Eq.~\eqref{eq:D_factor}}}
+  D(t) \to 0 \;\text{(internal DOF distinguish paths)} \\
+&\quad\xrightarrow{\text{Eq.~\eqref{eq:sigma_ent}}}
+  \Sigma > 0 \;\text{(entropy production)} \\
+&\quad\xrightarrow{\text{Eq.~\eqref{eq:tau_grav}}}
+  \tauasym > 0 \;\text{(retrodiction fails)} \\
+&\quad\xrightarrow{\text{Liu et~al.~\cite{Liu2026}}}
+  \text{AND} \to \text{OR} \;\text{(definite past emerges)}.
+\end{aligned}
+\label{eq:causal_chain}
+\end{equation}
+The root cause is the equivalence principle: $\Phi(\hat{x})$
+couples to position, creating position-dependent phase accumulation
+in the internal degrees of freedom.  The non-uniformity of the
+gravitational redshift---the fact that clocks at different heights
+tick at different rates---is what drives the entire chain.
+
+Gravity occupies a unique position among decoherence mechanisms:
+(i)~it couples universally to all forms of energy-momentum;
+(ii)~it cannot be shielded~\cite{Pikovski2015,Penrose1996};
+(iii)~the equivalence principle guarantees position as the pointer
+basis.  Consequently, $\tauasym_{\mathrm{grav}}$ constitutes
+the \emph{irreducible floor} of temporal asymmetry: for any
+massive system in a spatial superposition,
+$\tauasym_{\mathrm{total}} \geq \tauasym_{\mathrm{grav}} > 0$.
 
 %-----------------------------------------------------------------------
 \section{Experimental Predictions}
@@ -513,16 +665,13 @@ operationally indistinguishable in all current experiments.
 
 [\textsc{new synthesis}]  Table~\ref{tab:experiments} collects the
 gravitational temporal asymmetry $\tauasym_{\mathrm{grav}}$ for major
-experiments.  In every case, the observed decoherence rates greatly
-exceed the gravitational floor, consistent with $\tauasym_{\mathrm{grav}}$
-being a lower bound on total temporal asymmetry.
+experiments.
 
 \begin{table}[htbp]
 \caption{\label{tab:experiments}Gravitational temporal asymmetry
 $\tauasym_{\mathrm{grav}}$ for current and proposed experiments.
 $t_{\mathrm{DP}} = \hbar/E_G$ is the Di\'{o}si--Penrose timescale.
-$t_{\mathrm{exp}}$ is the experimental coherence time.  All current
-experiments have $\tauasym_{\mathrm{grav}} \ll 1$.}
+All current experiments have $\tauasym_{\mathrm{grav}} \ll 1$.}
 \begin{ruledtabular}
 \begin{tabular}{lccc}
 \textbf{Experiment} & $m$ (kg) & $t_{\mathrm{DP}}$ (s)
@@ -547,40 +696,40 @@ F_{\mathrm{spatial}}(t)
 \geq \exp\!\big(-\Sigma_{\mathrm{grav}}(t)/2\big).
 \label{eq:F_bound}
 \end{equation}
-This constrains the performance of \emph{any} recovery protocol
-(including hypothetical ones beyond current technology): spatial
-coherence cannot be restored beyond the limit set by gravitational
-entropy production.
+This constrains the performance of \emph{any} recovery protocol:
+spatial coherence cannot be restored beyond the limit set by
+gravitational entropy production.
 
-\emph{$\tauasym$-$R$ bridge prediction}~[\textsc{new formula}].---The
-bridge~\eqref{eq:tau_R_bridge} predicts that collapse
-($\tauasym \to 1$) and objectivity ($R \to N$) emerge at the same
-timescale.  This is testable via quantum Darwinism
-experiments~\cite{Unden2019,Zhu2025}: by monitoring both the
-decoherence of the system and the buildup of redundant information
-in environmental fragments, one can verify that $\tauasym$ and $R$
-track the same underlying parameter $N\Gamma_{\mathrm{single}}$.
+\emph{$\tauasym(t)$ as baseline; deviations signal new
+physics}~[\textsc{new formula}].---The standard-QM prediction is
+$\tauasym_{\mathrm{baseline}}(t) = 1 - \exp(-\Sigma(t)/2)$.  If the
+DP objective reduction mechanism is correct, the observed
+$\tauasym(t)$ would match $1 - \exp(-E_G t / 2\hbar)$.  Any
+deviation---$\tauasym_{\mathrm{obs}}(t) >
+\tauasym_{\mathrm{baseline}}(t)$---would indicate collapse
+faster than standard QM predicts, pointing to new physics beyond
+unitary quantum mechanics.  Conversely, exact agreement with the
+baseline at all $t$ would disfavor objective collapse models.
+
+\emph{Gran Sasso constraints}~[\textsc{known}].---Donadi
+et~al.~\cite{Donadi2021} tested the DP model underground using
+spontaneous radiation from germanium.  The parameter-free
+Di\'{o}si model is ruled out ($R_0 > 0.54$~\AA), but Penrose's
+version (with nuclear-scale smearing) remains
+viable.
 
 \emph{BMV experiment}~[\textsc{known}].---The
 Bose--Marletto--Vedral experiment~\cite{Bose2017,Marletto2017}
-proposes to detect gravitationally-induced entanglement between
-two masses.  In our framework, this corresponds to the regime
-$\tauasym_{\mathrm{grav}} \sim 0.004$ (for $t = 1$~s,
-$m = 10^{-14}$~kg), where partial decoherence is measurable but
-collapse is far from complete.  A positive result
-(entanglement detected) would demonstrate that $\tauasym < 1$
-for the gravitational channel and that gravity mediates quantum
-correlations.  A negative result would be consistent with
-$\tauasym > 0$ being genuine
-(Galley--Giacomini--Selby~\cite{GGS2023}).
+proposes to detect gravitationally-induced entanglement.  In our
+framework, this corresponds to $\tauasym_{\mathrm{grav}} \sim 0.004$
+(for $t = 1$~s, $m = 10^{-14}$~kg), where partial decoherence is
+measurable but collapse is far from complete.
 
-\emph{Consistency with existing data}.---All current experiments
-satisfy $\tauasym_{\mathrm{grav}} \ll 1$, and observed decoherence
-rates are orders of magnitude larger than the gravitational
-prediction.  The parameter-free Di\'{o}si model is ruled out by
-underground experiments~\cite{Donadi2021}, but Penrose's version
-(with nuclear-scale smearing) remains viable.  No experiment
-contradicts the bound~\eqref{eq:F_bound}.
+\emph{Existing Petz recovery experiments}.---Png and
+Scarani~\cite{Png2025} implemented Petz recovery on an ion trap
+processor; Singh et~al.~\cite{Singh2025} on NMR.  Re-analysis of
+their recovery fidelities against the channel entropy production
+can directly test the bound~\eqref{eq:F_bound}.
 
 %-----------------------------------------------------------------------
 \section{Discussion}
@@ -590,112 +739,76 @@ contradicts the bound~\eqref{eq:F_bound}.
 We have shown that wavefunction collapse---the transition from quantum
 superposition to classical definiteness---admits a precise
 information-theoretic characterization: \emph{operational collapse
-is Petz recovery failure} ($\tauasym \to 1$).  The Petz recovery
-map, being the unique Bayesian retrodiction
-functor~\cite{Parzygnat2023}, certifies that no physical protocol
-can infer the prior superposition from the decohered state.
+is Petz recovery failure} ($\tauasym \to 1$).  Three recent results
+give this characterization concrete physical content:
 
-\emph{What we answer.}---Three questions receive quantitative
-answers within this framework:
+(i)~\emph{Liu et~al.~\cite{Liu2026}: Collapse is the AND$\to$OR
+transition.}  The same density matrix $\rho = I/2$ gives entirely
+different retrodictions depending on whether the mixture is proper
+(OR) or improper (AND).  Decoherence converts improper to proper,
+changing what retrodiction means---not just how well it works.
+The $\tauasym$ parameter tracks this transition continuously from
+$\tauasym = 0$ (pure AND, no definite past) to $\tauasym = 1$
+(pure OR, definite past exists).
 
-(i)~\emph{Why does asymmetry cause collapse?}  The tensor product
-structure of quantum mechanics amplifies any
-$\varepsilon_k > 0$ per environmental mode into exponential-in-$N$
-suppression of coherence~\cite{Joos1985}.  This is not an
-approximation but a mathematical consequence of the Hilbert space
-axiom.
+(ii)~\emph{Jean et~al.~\cite{Jean2025}: $\tauasym = 0$
+$\Leftrightarrow$ P-CTC-equivalent.}  A closed system has the
+operational structure of a time machine.  Collapse
+($\tauasym \to 1$) is the destruction of this structure.  The
+$\tauasym$ framework provides the continuous interpolation that
+Jean et~al.'s binary theorem lacks.
 
-(ii)~\emph{Why operationally only one outcome?}  When
-$\tauasym = 1$, no observable in the accessible algebra distinguishes
-the state from a classical mixture.  Combined with spectrum broadcast
-structure (SBS)~\cite{Korbicz2021}, this ensures that all observers
-independently agree on one outcome---the operational definition of
-objectivity.
+(iii)~\emph{Kuang et~al.~\cite{Kuang2025}: $\tauasym$ is unique for
+measurements.}  All standard divergences yield the same retrodiction
+for measurement channels.  The AND$\to$OR transition is
+diagnosed identically regardless of which divergence is used.
 
-(iii)~\emph{What is the timescale?}  The $\tauasym$-$R$
-bridge~\eqref{eq:tau_R_bridge} shows that collapse and objectivity
-emerge at $t_{\mathrm{dec}} = 1/\sqrt{N\Gamma_{\mathrm{single}}}$.
-Under the Di\'{o}si--Penrose assumption, this reduces to the Penrose
-timescale $t_c = \hbar/E_G$.
+\emph{The causal chain}~\eqref{eq:causal_chain} traces collapse from
+its physical origin (non-uniform gravitational redshift) through
+the mathematical machinery (entropy production, Petz recovery bound)
+to its operational consequence (the emergence of a definite past).
+The Penrose timescale $t_P = \hbar/E_G$ is recovered as a special
+case [Eq.~\eqref{eq:tau_penrose}], but the $\tauasym$ framework
+provides the full dynamics, the thermodynamic bound, and the
+connection to objectivity---all within standard quantum mechanics.
+
+\emph{What we answer.}---(i)~\emph{When does collapse happen?}  When
+$\tauasym \to 1$, quantified by Eq.~\eqref{eq:tau_grav}.
+(ii)~\emph{Why operationally only one outcome?}  SBS ensures all
+observers agree~\cite{Korbicz2021}; $\tauasym = 1$ certifies
+no recovery protocol exists.  (iii)~\emph{What is the timescale?}
+$t_{\mathrm{dec}} = 1/\sqrt{N\Gamma_{\mathrm{single}}}$; under
+Di\'{o}si--Penrose, $t_c = \hbar/E_G$.
 
 \emph{What we do not answer.}---The \emph{ontological} question
 (whether other branches ``cease to exist'') lies outside the
-framework.  Our definition of collapse is operational: it concerns
-what can be physically measured and recovered, not what
-``truly exists.''  The distinction between operational and
-ontological collapse is a choice of interpretation (Everett,
-Copenhagen, etc.), not a question that $\tauasym$ can settle.
-We note, however, that the operational answer is the strongest
-statement physics can make without additional metaphysical
-commitments.
+framework.  Our definition of collapse is operational.  The
+distinction between operational and ontological collapse is a choice
+of interpretation.  Nor do we explain \emph{why} only one outcome
+occurs---the Born rule is assumed, not derived.
 
-\emph{Open questions and limitations.}---We identify five
-limitations of the present framework that deserve explicit
-acknowledgment.
-
-(i)~\emph{Born rule.}  The framework assumes the Born rule in
-computing both $F$ (fidelity) and $\Sigma$ (entropy production).
-A complete theory of collapse should derive the Born rule from
-more primitive axioms.  We do not attempt this; our results are
-conditional on standard quantum probability.
-
-(ii)~\emph{Intermediate regime.}  The physics of
-$0 < \tauasym < 1$ (partial collapse) deserves further
-investigation.  In this regime the system is neither fully
-quantum ($\tauasym = 0$) nor fully classical ($\tauasym = 1$).
-What operational statements can be made about a system with,
-say, $\tauasym = 0.3$?  The bound
-$F \geq \exp(-\Sigma/2)$ constrains recovery, but a richer
-operational characterization of intermediate $\tauasym$ remains
-an open problem.
-
-(iii)~\emph{Observer dependence.}  Different observers---defined
-by different system-environment partitions---assign different
-$\tauasym$ to the same process.  In a Wigner's friend scenario,
-Wigner assigns $\tauasym = 0$ to a process for which Wigner's
-friend assigns $\tauasym = 1$.  The framework is internally
-consistent ($\tauasym$ is partition-dependent by construction),
-but the relationship between partition-dependent $\tauasym$
-values and intersubjective agreement requires further analysis.
-
-(iv)~\emph{Separating gravitational decoherence.}  In all
-current experiments, non-gravitational decoherence dominates by
-many orders of magnitude (Table~\ref{tab:experiments}).  Isolating
-the gravitational contribution $\tauasym_{\mathrm{grav}}$
-requires either extremely massive quantum superpositions
-(e.g., the BMV proposal~\cite{Bose2017}) or space-based experiments
-with extraordinary isolation from electromagnetic and thermal
-noise.  Until $\tauasym_{\mathrm{grav}}$ is directly measured,
-the gravitational predictions of this framework remain untested.
-
-(v)~\emph{Scope of claims.}  This framework provides a
-quantitative language for collapse ($\tauasym$) and a universal
-bound ($F \geq \exp(-\Sigma/2)$), not a resolution of the
-measurement problem.  The measurement problem asks ``why one
-outcome?''; we answer ``when recovery becomes impossible.''
-These are related but distinct questions: the former is
-ontological, the latter operational.
-
-\emph{Relationship to Paper~1.}---This work specializes the general
-$\tauasym$ framework of Ref.~\cite{Paper1} to gravitational
-channels, demonstrating that the quantum eraser--retrodiction--QEC--thermodynamics
-framework extends naturally to the collapse problem.  The
-equivalence chain
-$\tauasym = 0 \Leftrightarrow \Sigma = 0 \Leftrightarrow
-I(A;E|B) = 0 \Leftrightarrow \text{QMC}$~\cite{Paper1} applies
-directly: gravitational decoherence breaks all four conditions
-simultaneously.
+\emph{Open questions.}---(i)~The intermediate regime
+$0 < \tauasym < 1$ deserves richer operational characterization.
+(ii)~Observer dependence: different system-environment partitions
+assign different $\tauasym$.  (iii)~Isolating
+$\tauasym_{\mathrm{grav}}$ experimentally requires extraordinary
+mass scales or isolation.  (iv)~Non-Markovian extensions via the
+process tensor framework~\cite{Pollock2018} may extend the
+equivalence chain to settings where $\Sigma$ is transiently negative.
+(v)~The scope of claims: this framework provides a quantitative
+language for collapse and a universal bound, not a resolution of the
+measurement problem.
 
 \emph{Outlook.}---The $\tauasym$-$R$ bridge suggests a broader
 program.  In a companion paper~\cite{Paper2}, we apply the same
-framework to strong gravitational fields, where $\tauasym = r_s/r$
-and the Petz recovery bound constrains the structure of spacetime
-near horizons.  The connection between decoherence and objectivity
-established here may also inform quantum error correction strategies:
-quantum error correction can be understood as the deliberate
-construction of a local environment where
+framework to strong gravitational fields, where $\Sigma = r_s/r$
+and the Petz recovery bound constrains spacetime structure
+near horizons.  The AND$\to$OR transition developed here may inform
+quantum error correction strategies: QEC can be understood as the
+deliberate construction of a local environment where
 $\tauasym \approx 0$---an artificial suppression of the arrow of
-time.
+time, preventing the AND$\to$OR transition that would destroy encoded
+quantum information.
 
 \begin{acknowledgments}
 The author thanks the quantum information, quantum foundations,
@@ -707,12 +820,11 @@ which this work builds.
 % BIBLIOGRAPHY
 %-----------------------------------------------------------------------
 
-\begin{thebibliography}{40}
+\begin{thebibliography}{50}
 
 \bibitem{Paper1}
 S.-K. Huang,
-``Universal recovery: The Petz map as retrodiction functor,
-error corrector, and entropy bound,''
+``The arrow of time from Petz recovery,''
 companion paper (2026).
 
 \bibitem{Petz1986}
@@ -766,6 +878,30 @@ L.~Di\'{o}si,
 ``A universal master equation for the gravitational violation of
 quantum mechanics,''
 Phys.\ Lett.\ A \textbf{120}, 377 (1987).
+
+\bibitem{Penrose2014}
+R.~Penrose,
+``On the gravitization of quantum mechanics~1: Quantum state
+reduction,''
+Found.\ Phys.\ \textbf{44}, 557 (2014).
+
+\bibitem{Liu2026}
+M.~Liu, G.~Bai, and V.~Scarani,
+``Proper and improper mixed states serve as different prior beliefs
+for quantum state retrodiction,''
+Phys.\ Rev.\ Lett.\ \textbf{136}, 060203 (2026).
+
+\bibitem{Jean2025}
+E.~Jean, R.~Silva, and V.~Vilasini,
+``An equivalence between time-symmetry and cyclic causality in
+quantum theory,''
+arXiv:2508.02463 (2025).
+
+\bibitem{Kuang2025}
+J.~Kuang, K.~Torii, and F.~Buscemi,
+``Quantum measurement retrodiction and entropic uncertainty
+relations,''
+arXiv:2511.20281 (2025).
 
 \bibitem{Pikovski2015}
 I.~Pikovski, M.~Zych, F.~Costa, and \v{C}.~Brukner,
@@ -836,6 +972,37 @@ T.~D. Galley, F.~Giacomini, and J.~H. Selby,
 matter is fundamentally irreversible,''
 Quantum \textbf{7}, 1142 (2023).
 
+\bibitem{Artini2025}
+S.~Artini, G.~Lo~Monaco, S.~Donadi, and M.~Paternostro,
+``Non-equilibrium thermodynamics of gravitational objective-collapse
+models,''
+arXiv:2502.03173 (2025).
+
+\bibitem{Scully1982}
+M.~O. Scully and K.~Dr\"uhl,
+``Quantum eraser: A proposed photon correlation experiment concerning
+observation and `delayed choice' in quantum mechanics,''
+Phys.\ Rev.\ A \textbf{25}, 2208 (1982).
+
+\bibitem{Kim2000}
+Y.-H. Kim, R.~Yu, S.~P. Kulik, Y.~Shih, and M.~O. Scully,
+``Delayed `choice' quantum eraser,''
+Phys.\ Rev.\ Lett.\ \textbf{84}, 1 (2000).
+
+\bibitem{Lloyd2011}
+S.~Lloyd, L.~Maccone, R.~Garcia-Patron, V.~Giovannetti, and
+Y.~Shikano,
+``Quantum mechanics of time travel through post-selected
+teleportation,''
+Phys.\ Rev.\ D \textbf{84}, 025007 (2011).
+
+\bibitem{Pollock2018}
+F.~A. Pollock, C.~Rodr\'iguez-Rosario, T.~Frauenheim,
+M.~Paternostro, and K.~Modi,
+``Non-Markovian quantum processes: Complete framework and efficient
+characterization,''
+Phys.\ Rev.\ A \textbf{97}, 012127 (2018).
+
 \bibitem{Fein2019}
 Y.~Y. Fein, P.~Geyer, P.~Zwick, F.~Kia\l{}ka, S.~Pedalino,
 M.~Mayor, S.~Gerlich, and M.~Arndt,
@@ -877,6 +1044,18 @@ S.~Donadi \emph{et~al.},
 ``Underground test of gravity-related wave function collapse,''
 Nat.\ Phys.\ \textbf{17}, 74 (2021).
 
+\bibitem{Png2025}
+W.-H. Png and V.~Scarani,
+``Petz recovery maps of single-qubit decoherence channels in an
+ion trap quantum processor,''
+Phys.\ Rev.\ A \textbf{112}, 022613 (2025).
+
+\bibitem{Singh2025}
+G.~Singh, R.~S. Sahani, V.~Jagadish, L.~Lautenbacher,
+N.~K. Bernardes, and K.~Dorai,
+``Realizing the Petz recovery map on an NMR quantum processor,''
+arXiv:2508.08998 (2025).
+
 \bibitem{Unden2019}
 T.~K. Unden \emph{et~al.},
 ``Revealing the emergence of classicality using nitrogen-vacancy
@@ -899,10 +1078,10 @@ J.~Oppenheim,
 ``A postquantum theory of classical gravity?''
 Phys.\ Rev.\ X \textbf{13}, 041040 (2023).
 
-\bibitem{Artini2025}
-S.~Artini, F.~Rufo, and R.~Wald,
-``Entropy production in the Di\'{o}si-Penrose model,''
-Phys.\ Rev.\ Res.\ (2025).
+\bibitem{BaiBuscemiScarani2025}
+G.~Bai, F.~Buscemi, and V.~Scarani,
+``The Petz recovery map as the optimal retrodiction map,''
+Phys.\ Rev.\ Lett.\ \textbf{135}, 200201 (2025).
 
 \end{thebibliography}
 
