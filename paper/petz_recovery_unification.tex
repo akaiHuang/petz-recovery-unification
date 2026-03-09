@@ -16,6 +16,7 @@
 \usepackage{graphicx}
 
 \newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
 \newtheorem*{proposition}{Proposition}
 
 % Convenience macros
@@ -431,9 +432,23 @@ $F^2 \geq \exp(-\Delta D)$ holds universally.
 When $[\rho,\sigma] = 0$ (classical limit) or $\Delta D = 0$
 (exact recovery), $\tilde{\Petz}$ reduces to $\Petz$ and the
 distinction vanishes.
-For a unitary channel $\chan = \mathcal{U}$, the Petz map reduces
-to $\mathcal{U}^\dagger$ and $F = 1$, so $\tauasym = 0$: closed
-systems have no temporal asymmetry.  More generally,
+\begin{corollary}[Unitary channels]
+\label{cor:unitary}
+For the unitary channel $\chan_U(\rho) = U\rho\, U^\dagger$:
+\begin{enumerate}
+\item[\emph{(a)}] $\Petz_{\sigma,\chan_U}(X) = U^\dagger X\, U$
+  for every faithful $\sigma$;
+\item[\emph{(b)}] $F = 1$, hence $\tauasym = 0$;
+\item[\emph{(c)}] the recovery map is independent of $\sigma$.
+\end{enumerate}
+\end{corollary}
+\emph{Proof sketch.}---Substituting $\chan_U$ into
+Eq.~\eqref{eq:petz}: $\chan_U(\sigma)^{-1/2} = U\sigma^{-1/2}U^\dagger$
+and $\chan_U^\dagger(X) = U^\dagger X\, U$, so the $\sigma$-dependent
+factors cancel.
+See~\cite{SM}, Sec.~S20 for the full derivation. \hfill$\square$
+
+Closed systems therefore have no temporal asymmetry.  More generally,
 $F^2 \geq \exp(-\Sigma)$ gives
 \begin{equation}
 \tauasym \;\leq\; 1 - \exp(-\Sigma/2),
@@ -456,6 +471,24 @@ chain~\eqref{eq:equiv_chain} states them as a single result.
 The arrow of time ($\tauasym > 0$) is equivalent to environmental
 coupling ($I(A;E|B) > 0$), entropy production ($\Sigma > 0$),
 and imperfect recoverability ($F < 1$).
+
+\emph{Remark (State-specific versus universal $\tauasym = 0$).}---The
+equivalence chain~\eqref{eq:equiv_chain} holds for
+\emph{all} states $\rho$ simultaneously.  However, $\tauasym = 0$
+can also occur for a \emph{specific} state $\rho$ even when the
+channel is not reversible: this happens whenever $\chan$ is
+\emph{sufficient} for the pair $(\rho, \sigma)$, i.e., the DPI is
+saturated for that particular state~\cite{Petz1988}.
+The condition $\tauasym(\rho, \sigma, \chan) = 0$ for \emph{all}
+faithful $\rho$ holds if and only if $\chan$ is reversible (a unitary
+conjugation; see Corollary~1 and~\cite{SM}, Sec.~S20).
+In the quantum eraser, $\tauasym = 0$ is state-specific: the
+Petz map achieves exact recovery for the entangled state
+$\sigma = \ket{\psi}\!\bra{\psi}_{SE}$, but $\Tr_E$ is not a
+reversible channel.
+The physical interpretation ``no arrow of time'' applies
+universally---i.e., independently of the input state---only
+when $\tauasym = 0$ for all $\rho$.
 
 The quantum eraser illustrates this directly.
 The signal-idler pair is a closed bipartite system with
@@ -692,6 +725,23 @@ statistic---and Theorem~\ref{thm:composition} shows that
 $\sqrt{\tauasym}$ satisfies a triangle inequality unique to the
 standard Petz map.
 
+\emph{Operational meaning of $\tauasym = 0$.}---When $\tauasym = 0$
+for all input states (Corollary~\ref{cor:unitary}), forward
+prediction and backward retrodiction are operationally
+equivalent: any statistical prediction about the pre-channel state
+can be obtained equally well from the post-channel state, and vice
+versa.  The distinction between past and future is absent at the
+level of extractable information.  This operational time-symmetry
+is what $\tauasym = 0$ quantifies.  We note that this is an
+operational statement; it is compatible with, but does not require,
+ontological claims about the coexistence of past and future.
+The condition $\tauasym = 0$ recovers the content of the
+Aharonov--Bergmann--Lebowitz (ABL)
+rule~\cite{ABL1964}: in a closed system, pre- and post-selected
+probabilities are symmetric under time reversal.
+The $\tauasym$ framework generalizes this to open systems, where
+$\tauasym > 0$ quantifies the departure from ABL symmetry.
+
 The decoherence program~\cite{Zurek2003,Zeh1970} provides the
 mechanism: environment-induced decoherence produces
 entropy ($\Sigma > 0$), forcing $\tauasym > 0$.
@@ -914,7 +964,8 @@ See Supplemental Material for detailed derivations,
 the explicit quantum eraser calculation, the bound saturation
 if-and-only-if proof (Sec.~S17), the composition sub-additivity
 proof (Sec.~S18), the $n$-channel composition corollary
-(Sec.~S19), post-selection analysis,
+(Sec.~S19), the unitary-channel Petz proof (Sec.~S20),
+post-selection analysis,
 the equivalence chain proof, and caveats.
 
 \end{thebibliography}

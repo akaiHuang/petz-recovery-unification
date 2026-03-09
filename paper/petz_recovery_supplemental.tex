@@ -1008,6 +1008,44 @@ subsystem has $\tauasym > 0$. Recovering $\tauasym = 0$ requires
 accessing the idler---this is the operational meaning of ``waiting
 for the future measurement.''
 
+\subsection{Information-theoretic reasoning chain}
+
+We make the logical structure of $\tauasym = 0$ explicit in the
+quantum eraser setting:
+
+\begin{enumerate}
+\item \emph{Perfect recovery.}  $\tauasym = 0$ means the Petz map
+  $\Petz$ satisfies $\Petz(\chan(\rho)) = \rho$.  The post-channel
+  state $\chan(\rho)$ therefore determines $\rho$ exactly.
+\item \emph{Information completeness.}  Since $\rho$ is
+  recoverable from $\chan(\rho)$, the output $\chan(\rho)$ contains
+  complete information about $\rho$: no distinguishability has
+  been lost.
+\item \emph{Measurement simulation.}  Any measurement on $\rho$
+  can be simulated by first recovering $\rho$ from $\chan(\rho)$
+  and then performing the measurement.  Hence no observable
+  quantity depends on whether one has access to $\rho$ or
+  $\chan(\rho)$.
+\item \emph{Temporal-ordering irrelevance.}  Because the
+  pre-channel and post-channel descriptions are
+  informationally equivalent, the temporal ordering of
+  operations is irrelevant from an information-theoretic
+  standpoint.
+\item \emph{Application to the quantum eraser.}  In the eraser,
+  $\chan = \Tr_E$ and $\rho = \ket{\psi}\!\bra{\psi}_{SE}$.  The
+  joint signal-idler state $\chan(\rho) = \rho_S$ together with
+  the recovery map $\Petz_{\sigma,\Tr_E}$ contains full
+  information about the input.  The apparent ``need to wait''
+  for the idler measurement arises only when the experimenter
+  restricts attention to the signal subsystem, for which
+  $\tauasym > 0$.  Accessing the idler restores $\tauasym = 0$
+  and with it the temporal symmetry.
+\end{enumerate}
+
+This chain shows that $\tauasym = 0$ is not merely a numerical
+coincidence but reflects the information-theoretic equivalence
+of pre- and post-channel descriptions.
+
 %=======================================================================
 \section{S12. Numerical Verification}
 \label{sec:numerical}
@@ -2149,6 +2187,89 @@ where the maximum on each term may be achieved by a
 different state.  This holds because replacing
 $\tauasym_i^{\mathrm{eff}}$ by its maximum over all inputs can
 only increase each summand.
+
+%=======================================================================
+\section{S20. Proof of Corollary~1 (Unitary Channels)}
+\label{sec:S20}
+%=======================================================================
+
+We prove that for the unitary channel
+$\chan_U(\rho) = U\rho\, U^\dagger$, the Petz recovery map reduces
+to the adjoint $U^\dagger(\cdot)U$, independently of the reference
+state~$\sigma$.
+
+\subsection{S20.1: Statement}
+
+Let $U$ be unitary on $\hilb$ and define
+$\chan_U(\rho) = U\rho\, U^\dagger$.  For any faithful state $\sigma$:
+\begin{enumerate}
+\item[(a)] $\Petz_{\sigma,\chan_U}(X) = U^\dagger X\, U$ for all $X$;
+\item[(b)] $F(\rho,\,\Petz_{\sigma,\chan_U}(\chan_U(\rho))) = 1$ for
+  all $\rho$, hence $\tauasym = 0$;
+\item[(c)] $\Petz_{\sigma,\chan_U}$ is independent of $\sigma$.
+\end{enumerate}
+
+\subsection{S20.2: Proof}
+
+The Petz recovery map is
+\begin{equation}
+\Petz_{\sigma,\chan}(X) = \sigma^{1/2}\,
+\chan^\dagger\!\big(\chan(\sigma)^{-1/2}\, X\,
+\chan(\sigma)^{-1/2}\big)\,\sigma^{1/2}.
+\end{equation}
+
+\emph{Step~1: Compute $\chan_U(\sigma)^{-1/2}$.}
+Since $\chan_U(\sigma) = U\sigma\, U^\dagger$, we have
+\begin{equation}
+\chan_U(\sigma)^{-1/2} = (U\sigma\, U^\dagger)^{-1/2}
+= U\,\sigma^{-1/2}\, U^\dagger,
+\end{equation}
+where the last equality uses the spectral theorem: if
+$\sigma = \sum_k \lambda_k \ket{e_k}\!\bra{e_k}$, then
+$U\sigma\, U^\dagger = \sum_k \lambda_k \ket{Ue_k}\!\bra{Ue_k}$
+and $(U\sigma\, U^\dagger)^{-1/2}
+= \sum_k \lambda_k^{-1/2}\ket{Ue_k}\!\bra{Ue_k}
+= U\,\sigma^{-1/2}\, U^\dagger$.
+
+\emph{Step~2: Compute the adjoint.}
+The Hilbert--Schmidt adjoint of $\chan_U$ satisfies
+$\Tr[\chan_U^\dagger(A)\, B] = \Tr[A\, \chan_U(B)]
+= \Tr[A\, U B U^\dagger] = \Tr[U^\dagger A\, U \cdot B]$,
+so $\chan_U^\dagger(A) = U^\dagger A\, U$.
+
+\emph{Step~3: Assemble.}
+\begin{align}
+\Petz_{\sigma,\chan_U}(X)
+&= \sigma^{1/2}\, U^\dagger\!\big(
+  U\sigma^{-1/2}U^\dagger\, X\,
+  U\sigma^{-1/2}U^\dagger
+\big)\, U \cdot \sigma^{1/2} \notag\\
+&= \sigma^{1/2}\,\sigma^{-1/2}\, U^\dagger X\, U\,
+  \sigma^{-1/2}\,\sigma^{1/2} \notag\\
+&= U^\dagger X\, U.
+\end{align}
+All $\sigma$-dependent factors cancel, proving (a) and~(c).
+
+\emph{Step~4: Fidelity.}
+$\Petz_{\sigma,\chan_U}(\chan_U(\rho))
+= U^\dagger(U\rho\, U^\dagger)U = \rho$,
+so $F(\rho,\rho) = 1$ and $\tauasym = 0$, proving~(b).
+\hfill$\square$
+
+\subsection{S20.3: Converse---universal $\tauasym = 0$ implies unitarity}
+
+If $\tauasym(\rho, \sigma, \chan) = 0$ for all faithful $\rho$
+(with some fixed faithful $\sigma$), then the DPI for relative
+entropy is saturated for all $\rho$, i.e.,
+$D(\rho\|\sigma) = D(\chan(\rho)\|\chan(\sigma))$ for all $\rho$.
+By Petz's sufficiency theorem~\cite{Petz1988}, this implies that
+$\Petz_{\sigma,\chan} \circ \chan = \id$ on all of
+$\mathcal{B}(\hilb)$.
+A CPTP map admitting a CPTP left inverse on all of
+$\mathcal{B}(\hilb)$ is necessarily a unitary
+conjugation~\cite{Parzygnat2023}.
+Hence universal $\tauasym = 0$ characterizes unitary channels.
+\hfill$\square$
 
 %=======================================================================
 
