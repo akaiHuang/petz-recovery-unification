@@ -1,0 +1,893 @@
+% paper4_grand_unification_outline.tex
+% One Equation, Three Scales: Sigma = D(rho_spacetime || rho_matter)
+% as the Universal Action
+% Author: Sheng-Kai Huang
+% Status: CONCEPTUAL OUTLINE
+% Compile with: pdflatex paper4_grand_unification_outline.tex
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}
+
+% Convenience macros (same as Paper 1)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\KL}{D}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\op}[2]{|#1\rangle\langle#2|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tauasym}{\tau}
+
+% Outline-specific formatting
+\newcommand{\known}{\textsc{[known]}}
+\newcommand{\newsyn}{\textsc{[new synthesis]}}
+\newcommand{\newform}{\textsc{[new formula]}}
+\newcommand{\spec}{\textsc{[speculative]}}
+\newcommand{\towrite}[1]{{\color{blue}\textbf{[TO WRITE:} #1\textbf{]}}}
+\newcommand{\toderive}[1]{{\color{red}\textbf{[TO DERIVE:} #1\textbf{]}}}
+\newcommand{\assumed}[1]{{\color{orange}\textbf{[ASSUMED:} #1\textbf{]}}}
+
+\begin{document}
+
+\title{One Equation, Three Scales:\\
+$\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$
+as the Universal Action}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+\towrite{Final abstract after Papers 1--3 are complete.}
+
+Papers~1--3 of this series demonstrated that the entropy production
+$\Sigma = D(\rho\|\sigma) - D(\chan(\rho)\|\chan(\sigma))$ governs
+three seemingly unrelated domains: quantum information recovery
+(Paper~1), strong-field gravity near black holes (Paper~2), and
+galactic rotation curves (Paper~3). Here we propose that these are
+not three separate applications but three solutions of
+\emph{one equation}:
+\begin{equation*}
+\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}}),
+\end{equation*}
+where $\rho_{\mathrm{spacetime}}$ and $\rho_{\mathrm{matter}}$ are
+density matrices encoding the geometry and matter content,
+respectively, following Bianconi's gravity-from-entropy framework
+(PRD~2025). Different boundary conditions yield different
+solutions: strong-field ($r \sim r_s$) $\to$ exponential metric,
+weak-field ($r \sim \mathrm{kpc}$) $\to$ running $G$ and flat
+rotation curves, no-gravity limit $\to$ standard quantum
+information theory. We identify the matching conditions between
+regimes, derive the emergent arrow of time
+$\tauasym = 1 - \exp(-\Sigma/2)$ as a universal consequence,
+and discuss open problems including the Born rule, Planck-scale
+physics, and cosmological initial conditions.
+\end{abstract}
+
+\maketitle
+
+%=======================================================================
+\section{The Three Scales}
+\label{sec:three_scales}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\newsyn\ \emph{Summary of Papers~1--3.}---The first three papers
+of this series established that the entropy production
+$\Sigma$ governs physics at three different scales:
+
+\begin{table}[htbp]
+\caption{\label{tab:three_scales}The three scales unified by
+$\Sigma$.}
+\begin{ruledtabular}
+\begin{tabular}{lccc}
+& \textbf{Paper 1} & \textbf{Paper 2} & \textbf{Paper 3} \\
+\colrule
+Domain & QI & Strong field & Weak field \\
+Scale & any & $r \sim r_s$ & $r \sim \mathrm{kpc}$ \\
+$\Sigma$ & generic & $r_s/r$ & $r_s/r + \alpha\ln r$ \\
+$\chan$ & any CPTP & grav.\ redshift & RG-improved grav. \\
+Key result & $F \geq e^{-\Sigma/2}$ & exp.\ metric & flat curves \\
+Status & \known & \newsyn & \newsyn \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\newsyn\ \emph{The pattern.}---Each paper uses the \emph{same}
+mathematical structure:
+\begin{enumerate}
+\item A quantum channel $\chan$ that processes information;
+\item The QRE drop $\Sigma$ under $\chan$;
+\item The Petz recovery map as the optimal retrodiction;
+\item The fidelity bound $F \geq \exp(-\Sigma/2)$.
+\end{enumerate}
+The only difference is the \emph{channel}: a general CPTP map
+(Paper~1), the gravitational redshift channel (Paper~2), or the
+RG-improved gravitational channel (Paper~3). This suggests that
+all three are limits of a single, more fundamental equation.
+
+\emph{The $F = ma$ analogy.}---Newton's second law $F = ma$ is one
+equation. With different force laws and boundary conditions:
+\begin{itemize}
+\item Gravity + central field $\to$ Kepler orbits (planets);
+\item Hooke's law + spring $\to$ simple harmonic oscillation;
+\item Viscosity + continuum $\to$ Navier--Stokes (fluids).
+\end{itemize}
+Nobody says there are ``three different $F = ma$'s.'' There is
+one equation with three classes of solutions. We propose the same
+for $\Sigma$.
+
+%=======================================================================
+\section{The Unified Equation}
+\label{sec:unified}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\spec\ \emph{The proposal.}---We conjecture that gravity, quantum
+information, and the arrow of time are all governed by
+\begin{equation}
+\boxed{
+\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}}).
+}
+\label{eq:unified}
+\end{equation}
+
+\emph{Interpretation.}---$\rho_{\mathrm{spacetime}}$ encodes the
+geometry (metric, curvature) as a density matrix.
+$\rho_{\mathrm{matter}}$ encodes the matter content (stress-energy)
+as a density matrix. The quantum relative entropy between them is
+the entropy production $\Sigma$: the ``distance'' between what
+spacetime ``is'' and what matter ``requires'' it to be.
+
+\known\ \emph{Formal framework: Bianconi (2025).}---Bianconi~\cite{Bianconi2025}
+provided the mathematical framework in which
+Eq.~\eqref{eq:unified} is well defined. In the gravity-from-entropy
+(GfE) framework:
+\begin{itemize}
+\item The metric $g_{\mu\nu}$ is promoted to a density matrix
+  $\rho_g$ on the space of field configurations;
+\item The matter-induced metric (the metric that matter ``wants''
+  via stress-energy) is another density matrix $\rho_m$;
+\item The gravitational action is the QRE:
+  $S_{\mathrm{grav}} = D(\rho_g \| \rho_m)$;
+\item The Einstein equations arise from extremizing $D(\rho_g \| \rho_m)$;
+\item In the low-coupling limit, this reduces to the standard
+  Einstein--Hilbert action.
+\end{itemize}
+
+\known\ \emph{Bianconi's key results}~\cite{Bianconi2025,BianconiCosmology2025}:
+\begin{itemize}
+\item Modified Einstein equations that reduce to standard GR at
+  low coupling;
+\item Predicts small positive cosmological constant;
+\item The ``$G$-field'' (extra degree of freedom from QRE structure)
+  is a candidate for dark matter;
+\item FRW cosmological solutions exist and are thermal~\cite{BianconiCosmology2025}.
+\end{itemize}
+
+\newsyn\ \emph{Connection to our framework.}---Bianconi's $S_{\mathrm{grav}}
+= D(\rho_g \| \rho_m)$ is \emph{literally} our
+$\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$.
+The GfE framework provides the formal definition; our series
+provides the physical interpretation: $\Sigma$ is the entropy
+production, $\tauasym = 1 - \exp(-\Sigma/2)$ is the arrow of time,
+and the Petz recovery map is the optimal retrodiction.
+
+%=======================================================================
+\section{Strong-Field Solution}
+\label{sec:strong_field}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\newsyn\ \emph{Boundary conditions.}---Static, spherically symmetric,
+$r \sim r_s$, asymptotically flat.
+
+\emph{From Paper~2.}---Under these conditions, the entropy production
+is~\cite{Paper2}
+\begin{equation}
+\Sigma_{\mathrm{strong}} = \frac{r_s}{r} = \frac{2GM}{c^2 r},
+\label{eq:sigma_strong}
+\end{equation}
+and the Petz recovery fidelity gives the metric component
+\begin{equation}
+g_{00} = -F^2 = -\exp\!\left(-\frac{r_s}{r}\right).
+\label{eq:exp_metric}
+\end{equation}
+This is the ``exponential metric'' that replaces Schwarzschild:
+\begin{itemize}
+\item No event horizon (the exponential never reaches zero);
+\item All curvature invariants remain finite;
+\item Testable predictions: GW echoes, neutron star redshift,
+  QNM frequencies, shadow size, ISCO radius.
+\end{itemize}
+
+\toderive{Show that Eq.~\eqref{eq:sigma_strong} follows from
+Eq.~\eqref{eq:unified} under the stated boundary conditions.
+Specifically: solve $\delta D(\rho_g \| \rho_m) = 0$ for a
+static, spherically symmetric vacuum with mass $M$ at the origin.
+The solution should be $g_{00} = -\exp(-r_s/r)$, reproducing
+Paper~2.}
+
+\emph{Matching condition at large $r$.}---As $r \to \infty$,
+$\Sigma_{\mathrm{strong}} \to 0$ and $g_{00} \to -1$: flat
+spacetime. The strong-field solution must match onto the weak-field
+solution (Paper~3) at intermediate radii $r \gg r_s$ but
+$r \ll r_c \approx 37$~kpc.
+
+%=======================================================================
+\section{Weak-Field Solution}
+\label{sec:weak_field}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\newsyn\ \emph{Boundary conditions.}---Quasi-static, approximately
+axisymmetric (disk galaxy), $r \sim \mathrm{kpc}$, weak-field
+($\Phi/c^2 \ll 1$).
+
+\emph{From Paper~3.}---Under these conditions, the RG flow of the
+gravitational channel introduces quantum corrections~\cite{Paper3}:
+\begin{equation}
+\Sigma_{\mathrm{weak}}(r) = \frac{r_s}{r}
+  + \frac{4k_* r_s}{\pi}\,\ln\!\left(\frac{r}{r_0}\right),
+\label{eq:sigma_weak}
+\end{equation}
+where the logarithmic term arises from the marginal running
+($\eta = 1$) of Newton's constant $G(k)$ at IR scales
+$k \ll k_*$.
+
+\emph{Physical consequence.}---The logarithmic correction produces
+an additional $1/r$ force that dominates at $r \gg r_c = 1/k_*$,
+giving flat rotation curves without dark matter particles.
+
+\toderive{Show that Eq.~\eqref{eq:sigma_weak} follows from
+Eq.~\eqref{eq:unified} under weak-field boundary conditions with
+quantum corrections included. This requires:
+(i)~solving $\delta D(\rho_g \| \rho_m) = 0$ at the semiclassical
+level (reproducing Dorau--Much);
+(ii)~including one-loop corrections via the DPI/RG connection
+(Casini--Huerta);
+(iii)~showing that the marginal running $\eta = 1$ emerges
+naturally.}
+
+\emph{Matching to strong field.}---At $r \gg r_s$ but $r \ll r_c$,
+the logarithmic correction is negligible and
+$\Sigma_{\mathrm{weak}} \approx r_s/r$, matching
+$\Sigma_{\mathrm{strong}}$ smoothly. The two solutions are not
+disjoint---they are limits of the same equation.
+
+%=======================================================================
+\section{Quantum Information Solution}
+\label{sec:qi}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\known\ \emph{Boundary conditions.}---No gravity ($G = 0$), general
+CPTP map $\chan$, finite-dimensional Hilbert spaces.
+
+\emph{From Paper~1.}---With no gravity, $\Sigma$ reduces to the
+generic entropy production of any quantum channel~\cite{Paper1}:
+\begin{equation}
+\Sigma_{\mathrm{QI}} = D(\rho\|\sigma) - D(\chan(\rho)\|\chan(\sigma)),
+\label{eq:sigma_qi}
+\end{equation}
+and the Petz recovery map $\Petz_{\sigma,\chan}$ provides the
+optimal retrodiction with fidelity bound
+$F \geq \exp(-\Sigma/2)$.
+
+\newsyn\ \emph{The gravity $\to$ QI limit.}---When gravity is
+turned off, $\rho_{\mathrm{spacetime}} \to \rho_{\mathrm{flat}}$
+(Minkowski geometry) and the QRE
+$D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$ reduces to
+the matter-sector entropy production alone. The gravitational
+contribution vanishes: $\Sigma_{\mathrm{grav}} = 0$,
+$\tauasym_{\mathrm{grav}} = 0$. Only the channel-induced entropy
+production remains.
+
+\emph{Connection to quantum error correction.}---From Paper~1,
+$\Sigma = 0$ $\Leftrightarrow$ $\tauasym = 0$ $\Leftrightarrow$
+perfect Petz recovery $\Leftrightarrow$ quantum Markov chain
+$\Leftrightarrow$ Knill--Laflamme conditions. QEC is the
+deliberate construction of a subsystem where $\Sigma = 0$:
+an artificial elimination of the arrow of time within a local
+code space.
+
+%=======================================================================
+\section{Matching Conditions and Predictions}
+\label{sec:matching}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\newsyn\ \emph{The three regimes are connected.}---The solutions of
+Eq.~\eqref{eq:unified} in different boundary conditions must
+\emph{match} at their boundaries:
+
+\begin{enumerate}
+\item \emph{Strong $\to$ weak}: At $r \gg r_s$, the exponential
+  metric linearizes to Newton + small corrections. The logarithmic
+  correction from Paper~3 emerges as the leading quantum correction
+  to this classical limit.
+
+\item \emph{Weak $\to$ QI}: At scales where $\Phi/c^2 \to 0$
+  (laboratory), the gravitational $\Sigma$ becomes negligible and
+  only quantum-channel entropy production remains.
+
+\item \emph{Weak $\to$ cosmological}: At $r \sim r_H = c/H_0$
+  (Hubble radius), the de~Sitter background contribution
+  $\Sigma_{\mathrm{dS}} \sim r/r_H$ becomes dominant, connecting
+  galactic dynamics to cosmic expansion.
+\end{enumerate}
+
+\spec\ \emph{Intermediate-scale predictions.}---At scales where
+two regimes overlap, \emph{both} corrections matter simultaneously.
+Specific predictions:
+\begin{itemize}
+\item At $r \sim 100$~kpc (galaxy cluster outskirts): both
+  running-$G$ and de~Sitter corrections contribute. This may
+  resolve the Bullet Cluster puzzle if the two effects combine
+  to produce the observed mass-light separation.
+\item At $r \sim r_s \cdot k_*/k_s$ (strong-field with quantum
+  corrections): the exponential metric acquires logarithmic
+  modifications. Testable via precision measurements of
+  neutron star properties.
+\end{itemize}
+
+\spec\ \emph{The three-term approximation.}---In the appropriate
+limits, the unified $\Sigma$ can be approximated as
+\begin{equation}
+\Sigma(r) \approx \underbrace{\frac{r_s}{r}}_{\text{local gravity}}
+  + \underbrace{\alpha\,\ln\!\left(\frac{r}{r_c}\right)}_{\text{RG running}}
+  + \underbrace{\beta\,\frac{r}{L_{\mathrm{dS}}}}_{\text{de Sitter}},
+\label{eq:three_term}
+\end{equation}
+where:
+\begin{itemize}
+\item Term 1 dominates near compact objects ($r \lesssim r_s$);
+\item Term 2 dominates at galactic scales ($r_c \lesssim r \lesssim L_{\mathrm{dS}}$);
+\item Term 3 dominates at cosmological scales ($r \sim L_{\mathrm{dS}}$).
+\end{itemize}
+\textbf{This is an approximation}, not the fundamental equation.
+The fundamental equation is Eq.~\eqref{eq:unified}; the three
+terms emerge as limits.
+
+%=======================================================================
+\section{The Arrow of Time as Emergent}
+\label{sec:time_arrow}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\newsyn\ \emph{The central thesis.}---The arrow of time is not a
+separate law of nature. It \emph{is} the entropy production $\Sigma$:
+\begin{equation}
+\tauasym = 1 - \exp(-\Sigma/2).
+\label{eq:tau_sigma}
+\end{equation}
+This single equation, applied across scales, gives:
+
+\begin{table}[htbp]
+\caption{\label{tab:time_arrow}The arrow of time at different scales.}
+\begin{ruledtabular}
+\begin{tabular}{lccc}
+\textbf{Scale} & $\Sigma$ & $\tauasym$ & \textbf{Physical meaning} \\
+\colrule
+Closed system & $0$ & $0$ & No arrow of time \\
+Open (lab) & $> 0$ & $> 0$ & Arrow exists \\
+Near BH & $r_s/r$ & $\to 1$ & Strong arrow \\
+Galaxy edge & $+ \alpha\ln r$ & $> 0$ & Arrow from RG \\
+Hubble horizon & $\sim 1$ & $\sim 0.39$ & Cosmic arrow \\
+Singularity & $\to \infty$ & $= 1$ & Maximal arrow \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\newsyn\ \emph{Three key insights.}---
+\begin{enumerate}
+\item \emph{$\tauasym = 0$ (closed system): time does not
+  exist.}---When $\Sigma = 0$, perfect Petz recovery is
+  possible: the ``future'' state can be perfectly retrodicted
+  from the ``past'' state, and vice versa. Past and future are
+  operationally indistinguishable. This is not a philosophical
+  statement but an operational one: no measurement can
+  determine the temporal ordering of events.
+
+\item \emph{$\tauasym > 0$ (open system): time's arrow
+  exists.}---When $\Sigma > 0$, retrodiction is imperfect:
+  there is a preferred direction. The degree of preference is
+  continuously quantified by $\tauasym \in (0, 1)$.
+
+\item \emph{$\tauasym \to 1$ (macroscopic/singularity):
+  classical world.}---When $\tauasym \approx 1$, the arrow of
+  time is absolute. Collapse is complete. Classical physics
+  emerges. This is the everyday world.
+\end{enumerate}
+
+\newsyn\ \emph{The signed version.}---The full picture requires
+\begin{equation}
+\tauasym_{\mathrm{signed}} = \ln\!\left(\frac{P_{\mathrm{fwd}}}{P_{\mathrm{rev}}}\right),
+\label{eq:tau_signed}
+\end{equation}
+which allows three cases:
+\begin{itemize}
+\item $\tauasym_{\mathrm{signed}} > 0$: forward arrow (normal);
+\item $\tauasym_{\mathrm{signed}} = 0$: no arrow (closed/unitary);
+\item $\tauasym_{\mathrm{signed}} < 0$: reverse arrow
+  (non-Markovian backflow, spin echo, Wang et~al.\ 2002
+  colloidal particle experiments~\cite{Wang2002}).
+\end{itemize}
+The second law ($\langle \Sigma \rangle \geq 0$) is a
+\emph{statistical} law: $P(\Sigma < 0)/P(\Sigma > 0) =
+\exp(-|\Sigma|)$ (Crooks). Time reversal is not impossible,
+merely exponentially unlikely for macroscopic systems.
+
+%=======================================================================
+\section{Cosmological Extension}
+\label{sec:cosmology}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\spec\ \emph{FRW from $\Sigma$.}---In the Friedmann--Robertson--Walker
+(FRW) universe, there is no timelike Killing vector. The natural
+replacement is the Kodama vector $K^a$~\cite{Kodama1980}, which:
+\begin{itemize}
+\item Is divergence-free in any spherically symmetric spacetime;
+\item Gives a conserved charge = Misner--Sharp mass;
+\item Defines surface gravity at the apparent horizon.
+\end{itemize}
+
+The cosmological $\tauasym$ can be defined via~\cite{Paper3cosmological}:
+\begin{equation}
+F_K = \frac{|K|}{|K_{\mathrm{ref}}|},
+\label{eq:F_kodama}
+\end{equation}
+giving $\tauasym = 0$ at the observer ($r = 0$) and
+$\tauasym = 1$ at the apparent horizon ($|K|^2 = 0$).
+
+\spec\ \emph{Friedmann equations from QRE.}---The first law of
+thermodynamics at the FRW apparent horizon,
+$dE = TdS + WdV$, projects along the Kodama vector to give the
+second Friedmann equation~\cite{Hayward1998,CaiKim2005}.
+Combined with Dorau--Much and Bianconi, this suggests:
+\begin{equation}
+H^2 + \frac{k}{a^2} = \frac{8\pi G}{3}\,\rho
+\quad \Leftarrow \quad
+\delta\, D(\rho_{\mathrm{st}} \| \rho_{\mathrm{m}}) = 0.
+\label{eq:friedmann_from_qre}
+\end{equation}
+
+\toderive{Derive the Friedmann equations from
+$\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$
+using Bianconi's GfE framework with FRW boundary conditions.
+Bianconi~\cite{BianconiCosmology2025} has shown FRW solutions
+exist; the task is to reproduce the standard Friedmann equations
+as a limit.}
+
+\spec\ \emph{Dark energy from finite cosmic information.}---
+Padmanabhan's CosMIn principle~\cite{Padmanabhan2017}: the total
+cosmic information $I_{\mathrm{CosMIn}}$ transferred from
+quantum to classical must be \emph{finite}. This requires
+late-time accelerated expansion ($\Lambda > 0$). In the
+$\tauasym$ language:
+\begin{equation}
+I_{\mathrm{CosMIn}} = \int_0^\infty \tauasym(t)\, dt < \infty
+\quad \Rightarrow \quad \Lambda > 0.
+\label{eq:cosmin_tau}
+\end{equation}
+
+\towrite{Paragraph on the interpretation: $\Lambda > 0$ is not
+a ``mystery'' but a \emph{necessity} for finite cosmic information
+processing. The universe must eventually stop producing
+information (entropy) at an unbounded rate. Accelerated
+expansion achieves this by diluting matter and radiation.}
+
+%=======================================================================
+\section{The Analogy Made Precise}
+\label{sec:analogy}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\newsyn\ \emph{One equation, three solutions.}---We now make
+the $F = ma$ analogy precise:
+
+\begin{table*}[htbp]
+\caption{\label{tab:analogy}The $F = ma$ analogy for
+$\Sigma = D(\rho_{\mathrm{st}} \| \rho_{\mathrm{m}})$.}
+\begin{ruledtabular}
+\begin{tabular}{p{3cm}p{3.5cm}p{3.5cm}p{3.5cm}}
+& \textbf{$F = ma$} & \textbf{$\Sigma = D(\rho_{\mathrm{st}} \| \rho_{\mathrm{m}})$} & \textbf{Status} \\
+\colrule
+Equation & $\mathbf{F} = m\mathbf{a}$ & $\Sigma = D(\rho_{\mathrm{st}} \| \rho_{\mathrm{m}})$ & \spec \\[4pt]
+Solution 1 & Kepler orbits (gravity, $r \gg 0$) & Exponential metric (strong field, $r \sim r_s$) & \newsyn \\[4pt]
+Solution 2 & SHM (Hooke, spring) & Flat rotation curves (weak field, $r \sim$ kpc) & \newsyn \\[4pt]
+Solution 3 & Navier--Stokes (continuum) & Standard QI ($G = 0$, any CPTP) & \known \\[4pt]
+Solution 4 & --- & FRW cosmology ($r \sim L_H$) & \spec \\[4pt]
+Matching & Virial theorem & $\Sigma_{\mathrm{strong}} \to \Sigma_{\mathrm{weak}}$ at $r \gg r_s$ & \toderive{} \\[4pt]
+Deep structure & Lagrangian mechanics & Petz recovery map as retrodiction functor & \known \\
+\end{tabular}
+\end{ruledtabular}
+\end{table*}
+
+\emph{What the analogy captures.}---
+\begin{itemize}
+\item Just as $F = ma$ does not tell you the force law (you
+  need to specify gravity, Hooke, etc.), $\Sigma = D(\rho_{\mathrm{st}}
+  \| \rho_{\mathrm{m}})$ does not tell you the channel (you need
+  to specify the boundary conditions).
+\item Just as different solutions of $F = ma$ look completely
+  different (ellipses vs.\ oscillations vs.\ turbulence), different
+  solutions of the unified $\Sigma$ look completely different
+  (black holes vs.\ rotation curves vs.\ quantum channels).
+\item Just as $F = ma$ has a deeper formulation (Lagrangian
+  mechanics, Hamilton's principle), the unified $\Sigma$ has
+  a deeper formulation via the Petz recovery map as the canonical
+  retrodiction functor~\cite{Parzygnat2023}.
+\end{itemize}
+
+%=======================================================================
+\section{Open Problems}
+\label{sec:open}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\towrite{Each open problem should be 2--3 paragraphs: statement,
+current status, possible approach.}
+
+\emph{Problem 1: First-principles derivation.}---Derive
+$\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$
+from more primitive axioms. Currently, Eq.~\eqref{eq:unified} is
+a \emph{conjecture} motivated by Bianconi's GfE~\cite{Bianconi2025},
+Dorau--Much's QRE $\to$ Einstein equations~\cite{DorauMuch2025},
+and the consistency of Papers~1--3. A derivation from axioms
+(e.g., von~Neumann algebra axioms, or the axioms of algebraic
+QFT) would elevate it from conjecture to theorem.
+
+\spec\ Current best candidates: (i)~Bianconi's entropic action
+principle~\cite{Bianconi2025}; (ii)~Dorau--Much's modular
+theory~\cite{DorauMuch2025} extended to include backreaction;
+(iii)~Jacobson's entanglement equilibrium~\cite{Jacobson2016}
+rewritten in QRE language.
+
+\emph{Problem 2: Planck scale.}---What happens when
+spacetime itself is quantum? At the Planck scale,
+$\rho_{\mathrm{spacetime}}$ is not a semiclassical density
+matrix but a fully quantum object. The QRE
+$D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$ must
+be replaced by an algebraic QFT version using the Araki
+relative entropy~\cite{Araki1976}. This is mathematically
+well defined but computationally intractable with current
+methods.
+
+\emph{Problem 3: Cosmological initial conditions.}---Why does
+the universe start with $\Sigma \approx 0$ (low entropy)?
+In the $\tauasym$ framework, this is the question: why does
+$\tauasym_{\mathrm{initial}} \approx 0$? One possibility:
+the initial state is a ``Petz-recovered'' state from the
+final condition (a closed-universe scenario where boundary
+conditions at both ends enforce $\Sigma = 0$). This is
+highly speculative and connects to the ``past hypothesis''
+of thermodynamics~\cite{Albert2000,Carroll2010}.
+
+\emph{Problem 4: The Born rule.}---The $\tauasym$ framework
+assumes the Born rule in computing fidelity $F$ and entropy
+production $\Sigma$. A complete theory should derive the
+Born rule, not assume it. Possible connections:
+\begin{itemize}
+\item Zurek's ``envariance'' derivation~\cite{Zurek2005}
+  uses environment-assisted symmetry, which connects to
+  $\tauasym$ via quantum Darwinism;
+\item Deutsch--Wallace decision-theoretic approach relies
+  on rational betting, which maps to Petz recovery
+  optimality;
+\item Gleason's theorem constrains probability measures on
+  Hilbert space, and the Petz map is the unique ``probability
+  measure on channels.''
+\end{itemize}
+
+\spec\ \emph{Problem 5: Consciousness.}---We acknowledge but do
+not attempt this problem. The hard problem of consciousness
+(why subjective experience exists) is sometimes connected to
+the arrow of time and measurement. The $\tauasym$ framework
+provides a precise, quantitative arrow of time that does not
+require an observer. Whether this has implications for
+consciousness is a question for philosophers, not for this paper.
+
+\emph{Problem 6: Derive $\eta = 1$.}---The marginal anomalous
+dimension $\eta = 1$ that produces flat rotation curves
+(Paper~3) should follow from the properties of
+$D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$ in
+the IR. This is the most concrete open problem and the one
+most likely to be resolved in the near term. The DPI
+structure of QRE may constrain $\eta$ to exactly 1 via
+a saturation argument.
+
+\emph{Problem 7: Gravitational waves and dynamical spacetimes.}---
+Papers~2 and~3 address static or quasi-static spacetimes.
+Extending to dynamical spacetimes (gravitational wave emission,
+binary mergers) requires:
+\begin{itemize}
+\item A time-dependent $\Sigma(t)$;
+\item The Kodama vector (for spherical symmetry) or its
+  generalization~\cite{DorauVerch2024};
+\item Raychaudhuri decomposition of $d\Sigma/ds$ along
+  geodesic congruences.
+\end{itemize}
+
+%=======================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\towrite{Concluding section synthesizing the full four-paper arc.}
+
+\emph{Summary.}---We have argued that a single equation,
+$\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$,
+unifies three scales of physics:
+\begin{itemize}
+\item Quantum information (Paper~1): $\Sigma = 0$
+  $\Leftrightarrow$ perfect recovery, no arrow of time;
+\item Strong-field gravity (Paper~2): $\Sigma = r_s/r$
+  $\to$ exponential metric, information-theoretic ``soft horizon'';
+\item Galactic dynamics (Paper~3): $\Sigma = r_s/r + \alpha\ln r$
+  $\to$ running $G$, flat rotation curves without dark matter
+  particles.
+\end{itemize}
+
+\emph{The philosophical point.}---
+\begin{quote}
+We have not discovered a new equation. We have proposed that an
+existing mathematical structure---quantum relative entropy and
+its recovery theory---when applied consistently across scales,
+unifies phenomena that appear unrelated. The contribution is not
+a new formula but a new viewpoint that makes existing results
+cohere. This is the kind of contribution that, if correct,
+simplifies rather than complicates.
+\end{quote}
+
+\towrite{Final paragraph on falsifiability: the framework makes
+specific, testable predictions at each scale (Paper~2: GW echoes,
+shadow sizes; Paper~3: universal $r_c$, SPARC fits, BIG-SPARC).
+If these predictions fail, the framework fails. This is a
+feature, not a bug.}
+
+\begin{acknowledgments}
+The author thanks the quantum information, quantum gravity,
+astrophysics, and quantum foundations communities for the
+foundational works on which this synthesis builds.
+\end{acknowledgments}
+
+%-----------------------------------------------------------------------
+% BIBLIOGRAPHY
+%-----------------------------------------------------------------------
+
+\begin{thebibliography}{60}
+
+\bibitem{Paper1}
+S.-K. Huang,
+``Universal recovery: The Petz map as retrodiction functor,
+error corrector, and entropy bound,''
+companion paper (2026).
+
+\bibitem{Paper2}
+S.-K. Huang,
+``Information-theoretic origin of the exponential metric:
+Gravitational redshift as Petz recovery fidelity,''
+companion paper (2026).
+
+\bibitem{Paper3}
+S.-K. Huang,
+``Flat rotation curves from quantum relative entropy:
+Running Newton's constant as information processing,''
+companion paper (2026).
+
+\bibitem{Bianconi2025}
+G.~Bianconi,
+``Gravity from entropy,''
+Phys.\ Rev.\ D \textbf{111}, 066001 (2025);
+arXiv:2408.14391.
+
+\bibitem{BianconiCosmology2025}
+G.~Bianconi,
+``Gravity from entropy: Cosmological solutions,''
+(2025); arXiv:2510.22545.
+
+\bibitem{DorauMuch2025}
+M.~Dorau and A.~Much,
+``From quantum relative entropy to the semiclassical Einstein
+equations,''
+Phys.\ Rev.\ Lett.\ (2025); arXiv:2510.24491.
+
+\bibitem{CasiniHuerta2017}
+H.~Casini and M.~Huerta,
+``Relative entropy and the RG flow,''
+J.\ High Energy Phys.\ \textbf{2017}, 044 (2017);
+arXiv:1611.00016.
+
+\bibitem{Kumar2025}
+N.~Kumar,
+``Marginal IR running of gravity as a natural explanation for
+dark matter,''
+Phys.\ Lett.\ B \textbf{871}, 140008 (2025);
+arXiv:2509.05246.
+
+\bibitem{Gubitosi2024}
+G.~Gubitosi, O.~F. Piattella, and R.~M. Casarini,
+``Phenomenology of renormalization group improved gravity from
+the kinematics of SPARC galaxies,''
+(2024); arXiv:2403.00531.
+
+\bibitem{Parzygnat2023}
+A.~J. Parzygnat and F.~Buscemi,
+``Axioms for retrodiction: Achieving time-reversal symmetry with a
+prior,''
+Quantum \textbf{7}, 1013 (2023).
+
+\bibitem{Jacobson1995}
+T.~Jacobson,
+``Thermodynamics of spacetime: The Einstein equation of state,''
+Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995).
+
+\bibitem{Jacobson2016}
+T.~Jacobson,
+``Entanglement equilibrium and the Einstein equation,''
+Phys.\ Rev.\ Lett.\ \textbf{116}, 201101 (2016);
+arXiv:1505.04753.
+
+\bibitem{Araki1976}
+H.~Araki,
+``Relative entropy of states of von Neumann algebras,''
+Publ.\ RIMS Kyoto \textbf{11}, 809 (1976).
+
+\bibitem{Kodama1980}
+H.~Kodama,
+``Conserved energy flux for the spherically symmetric system and
+the backreaction problem in the black hole evaporation,''
+Prog.\ Theor.\ Phys.\ \textbf{63}, 1217 (1980).
+
+\bibitem{Hayward1998}
+S.~A. Hayward,
+``Unified first law of black-hole dynamics and relativistic
+thermodynamics,''
+Class.\ Quantum Grav.\ \textbf{15}, 3147 (1998).
+
+\bibitem{CaiKim2005}
+R.-G. Cai and S.~P. Kim,
+``First law of thermodynamics and Friedmann equations of
+Friedmann--Robertson--Walker universe,''
+J.\ High Energy Phys.\ \textbf{2005}, 050 (2005).
+
+\bibitem{Padmanabhan2017}
+T.~Padmanabhan,
+``Cosmic information, the cosmological constant, and the
+amplitude of primordial perturbations,''
+Phys.\ Lett.\ B \textbf{773}, 81 (2017);
+arXiv:1703.06144.
+
+\bibitem{Verlinde2016}
+E.~P. Verlinde,
+``Emergent gravity and the dark universe,''
+SciPost Phys.\ \textbf{2}, 016 (2017); arXiv:1611.02269.
+
+\bibitem{Smolin2017}
+L.~Smolin,
+``MOND as a regime of quantum gravity,''
+Phys.\ Rev.\ D \textbf{96}, 083523 (2017);
+arXiv:1704.00780.
+
+\bibitem{Wang2002}
+G.~M. Wang, E.~M. Sevick, E.~Mittag, D.~J. Searles,
+and D.~J. Evans,
+``Experimental demonstration of violations of the second law
+of thermodynamics for small systems and short time scales,''
+Phys.\ Rev.\ Lett.\ \textbf{89}, 050601 (2002).
+
+\bibitem{Zurek2005}
+W.~H. Zurek,
+``Probabilities from entanglement, Born's rule
+$p_k = |\psi_k|^2$ from envariance,''
+Phys.\ Rev.\ A \textbf{71}, 052105 (2005).
+
+\bibitem{Albert2000}
+D.~Z. Albert,
+\emph{Time and Chance}
+(Harvard University Press, 2000).
+
+\bibitem{Carroll2010}
+S.~Carroll,
+\emph{From Eternity to Here: The Quest for the Ultimate Theory
+of Time}
+(Dutton, 2010).
+
+\bibitem{ReuterWeyer2004}
+M.~Reuter and H.~Weyer,
+``Running Newton constant, improved gravitational actions, and
+galaxy rotation curves,''
+Phys.\ Rev.\ D \textbf{70}, 124028 (2004).
+
+\bibitem{SPARC2016}
+F.~Lelli, S.~S. McGaugh, and J.~M. Schombert,
+``SPARC: Mass models for 175 disk galaxies with Spitzer
+photometry and accurate rotation curves,''
+Astron.\ J.\ \textbf{152}, 157 (2016); arXiv:1606.09251.
+
+\bibitem{McGaugh2016}
+S.~S. McGaugh, F.~Lelli, and J.~M. Schombert,
+``Radial acceleration relation in rotationally supported
+galaxies,''
+Phys.\ Rev.\ Lett.\ \textbf{117}, 201101 (2016);
+arXiv:1609.05917.
+
+\bibitem{GhariHaghi2026}
+A.~Ghari and H.~Haghi,
+``Testing emergent gravity in dwarf spheroidal galaxies,''
+(2026); arXiv:2601.01715.
+
+\bibitem{BrouwerKiDS2021}
+M.~M. Brouwer \emph{et~al.},
+``The weak lensing radial acceleration relation,''
+Astron.\ Astrophys.\ \textbf{650}, A113 (2021);
+arXiv:2106.11677.
+
+\bibitem{Petz1986}
+D.~Petz,
+``Sufficient subalgebras and the relative entropy of states of a
+von Neumann algebra,''
+Commun.\ Math.\ Phys.\ \textbf{105}, 123 (1986).
+
+\bibitem{BassoMazieroCeleri2025}
+M.~L. Basso, J.~Maziero, and L.~C. C\'{e}leri,
+``Quantum detailed fluctuation theorem in curved spacetime,''
+Phys.\ Rev.\ Lett.\ \textbf{134}, 050406 (2025);
+arXiv:2405.03902.
+
+\bibitem{DorauVerch2024}
+M.~Dorau and R.~Verch,
+``Kodama-like vectors in axisymmetric spacetimes,''
+(2024); arXiv:2402.18993.
+
+\bibitem{Clowe2006}
+D.~Clowe \emph{et~al.},
+``A direct empirical proof of the existence of dark matter,''
+Astrophys.\ J.\ Lett.\ \textbf{648}, L109 (2006).
+
+\bibitem{Donoghue2020}
+J.~F. Donoghue,
+``A critique of the asymptotic safety program,''
+Front.\ Phys.\ \textbf{8}, 56 (2020).
+
+\bibitem{Paper3cosmological}
+S.-K. Huang,
+research notes on cosmological $\tauasym$ (2026).
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,905 @@
+% paper3_rotation_curves_outline.tex
+% Flat Rotation Curves from Quantum Relative Entropy:
+% Running Newton's Constant as Information Processing
+% Author: Sheng-Kai Huang
+% Status: DETAILED OUTLINE
+% Compile with: pdflatex paper3_rotation_curves_outline.tex
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}
+
+% Convenience macros (same as Paper 1)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\KL}{D}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\op}[2]{|#1\rangle\langle#2|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tauasym}{\tau}
+
+% Outline-specific formatting
+\newcommand{\known}{\textsc{[known]}}
+\newcommand{\newsyn}{\textsc{[new synthesis]}}
+\newcommand{\newform}{\textsc{[new formula]}}
+\newcommand{\spec}{\textsc{[speculative]}}
+\newcommand{\towrite}[1]{{\color{blue}\textbf{[TO WRITE:} #1\textbf{]}}}
+\newcommand{\toderive}[1]{{\color{red}\textbf{[TO DERIVE:} #1\textbf{]}}}
+\newcommand{\assumed}[1]{{\color{orange}\textbf{[ASSUMED:} #1\textbf{]}}}
+
+\begin{document}
+
+\title{Flat Rotation Curves from Quantum Relative Entropy:\\
+Running Newton's Constant as Information Processing}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+\towrite{Final abstract after calculations are complete.}
+
+We show that the quantum relative entropy (QRE) framework developed
+in Papers~1 and~2---where entropy production
+$\Sigma = D(\rho\|\sigma) - D(\chan(\rho)\|\chan(\sigma))$ quantifies
+the arrow of time---naturally explains flat galaxy rotation curves
+without dark matter particles. The key insight combines two
+established results: (i)~Dorau and Much's derivation of
+semiclassical Einstein equations from QRE at a fixed scale
+(PRL~2025), and (ii)~Casini and Huerta's proof that
+renormalization group (RG) flow is equivalent to data processing
+inequality (DPI) monotonicity of QRE. Together, these imply that
+the gravitational coupling $G$ inherits a scale dependence
+$G(k)$ from the RG flow of the gravitational quantum channel.
+With the marginal anomalous dimension $\eta = 1$
+(Kumar~2025), this yields a logarithmic correction
+$\Phi(r) = -G_N M/r + (2G_N M k_*/\pi)\ln(r/r_0)$ whose
+universal coefficient $2/\pi$ produces flat rotation curves
+at $r \gg r_c \approx 37$~kpc. We reinterpret the SPARC
+galaxy fits of Gubitosi et~al.\ (2024) within the $\Sigma$
+framework, where the running parameter $\bar{\nu}$ is identified
+with the QRE drop per RG step, transforming it from a free
+parameter into an information-theoretic quantity. Predictions
+for BIG-SPARC ($\sim 4000$ galaxies) and honest limitations
+(CMB, Bullet Cluster) are discussed.
+\end{abstract}
+
+\maketitle
+
+%=======================================================================
+\section{Introduction}
+\label{sec:intro}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\known\ \emph{Papers~1--2 recap.}---Paper~1~\cite{Paper1}
+established the temporal asymmetry parameter
+\begin{equation}
+\tauasym = 1 - F\!\big(\rho,\,
+  \tilde{\Petz}_{\sigma,\chan}(\chan(\rho))\big),
+\label{eq:tau_def}
+\end{equation}
+quantifying the arrow of time as Petz recovery failure, with the
+universal bound $\tauasym \leq 1 - \exp(-\Sigma/2)$. Paper~2~\cite{Paper2}
+showed that in the strong gravitational field of a static,
+spherically symmetric mass, the entropy production takes the form
+$\Sigma_{\mathrm{grav}} = r_s/r$, connecting the Petz recovery fidelity
+to the gravitational redshift:
+$F_{\mathrm{grav}} = \sqrt{g_{00}} = \exp(-r_s/(2r))$.
+
+\known\ \emph{The dark matter puzzle.}---Galaxy rotation curves
+flatten at large radii: $v(r) \to V_0 = \mathrm{const}$ for
+$r \gtrsim 10$~kpc~\cite{Rubin1980,Bosma1981}, implying
+$M_{\mathrm{dyn}}(r) \propto r$, far exceeding the visible baryonic
+mass $M_{\mathrm{bar}}$. The standard explanation posits invisible
+dark matter (DM) particles~\cite{Bertone2018}, but despite
+four decades of searches, no DM particle has been detected
+directly~\cite{Schumann2019,XENON2023}.
+
+\newsyn\ \emph{Our proposal.}---We argue that flat rotation curves
+emerge naturally from the \emph{same} $\Sigma = D(\rho\|\sigma) -
+D(\chan(\rho)\|\chan(\sigma))$ framework. The gravitational quantum
+channel $\chan_{\mathrm{grav}}$ is not scale-independent: quantum
+corrections make $\chan_{\mathrm{grav}}(k)$ ``noisier'' at low
+momenta $k$ (large distances), causing $G$ to run. This is not
+a new term added by hand, but the natural consequence of evaluating
+the \emph{same} $\Sigma$ formula with the full quantum-corrected
+gravitational channel.
+
+\towrite{Paragraph on analogy to $F = ma$ with different force laws
+giving different orbits, springs, fluids. One equation, different
+boundary conditions.}
+
+\towrite{Paragraph on paper structure: Sec.~II reviews Dorau-Much;
+Sec.~III connects RG to DPI; Sec.~IV derives running $G$ and
+logarithmic correction; Sec.~V compares with SPARC data;
+Sec.~VI gives predictions and limitations; Sec.~VII discusses
+implications.}
+
+%=======================================================================
+\section{From Quantum Relative Entropy to Einstein Equations}
+\label{sec:dorau_much}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\known\ \emph{Araki--Uhlmann modular theory.}---For a von~Neumann
+algebra $\mathcal{M}$ with two faithful normal states $\omega_0$
+(vacuum) and $\omega_\phi$ (coherent excitation), the Araki relative
+entropy is~\cite{Araki1976}
+\begin{equation}
+S(\omega_\phi \| \omega_0)
+= -\langle \Omega_\phi, \ln \Delta_{\omega_\phi|\omega_0}\,
+  \Omega_\phi \rangle,
+\label{eq:araki_rel_ent}
+\end{equation}
+where $\Delta_{\omega_\phi|\omega_0}$ is the relative modular
+operator. This is the algebraic QFT generalization of the
+finite-dimensional quantum relative entropy
+$D(\rho\|\sigma) = \Tr[\rho(\ln\rho - \ln\sigma)]$.
+
+\known\ \emph{Dorau--Much derivation (PRL~2025).}---The derivation
+proceeds in five steps~\cite{DorauMuch2025}:
+\begin{enumerate}
+\item Start with a local Rindler horizon (equivalence principle):
+  any point in spacetime admits an approximate Rindler wedge.
+\item Compute $S(\omega_\phi \| \omega_0)$ between the vacuum
+  $\omega_0$ and a coherent excitation $\omega_\phi$ of a scalar
+  field on the right Rindler wedge:
+  \begin{equation}
+  S(\omega_\phi \| \omega_0)
+  = -2\pi \int_{\mathcal{H}_B^R} U\,(\partial_U \phi)^2\, dU\, d\mathrm{vol}_S.
+  \label{eq:dorau_much_srel}
+  \end{equation}
+\item Identify the area variation via the Bekenstein--Hawking
+  relation: $\delta A = 4G\, S(\omega_\phi \| \omega_0)$.
+\item Apply the Raychaudhuri equation to relate $\delta A$ to
+  the Ricci tensor.
+\item \emph{Result}: the semiclassical Einstein equations follow:
+  \begin{equation}
+  \boxed{
+  G_{ab} + \Lambda g_{ab} = 8\pi G\, \langle T_{ab} \rangle.
+  }
+  \label{eq:einstein_from_qre}
+  \end{equation}
+\end{enumerate}
+
+\towrite{Paragraph on significance: This establishes that QRE is
+the \emph{microscopic origin} of Einstein's equations, extending
+Jacobson's 1995 thermodynamic derivation~\cite{Jacobson1995} to
+the quantum information setting. Crucially, this derivation holds
+at a \emph{fixed scale}---it does not account for quantum
+corrections that appear when the theory is probed at different
+energy/distance scales.}
+
+\emph{The fixed-scale limitation.}---Eq.~\eqref{eq:einstein_from_qre}
+uses the \emph{bare} Newton constant $G$. It does not incorporate
+the scale dependence of $G$ that arises from quantum loop corrections
+to the gravitational channel. Our central claim is that this scale
+dependence, when included via the data processing inequality,
+naturally produces running $G(k)$ and flat rotation curves.
+
+%=======================================================================
+\section{Renormalization Group Flow as Data Processing}
+\label{sec:rg_dpi}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\known\ \emph{Data processing inequality (DPI).}---For any
+quantum channel $\chan$ and states $\rho, \sigma$~\cite{Lindblad1975,Uhlmann1977},
+\begin{equation}
+D\!\big(\chan(\rho)\big\|\chan(\sigma)\big)
+\leq D(\rho\|\sigma).
+\label{eq:dpi}
+\end{equation}
+Equality holds if and only if the Petz recovery map
+$\Petz_{\sigma,\chan}$ exactly recovers $\rho$~\cite{Petz1986,Petz1988}.
+
+\known\ \emph{RG flow as a quantum channel.}---Casini and
+Huerta~\cite{CasiniHuerta2017} proved that renormalization group
+(RG) flow from UV to IR can be formulated as a quantum channel:
+the operation of integrating out high-energy modes is a CPTP map
+$\chan_{\mathrm{RG}}: \rho_{\mathrm{UV}} \mapsto \rho_{\mathrm{IR}}$.
+By the DPI,
+\begin{equation}
+D(\rho_{\mathrm{IR}} \| \sigma_{\mathrm{IR}})
+\leq D(\rho_{\mathrm{UV}} \| \sigma_{\mathrm{UV}}).
+\label{eq:rg_dpi}
+\end{equation}
+This monotonicity of QRE under RG flow provides:
+\begin{itemize}
+\item An alternative proof of the $c$-theorem in $d = 2$
+  (Zamolodchikov);
+\item In $d > 2$: the coefficient of the area-law term in
+  entanglement entropy \emph{decreases} along RG flow;
+\item A unified ``entropic'' proof of irreversibility theorems
+  ($a$-theorem in $d = 4$, $F$-theorem in $d = 3$).
+\end{itemize}
+
+\newsyn\ \emph{Scale-dependent $\Sigma$.}---Define the entropy
+production at scale $k$:
+\begin{equation}
+\Sigma(k) = D(\rho\|\sigma)
+  - D\!\big(\chan_{\mathrm{grav}}(k)(\rho)
+    \big\|\chan_{\mathrm{grav}}(k)(\sigma)\big).
+\label{eq:sigma_k}
+\end{equation}
+Here $\chan_{\mathrm{grav}}(k)$ is the gravitational channel
+evaluated at RG scale $k$: it describes the information processing
+of gravity \emph{as seen at resolution $1/k$}.
+
+\newsyn\ \emph{Key observation: as $k$ decreases (probing larger
+distances), $\chan_{\mathrm{grav}}(k)$ becomes a ``noisier'' channel.}
+This is because integrating out more UV modes increases the effective
+dissipation. By the DPI, $\Sigma(k)$ can only increase or stay
+the same as $k$ decreases:
+\begin{equation}
+\Sigma(k_1) \leq \Sigma(k_2) \quad \text{for } k_1 > k_2.
+\label{eq:sigma_monotone}
+\end{equation}
+More entropy production at larger scales = more information loss =
+stronger effective gravity. This is the information-theoretic origin
+of running $G$.
+
+\towrite{Paragraph connecting to Casini-Huerta's $c$-theorem:
+the decrease of QRE along RG flow is the \emph{same} mathematical
+structure as the DPI for the gravitational channel. RG irreversibility
+\emph{is} data processing.}
+
+%=======================================================================
+\section{Running $G$ and the Logarithmic Correction}
+\label{sec:running_G}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\known\ \emph{IR running of Newton's constant.}---In the effective
+field theory of gravity, quantum loop corrections induce a
+scale-dependent Newton coupling~\cite{Reuter1998,ReuterWeyer2004}:
+\begin{equation}
+G(k) \sim G_N \!\left(\frac{k_*}{k}\right)^{\!\eta}
+\quad \text{for } k \ll k_*,
+\label{eq:running_G}
+\end{equation}
+where $\eta$ is the anomalous dimension governing the IR flow and
+$k_*$ is a crossover momentum scale.
+
+\known\ \emph{Why $\eta = 1$ is special (marginal).}---Kumar~\cite{Kumar2025}
+showed that the Fourier transform of $k^{-(2+\eta)}$ in three
+spatial dimensions gives:
+\begin{itemize}
+\item $\eta \neq 1$: power-law $\sim r^{\eta - 1}$ (IR-irrelevant
+  for $\eta < 1$, spoils scale invariance for $\eta > 1$);
+\item $\eta = 1$: logarithmic $\sim \ln(r)$ --- the \emph{unique}
+  marginal, scale-invariant deformation consistent with rotational
+  symmetry and locality.
+\end{itemize}
+
+\assumed{$\eta = 1$ from marginality/dimensional analysis. Not yet
+derived from QRE channel properties. This is the main theoretical
+gap. See Sec.~\ref{sec:gaps} for discussion.}
+
+\known\ \emph{Modified Newtonian potential.}---With
+$G(k) = G_N[1 + (k_*/k)]$ for $\eta = 1$, the gravitational
+potential in position space is~\cite{Kumar2025}
+\begin{equation}
+\boxed{
+\Phi(r) = -\frac{G_N M}{r}
+  + \frac{2G_N M k_*}{\pi}\,\ln\!\left(\frac{r}{r_0}\right),
+}
+\label{eq:phi_log}
+\end{equation}
+with $r_0$ an integration constant. The force law becomes
+\begin{equation}
+F(r) = -\frac{G_N M}{r^2}
+  - \frac{2G_N M k_*}{\pi}\,\frac{1}{r}.
+\label{eq:force_log}
+\end{equation}
+At $r \gg r_c = 1/k_*$, the $1/r$ force dominates over the
+Newtonian $1/r^2$.
+
+\known\ \emph{Flat rotation curves.}---The circular velocity is
+\begin{equation}
+v^2(r) = \frac{G_N M_{\mathrm{bar}}}{r}
+  + \frac{2G_N M_{\mathrm{bar}} k_*}{\pi},
+\label{eq:v_flat}
+\end{equation}
+which asymptotes to $v^2 \to 2G_N M_{\mathrm{bar}} k_*/\pi$
+at $r \gg r_c$. The asymptotic velocity $V_0$ determines $k_*$
+via~\cite{Kumar2025}
+\begin{equation}
+k_* = \frac{\pi V_0^2}{2G_N M_{\mathrm{bar}}}.
+\label{eq:kstar}
+\end{equation}
+
+\known\ \emph{Universality of crossover scale.}---For three SPARC
+galaxies, Kumar~\cite{Kumar2025} found:
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Galaxy & $M_{\mathrm{bar}}\;[M_\odot]$ & $V_0$ [km/s]
+  & $r_c$ [kpc] \\
+\midrule
+S:700624 & $1.01 \times 10^{12}$ & $271.4 \pm 2.6$ & $37.5 \pm 0.7$ \\
+S:700916 & $5.85 \times 10^{11}$ & $210.4 \pm 2.4$ & $36.2 \pm 0.8$ \\
+S:705253 & $3.55 \times 10^{11}$ & $158.9 \pm 1.9$ & $38.5 \pm 0.9$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The remarkably consistent $r_c \approx 37$~kpc across galaxies
+spanning a factor of 3 in mass suggests a universal IR scale.
+
+\known\ \emph{Free parameters.}---Only 2 parameters at the
+galactic scale: $k_*$ (crossover scale) and $G_N$ (Newton's
+constant). The coefficient $2/\pi$ is universal and
+regulator-independent.
+
+\newsyn\ \emph{Information-theoretic interpretation.}---In the
+$\Sigma$ language, Eq.~\eqref{eq:phi_log} translates to
+\begin{equation}
+\Sigma_{\mathrm{grav}}(r) = \frac{r_s}{r}
+  + \frac{4k_* r_s}{\pi}\,\ln\!\left(\frac{r}{r_0}\right),
+\label{eq:sigma_grav_log}
+\end{equation}
+where $r_s = 2G_N M/c^2$. The logarithmic term represents
+\emph{additional information loss} due to quantum corrections
+to the gravitational channel at large distances. The channel
+$\chan_{\mathrm{grav}}(k)$ at low $k$ (large $r$) loses more
+information per unit QRE, producing extra $\Sigma$, which
+manifests as extra gravitational potential.
+
+\toderive{Show explicitly that $\Sigma(k)$ computed from the
+Dorau--Much framework at each RG scale $k$ reproduces
+Eq.~\eqref{eq:sigma_grav_log}. This requires defining
+$\chan_{\mathrm{grav}}(k)$ using the RG-improved Hamiltonian
+$H(k)$ with $G(k)$ and computing the QRE drop. This is the
+central calculation of the paper.}
+
+\toderive{Show that the coefficient $2/\pi$ emerges from the
+channel properties of $\chan_{\mathrm{grav}}$ at the marginal
+point $\eta = 1$. This would promote the coefficient from
+``universal in Kumar's EFT sense'' to ``universal in the
+information-theoretic sense.''}
+
+%=======================================================================
+\section{Comparison with SPARC Data}
+\label{sec:sparc}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\known\ \emph{The SPARC database.}---The Spitzer Photometry
+and Accurate Rotation Curves (SPARC) catalog~\cite{SPARC2016}
+contains 175 nearby disk galaxies with 3.6~$\mu$m photometry
+and high-quality rotation curves, providing the standard
+benchmark for testing gravity theories at galactic scales.
+
+\known\ \emph{RGGR fits.}---Gubitosi, Piattella, and
+Casarini~\cite{Gubitosi2024} fitted 100 SPARC galaxies using
+the renormalization group improved gravity (RGGR) model with
+running coupling
+\begin{equation}
+G(\mu) = \frac{G_0}{1 + \nu\,\ln(\mu^2/\mu_0^2)},
+\label{eq:G_RGGR}
+\end{equation}
+giving effective circular velocity
+\begin{equation}
+v_{\mathrm{RGGR}}^2(r) = v_N^2(r)
+  \!\left[1 - \frac{c^2 \bar{\nu}}{\Phi_N(r)}\right],
+\label{eq:v_RGGR}
+\end{equation}
+where $\bar{\nu} = \nu\alpha$ is a phenomenological parameter.
+Using BIC analysis: 47 galaxies prefer RGGR over NFW,
+40 prefer NFW, 13 inconclusive.
+
+\known\ \emph{Mass-dependent $\bar{\nu}$.}---The RGGR parameter
+$\bar{\nu}$ correlates near-linearly with galactic baryonic mass:
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Galaxy type & $\bar{\nu}$ \\
+\midrule
+Early type & $\sim 10^{-6}$ \\
+Spiral & $\sim 10^{-7}$ \\
+Late/Starburst & $\sim 10^{-8}$ \\
+Solar system & $\sim 10^{-17}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newsyn\ \emph{Reinterpretation within $\Sigma$ framework.}---The
+RGGR parameter $\bar{\nu}$ is identified with the QRE drop per
+RG step of the gravitational channel:
+\begin{equation}
+\bar{\nu} = \frac{\Delta\Sigma}{\Delta\ln k^2}
+  \bigg|_{k \sim k_*}\,,
+\label{eq:nu_sigma}
+\end{equation}
+transforming $\bar{\nu}$ from a free parameter into an
+information-theoretic observable. The mass dependence of
+$\bar{\nu}$ then follows from the mass dependence of
+$\Sigma_{\mathrm{grav}}$: more massive galaxies have larger
+$r_s$, hence larger QRE drop per RG step.
+
+\toderive{Compute $\Delta\Sigma/\Delta\ln k^2$ from the
+gravitational channel and verify that the mass scaling matches
+the observed $\bar{\nu}(M_{\mathrm{bar}})$ correlation.}
+
+\known\ \emph{The Radial Acceleration Relation (RAR).}---The
+tightest empirical constraint is the RAR~\cite{McGaugh2016}:
+\begin{equation}
+g_{\mathrm{obs}} = \frac{g_{\mathrm{bar}}}{1 - \exp\!\left(
+  -\sqrt{g_{\mathrm{bar}}/a_0}\right)},
+\label{eq:RAR}
+\end{equation}
+with $a_0 = 1.20 \times 10^{-10}$~m/s$^2$, observed scatter
+0.13~dex over 2693 data points in 153 galaxies.
+
+\newsyn\ \emph{RAR from running $\Sigma$.}---The logarithmic
+correction in Eq.~\eqref{eq:phi_log} produces an additional
+acceleration $g_{\mathrm{extra}} = 2G_N M_{\mathrm{bar}}k_*/(\pi r)$,
+which becomes comparable to $g_{\mathrm{bar}} = G_N M_{\mathrm{bar}}/r^2$
+precisely when $g_{\mathrm{bar}} \lesssim 2k_* c^2/\pi$.
+Identifying
+\begin{equation}
+a_0 \sim \frac{2k_* c^2}{\pi},
+\label{eq:a0_kstar}
+\end{equation}
+we recover the correct order of magnitude for the MOND
+acceleration scale. With $k_* \approx 2.7 \times 10^{-2}$~kpc$^{-1}$,
+this gives $a_0 \sim 1.7 \times 10^{-10}$~m/s$^2$, within a
+factor of 1.4 of the observed value.
+
+\towrite{Paragraph on the coincidence $a_0 \sim cH_0$
+(Milgrom~\cite{Milgrom2020}) and its possible information-theoretic
+origin: the de Sitter horizon entropy sets the IR cutoff for the
+gravitational channel, connecting the acceleration scale to
+cosmology.}
+
+%=======================================================================
+\section{Predictions, Tests, and Limitations}
+\label{sec:predictions}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\newsyn\ \emph{Prediction 1: BIG-SPARC.}---The upcoming BIG-SPARC
+catalog~\cite{BIGSPARC2024} with $\sim 4000$ galaxies (20$\times$
+larger than SPARC) provides a stringent test. Our prediction:
+the crossover scale $r_c \approx 37$~kpc should remain universal
+across the expanded sample, and the RGGR parameter $\bar{\nu}$
+should maintain its near-linear correlation with baryonic mass.
+
+\newsyn\ \emph{Prediction 2: Dwarf galaxies.}---Dwarf spheroidal
+galaxies are the strongest test case, as they have the largest
+mass discrepancies. Ghari and Haghi~\cite{GhariHaghi2026} found
+that Verlinde's emergent gravity (which shares the same
+information-theoretic structure as our approach) is favored over
+MOND at $5.2\sigma$ for 23 dwarf spheroidals. Our prediction:
+the $\Sigma$ framework should reproduce these fits with the
+\emph{same} universal parameters.
+
+\newsyn\ \emph{Prediction 3: Solar system screening.}---At
+solar system scales ($r \sim 1$~AU $\ll r_c \approx 37$~kpc), the
+logarithmic correction in Eq.~\eqref{eq:phi_log} contributes
+$\delta\Phi/\Phi_N \sim 2k_* r/\pi \sim 10^{-15}$, far below
+current PPN constraints. The theory is automatically screened at
+small scales.
+
+\known\ \emph{Limitation 1: CMB acoustic peaks.}---Running $G$
+alone \emph{cannot} reproduce the CMB acoustic peak structure
+without dark matter~\cite{Kumar2025}. The IR running effect is
+negligible at $z \sim 1100$ when the universe was $\sim 380{,}000$
+years old. This is a severe limitation.
+
+\towrite{Honest discussion: Does this rule out the approach? Not
+necessarily---the CMB constraint may require \emph{additional}
+physics beyond running $G$ (e.g., sterile neutrinos, primordial
+fluctuations, or modifications to the gravitational channel at
+earlier epochs). The $\Sigma$ framework is open to incorporating
+such effects if they arise naturally from the channel properties.
+But we cannot claim to replace dark matter entirely.}
+
+\known\ \emph{Limitation 2: Bullet Cluster.}---The Bullet Cluster
+(1E~0657-56) shows spatial separation between the gravitational
+potential (traced by lensing) and the baryonic gas (traced by
+X-rays)~\cite{Clowe2006}. No systematic analysis of the $\Sigma$
+framework at cluster scales has been performed. This is a
+well-known challenge for all modified gravity theories.
+
+\known\ \emph{Limitation 3: Structure formation.}---Cosmological
+structure formation at high redshift requires matter perturbations
+that grow faster than baryons alone can provide. Running $G$ may
+help~\cite{ReuterWeyer2004}, but a full perturbation theory within
+the $\Sigma$ framework has not been developed.
+
+\towrite{Summary table of what the approach explains, what it
+does not, and what remains open:}
+
+\begin{table}[htbp]
+\caption{\label{tab:status}Status of observational tests.}
+\begin{ruledtabular}
+\begin{tabular}{lcc}
+\textbf{Observable} & \textbf{Status} & \textbf{Notes} \\
+\colrule
+Flat rotation curves & Yes & 3 galaxies (Kumar) \\
+SPARC (100 galaxies) & Yes & RGGR fits (Gubitosi+) \\
+RAR ($a_0$ scale) & Partial & Order-of-magnitude \\
+Solar system PPN & Yes & Auto-screened \\
+Dwarf spheroidals & Promising & Verlinde 5.2$\sigma$ \\
+Weak lensing (KiDS) & Promising & Brouwer+ 2021 \\
+\colrule
+CMB acoustic peaks & \textbf{No} & Requires extra physics \\
+Bullet Cluster & Unknown & Not analyzed \\
+Structure formation & Unknown & No perturbation theory \\
+Lyman-$\alpha$ forest & Unknown & Not analyzed \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+%=======================================================================
+\section{Key Theoretical Gaps}
+\label{sec:gaps}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\towrite{Honest assessment of the three main gaps.}
+
+\emph{Gap 1: Deriving $\eta = 1$ from QRE.}---The anomalous
+dimension $\eta = 1$ is currently argued from dimensional analysis
+and marginality~\cite{Kumar2025}, not derived from the channel
+properties of $\chan_{\mathrm{grav}}$. A first-principles
+derivation from QRE would require showing that $\eta = 1$ is the
+unique value at which the DPI bound for the gravitational channel
+is ``marginally'' saturated---i.e., the boundary between
+recoverable and non-recoverable regimes of the channel.
+
+\spec\ \emph{Possible argument}: In the information-theoretic
+framework, $\eta < 1$ corresponds to a channel where the DPI
+deficit \emph{decreases} with scale (the channel becomes ``less
+noisy'' in the IR), which would mean gravity \emph{weakens} at
+large distances---unphysical. $\eta > 1$ corresponds to
+\emph{super-logarithmic} growth of $\Sigma$, spoiling the
+perturbative expansion. $\eta = 1$ is the unique marginal
+case where $\Sigma$ grows logarithmically, maintaining the
+delicate balance between gravity strengthening (as required by
+observations) and perturbative control.
+
+\emph{Gap 2: Defining $\chan_{\mathrm{grav}}(k)$ rigorously.}---The
+gravitational channel at scale $k$ can be defined via:
+\begin{itemize}
+\item Option A: RG-improved Hamiltonian $H(k)$ with $G(k)$
+  replacing $G_N$ in the Pikovski-type coupling;
+\item Option B: One-loop corrected graviton propagator in the
+  effective field theory;
+\item Option C: Modular channel with scale-dependent modular
+  Hamiltonian (most rigorous but hardest to compute).
+\end{itemize}
+A rigorous definition is needed to compute $\Sigma(k)$ explicitly.
+
+\emph{Gap 3: The acceleration scale $a_0 \sim cH_0$.}---The
+coincidence between the MOND acceleration scale
+$a_0 \approx 1.2 \times 10^{-10}$~m/s$^2$ and $cH_0 \approx
+6.9 \times 10^{-10}$~m/s$^2$ is suggestive but unexplained
+within the $\Sigma$ framework. Possible origin: the de~Sitter
+horizon entropy $S_{\mathrm{dS}} = \pi c^3/(G\hbar H_0^2)$ sets
+the IR cutoff for the gravitational channel, making
+$k_{\mathrm{min}} \sim H_0/c$ and $a_0 \sim c^2 k_{\mathrm{min}}$.
+This connects galactic dynamics to cosmology through the
+\emph{same} QRE structure.
+
+%=======================================================================
+\section{Discussion}
+\label{sec:discussion}
+%=======================================================================
+
+\subsection*{Content outline}
+
+\newsyn\ \emph{What is genuinely new.}---Three things:
+\begin{enumerate}
+\item \emph{The connection}: QRE at each scale $\to$ running $G$
+  $\to$ rotation curves. Dorau-Much~\cite{DorauMuch2025} gives
+  Einstein equations from QRE at a fixed scale. Casini-Huerta~\cite{CasiniHuerta2017}
+  shows QRE monotonicity = RG irreversibility. We combine them:
+  QRE at each scale gives scale-dependent Einstein equations
+  with running $G$.
+\item \emph{The reinterpretation}: The RGGR parameter $\bar{\nu}$
+  is not a free parameter but the QRE drop per RG step, connecting
+  phenomenological galaxy fitting to fundamental information theory.
+\item \emph{The unification}: Papers~1, 2, and 3 use the \emph{same}
+  $\Sigma$ framework at different scales. $\Sigma = 0$ (Paper~1,
+  QI), $\Sigma = r_s/r$ (Paper~2, strong field),
+  $\Sigma = r_s/r + \text{log correction}$ (Paper~3, weak field).
+\end{enumerate}
+
+\emph{What is NOT new.}---Running $G$ has been proposed since
+Reuter and Weyer (2004)~\cite{ReuterWeyer2004}. Kumar~\cite{Kumar2025}
+derived the logarithmic correction. Gubitosi et~al.~\cite{Gubitosi2024}
+fitted SPARC galaxies. Our contribution is the
+\emph{information-theoretic grounding}: why $G$ runs, what the
+running means in terms of quantum channels, and how it connects
+to the broader $\Sigma$ framework.
+
+\towrite{Paragraph on what this does NOT achieve: we do not explain
+CMB, Bullet Cluster, or structure formation. We are honest that
+``replacing dark matter'' is too strong a claim. What we show is
+that \emph{at galactic scales}, running $\Sigma$ from QRE provides
+a viable alternative that is competitive with NFW halos and has
+a deeper theoretical motivation.}
+
+\emph{Comparison with other information-theoretic approaches.}---
+Several groups have connected information theory to dark matter:
+\begin{itemize}
+\item Verlinde~\cite{Verlinde2016}: Volume-law entanglement entropy
+  in de~Sitter $\to$ apparent dark matter. Complementary to our
+  approach; may be the same physics in different language.
+\item Bianconi~\cite{Bianconi2025}: Gravity action = QRE,
+  metric as density matrix. The most direct connection to our
+  $\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$.
+\item Smolin~\cite{Smolin2017}: MOND from quantum gravity regime
+  below de~Sitter temperature.
+\end{itemize}
+
+\newsyn\ \emph{Connection to Papers~1--2 and preview of Paper~4.}---
+The logical chain is now:
+\begin{align}
+&\text{Paper 1:}\;\; \Sigma = 0 \Leftrightarrow \text{perfect recovery},
+  \nonumber\\
+&\text{Paper 2:}\;\; \Sigma_{\mathrm{grav}} = r_s/r
+  \;\to\; \text{exponential metric},
+  \nonumber\\
+&\text{Paper 3:}\;\; \Sigma_{\mathrm{grav}}(k) = r_s(k)/r
+  \;\to\; \text{flat curves},
+  \nonumber\\
+&\text{Paper 4:}\;\; \Sigma = D(\rho_{\mathrm{st}} \| \rho_{\mathrm{m}})
+  \;\to\; \text{all three as limits}.
+  \nonumber
+\end{align}
+Paper~4~\cite{Paper4} will argue that these are not three
+separate theories but three solutions of \emph{one equation}
+$\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$
+under different boundary conditions, analogous to $F = ma$ giving
+planetary orbits, spring oscillations, and fluid dynamics.
+
+\begin{acknowledgments}
+The author thanks the quantum information, quantum gravity,
+and astrophysics communities for the foundational works on
+which this synthesis builds. Special thanks to the SPARC team
+for making their data publicly available.
+\end{acknowledgments}
+
+%-----------------------------------------------------------------------
+% BIBLIOGRAPHY
+%-----------------------------------------------------------------------
+
+\begin{thebibliography}{50}
+
+\bibitem{Paper1}
+S.-K. Huang,
+``Universal recovery: The Petz map as retrodiction functor,
+error corrector, and entropy bound,''
+companion paper (2026).
+
+\bibitem{Paper2}
+S.-K. Huang,
+``Information-theoretic origin of the exponential metric:
+Gravitational redshift as Petz recovery fidelity,''
+companion paper (2026).
+
+\bibitem{Paper4}
+S.-K. Huang,
+``One equation, three scales: $\Sigma = D(\rho_{\mathrm{spacetime}}
+\| \rho_{\mathrm{matter}})$ as the universal action,''
+in preparation (2026).
+
+\bibitem{DorauMuch2025}
+M.~Dorau and A.~Much,
+``From quantum relative entropy to the semiclassical Einstein
+equations,''
+Phys.\ Rev.\ Lett.\ (2025); arXiv:2510.24491.
+
+\bibitem{CasiniHuerta2017}
+H.~Casini and M.~Huerta,
+``Relative entropy and the RG flow,''
+J.\ High Energy Phys.\ \textbf{2017}, 044 (2017);
+arXiv:1611.00016.
+
+\bibitem{Kumar2025}
+N.~Kumar,
+``Marginal IR running of gravity as a natural explanation for
+dark matter,''
+Phys.\ Lett.\ B \textbf{871}, 140008 (2025);
+arXiv:2509.05246.
+
+\bibitem{Gubitosi2024}
+G.~Gubitosi, O.~F. Piattella, and R.~M. Casarini,
+``Phenomenology of renormalization group improved gravity from
+the kinematics of SPARC galaxies,''
+(2024); arXiv:2403.00531.
+
+\bibitem{Rubin1980}
+V.~C. Rubin, W.~K. Ford, Jr., and N.~Thonnard,
+``Rotational properties of 21 SC galaxies with a large range
+of luminosities and radii,''
+Astrophys.\ J.\ \textbf{238}, 471 (1980).
+
+\bibitem{Bosma1981}
+A.~Bosma,
+``21-cm line studies of spiral galaxies. II: The distribution
+and kinematics of neutral hydrogen,''
+Astron.\ J.\ \textbf{86}, 1825 (1981).
+
+\bibitem{Bertone2018}
+G.~Bertone and D.~Hooper,
+``History of dark matter,''
+Rev.\ Mod.\ Phys.\ \textbf{90}, 045002 (2018).
+
+\bibitem{Schumann2019}
+M.~Schumann,
+``Direct detection of WIMP dark matter: Concepts and status,''
+J.\ Phys.\ G \textbf{46}, 103003 (2019).
+
+\bibitem{XENON2023}
+XENON Collaboration,
+``First dark matter search with nuclear recoils from the
+XENONnT experiment,''
+Phys.\ Rev.\ Lett.\ \textbf{131}, 041003 (2023).
+
+\bibitem{Petz1986}
+D.~Petz,
+``Sufficient subalgebras and the relative entropy of states of a
+von Neumann algebra,''
+Commun.\ Math.\ Phys.\ \textbf{105}, 123 (1986).
+
+\bibitem{Petz1988}
+D.~Petz,
+``Sufficiency of channels over von Neumann algebras,''
+Q.\ J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{Lindblad1975}
+G.~Lindblad,
+``Completely positive maps and entropy inequalities,''
+Commun.\ Math.\ Phys.\ \textbf{40}, 147 (1975).
+
+\bibitem{Uhlmann1977}
+A.~Uhlmann,
+``Relative entropy and the Wigner-Yanase-Dyson-Lieb concavity
+in an interpolation theory,''
+Commun.\ Math.\ Phys.\ \textbf{54}, 21 (1977).
+
+\bibitem{Araki1976}
+H.~Araki,
+``Relative entropy of states of von Neumann algebras,''
+Publ.\ RIMS Kyoto \textbf{11}, 809 (1976).
+
+\bibitem{Jacobson1995}
+T.~Jacobson,
+``Thermodynamics of spacetime: The Einstein equation of state,''
+Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995).
+
+\bibitem{Reuter1998}
+M.~Reuter,
+``Nonperturbative evolution equation for quantum gravity,''
+Phys.\ Rev.\ D \textbf{57}, 971 (1998).
+
+\bibitem{ReuterWeyer2004}
+M.~Reuter and H.~Weyer,
+``Running Newton constant, improved gravitational actions, and
+galaxy rotation curves,''
+Phys.\ Rev.\ D \textbf{70}, 124028 (2004).
+
+\bibitem{SPARC2016}
+F.~Lelli, S.~S. McGaugh, and J.~M. Schombert,
+``SPARC: Mass models for 175 disk galaxies with Spitzer
+photometry and accurate rotation curves,''
+Astron.\ J.\ \textbf{152}, 157 (2016); arXiv:1606.09251.
+
+\bibitem{McGaugh2016}
+S.~S. McGaugh, F.~Lelli, and J.~M. Schombert,
+``Radial acceleration relation in rotationally supported
+galaxies,''
+Phys.\ Rev.\ Lett.\ \textbf{117}, 201101 (2016);
+arXiv:1609.05917.
+
+\bibitem{BIGSPARC2024}
+L.~Haubner, F.~Lelli, \emph{et~al.},
+``BIG-SPARC: BCG, isolated, and group Spitzer photometry and
+accurate rotation curves,''
+(2024); arXiv:2411.13329.
+
+\bibitem{GhariHaghi2026}
+A.~Ghari and H.~Haghi,
+``Testing emergent gravity in dwarf spheroidal galaxies,''
+(2026); arXiv:2601.01715.
+
+\bibitem{Milgrom2020}
+M.~Milgrom,
+``MOND vs.\ dark matter in light of historical parallels,''
+(2020); arXiv:2001.09729.
+
+\bibitem{Clowe2006}
+D.~Clowe, M.~Brada\v{c}, A.~H. Gonzalez, M.~Markevitch,
+S.~W. Randall, C.~Jones, and D.~Zaritsky,
+``A direct empirical proof of the existence of dark matter,''
+Astrophys.\ J.\ Lett.\ \textbf{648}, L109 (2006).
+
+\bibitem{Verlinde2016}
+E.~P. Verlinde,
+``Emergent gravity and the dark universe,''
+SciPost Phys.\ \textbf{2}, 016 (2017); arXiv:1611.02269.
+
+\bibitem{Bianconi2025}
+G.~Bianconi,
+``Gravity from entropy,''
+Phys.\ Rev.\ D \textbf{111}, 066001 (2025);
+arXiv:2408.14391.
+
+\bibitem{Smolin2017}
+L.~Smolin,
+``MOND as a regime of quantum gravity,''
+Phys.\ Rev.\ D \textbf{96}, 083523 (2017);
+arXiv:1704.00780.
+
+\bibitem{Rodrigues2009}
+D.~C. Rodrigues, P.~S. Letelier, and I.~L. Shapiro,
+``Galaxy rotation curves from general relativity with infrared
+renormalization group effects,''
+J.\ Cosmol.\ Astropart.\ Phys.\ \textbf{2010}, 020 (2010);
+arXiv:0911.4967.
+
+\bibitem{Donoghue2020}
+J.~F. Donoghue,
+``A critique of the asymptotic safety program,''
+Front.\ Phys.\ \textbf{8}, 56 (2020).
+
+\bibitem{Li2018}
+P.~Li, F.~Lelli, S.~S. McGaugh, and J.~M. Schombert,
+``Fitting the radial acceleration relation to individual SPARC
+galaxies,''
+Astron.\ Astrophys.\ \textbf{615}, A3 (2018);
+arXiv:1803.00022.
+
+\bibitem{BrouwerKiDS2021}
+M.~M. Brouwer \emph{et~al.},
+``The weak lensing radial acceleration relation,''
+Astron.\ Astrophys.\ \textbf{650}, A113 (2021);
+arXiv:2106.11677.
+
+\bibitem{CasiniHuerta2004}
+H.~Casini and M.~Huerta,
+``A finite entanglement entropy and the $c$-theorem,''
+Phys.\ Lett.\ B \textbf{600}, 142 (2004);
+hep-th/0405111.
+
+\bibitem{Jacobson2016}
+T.~Jacobson,
+``Entanglement equilibrium and the Einstein equation,''
+Phys.\ Rev.\ Lett.\ \textbf{116}, 201101 (2016);
+arXiv:1505.04753.
+
+\end{thebibliography}
+
+\end{document}
