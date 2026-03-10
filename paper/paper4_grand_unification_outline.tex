@@ -72,8 +72,17 @@ not three separate applications but three solutions of
 \end{equation*}
 where $\rho_{\mathrm{spacetime}}$ and $\rho_{\mathrm{matter}}$ are
 density matrices encoding the geometry and matter content,
-respectively, following Bianconi's gravity-from-entropy framework
-(PRD~2025). Different boundary conditions yield different
+respectively. We argue that three mathematical
+realizations---modular flow, gravitational Landauer principle, and
+quantum channel analysis---all converge on the universal identity
+$\Sigma_{\mathrm{grav}} = -\ln(-g_{00})$, independent of any
+specific action principle. Bianconi's gravity-from-entropy framework
+(PRD~2025) provides one formal setting for
+$\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$,
+though its vacuum solutions give Schwarzschild $+ O(r^{-4})$
+corrections~\cite{Thattarampilly2026}, not the exponential metric.
+The exponential metric instead follows from promoting the identity
+to an exact equation. Different boundary conditions yield different
 solutions: strong-field ($r \sim r_s$) $\to$ exponential metric,
 weak-field ($r \sim \mathrm{kpc}$) $\to$ running $G$ and flat
 rotation curves, no-gravity limit $\to$ standard quantum
@@ -195,6 +204,37 @@ provides the physical interpretation: $\Sigma$ is the entropy
 production, $\tauasym = 1 - \exp(-\Sigma/2)$ is the arrow of time,
 and the Petz recovery map is the optimal retrodiction.
 
+\spec\ \emph{Critical caveat: GfE vacuum solutions.}---Thattarampilly
+et~al.~\cite{Thattarampilly2026} solved the full GfE field equations
+for a static, spherically symmetric vacuum and found
+$g_{00} = -(1 - r_s/r - \beta r_s^2/(48r^4))$: Schwarzschild with
+$O(r^{-4})$ perturbative corrections, \emph{not} the exponential
+metric (which has $O(r^{-2})$ corrections). This means GfE in its
+current form does not produce the exponential metric as a vacuum
+solution. Our unified equation $\Sigma = D(\rho_{\mathrm{spacetime}}
+\| \rho_{\mathrm{matter}})$ should therefore be understood as
+a \emph{principle}---the entropy production equals the QRE between
+geometry and matter---rather than being identified with any
+specific action functional.
+
+\newsyn\ \emph{Three routes independent of GfE.}---The identity
+$\Sigma_{\mathrm{grav}} = -\ln(-g_{00})$ is supported by three independent
+derivations that do not depend on any specific action principle:
+\begin{enumerate}
+\item \emph{Modular flow}: The fractional QRE loss computed via
+  Dorau--Much modular theory~\cite{DorauMuch2025} gives
+  $(D_{\mathrm{in}} - D_{\mathrm{out}})/D_{\mathrm{in}} = r_s/r$.
+\item \emph{Gravitational Landauer}: The Tolman-modified erasure
+  cost~\cite{Herrera2020} gives $\Sigma = -\ln(-g_{00})$.
+\item \emph{Quantum channel}: A pure-loss bosonic channel with
+  $\eta = -g_{00}$ gives $\Sigma = -\ln\eta$; Petz recovery for
+  this channel has been experimentally
+  demonstrated~\cite{ChenSongScarani2025}.
+\end{enumerate}
+The exponential metric follows from promoting the identity
+$\sqrt{-g_{00}} = e^{-\Sigma/2}$ to an exact equation, not from
+solving modified field equations.
+
 %=======================================================================
 \section{Strong-Field Solution}
 \label{sec:strong_field}
@@ -230,6 +270,17 @@ Specifically: solve $\delta D(\rho_g \| \rho_m) = 0$ for a
 static, spherically symmetric vacuum with mass $M$ at the origin.
 The solution should be $g_{00} = -\exp(-r_s/r)$, reproducing
 Paper~2.}
+
+\toderive{Resolve the tension: GfE gives Schwarzschild $+ O(r^{-4})$
+  corrections~\cite{Thattarampilly2026}, while our identity gives the
+  exponential metric. Three possible resolutions:
+  (a)~The exponential metric is the correct vacuum geometry and GfE
+  needs modification;
+  (b)~The true vacuum geometry is Schwarzschild $+$ corrections, and the
+  exponential metric is an idealization;
+  (c)~The unified equation $\Sigma = D(\rho_{\mathrm{st}} \| \rho_{\mathrm{m}})$
+  requires a different mathematical realization than GfE.
+  This is the central open problem of the program.}
 
 \emph{Matching condition at large $r$.}---As $r \to \infty$,
 $\Sigma_{\mathrm{strong}} \to 0$ and $g_{00} \to -1$: flat
@@ -570,10 +621,17 @@ and the consistency of Papers~1--3. A derivation from axioms
 QFT) would elevate it from conjecture to theorem.
 
 \spec\ Current best candidates: (i)~Bianconi's entropic action
-principle~\cite{Bianconi2025}; (ii)~Dorau--Much's modular
+principle~\cite{Bianconi2025}, though its vacuum solutions give
+Schwarzschild $+ O(r^{-4})$ corrections rather than the exponential
+metric~\cite{Thattarampilly2026}, so it cannot serve as the
+mathematical realization in its current form;
+(ii)~Dorau--Much's modular
 theory~\cite{DorauMuch2025} extended to include backreaction;
 (iii)~Jacobson's entanglement equilibrium~\cite{Jacobson2016}
-rewritten in QRE language.
+rewritten in QRE language. The three action-independent routes
+(modular flow, gravitational Landauer, quantum channel) may
+provide the necessary foundation without requiring a specific
+modified gravity action.
 
 \emph{Problem 2: Planck scale.}---What happens when
 spacetime itself is quantum? At the Planck scale,
@@ -887,6 +945,22 @@ Front.\ Phys.\ \textbf{8}, 56 (2020).
 \bibitem{Paper3cosmological}
 S.-K. Huang,
 research notes on cosmological $\tauasym$ (2026).
+
+\bibitem{Thattarampilly2026}
+B.~Thattarampilly, Y.~Zheng, and K.~K.~Kakkat,
+``Spherically symmetric black hole in gravity from entropy,''
+(2026); arXiv:2602.13694.
+
+\bibitem{Herrera2020}
+L.~Herrera,
+``The Gibbs paradox, the Landauer principle and the irreversibility
+associated with tilted observers,''
+Entropy \textbf{22}, 340 (2020).
+
+\bibitem{ChenSongScarani2025}
+Z.~Chen, Y.~Song, and V.~Scarani,
+``Petz recovery from subsystems in bosonic quantum error correction,''
+(2025); arXiv:2511.05941.
 
 \end{thebibliography}
 

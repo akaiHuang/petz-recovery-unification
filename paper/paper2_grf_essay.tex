@@ -150,6 +150,8 @@ Schwarzschild.
 redshift as a pure-loss bosonic channel with intensity
 transmissivity $\eta = -g_{00}$, the QRE decrease is
 $\Sigma = -\ln\eta = \rs/r$~\cite{AhmadiFuentes2014}.
+Petz recovery for this channel type has been experimentally
+demonstrated~\cite{ChenSongScarani2025}.
 
 Substituting Eq.~\eqref{eq:Sgrav} into the Petz
 bound~\eqref{eq:petz_bound} gives $\Fbound = e^{-\Sgrav/2}
@@ -268,8 +270,9 @@ It shares PPN parameters $\gamma = \beta = 1$ with
 Schwarzschild and passes all solar-system
 tests~\cite{Bertotti2003}.
 Our contribution is the information-theoretic motivation:
-the exponential metric is the geometry that \emph{saturates}
-the fundamental bound on quantum information recovery.
+the exponential metric is the geometry whose redshift factor
+\emph{equals} the Petz recovery fidelity bound, $\sqrt{-g_{00}} = e^{-\Sigma/2}$,
+taken as an exact identity rather than a one-sided inequality.
 
 \emph{Caveat on saturation.}---The JRSWW
 bound~\cite{JRSWW2018} is structurally \emph{strict} for
@@ -357,6 +360,20 @@ Paper~I~\cite{Huang2026} extends to general-relativistic
 settings---entropy production in curved spacetime is
 observer-dependent and quantified by $\Sgrav$.
 
+Galley, Giacomini, and Selby~\cite{GalleyGiacominiSelby2023}
+proved that \emph{any} consistent coupling between classical
+gravity and quantum matter is fundamentally irreversible
+($\Sigma > 0$), providing model-independent support for the
+premise that gravitational processes produce entropy.
+Bai, Buscemi, and Scarani~\cite{BaiBuscemiScarani2024}
+independently constructed a fully quantum entropy production
+using Bayesian retrodiction---mathematically parallel to the
+$\tauasym$ framework but without gravitational application.
+De~Vuyst et~al.~\cite{DeVuyst2025} showed via quantum
+reference frames that gravitational entropy is
+observer-dependent, providing algebraic justification for the
+coordinate dependence of $\Sgrav$.
+
 %=======================================================================
 \section{Testable Predictions}
 \label{sec:predictions}
@@ -433,7 +450,11 @@ if spacetime is flat.
 
 It \emph{cannot}: explain dark matter ($\Sgrav \sim 10^{-6}$
 at galactic scales, far too small);
-explain the cosmological constant or dark energy;
+Bianconi's gravity-from-entropy framework~\cite{Bianconi2025GfE}
+yields Schwarzschild with $O(r^{-4})$ corrections in vacuum~\cite{Thattarampilly2026},
+\emph{not} the exponential metric; our information-theoretic
+derivation via $\Sgrav = -\ln(-g_{00})$ is independent of that program.
+It cannot explain the cosmological constant or dark energy;
 derive the full metric tensor $g_{ab}$ from $\tauasym$
 (the relation $g_{00} \to \Sgrav \to \tauasym$
 is one-directional; $\tauasym$ constrains only $g_{00}$,
@@ -585,6 +606,36 @@ Phys.\ Rev.\ Lett.\ \textbf{116}, 171101 (2016).
 \bibitem{HayashiYamasaki2025}
 M.~Hayashi and T.~Yamasaki,
 Nat.\ Phys.\ (2025).
+
+\bibitem{BaiBuscemiScarani2024}
+Y.~B.~Bai, F.~Buscemi, and V.~Scarani,
+``Quantum stochastic entropy production from Bayesian retrodiction,''
+(2024); arXiv:2412.12489.
+
+\bibitem{GalleyGiacominiSelby2023}
+T.~D.~Galley, F.~Giacomini, and J.~O.~E.~Selby,
+``Any consistent coupling between classical gravity and quantum matter is fundamentally irreversible,''
+Quantum \textbf{7}, 1142 (2023).
+
+\bibitem{DeVuyst2025}
+J.~De~Vuyst, S.~Eccles, P.~A.~H\"{o}hn, and J.~Kirklin,
+``Gravitational entropy is observer-dependent,''
+(2025); arXiv:2412.15502.
+
+\bibitem{ChenSongScarani2025}
+Z.~Chen, Y.~Song, and V.~Scarani,
+``Petz recovery from subsystems in bosonic quantum error correction,''
+(2025); arXiv:2511.05941.
+
+\bibitem{Thattarampilly2026}
+B.~Thattarampilly, Y.~Zheng, and K.~K.~Kakkat,
+``Spherically symmetric black hole in gravity from entropy,''
+(2026); arXiv:2602.13694.
+
+\bibitem{Bianconi2025GfE}
+G.~Bianconi,
+Phys.\ Rev.\ D \textbf{111}, 066001 (2025);
+arXiv:2408.14391.
 
 \end{thebibliography}
 
