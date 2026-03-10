@@ -153,6 +153,16 @@ $\Sigma = -\ln\eta = \rs/r$~\cite{AhmadiFuentes2014}.
 Petz recovery for this channel type has been experimentally
 demonstrated~\cite{ChenSongScarani2025}.
 
+No route constructs a canonical gravitational CPTP map with
+explicit Kraus operators~\cite{KasprzakTjoa2024}.
+We bypass this: any consistent classical-gravity--quantum-matter
+coupling is irreversible~\cite{GalleyGiacominiSelby2023},
+guaranteeing the existence of an irreversible channel; route~(a)
+fixes the coefficient; route~(c) provides a concrete existence
+proof.
+The modular channel of Trejo-Calder\'{o}n~\cite{TrejoCalderon2025}
+is the most promising candidate for a first-principles construction.
+
 Substituting Eq.~\eqref{eq:Sgrav} into the Petz
 bound~\eqref{eq:petz_bound} gives $\Fbound = e^{-\Sgrav/2}
 = e^{\Phi/c^2}$. Comparing with Eq.~\eqref{eq:ceff}:
@@ -273,6 +283,14 @@ Our contribution is the information-theoretic motivation:
 the exponential metric is the geometry whose redshift factor
 \emph{equals} the Petz recovery fidelity bound, $\sqrt{-g_{00}} = e^{-\Sigma/2}$,
 taken as an exact identity rather than a one-sided inequality.
+The spatial component $g_{rr} = e^{+\rs/r}$ follows from the
+isometry condition $g_{00}\cdot g_{rr} = -1$ (Dicke's scalar
+refractive index~\cite{Dicke1957}), which is an independent
+assumption---information theory constrains only $g_{00}$.
+Predictions are thus \emph{robust} (no-horizon theorem,
+$\nref = 1/\Fbound$, decoherence bound---depending only on
+$g_{00}$) or \emph{conditional} (shadow, QNM, echoes---depending
+on the full metric).
 
 \emph{Caveat on saturation.}---The JRSWW
 bound~\cite{JRSWW2018} is structurally \emph{strict} for
@@ -459,11 +477,15 @@ derive the full metric tensor $g_{ab}$ from $\tauasym$
 (the relation $g_{00} \to \Sgrav \to \tauasym$
 is one-directional; $\tauasym$ constrains only $g_{00}$,
 not the spatial components);
-or extend to dynamical spacetimes without
-modification (the covariant formulation
-$\Fbound(A \!\to\! B) = |\xi|_A/|\xi|_B$, where
-$\xi^a$ is a timelike Killing vector, requires
-stationarity).
+or extend to general dynamical spacetimes without
+modification.
+A promising extension uses the Kodama
+vector~\cite{Kodama1980}---the unique divergence-free
+vector in spherically symmetric spacetimes---giving
+$\tauasym_K(R) = 1 - \sqrt{1 - H^2 R^2}$ in FRW,
+tracking apparent (not event) horizons;
+the deeper foundation is modular flow via crossed-product
+algebras~\cite{Witten2022,Chandrasekaran2023}.
 
 %=======================================================================
 \section{Conclusion}
@@ -497,7 +519,7 @@ companion manuscript.
 \end{acknowledgments}
 
 %=======================================================================
-\begin{thebibliography}{26}
+\begin{thebibliography}{37}
 
 \bibitem{Einstein1911}
 A.~Einstein,
@@ -636,6 +658,26 @@ B.~Thattarampilly, Y.~Zheng, and K.~K.~Kakkat,
 G.~Bianconi,
 Phys.\ Rev.\ D \textbf{111}, 066001 (2025);
 arXiv:2408.14391.
+
+\bibitem{TrejoCalderon2025}
+J.~A.~Trejo-Calder\'{o}n,
+arXiv:2504.20457 (2025).
+
+\bibitem{KasprzakTjoa2024}
+M.~Kasprzak and E.~Tjoa,
+arXiv:2408.00518 (2024).
+
+\bibitem{Kodama1980}
+H.~Kodama,
+Prog.\ Theor.\ Phys.\ \textbf{63}, 1217 (1980).
+
+\bibitem{Witten2022}
+E.~Witten,
+J.\ High Energy Phys.\ \textbf{2022}(10), 008 (2022).
+
+\bibitem{Chandrasekaran2023}
+V.~Chandrasekaran, R.~Longo, G.~Penington, and E.~Witten,
+J.\ High Energy Phys.\ \textbf{2023}(02), 082 (2023).
 
 \end{thebibliography}
 

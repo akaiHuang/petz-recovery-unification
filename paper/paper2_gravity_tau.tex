@@ -193,6 +193,37 @@ is $\Sigma = -\ln\eta = \rs/r$~\cite{AhmadiFuentes2014}.
 All three routes share the common mathematical core
 $\Sgrav = -\ln(-g_{00})$.
 
+\subsection{The channel problem}
+
+[\textsc{new synthesis}]  None of the three routes above
+constructs a canonical gravitational CPTP map
+$\chan_{\mathrm{grav}}$ from first principles---i.e., a map
+with explicit Kraus operators $\{K_i\}$ such that
+$\Sigma = D(\rho\|\sigma) - D(\chan_{\mathrm{grav}}(\rho)\|
+\chan_{\mathrm{grav}}(\sigma)) = \rs/r$.
+This remains an open problem~\cite{KasprzakTjoa2024}.
+We bypass it through a combined strategy:
+(i)~any consistent coupling of classical gravity to quantum
+matter is fundamentally irreversible ($\Sigma > 0$),
+guaranteeing the \emph{existence} of an irreversible CPTP
+map~\cite{GalleyGiacominiSelby2023};
+(ii)~the modular flow route~(a) provides the
+coefficient $\rs/r$ without requiring an explicit
+channel~\cite{DorauMuch2025};
+(iii)~the pure-loss bosonic channel~(c) serves as a concrete
+\emph{existence proof} that a CPTP map with
+$\Sigma = -\ln\eta = \rs/r$ exists when $\eta = -g_{00}$;
+(iv)~axiomatic uniqueness: any CPTP map satisfying additivity
+under channel composition and monotonicity under coarse-graining
+yields $\Sigma = -c\,\ln(-g_{00})$ with $c > 0$; routes~(a)--(c)
+fix $c = 1$.
+The recent modular channel construction of
+Trejo-Calder\'{o}n~\cite{TrejoCalderon2025}---a CPTP map
+built from Gibbs-weighted singular values of the modular
+operator---is the most promising candidate for a first-principles
+$\chan_{\mathrm{grav}}$, though the explicit computation of
+$\Delta D$ in Schwarzschild remains to be carried out.
+
 \subsection{The triple identification}
 
 [\textsc{new synthesis}]  Substituting
@@ -512,6 +543,33 @@ gravitational mass.
 Boonserm et~al.~\cite{Boonserm2018} classified the geometry as
 a traversable wormhole.
 
+\emph{The spatial metric is assumed, not derived.}---The
+information-theoretic framework constrains only the temporal
+component $g_{00}$ through $\sqrt{-g_{00}} = e^{-\Sgrav/2}$.
+The spatial component $g_{rr} = e^{+\rs/r}$ in
+Eq.~\eqref{eq:exp_metric} follows from the isometry condition
+$g_{00}\cdot g_{rr} = -1$ (isotropic coordinates), which is
+equivalent to Dicke's scalar refractive
+index~\cite{Dicke1957}: $n^2 = 1/(-g_{00})$ with $g_{rr} = n^2$.
+This is a physically motivated assumption---not a derivation from
+quantum information theory.
+The fundamental reason is that quantum channels model
+\emph{temporal} processes (evolution, decoherence, loss),
+and the Petz recovery framework naturally constrains the
+temporal metric component; no analogous information-degradation
+process exists for the spatial direction.
+Consequently, we classify our predictions as
+\emph{robust} (depending only on $g_{00}$: no-horizon theorem,
+refractive index, gravitational decoherence rate) or
+\emph{conditional} (depending on the full metric:
+shadow size, ISCO radius, QNM frequencies, echo delay).
+Note that the Jacobson~\cite{Jacobson1995} and
+Dorau--Much~\cite{DorauMuch2025} programs \emph{do} derive
+all metric components from information-theoretic premises,
+but their vacuum solution is Schwarzschild, not exponential.
+This tension between derivability and the specific metric
+form remains an open question.
+
 \emph{Comparison with Schwarzschild.}---The exponential and
 Schwarzschild metrics share identical PPN parameters
 $\gamma = \beta = 1$ and agree through $O(\rs/r)^2$:
@@ -546,9 +604,20 @@ The saturation hypothesis ($F = e^{-\Sgrav/2}$ exactly) is
 unproven; if nature selects $F > e^{-\Sgrav/2}$, the actual
 metric lies between the exponential and Schwarzschild
 predictions.
-Current data cannot distinguish the two metrics.
+Current data cannot distinguish the two metrics:
+the most distinctive prediction---gravitational-wave echoes
+at $\Delta t \approx 4.2\,\rs/c$ ($\sim 2.5$~ms for
+$60\,M_\odot$)---has not been searched for, as existing echo
+analyses use $\sim 200$~ms templates optimized for Planck-wall
+models~\cite{Cardoso2016}.
+Dedicated short-delay searches using existing LIGO--Virgo O3/O4
+data could test this prediction.
 The identification~\eqref{eq:triple} is robust in weak fields
 and suggestive in strong fields.
+All conditional predictions (shadow, ISCO, QNM, echoes) depend
+on the isometry assumption $g_{rr} = e^{+\rs/r}$; the robust
+predictions (no-horizon theorem, $\nref = 1/\Fbound$,
+decoherence bound) depend only on $g_{00}$.
 
 %=======================================================================
 \section{What $\tauasym$ Can and Cannot Explain}
@@ -582,14 +651,22 @@ and suggestive in strong fields.
 \item Derive $g_{ab}$ from $\tauasym$: the relation is
   one-directional ($g \to \Sigma \to \tauasym$); $\tauasym$
   constrains only $g_{00}$, not the full metric tensor.
+  The spatial component $g_{rr}$ requires an independent
+  assumption (Sec.~\ref{sec:exponential}); programs that
+  derive all components (Jacobson, Dorau--Much)
+  yield Schwarzschild, not the exponential metric.
+\item Construct a canonical gravitational CPTP map: the bypass
+  strategy (Sec.~\ref{sec:identification}) establishes
+  $\Sgrav = \rs/r$ without an explicit channel, but the
+  Kraus-operator representation of $\chan_{\mathrm{grav}}$
+  remains open~\cite{KasprzakTjoa2024,TrejoCalderon2025}.
 \item Resolve the firewall paradox~\cite{AMPS2013}: while
   $\tauasym < 1$ removes the event horizon premise, the
   framework does not address the interior structure of compact
   objects.
-\item Apply to dynamical spacetimes: the covariant formulation
-  $\Fbound(A\!\to\!B) = |\xi|_A/|\xi|_B$ requires a timelike
-  Killing vector, which does not exist for gravitational
-  collapse or cosmological expansion.
+\item Apply to general dynamical spacetimes without
+  modification: the static formulation requires a timelike
+  Killing vector (see Discussion for the Kodama extension).
 \end{itemize}
 
 %=======================================================================
@@ -616,23 +693,63 @@ our $\Sgrav = -\ln(-g_{00})$ and their QRE-based field
 equations share the same informational foundation.
 
 Several open questions merit investigation.
-(i)~\emph{$\tauasym$ at the Planck scale}: when
+
+(i)~\emph{Dynamic spacetimes.}---The most pressing limitation
+is the restriction to static metrics.
+The Kodama vector~\cite{Kodama1980}---the unique
+divergence-free timelike vector in spherically symmetric
+spacetimes---provides a natural extension:
+$\Fbound^K(A\!\to\!B) = |K|_A/|K|_B$.
+In the static limit, $K^a$ reduces to the Killing vector
+and $\Fbound^K = \sqrt{-g_{00}}$, recovering all results of
+this paper.
+In Vaidya collapse (mass accretion $M(v)$),
+$\tauasym_K(r,v) = 1 - \sqrt{1 - 2M(v)/r}$, tracking the
+\emph{apparent} horizon---a quasi-local, causal surface---rather
+than the event horizon.
+In FRW cosmology,
+$\tauasym_K(R) = 1 - \sqrt{1 - H^2 R^2}$, reaching
+$\tauasym = 1$ at the Hubble radius.
+Recent work extends the Kodama approach to axisymmetric
+spacetimes~\cite{DorauVerch2024}.
+The deeper theoretical foundation lies in modular
+flow~\cite{Witten2022,Chandrasekaran2023}: the
+Tomita--Takesaki modular automorphism defines $\tauasym$ for
+any spacetime and any state, without requiring symmetry.
+Crossed-product algebras make gravitational entropy
+well-defined and observer-dependent~\cite{KudlerFlam2025},
+consistent with the coordinate dependence of $\Sgrav$.
+Cirafici~\cite{Cirafici2024} has established fluctuation
+theorems in gravitational algebras, confirming that the
+Crooks--Petz connection of Paper~I extends to de~Sitter
+spacetime.
+
+(ii)~\emph{$\tauasym$ at the Planck scale}: when
 $\Sgrav \sim O(1)$, quantum gravity effects become important.
 Loop quantum gravity corrections to the exponential metric
 have been computed~\cite{GuoYuan2025}, but their
 information-theoretic interpretation remains unexplored.
-(ii)~\emph{Complexity-weighted $\tauasym$}: the Petz map may be
-computationally difficult to implement even when it exists
-in principle; a complexity-weighted version of $\tauasym$
-could distinguish FAPP from genuine irreversibility.
-(iii)~\emph{Non-Markovian gravity}: if the gravitational
-channel exhibits memory effects, the entropy production $\Sgrav$
-may not be additive, and the Petz bound requires
-modification~\cite{LandiPaternostro2021}.
+
+(iii)~\emph{The canonical channel}: the modular channel
+construction of Trejo-Calder\'{o}n~\cite{TrejoCalderon2025}
+builds a CPTP map from the singular values of the modular
+operator.
+Computing its QRE loss in Schwarzschild would either confirm
+$\Sigma = \rs/r$ from first principles or reveal a correction.
+Kasprzak and Tjoa~\cite{KasprzakTjoa2024} provide the most
+rigorous framework for quantum information transmission through
+curved-spacetime fields; combining their channel with the
+modular construction is a concrete next step.
+
 (iv)~\emph{Rotation}: the Kerr analog of the exponential
 metric~\cite{Graber2017,MakukovMychelkin2023} has neither
 horizons nor ergospheres; its information-theoretic derivation
 requires extending the framework beyond spherical symmetry.
+
+(v)~\emph{Non-Markovian gravity}: if the gravitational
+channel exhibits memory effects, the entropy production $\Sgrav$
+may not be additive, and the Petz bound requires
+modification~\cite{LandiPaternostro2021}.
 
 In Paper~1b~\cite{Paper1b}, we applied the $\tauasym$ framework
 to wavefunction collapse, showing that gravitational
@@ -655,7 +772,7 @@ foundations on which this work builds.
 % BIBLIOGRAPHY
 %=======================================================================
 
-\begin{thebibliography}{35}
+\begin{thebibliography}{48}
 
 % === Paper series ===
 
@@ -906,6 +1023,69 @@ Phys.\ Rev.\ D \textbf{105}, 086001 (2022).
 Y.~Guo and J.~Yuan,
 ``Quantum effective dynamics of Papapetrou spacetime,''
 Eur.\ Phys.\ J.\ C (2025).
+
+% === New references from research round 2026-03-10 ===
+
+\bibitem{GalleyGiacominiSelby2023}
+T.~D.~Galley, F.~Giacomini, and J.~O.~E.~Selby,
+``Any consistent coupling between classical gravity and
+quantum matter is fundamentally irreversible,''
+Quantum \textbf{7}, 1142 (2023).
+
+\bibitem{TrejoCalderon2025}
+J.~A.~Trejo-Calder\'{o}n,
+``Modular Channels, Thermal Filtering and the Spectral
+Emergence of Spacetime,''
+arXiv:2504.20457 (2025).
+
+\bibitem{KasprzakTjoa2024}
+M.~Kasprzak and E.~Tjoa,
+``Transmission of quantum information through quantum fields
+in curved spacetimes,''
+arXiv:2408.00518 (2024).
+
+\bibitem{Cirafici2024}
+M.~Cirafici,
+``Fluctuation theorems, quantum channels and gravitational
+algebras,''
+arXiv:2408.04219 (2024).
+
+\bibitem{Kodama1980}
+H.~Kodama,
+``Conserved energy flux for the spherically symmetric system
+and the backreaction problem in the black hole evaporation,''
+Prog.\ Theor.\ Phys.\ \textbf{63}, 1217 (1980).
+
+\bibitem{Hayward1994}
+S.~A.~Hayward,
+``General laws of black-hole dynamics,''
+Phys.\ Rev.\ D \textbf{49}, 6467 (1994).
+
+\bibitem{DorauVerch2024}
+L.~Dorau and R.~Verch,
+``Modular flow and entropy for axisymmetric spacetimes,''
+arXiv:2402.18993 (2024).
+
+\bibitem{Witten2022}
+E.~Witten,
+``Gravity and the crossed product,''
+J.\ High Energy Phys.\ \textbf{2022}(10), 008 (2022).
+
+\bibitem{Chandrasekaran2023}
+V.~Chandrasekaran, R.~Longo, G.~Penington, and E.~Witten,
+``An algebra of observables for de~Sitter space,''
+J.\ High Energy Phys.\ \textbf{2023}(02), 082 (2023).
+
+\bibitem{KudlerFlam2025}
+J.~Kudler-Flam, S.~Leutheusser, and G.~Satishchandran,
+``Generalized black hole entropy is von~Neumann entropy,''
+arXiv:2309.15897 (2025).
+
+\bibitem{MoreiraCeleri2026}
+S.~V.~Moreira and L.~C.~Celeri,
+``Decoherence and entropy production due to quantum
+fluctuations of spacetime,''
+arXiv:2603.02034 (2026).
 
 \end{thebibliography}
 
