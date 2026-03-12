@@ -257,6 +257,16 @@ petz-recovery-unification/
 - L. H. English, S. Roberts, S. D. Bartlett, A. C. Doherty, and D. J. Williamson, "Ising on the donut: Regimes of topological quantum error correction from statistical mechanics," arXiv:2512.10399 (2025).
 - H. Chen, D. Xu, G. M. Sommers, D. A. Huse, J. D. Thompson, and S. Gopalakrishnan, "Scalable accuracy gains from postselection in quantum error correcting codes," arXiv:2510.05222 (2025).
 
+## Series
+
+This is **Paper I** in the tau framework series:
+
+- **Paper I: The Arrow of Time from Petz Recovery** (this repository)
+- [Paper II: Gravitational Thermal Attenuator](https://github.com/akaiHuang/gravitational-tau-channel)
+- [Paper III: Dark Matter from Running G](https://github.com/akaiHuang/dark-matter-running-g)
+- [Paper IV: Tau Unification Framework](https://github.com/akaiHuang/tau-unification-framework)
+- [Paper V: Observer-Dependent Tau](https://github.com/akaiHuang/observer-dependent-tau)
+
 ## Citation
 
 ```bibtex
