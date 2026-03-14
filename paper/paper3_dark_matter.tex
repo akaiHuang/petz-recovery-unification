@@ -964,28 +964,37 @@ frame), and the background coupling runs as
 \mu_{\mathrm{bg}}(a) = \frac{H(a)}{c},
 \label{eq:mu_bg}
 \end{equation}
-where $H(a)$ is the Hubble parameter at scale factor $a$.
-The effective equation-of-state parameter for the Khronon
-perturbations is~\cite{Blanchet2024}
+where $H(a)$ is the Hubble parameter at scale factor~$a$.
+The background Khronon field amplitude
+$\delta(a) \equiv Q_0(a) - 1 = I_0/[2\mu_{\mathrm{bg}}(a)^2]$
+decreases at early times because $\mu_{\mathrm{bg}}$ grows
+with $H(a)$.  The effective GDM equation-of-state
+parameter~\cite{Blanchet2024} is
 \begin{equation}
-\tilde{w}_0 = \frac{\mu_{\mathrm{bg}}^2}{k_{\mathrm{phys}}^2},
+\tilde{w}(z) = \frac{\delta(z)}{2}
+= \frac{\delta_0}{2}\!\left(\frac{H_0}{H(z)}\right)^{\!2},
 \label{eq:w_tilde}
 \end{equation}
-where $k_{\mathrm{phys}}$ is the physical wavenumber of the
-perturbation mode.  At recombination ($z \approx 1100$),
-$\mu_0 = H_0/c \approx 2.25 \times 10^{-4}\;
-\mathrm{Mpc}^{-1}$ and the first acoustic peak corresponds to
-$k_{\mathrm{phys}} = k_{\mathrm{co}} (1+z) \sim 0.01 \times 1101
-\approx 11\;\mathrm{Mpc}^{-1}$, giving
+where $\delta_0 = 0.340$ at $z = 0$
+(fixed by $\Omega_{\mathrm{cdm}} = 0.265$).
+At recombination ($z \approx 1100$),
+$H(z)/H_0 \approx 2.35 \times 10^4$, giving
 \begin{equation}
-\tilde{w}_0(z \approx 1100) \sim 4 \times 10^{-10}
+\tilde{w}(z \approx 1100) \approx 3 \times 10^{-10}
 \ll 1.
 \label{eq:w_dust}
 \end{equation}
-This is effectively pressureless: the Khronon perturbations
-behave as dust at CMB scales, precisely the $c_s = 0$ mode
-identified as structurally necessary in
-Sec.~\ref{sec:cmb}.
+The effective sound speed, given by the
+Jeans-suppressed formula~\cite{Blanchet2024},
+$c_s^2 = \tilde{w}/[1 + \tilde{w}\,c^2 k^2/(4\pi G a^2
+\rho_K)]$, satisfies $c_s^2 \lesssim 3 \times 10^{-10}$
+at all Planck wavenumbers
+($k \in [10^{-3},\,0.3]\;\mathrm{Mpc}^{-1}$),
+well below the Thomas--Kopp--Skordis~\cite{TKS2016}
+constraint $c_s^2 < 3.4 \times 10^{-6}$.
+This confirms the Khronon perturbations behave as dust at
+CMB scales, precisely the $c_s = 0$ mode identified as
+structurally necessary in Sec.~\ref{sec:cmb}.
 
 \emph{Unification.}---The de~Sitter temperature
 $T_{\mathrm{dS}}$ now serves as the single origin of both
@@ -1586,6 +1595,13 @@ O.~Fawzi and R.~Renner,
 ``Quantum conditional mutual information and approximate
 Markov chains,''
 Commun.\ Math.\ Phys.\ \textbf{340}, 575 (2015).
+
+\bibitem{TKS2016}
+S.~Thomas, M.~Kopp, and C.~Skordis,
+``Constraining generalised dark matter parameters with
+the CMB,''
+Astrophys.\ J.\ \textbf{830}, 155 (2016);
+arXiv:1601.05097.
 
 \bibitem{Paper4}
 S.-K.~Huang,
