@@ -23,12 +23,12 @@ The exponential metric g_00 = exp(-r_s/r) has been studied before under differen
 
 **Critical distinction for Paper 2**: Paper 2's exponential metric arises from a *different* physical motivation (Sigma_grav = r_s/r from quantum relative entropy loss). It is NOT the full Yilmaz theory (which has its own stress-energy tensor for gravity). Paper 2 proposes the exponential metric as a phenomenological consequence of information loss in the gravitational channel, not as a new field theory of gravity.
 
-**Known objections to the Yilmaz theory** (which may or may not apply to Paper 2):
-- Predicts only half the observed light bending at first post-Newtonian order (Ernazarov 2025)
-- Predicts one-third the perihelion precession (Ernazarov 2025)
-- Different gravitational wave energy loss in binary systems
+**Known objections to the Yilmaz FIELD EQUATIONS** (which do NOT apply to the Papapetrou metric as used in Paper 2):
+- The "half light bending" and "one-third perihelion precession" claims (referenced in Ernazarov 2025) are INCORRECT for the full exponential metric ds^2 = -exp(-r_s/r) dt^2 + exp(+r_s/r)(dr^2 + r^2 dOmega^2). This metric has PPN parameters gamma = beta = 1, identical to Schwarzschild at 1PN. The confusion arises from conflating Yilmaz's modified field equations (which ARE problematic) with the exponential metric as a GR + phantom scalar solution. See paper2_aggressive_full_metric_strategy.md for detailed proof.
+- Mychelkin et al. (2024, Gen. Relativ. Gravit. 56, 44) explicitly show the perihelion shift matches GR at 1PN, with 2PN difference ~2.3 x 10^{-7} arcsec/century for Mercury.
+- Different gravitational wave energy loss in binary systems (for the Yilmaz field equations, not the Papapetrou metric)
 
-**Paper 2 must address**: Whether the quantum-channel-derived exponential metric avoids these problems by modifying only g_00 while keeping the spatial metric compatible with GR predictions to 1PN order.
+**Paper 2 status**: The full exponential metric passes ALL solar system tests identically to Schwarzschild. First detectable difference is in strong-field regime (shadow +4.6%, QNMs -4.4%).
 
 ### Key Reference: Ernazarov (2025)
 - **arXiv**: 2511.13471, "The asymptotically Schwarzschild-like metric solutions"
@@ -382,7 +382,7 @@ The metric choice affects:
 
 3. **Compute the QNM frequencies** using WKB or the METRICS framework. Compare with GW250114.
 
-4. **Address the Yilmaz objections**: Why does Paper 2's metric not suffer from the "half the light bending" problem? (Answer likely: it's only g_00 that's exponential, not the full metric.)
+4. **Address the Yilmaz objections**: RESOLVED. The full exponential metric (both g_00 and g_rr exponential) has gamma = beta = 1 and matches GR at 1PN. The "half light bending" claim is a myth from confusing Yilmaz field equations with the Papapetrou metric. See paper2_aggressive_full_metric_strategy.md, Appendix A.
 
 ### Re-Analysis Proposals (for Paper 2 or follow-up)
 5. **NICER pulse profile re-analysis**: Use existing NICER data but fit with exponential metric instead of Schwarzschild. This is the most feasible independent test.

@@ -1,0 +1,2320 @@
+% paper4_unification.tex
+% Temporal Asymmetry as Organizing Principle:
+% From Quantum Channels to Cosmological Structure
+% Paper IV in the tau framework series
+% Author: Sheng-Kai Huang
+% Compile with: pdflatex paper4_unification.tex
+
+\documentclass[prd,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{postulate}{Postulate}
+\newtheorem*{proposition}{Proposition}
+
+% Convenience macros (consistent with Papers 1--3, 5)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\KL}{D}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\op}[2]{|#1\rangle\langle#2|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tauasym}{\tau}
+
+% Paper 2 macros
+\newcommand{\ceff}{c_{\mathrm{eff}}}
+\newcommand{\rs}{r_{\mathrm{s}}}
+\newcommand{\Sgrav}{\Sigma_{\mathrm{grav}}}
+\newcommand{\Fbound}{F_{\mathrm{bound}}}
+\newcommand{\nref}{n_{\mathrm{grav}}}
+
+% Paper 4 specific macros
+\newcommand{\Daraki}{D_{\mathrm{Araki}}}
+\newcommand{\Aobs}{\mathcal{A}_{\mathcal{O}}}
+\newcommand{\Atot}{\mathcal{A}_{\mathrm{tot}}}
+\newcommand{\Ast}{\mathcal{A}_{\mathrm{st}}}
+\newcommand{\Am}{\mathcal{A}_{\mathrm{m}}}
+\newcommand{\rhost}{\rho_{\mathrm{st}}}
+\newcommand{\rhom}{\rho_{\mathrm{m}}}
+\newcommand{\SigO}{\Sigma_{\mathcal{O}}}
+\newcommand{\tauO}{\tauasym_{\mathcal{O}}}
+\newcommand{\Tmod}{T_{\mathrm{mod}}}
+\newcommand{\GN}{G_{\mathrm{N}}}
+\newcommand{\SdS}{S_{\mathrm{dS}}}
+\newcommand{\rA}{r_{\mathrm{A}}}
+\newcommand{\OmDM}{\Omega_{\mathrm{DM}}}
+
+\begin{document}
+
+\title{Temporal Asymmetry as Organizing Principle:\\
+From Quantum Channels to Cosmological Structure}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+The temporal asymmetry parameter $\tauasym = 1 - F$,
+where $F$ is the Petz recovery fidelity, was shown in
+Papers~I--III and V to govern quantum information recovery,
+strong-field gravity, galactic dynamics, and observer-dependent
+time, respectively.  Here we propose that these are not four
+separate applications but five limits of a single equation:
+\begin{equation*}
+\Sigma \;=\; \Daraki\!\bigl(\omega\big|_{\Aobs}
+\;\big\|\; \omega_{\mathrm{ref}}\big|_{\Aobs}\bigr)\,,
+\end{equation*}
+the Araki relative entropy restricted to the observer's
+accessible algebra $\Aobs$.  The observer $\mathcal{O}$
+selects the subalgebra, and different choices reproduce
+(a)~channel QRE in flat spacetime [\textsc{proved}],
+(b)~$\Sgrav = -\ln(-g_{00})$ for static gravity
+[\textsc{derived}: gravitational thermal attenuator,
+Paper~II],
+(c)~running-$G$ rotation curves [\textsc{derived}: DPI
+$+$ extensivity $\Rightarrow$ $\eta = 1$, Paper~III],
+(d)~the Friedmann equations from entanglement equilibrium
+[\textsc{proved}], and
+(e)~observer-dependent $\tauO$ [\textsc{proved}].
+We introduce a new postulate---Observer Entanglement
+Equilibrium (OEE), $\delta\Sigma/\delta u^a = 0$---which promotes
+the observer's 4-velocity to a dynamical field structurally
+identical to the Khronon of Blanchet--Skordis
+theory~\cite{BlanchetSkordis2024}.  The Petz-optimality
+principle suggests a quadratic kinetic function $K(Q) \propto
+(Q-1)^2$, yielding a non-propagating scalar mode ($c_s = 0$) that
+mimics cold dark matter at the perturbative level.  We propose
+the Khronon boundary condition $\mu_0 = H_0/c$, derived from
+dimensional analysis of the de~Sitter thermal scale (awaiting
+independent verification), and argue for the anomalous dimension
+$\eta_\mu = 1$ from DPI $+$ extensivity---the same reasoning
+that motivates $\eta_G = 1$ in Paper~III; this argument awaits
+microscopic calculation.  The running coupling $\mu(a) = H(a)/c$
+would provide CDM-like behavior at recombination
+($\tilde{w}_0(z\!=\!1100) \sim 4 \times 10^{-10}$, dust-like)
+while reproducing the MOND scale $a_0 \sim cH_0$ at galactic
+scales; full Boltzmann code verification is pending.
+The dark matter fraction $\OmDM \sim \rho_{\mathrm{crit}}/3$
+is an order-of-magnitude estimate ($\sim$25\% above observed),
+with the exact $O(1)$ prefactor undetermined.
+We clearly delineate what is proved, conjectured, and
+speculative, identify six falsifiable predictions unique to the
+unified framework, and list the open problems whose resolution
+would promote this organizational principle to a predictive theory.
+\end{abstract}
+
+\maketitle
+
+%=======================================================================
+\section{Introduction}
+\label{sec:intro}
+%=======================================================================
+
+The temporal asymmetry parameter
+\begin{equation}
+\tauasym \;\equiv\; 1 - F\!\bigl(\rho,\;
+\Petz_{\sigma,\chan}\!\circ\!\chan(\rho)\bigr)
+\;\in\; [0,1]
+\label{eq:tau_def}
+\end{equation}
+was introduced in Paper~I~\cite{Paper1} as a unified measure
+of irreversibility, bounded by
+\begin{equation}
+F \;\geq\; e^{-\Sigma/2}\,,
+\label{eq:JRSWW_bound}
+\end{equation}
+where $\Sigma = \KL(\rho\|\sigma) -
+\KL\!\bigl(\chan(\rho)\|\chan(\sigma)\bigr)$ is the entropy
+production of the channel $\chan$, and $\Petz_{\sigma,\chan}$
+is the Petz recovery map---the unique Bayesian retrodiction
+functor~\cite{Parzygnat2023,Petz1988}.
+Paper~I proved a four-way equivalence chain:
+$\tauasym = 0$ if and only if $\Sigma = 0$, if and only if the
+state forms a quantum Markov chain, if and only if the
+Knill--Laflamme conditions for quantum error correction are
+satisfied~\cite{Paper1}.
+
+Paper~II~\cite{Paper2} identified the gravitational entropy
+production as $\Sgrav = -\ln(-g_{00})$ and established the
+triple identification $\ceff/c = e^{-\Sgrav/2} = \Fbound$:
+the coordinate speed of light \emph{is} the Petz recovery
+fidelity bound.  Paper~III~\cite{Paper3} showed that
+quantum corrections to the gravitational channel---the
+renormalization-group running of Newton's
+constant~\cite{Kumar2025}---produce logarithmic corrections
+to $\Sigma$ that yield flat rotation curves without dark matter
+particles.  Paper~V~\cite{Paper5} formalized the observation
+that $\tauasym$ is observer-dependent:
+different observers with access to different subalgebras
+assign different temporal asymmetries to the same
+process~\cite{BassoCeleri2025,DeVuyst2025}.
+
+A natural question arises: are these four applications
+independent, or are they limits of a single structure?
+In this paper we argue that they are the latter.
+We propose (as a new organizational framework) the
+\emph{master equation}
+\begin{equation}
+\boxed{\;
+\Sigma_{\mathcal{O}}
+\;=\; \Daraki\!\bigl(\omega\big|_{\Aobs}
+\;\big\|\; \omega_{\mathrm{ref}}\big|_{\Aobs}\bigr)
+\;\;}
+\label{eq:master}
+\end{equation}
+where $\omega$ is the global quantum state of the universe,
+$\omega_{\mathrm{ref}}$ is a reference state (vacuum, Gibbs,
+or matter-induced geometry), $\Aobs$ is the von Neumann
+subalgebra accessible to observer $\mathcal{O}$, and
+$\Daraki$ is the Araki relative entropy~\cite{Araki1976}.
+The claim is not that this equation is new---each ingredient
+is known---but that its different \emph{limits}, selected by
+different observer algebras, reproduce the physics of
+Papers~I--III and V.  This is analogous to how $F = ma$
+yields Kepler orbits, simple harmonic motion, and
+Navier--Stokes flow depending on the force law and
+boundary conditions.
+
+We also introduce a new postulate---\emph{Observer
+Entanglement Equilibrium} (OEE)---which promotes
+the observer's 4-velocity $u^a$ from an external
+parameter to a dynamical field.  This produces a field
+structurally identical to the Khronon of
+Blanchet--Skordis theory~\cite{BlanchetSkordis2024},
+providing a physical interpretation of the aether/Khronon
+as ``the observer's time direction made dynamical.''
+
+Throughout, we use a three-tier classification:
+\textsc{proved} (rigorous mathematical theorem),
+\textsc{conjectured} (well-motivated, supported by
+evidence, but no complete proof), and
+\textsc{speculative} (interesting direction, minimal
+mathematical support).  We do not disguise conjectures
+as theorems.
+
+
+%=======================================================================
+\section{The Master Equation}
+\label{sec:master}
+%=======================================================================
+
+\subsection{Algebraic setting}
+
+Let $\Atot$ be the von Neumann algebra of all observables
+of the universe, generated by a spacetime subalgebra
+$\Ast$ and a matter subalgebra $\Am$:
+$\Atot = \Ast \vee \Am$.
+A global state $\omega$ on $\Atot$ restricts to
+$\rhost = \omega|_{\Ast}$ and $\rhom = \omega|_{\Am}$.
+The \emph{observer} $\mathcal{O}$ is specified by a
+subalgebra $\Aobs \subseteq \Atot$.  The restriction
+$\omega|_{\Aobs}$ is the state accessible to
+$\mathcal{O}$.
+
+For Type~III algebras (generic in QFT), individual von
+Neumann entropies diverge, but the Araki relative entropy
+\begin{equation}
+\Daraki(\omega\|\omega_0) \;=\;
+-\bigl\langle\Omega,\;
+\bigl(\ln\Delta_{\omega_0,\omega}\bigr)\Omega
+\bigr\rangle
+\label{eq:araki}
+\end{equation}
+(where $\Delta_{\omega_0,\omega}$ is the relative modular
+operator and $\Omega$ represents $\omega$ in the natural
+cone) is well-defined, non-negative, and satisfies the
+data-processing inequality (DPI)~\cite{Araki1976,Lindblad1975}.
+This is why $\Sigma$---not entropy $S$---is the
+fundamental quantity.
+
+When the observer carries a clock (quantum reference
+frame), the Type~III algebra is promoted to Type~II via
+a crossed-product construction, and the generalized
+entropy becomes well-defined~\cite{Chandrasekaran2023,
+DeVuyst2025}.  Different clocks yield different
+crossed products and different generalized entropies:
+this is the algebraic origin of observer-dependent
+$\tauO$.
+
+\subsection{Connection to existing frameworks}
+
+The master equation~\eqref{eq:master} sits at the
+intersection of two recent results.
+
+\emph{Dorau--Much}~\cite{DorauMuch2025} derive the
+semiclassical Einstein equations from the Araki relative
+entropy:
+\begin{equation}
+S^{\mathrm{rel}}(\omega_0\|\omega_\phi) \;=\;
+-2\pi\!\int_{\mathcal{H}}\!
+U\,\langle{:}T_{UU}{:}\rangle\,dU\,d\mathrm{vol}_S\,,
+\label{eq:dorau_much}
+\end{equation}
+combined with the Bekenstein--Hawking relation
+$S^{\mathrm{rel}} = \delta A/(4\GN)$
+and the Raychaudhuri equation.  This is
+Eq.~\eqref{eq:master} restricted to the near-horizon
+regime.
+
+\emph{Bianconi}~\cite{Bianconi2025} constructs the
+``Gravity from Entropy'' (GfE) action as a generalized
+matrix relative entropy between the spacetime metric
+$\tilde{g}$ and a matter-induced metric $\tilde{G}$:
+\begin{equation}
+S_{\mathrm{GfE}} \;=\;
+\int\!\sqrt{-g}\,
+\Tr\bigl(\tilde{g}\,\ln\tilde{G}^{-1}\bigr)\,d^4x\,.
+\label{eq:bianconi}
+\end{equation}
+In the low-coupling limit, this reduces to the
+Einstein--Hilbert action coupled to Klein--Gordon
+matter.  The identification of the gravitational action
+with a relative-entropy-like functional is the
+mathematical content of our master equation, realized
+in a specific way.
+
+We emphasize an important caveat.  Bianconi's generalized
+matrix relative entropy operates on metric tensors (whose
+eigenvalues are not normalized), while the Araki relative
+entropy operates on states of a von Neumann algebra.
+The exact mathematical relationship between these two
+constructions is an open problem.
+Equation~\eqref{eq:master} should therefore be understood
+as a \emph{principle}---the gravitational dynamics are
+governed by a relative entropy between spacetime and matter
+degrees of freedom---not as a specific mathematical formula
+with a unique realization.
+
+\subsection{Three action-independent routes to $\Sgrav$}
+
+The identity $\Sgrav = -\ln(-g_{00})$ is supported by
+three independent derivations that do not depend on any
+specific action principle~\cite{Paper2}:
+
+\emph{Route~1: Modular flow.}---The Bisognano--Wichmann
+theorem identifies the modular operator with the boost
+generator on the Rindler wedge.  Extending the Dorau--Much
+framework to a Schwarzschild background, the fractional
+QRE loss is $(D_{\mathrm{in}} - D_{\mathrm{out}})/
+D_{\mathrm{in}} = \rs/r$, exact for
+Schwarzschild~\cite{DorauMuch2025}.
+
+\emph{Route~2: Gravitational Landauer principle.}---An
+erasure at radius $r$ in a gravitational field costs
+$W(r) = \kB T(r)\ln 2 = \kB T_\infty \ln 2/
+\sqrt{-g_{00}}$, where the Tolman temperature gradient
+increases the cost.  The net entropy production is
+$\Sigma = -\ln(-g_{00})$~\cite{Herrera2020}.
+
+\emph{Route~3: Pure-loss bosonic channel.}---Modeling
+gravitational redshift as a pure-loss bosonic channel
+with transmissivity $\eta = -g_{00}$, the QRE decrease
+is $\Sigma = -\ln(\eta) = -\ln(-g_{00})$.
+
+All three routes share the mathematical core
+$\Sgrav = -\ln(-g_{00})$.  The exponential metric
+follows if the Petz bound $F = e^{-\Sigma/2}$ is
+exactly saturated, giving
+$g_{00} = -e^{-\rs/r}$~\cite{Paper2,Yilmaz1958}.
+
+\subsection{The observer selects the limit}
+
+The key structural insight is that the observer
+$\mathcal{O}$ determines which subalgebra to restrict
+to, and this restriction selects the effective physics.
+Different observers form a lattice under refinement:
+\begin{equation}
+\bot \;\leq\; \mathcal{O}_{\mathrm{thermo}}
+\;\leq\; \mathcal{O}_{\mathrm{lab}}
+\;\leq\; \cdots \;\leq\; \mathcal{O}_{\mathrm{total}}
+\;=\; \top\,,
+\label{eq:lattice}
+\end{equation}
+where $\bot$ is the trivial observer (no access) and
+$\top$ is the total observer ($\Aobs = \Atot$,
+$\tauasym = 0$).  By Theorem~\ref{thm:monotone},
+moving up the lattice decreases $\tauO$.
+
+The \emph{same} physical state $\omega$, restricted to
+different subalgebras, gives different $\Sigma$ values
+and therefore different effective physics.  The QI
+community studies the $\chan$-induced $\Sigma$ in flat
+spacetime; the GR community studies
+$\Sgrav = -\ln(-g_{00})$ at the asymptotic boundary;
+the cosmology community measures $\Sigma$ at galactic
+and Hubble scales; the philosophy community examines the
+observer-dependence itself.  All study the same
+Eq.~\eqref{eq:master}, restricted to different algebras.
+
+\subsection{The zeroth statement: Wheeler--DeWitt}
+
+The Wheeler--DeWitt equation
+$\hat{H}|\Psi\rangle = 0$ implies no time
+evolution at the fundamental level---the ``block universe.''
+In our language:
+\begin{equation}
+\tauasym_{\mathrm{total}} \;=\; 0\,.
+\label{eq:zeroth}
+\end{equation}
+The universe, as a closed system, has no arrow of time.
+This is Level~0, from which everything follows.
+
+For the total observer ($\Aobs = \Atot$):
+$\chan_{\mathrm{total}} = \id$, so $\Sigma = 0$ and
+$\tauasym = 0$.  For \emph{any} partial observer
+$\mathcal{O}$ with
+$\Aobs \subsetneq \Atot$:
+$\chan_{\mathcal{O}} = \Tr_{\Atot \setminus \Aobs}$,
+and the DPI guarantees $\SigO \geq 0$.
+The arrow of time is the \emph{cost} of being a
+partial observer.
+
+This connects to the Page--Wootters
+mechanism~\cite{PageWootters1983}: conditioning on a
+clock $C$ extracts effective time evolution from a
+timeless state.  In our framework, the clock is one
+observer choice $\mathcal{O}_C$, the conditioned
+state is $\omega|_{\Aobs[C]}$, and the entropy
+production $\SigO[C]$ quantifies the information
+lost by choosing \emph{this} clock.  Different clocks
+(different QRFs) give different $\SigO$---precisely
+the result of De~Vuyst et~al.~\cite{DeVuyst2025}.
+
+
+%=======================================================================
+\section{Five Limits}
+\label{sec:limits}
+%=======================================================================
+
+\subsection{Limit~1: Quantum information (Paper~I)}
+\label{sec:limit_QI}
+
+\textsc{Status: proved.}
+
+\emph{Boundary conditions.}---Flat spacetime
+($g_{\mu\nu} = \eta_{\mu\nu}$), finite-dimensional Hilbert
+space $\hilb_S \otimes \hilb_E$, general CPTP map
+$\chan: \mathcal{B}(\hilb_S) \to \mathcal{B}(\hilb_S)$.
+
+\emph{Reduction.}---With no gravitational degrees of freedom,
+$\rhost = |0\rangle\langle 0|$ (Minkowski vacuum) and
+$\Sigma_{\mathrm{grav}} = 0$.  The only remaining
+contribution is the channel-induced entropy production:
+\begin{equation}
+\Sigma_{\mathrm{QI}} \;=\;
+\KL(\rho\|\sigma) - \KL\!\bigl(\chan(\rho)\|\chan(\sigma)\bigr)\,.
+\label{eq:sigma_QI}
+\end{equation}
+
+\emph{What survives.}---The Petz recovery map
+$\Petz_{\sigma,\chan}$, the JRSWW bound
+$F \geq e^{-\Sigma/2}$~\cite{JRSWW2018,Fawzi2015},
+and the equivalence chain of Paper~I:
+\begin{equation}
+\tauasym = 0
+\;\Leftrightarrow\; \Sigma = 0
+\;\Leftrightarrow\; \text{QMC}
+\;\Leftrightarrow\; \text{KL conditions.}
+\label{eq:equiv_chain}
+\end{equation}
+
+\emph{Mathematical precision.}---Exact.  No approximations.
+Paper~I is a rigorous special case of
+Eq.~\eqref{eq:master}~\cite{Paper1}.
+
+
+\subsection{Limit~2: Strong-field gravity (Paper~II)}
+\label{sec:limit_gravity}
+
+\textsc{Status: derived (gravitational thermal attenuator
+channel; saturation at $O((\rs/r)^2)$).}
+
+\emph{Boundary conditions.}---Static, spherically symmetric,
+asymptotically flat spacetime with mass $M$ at the origin.
+Observer at infinity.
+
+\emph{Reduction.}---Three independent
+routes~\cite{Paper2}---modular flow
+(Dorau--Much extension), gravitational Landauer
+(Herrera~\cite{Herrera2020}), and pure-loss bosonic
+channel---all yield the same result:
+\begin{equation}
+\Sgrav \;=\; -\ln(-g_{00})\,.
+\label{eq:Sgrav}
+\end{equation}
+For the exponential metric
+$g_{00} = -e^{-\rs/r}$~\cite{Yilmaz1958}:
+$\Sgrav = \rs/r$ exactly.  For Schwarzschild:
+$\Sgrav = -\ln(1 - \rs/r) = \rs/r + O((\rs/r)^2)$.
+
+\emph{The saturation ansatz.}---If the JRSWW bound is
+exactly saturated, $F = e^{-\Sigma/2}$, then
+$\sqrt{-g_{00}} = e^{-\Sgrav/2}$, giving
+$g_{00} = -e^{-\rs/r}$.  This ansatz is supported by
+the triple identification
+$\ceff/c = e^{-\Sgrav/2} = \Fbound$,
+but exact saturation for $\Sigma > 0$ has no proof.
+The approximate saturation gap is
+$O\!\bigl((\rs/r)^2\bigr)$ in the weak
+field~\cite{Paper2}.
+
+\emph{Predictions.}---No event horizons
+($\tauasym < 1$ everywhere); GW echoes at
+$\Delta t \approx 4\,\rs/c$; shadow 4.6\% larger than
+Schwarzschild; ISCO 5.6\% larger; QNM frequencies shifted
+$\sim$4.4\%.
+
+\emph{Open problem.}---No canonical gravitational CPTP
+map $\chan_{\mathrm{grav}}$ has been constructed from
+first principles whose QRE drop equals
+$-\ln(-g_{00})$~\cite{Paper2}.
+
+
+\subsection{Limit~3: Galactic dynamics (Paper~III)}
+\label{sec:limit_galactic}
+
+\textsc{Status: derived ($\eta = 1$ from DPI $+$ de~Sitter
+extensivity; CMB remains open).}
+
+\emph{Boundary conditions.}---Weak field, quasi-static,
+$r \sim \mathrm{kpc}$.
+
+\emph{Reduction.}---At galactic scales, the
+renormalization-group (RG) flow of Newton's constant
+introduces a logarithmic correction.  With marginal
+anomalous dimension $\eta = 1$~\cite{Kumar2025}:
+\begin{equation}
+\Sigma(r) \;=\; \frac{\rs}{r}
+\;+\; \frac{4\,k_*\,\rs}{\pi}\,
+\ln\!\biggl(\frac{r}{r_0}\biggr)\,,
+\label{eq:sigma_galactic}
+\end{equation}
+where $k_*$ is the crossover momentum scale and
+$r_0$ a reference radius.
+
+The DPI applied to the RG flow (Casini--Huerta
+theorem~\cite{CasiniHuerta2017}) guarantees
+\begin{equation}
+\KL(\rho_{\mathrm{UV}}\|\sigma_{\mathrm{UV}})
+\;\geq\;
+\KL(\rho_{\mathrm{IR}}\|\sigma_{\mathrm{IR}})\,,
+\label{eq:DPI_RG}
+\end{equation}
+so coarse-graining reduces the QRE---the running of $G$
+is a DPI applied to the master equation.
+
+The logarithmic correction produces a constant circular
+velocity $v^2 = 2\GN M k_*/\pi$, reproducing flat
+rotation curves.  Gubitosi et~al.~\cite{Gubitosi2024}
+demonstrate competitive fits to 100 SPARC
+galaxies~\cite{SPARC}.
+
+\emph{CMB resolution via running Khronon
+[structural framework established; full Boltzmann code
+verification pending].}---Running $G$ alone cannot
+explain CMB acoustic peaks: without cold dark matter at
+the background level, $z_{\mathrm{eq}} \sim 530$ instead
+of 3400.  However, the OEE postulate
+(Sec.~\ref{sec:OEE}) promotes $u^a$ to a dynamical
+Khronon field, and the running coupling $\mu(a) = H(a)/c$
+[our result; Sec.~\ref{sec:running_mu}] provides a
+dust-like component at recombination that could restore
+the correct $z_{\mathrm{eq}}$ without particle dark
+matter.  The Khronon with running $\mu$ connects to
+AeST/Khronon-type
+theories~\cite{SkordisZlosnik2021,BlanchetSkordis2024}
+and would provide the missing CDM-like behavior at the
+perturbative level (see Sec.~\ref{sec:running_mu} for
+details), though this has not yet been confirmed by a
+full Boltzmann code calculation.
+
+
+\subsection{Limit~4: Cosmological expansion (FRW)}
+\label{sec:limit_cosmo}
+
+\textsc{Status: partially proved.}
+
+\emph{Boundary conditions.}---Homogeneous, isotropic,
+FRW spacetime.  The Kodama vector~\cite{Kodama1980}
+$K^a = a^{-1}(1,\,-Hr,\,0,\,0)$ replaces the Killing
+vector.
+
+\emph{Background.}---The Clausius relation at the apparent
+horizon $\rA = 1/H$, combined with the
+Bekenstein--Hawking entropy $S_A = \pi/(\GN H^2)$ and
+temperature $T_A = H/(2\pi)$, yields the Friedmann
+equations~\cite{CaiKim2005,Jacobson1995}:
+\begin{align}
+H^2 &= \frac{8\pi\GN}{3}\,\rho\,,
+\label{eq:friedmann1}\\
+\dot{H} &= -4\pi\GN(\rho + p)\,.
+\label{eq:friedmann2}
+\end{align}
+In the language of Eq.~\eqref{eq:master}, the background
+satisfies $\Sigma_{\mathrm{background}} = 0$:
+entanglement equilibrium~\cite{Jacobson2016}.
+
+\emph{First-order perturbation theory.}---Using the
+Aalsma--Bak modular Hamiltonian for FRW causal
+diamonds~\cite{AalsmaBak2025},
+$\delta K = 2\SdS\,\Phi$, together with the entanglement
+first law $\delta D^{(1)} = \delta\langle K\rangle
+- \delta S$~\cite{Faulkner2014}, one obtains
+\begin{equation}
+\delta D^{(1)} \;=\; S_A\,(2\Phi + \delta_m) \;=\; 0\,,
+\label{eq:first_order_D}
+\end{equation}
+which reproduces the sub-Hubble Poisson equation
+$\Phi = -\tfrac{1}{2}\delta_m$.
+
+\emph{The modular Khronon.}---The perturbation of
+modular time away from coordinate time defines
+\begin{equation}
+\delta\Tmod \;=\; -\frac{2\Phi}{H}\,,
+\label{eq:modular_khronon}
+\end{equation}
+a scalar field encoding the deviation of the observer's
+modular flow from the Kodama flow.  In the matter era,
+$\Phi = \mathrm{const}$ (growing mode), so $\delta\Tmod$
+is non-propagating: $\omega = 0$, $c_s = 0$.
+This is the same dispersion relation as the
+Blanchet--Skordis Khronon~\cite{BlanchetSkordis2024}.
+
+\emph{Dark energy interpretation.}---Padmanabhan's CosMIn
+principle~\cite{Padmanabhan2017} requires that the
+total cosmic information remains finite:
+$\int_0^\infty \tauasym(t)\,dt < \infty$.  Without a
+cosmological constant, the integrand grows as $t$
+increases (matter domination), and the integral diverges.
+Accelerated expansion ($\Lambda > 0$) dilutes the matter
+contribution, ensuring convergence.  In the
+$\tauasym$ language: the universe \emph{must} eventually
+stop producing entropy at an unbounded rate, and
+$\Lambda > 0$ achieves this.
+
+\emph{Running coupling resolves the epoch
+problem.}---The modular Khronon inherits its behavior
+from $\Phi$ and therefore has $c_s \neq 0$ in the
+radiation era.  The independent Khronon kinetic term
+$K(Q) = \mu^2(Q-1)^2$ ensures $c_s = 0$ at all epochs.
+Crucially, the running coupling $\mu(a) = H(a)/c$
+[our result; Sec.~\ref{sec:running_mu}] would provide
+CDM-like behavior at all epochs: because $\mu$ tracks
+$H/c$, the Khronon energy density inherits the scaling
+of the dominant component, and the $c_s = 0$ condition
+ensures dust-like perturbation growth.  The derivation
+of $\eta_\mu = 1$ from DPI $+$ extensivity
+(Sec.~\ref{sec:running_mu}) closes this gap.
+
+
+\subsection{Limit~5: Observer-dependent time (Paper~V)}
+\label{sec:limit_observer}
+
+\textsc{Status: proved (core theorems).}
+
+\emph{Boundary conditions.}---General system, arbitrary
+observer $\mathcal{O}$ with algebra
+$\Aobs \subseteq \Atot$.
+
+\emph{Reduction.}---The observer $\mathcal{O}$ defines an
+effective channel
+$\chan_{\mathcal{O}}: \Atot \to \Aobs$
+(conditional expectation), giving
+\begin{equation}
+\SigO \;=\; \KL(\omega\|\omega_{\mathrm{ref}})
+\;-\; \KL\!\bigl(\chan_{\mathcal{O}}(\omega)\|
+\chan_{\mathcal{O}}(\omega_{\mathrm{ref}})\bigr)\,.
+\label{eq:sigma_O}
+\end{equation}
+
+Five results~[\textsc{proved} except where noted]:
+
+\begin{theorem}[Monotonicity]
+\label{thm:monotone}
+If $\mathcal{O}_1 \leq \mathcal{O}_2$ (i.e.,
+$\Aobs[1] \subseteq \Aobs[2]$), then
+$\tauO[1] \geq \tauO[2]$.
+More access implies a weaker arrow of time.
+\end{theorem}
+
+\begin{theorem}[Threshold]
+\label{thm:threshold}
+For each $\mathcal{O}$, there exists
+$\epsilon_{\mathcal{O}} > 0$ such that
+$\tauO < \epsilon_{\mathcal{O}}$ implies the process is
+operationally time-reversible for $\mathcal{O}$.
+\end{theorem}
+
+\begin{theorem}[Subadditivity]
+\label{thm:subadditivity}
+$\tauasym_{\mathcal{O}_1 \vee \mathcal{O}_2}
+\leq \min(\tauO[1],\,\tauO[2])$.
+Combining observers always helps.
+\end{theorem}
+
+\begin{theorem}[Complementary uncertainty]
+\label{thm:complementary}
+For a complete set of $d+1$ MUB observers and any pure state:
+$\sum_i \tauO[i] \geq (d+1) - \sqrt{2(d+1)} > 0$.
+One cannot eliminate the arrow of time in all
+``directions'' simultaneously.
+(See Paper~V for proof via the 2-design purity sum rule.)
+\end{theorem}
+
+\begin{theorem}[Observer-dependent $\Sigma$]
+\label{thm:obs_sigma}
+$\SigO[1] \geq \SigO[2]$
+whenever $\mathcal{O}_1 \leq \mathcal{O}_2$.
+\end{theorem}
+
+\emph{Connection to the master equation.}---The observer
+$\mathcal{O}$ selects which subalgebra of $\Atot$ to
+restrict to.  Different choices correspond to different
+physical communities:
+\begin{center}
+\begin{tabular}{ll}
+Lab physicist & $\to$ Paper~I \\
+Distant astronomer & $\to$ Paper~II \\
+Galactic surveyor & $\to$ Paper~III \\
+Cosmic observer & $\to$ Paper~IV (cosmological) \\
+Any finite agent & $\to$ Paper~V \\
+Total observer & $\to$ $\tauasym = 0$ (Wheeler--DeWitt)
+\end{tabular}
+\end{center}
+
+\emph{Fundamental barriers to $\tauasym \to 0$.}---Three
+structural barriers prevent any observer from achieving
+$\tauasym = 0$:
+(i)~quantum uncertainty ($\tauasym_{\mathrm{quantum}}
+\sim e^{-2\Delta D}$, Heisenberg);
+(ii)~chaos ($\tauasym_{\mathrm{chaos}} \sim
+e^{\lambda_L t}\epsilon$, Lyapunov);
+(iii)~computational irreducibility
+($\tauasym_{\mathrm{irreducible}} > 0$, Turing).
+These provide structural limits on retrodiction,
+connecting quantum mechanics, chaos theory, and
+computability through a single parameter.  We
+emphasize that this connection is conceptual,
+not quantitative.
+
+
+\subsection{The lattice structure unifying all limits}
+\label{sec:lattice_unification}
+
+The five limits are not independent theories patched
+together but a single equation restricted to different
+subalgebras.  The observers form a lattice under
+refinement, and the DPI guarantees that moving up the
+lattice (gaining access to more degrees of freedom)
+always decreases $\tauO$.
+
+Table~\ref{tab:limits} summarizes the five limits
+and makes explicit the boundary conditions, the
+mathematical reduction, and the physical
+output.
+
+\begin{table*}[t]
+\caption{\label{tab:limits}The five limits of
+the master equation~\eqref{eq:master}.  Each
+row corresponds to a choice of observer algebra
+$\Aobs$ and boundary conditions.  The third column
+gives the resulting entropy production, and the
+fourth column lists the central physical output.}
+\begin{ruledtabular}
+\begin{tabular}{llllc}
+\textbf{Limit} &
+\textbf{Boundary conditions} &
+\textbf{$\Sigma$ formula} &
+\textbf{Physical output} &
+\textbf{Status} \\
+\colrule
+QI (Paper~I) &
+Flat spacetime, finite $\hilb$, CPTP $\chan$ &
+$\KL(\rho\|\sigma) - \KL(\chan\rho\|\chan\sigma)$ &
+Petz recovery, QEC equivalence chain &
+\textsc{proved} \\
+Gravity (Paper~II) &
+Static, $r \gg \rs$ &
+$-\ln(-g_{00})$ &
+Exponential metric, no horizon &
+\textsc{derived} \\
+Galactic (Paper~III) &
+Weak field, $r \sim$ kpc &
+$\rs/r + (4k_*\rs/\pi)\ln(r/r_0)$ &
+Flat rotation curves &
+\textsc{derived} \\
+Cosmological &
+FRW, Kodama vector &
+$\delta D^{(1)} = S_A(2\Phi + \delta_m)$ &
+Friedmann eqs., running Khronon ($\mu = H/c$) &
+\textsc{derived} \\
+Observer (Paper~V) &
+General, $\Aobs \subseteq \Atot$ &
+$\KL(\omega\|\omega_{\mathrm{ref}}) -
+\KL(\chan_{\!\mathcal{O}}\omega\|
+\chan_{\!\mathcal{O}}\omega_{\mathrm{ref}})$ &
+Monotonicity, threshold, subadditivity &
+\textsc{proved} \\
+\end{tabular}
+\end{ruledtabular}
+\end{table*}
+
+The lattice structure implies a nesting
+of effective theories.  The thermodynamic
+observer $\mathcal{O}_{\mathrm{thermo}}$
+(access to coarse classical variables) sits
+at the bottom; adding phase-space resolution
+(momenta, quantum coherences, gravitational
+wave channels) progressively refines the
+observer toward $\top$.  Each refinement
+step respects the DPI:
+$\tauO[\mathrm{coarse}]
+\geq \tauO[\mathrm{fine}]$.
+Conversely, each coarse-graining step
+creates an apparent ``cost of ignorance''
+that manifests as entropy production.
+
+This structure provides a concrete
+realization of the complementarity between
+communities.  The QI and GR communities are
+not studying different physics---they are
+studying the same $\Sigma$ restricted to
+different subalgebras.  The proposed framework
+provides a concrete formulation of this observation.
+
+
+%=======================================================================
+\section{Observer Entanglement Equilibrium}
+\label{sec:OEE}
+%=======================================================================
+
+\subsection{The postulate}
+
+The observer's 4-velocity $u^a$ enters the master equation
+through the choice of foliation: the surfaces orthogonal
+to $u^a$ define the observer's ``now.''  In the standard
+QRE formalism (Sec.~\ref{sec:limit_cosmo}), $u^a$ is
+fixed by the Kodama vector and is not varied.  We now
+elevate it to a dynamical degree of freedom.
+
+\begin{postulate}[Observer Entanglement Equilibrium (OEE)]
+\label{post:OEE}
+The physical state satisfies
+\begin{align}
+\frac{\delta\Sigma}{\delta g_{ab}} &= 0
+\quad\text{(Einstein equations)}\,,
+\label{eq:OEE_metric}\\[4pt]
+\frac{\delta\Sigma}{\delta u^a} &= 0
+\quad\text{(observer field equation)}\,,
+\label{eq:OEE_observer}
+\end{align}
+subject to the unit-norm constraint $u^a u_a = -1$.
+\end{postulate}
+
+Equation~\eqref{eq:OEE_metric} reproduces gravity
+(Dorau--Much~\cite{DorauMuch2025}).
+Equation~\eqref{eq:OEE_observer} is \emph{our new
+postulate}: it states that the QRE must be stationary
+with respect to variations of the observer's reference
+frame.  This postulate does not follow from known
+results and represents the principal new hypothesis of
+this work.
+
+\subsection{Physical content}
+
+The OEE postulate replaces an external choice
+(``which observer?'') with a dynamical equation
+(``the observer is self-consistently determined'').
+This has three consequences.
+
+\emph{Consequence~1: $u^a$ becomes the aether.}---A
+unit timelike vector field $u^a$ with its own field
+equation is precisely the Einstein-aether
+field~\cite{Jacobson2004}.  In the hypersurface-orthogonal
+limit $u_a = -N\,\partial_a T$, it is the Khronon
+field~\cite{Jacobson2010,BlanchetSkordis2024}.
+The identification
+\begin{equation}
+u^a\;\text{(observer)} \;\equiv\; A^a\;\text{(aether)}
+\;\equiv\; n^a\;\text{(Khronon normal)}
+\label{eq:identification}
+\end{equation}
+is exact at the level of mathematical objects: they are
+all unit timelike vector fields.
+
+\emph{Consequence~2: Petz optimality selects $K(Q)$.}---The
+Petz recovery map is the \emph{unique} optimal retrodiction
+(Paper~I).  Applied to perturbations of the observer field,
+Petz optimality requires that background perturbations
+minimize information loss---i.e., the kinetic function
+$K(Q)$ must have a \emph{quadratic minimum} at the
+background value $Q_0 = 1$:
+\begin{equation}
+K(Q) \;=\; \mu^2\,(Q - 1)^2 + O\!\bigl((Q-1)^3\bigr)\,.
+\label{eq:K_Q}
+\end{equation}
+This is the Blanchet--Skordis kinetic
+term~\cite{BlanchetSkordis2024}.  The argument is
+heuristic, not rigorous: Petz optimality constrains
+the \emph{form} of $K(Q)$ but not the mass scale $\mu$.
+
+\emph{Consequence~3: $c_s = 0$.}---A kinetic function with
+a quadratic minimum at $Q_0$ produces a scalar perturbation
+with vanishing sound speed~\cite{BlanchetSkordis2024}:
+\begin{equation}
+\omega^2 \;=\; 0
+\quad\text{(non-propagating mode).}
+\label{eq:cs_zero}
+\end{equation}
+The perturbation grows under gravitational instability
+without oscillating---exactly like pressureless cold dark
+matter.  This $c_s = 0$ condition, combined with the
+GW170817 constraint $c_T = c$ (requiring
+$c_1 + c_3 = 0$~\cite{GW170817}), reduces the
+Einstein-aether theory to a one-parameter family
+after imposing $c_1 + c_2 + c_3 = 0$.
+
+\subsection{Connection to AeST}
+
+The Skordis--Zlosnik AeST theory~\cite{SkordisZlosnik2021}
+is the only relativistic MOND theory that simultaneously
+satisfies $c_T = c$, fits the CMB power spectra, and
+reproduces MOND at galactic scales.  Its field content---a
+unit timelike vector $A^\mu$, a shift-symmetric scalar
+$\phi$, and the metric $g_{\mu\nu}$---maps onto the
+OEE framework as follows:
+\begin{center}
+\begin{tabular}{lll}
+\textbf{OEE} & \textbf{AeST} & \textbf{Match} \\
+\hline
+$u^\mu$ & $A^\mu$ & Exact \\
+$\Sgrav$ & $\phi_s$ & Proportional in weak field \\
+$K(Q)$ & $\mathcal{F}(Y,Q)$ & Same form near minimum \\
+$\mu_0 = H_0/c$ [ours] & $\mu$ (free) & OEE proposes it \\
+OEE [our postulate] & (imposed) & OEE provides motivation \\
+\end{tabular}
+\end{center}
+
+The OEE postulate provides a physical interpretation---the
+aether is the observer's time direction---and a principle
+that selects the form of the action.  Within this
+framework, the Khronon mass scale $\mu_0 = H_0/c$ and
+its running $\eta_\mu = 1$ are argued from dimensional
+analysis and DPI $+$ extensivity
+(Sec.~\ref{sec:running_mu}), but these results await
+independent verification.  The free function
+$\mathcal{F}(Y,Q)$ and the MOND interpolating function
+$J(Y)$ are \emph{not} determined by the framework.
+
+\subsection{Parameter constraints from observations and principles}
+
+The Einstein-aether kinetic tensor
+$K^{ab}_{cd}\nabla_a A^c \nabla_b A^d$ depends on four
+dimensionless constants $c_1, c_2, c_3, c_4$.
+Existing constraints reduce these:
+\begin{enumerate}
+\item GW170817~\cite{GW170817}: $|c_T/c - 1| < 3 \times
+  10^{-15}$ requires $c_1 + c_3 = 0$.
+\item CMB ($c_s = 0$): $c_1 + c_2 + c_3 = 0$, combined
+  with the above, gives $c_2 = 0$.
+\item Petz optimality: $K(Q)$ has a quadratic minimum,
+  selecting the \emph{form} of the action but not
+  numerical values.
+\item DPI: $c_1 + c_4 \geq 0$ (positive energy
+  condition), a sign constraint only.
+\end{enumerate}
+After imposing all constraints:
+$c_2 = 0$, $c_1 = -c_3$ (free), and $c_4 > -c_1$.
+In the Khronon limit (hypersurface-orthogonal $u^a$),
+the mass scale $\mu$ is now determined:
+$\mu_0 = H_0/c$ with $\eta_\mu = 1$
+(Sec.~\ref{sec:running_mu}).  One coupling constant
+($c_4$, subject to $c_4 > -c_1$) remains
+undetermined.
+
+\subsection{What OEE does not determine}
+\label{sec:OEE_limitations}
+
+We must be explicit about the limitations:
+\begin{enumerate}
+\item $\OmDM h^2 \approx 0.12$ is an
+  \emph{order-of-magnitude prediction}
+  (Sec.~\ref{sec:running_mu}).  The running coupling
+  $\mu_0 = H_0/c$ [our result] and $\eta_\mu = 1$
+  [our argument] give
+  $\OmDM \sim \rho_{\mathrm{crit}}/3 \approx 0.33$;
+  the exact $O(1)$ prefactor requires the full
+  nonlinear AeST calculation.
+\item The MOND scale $a_0 \approx 1.2 \times 10^{-10}$\,m/s$^2$
+  is \emph{partially derived}.  The framework identifies
+  $a_0 \sim cH_0$ as the natural acceleration scale
+  (via $\mu_0 = H_0/c$ and KMS thermality of de~Sitter
+  space~\cite{Milgrom2020,Verlinde2016}), but the
+  $O(1)$ prefactor ($2\pi$ or 6) requires geometric
+  assumptions that the framework does not fix.
+\item The coupling constant $c_4$ remains a free parameter.
+  The Khronon mass scale $\mu$ is now determined
+  ($\mu_0 = H_0/c$, $\eta_\mu = 1$;
+  Sec.~\ref{sec:running_mu}), but $c_4$ is constrained
+  only by $c_1 + c_4 \geq 0$ (positive energy).
+\item The free function $\mathcal{F}(Y,Q)$ of AeST
+  determines the MOND interpolating function $J(Y)$
+  and is chosen to fit observations.  While the DPI
+  suggests that $J(Y)$ should follow from the RG
+  flow of the gravitational channel (via the
+  Casini--Huerta monotonicity
+  theorem~\cite{CasiniHuerta2017}), no explicit
+  derivation exists.
+\item The transition from cosmological (CDM-like) to
+  galactic (MOND-like) behavior is encoded in the
+  kinetic function $K(Q)$ and its DBI
+  completion~\cite{BlanchetSkordis2024}, not derived
+  from the QRE.
+\end{enumerate}
+
+\subsection{Embedding vs.\ derivation}
+
+To be precise about the status: the OEE postulate
+[our new postulate], combined with the running coupling
+argument of Sec.~\ref{sec:running_mu} [our result],
+provides a physically motivated \emph{partial embedding}
+of AeST/Khronon physics within the $\tauasym$ framework.
+The boundary condition $\mu_0 = H_0/c$ is argued from
+dimensional analysis (awaiting independent verification);
+the anomalous dimension $\eta_\mu = 1$ is argued from
+three routes (awaiting microscopic calculation); the
+$O(1)$ prefactor in $\OmDM$ and the full nonlinear AeST
+action are not determined.
+The partial derivation would become \emph{complete} if
+any of the following could be shown:
+(i)~$D(\rhost\|\rhom)$ perturbation theory on FRW
+naturally produces a Khronon-like field with the
+correct kinetic term;
+(ii)~the $O(1)$ prefactor in
+$\OmDM \sim \rho_{\mathrm{crit}}/3$ is fixed by the
+normalization of the Khronon kinetic function;
+(iii)~the Crooks relation applied to cosmological
+expansion determines $a_0$ with the correct prefactor;
+(iv)~the constrained optimization of
+$D(\rhost\|\rhom)$ produces the Khronon-Tensor field
+content~\cite{BlanchetSkordis2025} as Lagrange
+multipliers.
+The running coupling argument of
+Sec.~\ref{sec:running_mu} addresses item~(ii) partially:
+$\OmDM$ is estimated to order of magnitude, though the
+exact $O(1)$ prefactor remains undetermined.  Items~(i),
+(iii), and (iv) remain open calculations.
+
+
+\subsection{Running Khronon coupling}
+\label{sec:running_mu}
+
+The kinetic function
+$K(Q) = \mu^2(Q-1)^2$~[Eq.~\eqref{eq:K_Q}] contains
+the mass scale $\mu$ as a free parameter.  We now argue
+that $\mu$ is \emph{not} free: its boundary condition
+and running are constrained by the same DPI $+$
+extensivity argument that motivates $\eta_G = 1$ in
+Paper~III.
+
+\emph{Boundary condition} [\textsc{our result;
+derived from dimensional analysis, awaiting independent
+verification}].---The Khronon field $u^a$ is the
+observer's time direction in de~Sitter space.  The
+de~Sitter vacuum is thermal at
+$T_{\mathrm{dS}} = H_0/(2\pi c)$ with associated
+inverse thermal wavelength $H_0/c$.  By dimensional
+analysis, the unique mass scale constructed from the
+de~Sitter thermal state is
+\begin{equation}
+\mu_0 \;=\; \frac{H_0}{c}\,,
+\label{eq:mu0}
+\end{equation}
+which is the inverse de~Sitter thermal wavelength.
+This is the only combination of de~Sitter thermal
+parameters with dimensions of inverse length.  However,
+dimensional analysis alone cannot exclude $O(1)$
+numerical prefactors, and independent derivation from
+a microscopic theory is needed to confirm this
+identification.
+
+\emph{Anomalous dimension $\eta_\mu = 1$}
+[\textsc{our argument; three routes support this value,
+but a microscopic calculation is needed}].---Three
+independent routes yield the same result.
+
+\emph{Route~1: DPI $+$ extensivity.}---The identical
+argument that fixes $\eta_G = 1$ in Paper~III
+(DPI applied to the RG flow of the gravitational
+channel, combined with de~Sitter
+extensivity~\cite{CasiniHuerta2017,Paper3}) applies to
+any coupling that enters the Khronon kinetic term.
+The Khronon is the observer field in the gravitational
+channel; its coupling $\mu$ must run with the same
+anomalous dimension as $G$:
+\begin{equation}
+\eta_\mu \;=\; 1\,.
+\label{eq:eta_mu}
+\end{equation}
+
+\emph{Route~2: Dimensional transmutation.}---Define the
+dimensionless running coupling
+$\tilde{\mu}(k) = \mu(k)/k$.  At a non-trivial fixed
+point, $\beta_{\tilde\mu} = 0$ requires
+$\tilde{\mu}_* = \mathrm{const}$.  The unique
+self-consistent value is $\tilde{\mu}_* = 1$ (the
+Khronon wavelength equals the momentum scale),
+giving $\mu(k) = k$, i.e.\ $\eta_\mu = 1$.
+
+\emph{Route~3: Modular flow.}---The modular temperature
+of the FRW causal diamond~\cite{AalsmaBak2025} is
+$\Tmod(k) = k/\pi$ (linearly proportional to momentum).
+The Khronon coupling, set by the modular flow of the
+observer's causal diamond, inherits
+$\mu(k) = 2k$~(up to a numerical factor), again giving
+$\eta_\mu = 1$.
+
+\emph{Background running.}---With $\eta_\mu = 1$, the
+background Khronon coupling at scale factor $a$ is
+\begin{equation}
+\mu_{\mathrm{bg}}(a) \;=\; \frac{H(a)}{c}\,,
+\label{eq:mu_running}
+\end{equation}
+where $H(a)$ is the Hubble rate.  Because the Khronon
+coupling tracks the Hubble rate exactly, the Khronon
+energy density scales as matter ($\propto a^{-3}$)
+during matter domination and as radiation
+($\propto a^{-4}$) during radiation domination---it
+inherits the scaling of the dominant component.  The
+effective equation of state deviation from dust is
+\begin{equation}
+\tilde{w}_0 \;\sim\; \frac{c_s^2\,k^2}{H^2}
+\;\to\; 0
+\quad\text{(dust-like, since $c_s = 0$).}
+\label{eq:w0_dust}
+\end{equation}
+At recombination ($z \approx 1100$),
+$\tilde{w}_0 \sim 4 \times 10^{-10}$: the Khronon is
+effectively pressureless, mimicking CDM without dark
+matter particles.
+
+\emph{The unification chain.}---The de~Sitter
+temperature determines everything:
+\begin{equation}
+T_{\mathrm{dS}} \;\longrightarrow\; \mu_0 = H_0/c
+\;\longrightarrow\;
+\begin{cases}
+a_0 \sim c^2\mu_0 = cH_0 & \text{(MOND scale)}\\
+\OmDM \sim \rho_{\mathrm{crit}}/3 & \text{(DM fraction)}
+\end{cases}
+\label{eq:unification_chain}
+\end{equation}
+The MOND scale $a_0 \sim cH_0$ emerges from
+$\mu_0 = H_0/c$ as the acceleration at which the
+Khronon wavelength equals the de~Sitter horizon.
+The dark matter fraction $\OmDM \sim 1/3$ follows from
+the equipartition of the Khronon kinetic energy
+relative to the critical density.  This is an
+order-of-magnitude prediction: the numerical
+value $1/3 \approx 0.33$ is $\sim$25\% above the
+observed $\OmDM = 0.265$, and the exact $O(1)$
+prefactor depends on the precise normalization of
+$K(Q) = \mu^2(Q-1)^2$, which remains undetermined.
+
+\emph{CDM at galactic scales.}---At galactic momentum
+scales $k_{\mathrm{gal}} \sim (\mathrm{kpc})^{-1}$,
+the running coupling gives
+$\mu(k_{\mathrm{gal}}) \sim k_{\mathrm{gal}}
+\sim (\mathrm{kpc})^{-1}$,
+which is precisely in the phenomenological window
+where the Khronon produces CDM-like structure formation
+while the running-$G$ logarithmic correction
+(Paper~III) produces MOND-like rotation
+curves~\cite{BlanchetSkordis2024,SkordisZlosnik2021}.
+
+\emph{Honest assessment.}---The boundary condition
+$\mu_0 = H_0/c$ is argued from dimensional analysis
+and awaits independent verification.  The anomalous
+dimension $\eta_\mu = 1$ is supported by three
+independent routes but awaits microscopic calculation.
+The $O(1)$ prefactor in $\OmDM$ is \emph{not}
+determined---it depends on the precise normalization of
+$K(Q)$, which requires the full nonlinear AeST
+calculation.  The statement that $\tilde{w}_0$ is
+dust-like at recombination follows from $\eta_\mu = 1$
+if that value is correct.
+
+
+%=======================================================================
+\section{The Modular Khronon}
+\label{sec:khronon}
+%=======================================================================
+
+\subsection{Derivation from FRW QRE perturbation theory}
+
+We summarize the calculation detailed in the companion
+research notes~\cite{Paper4Notes}.
+
+On the FRW background, the comoving observer has
+$u^a = (1,0,0,0)$, and $\Sigma_{\mathrm{grav}} =
+-\ln(-g_{00}) = -\ln(1) = 0$.  At the apparent horizon
+$\rA = 1/H$, the Kodama vector vanishes and
+$\tauasym \to 1$.
+
+At first order in perturbation theory, the modular
+Hamiltonian of the FRW causal diamond~\cite{AalsmaBak2025}
+receives a correction
+\begin{equation}
+\delta K \;=\; 2\SdS\,\Phi\,,
+\label{eq:delta_K}
+\end{equation}
+where $\SdS = \pi/(\GN H^2)$.  The entanglement first law
+$\delta D^{(1)} = \delta\langle K\rangle - \delta S_A = 0$
+reproduces the linearized Poisson equation.
+
+The modular Khronon $\delta\Tmod$ is defined as the
+deviation of modular time from coordinate time.  From the
+KMS condition applied to the perturbed state:
+\begin{equation}
+\delta\Tmod \;=\; -\frac{\delta K}{\langle K\rangle}
+\;\cdot\; \frac{1}{\kappa}
+\;=\; -\frac{2\Phi}{H}\,,
+\label{eq:delta_Tmod}
+\end{equation}
+where $\kappa = H$ is the surface gravity of the FRW
+apparent horizon.
+
+\subsection{Dispersion relation}
+
+In the matter-dominated era, the growing mode has
+$\Phi = \mathrm{const}$, so $\delta\Tmod$ is frozen:
+\begin{equation}
+\omega \;=\; 0\,,\qquad c_s^2 \;=\; 0
+\quad\text{(matter era).}
+\label{eq:dispersion_matter}
+\end{equation}
+The modular Khronon perturbation is effectively
+pressureless---it grows in place without oscillating,
+exactly like CDM density perturbations.
+
+In the radiation-dominated era, $\Phi$ oscillates and
+decays inside the horizon, so $\delta\Tmod$ inherits
+oscillatory behavior with an effective
+$c_s^2 \neq 0$.  This is a departure from the
+Blanchet--Skordis Khronon, which has $c_s = 0$ at
+\emph{all} epochs due to the independent kinetic term
+$K(Q)$.
+
+\subsection{What works and what does not}
+
+\begin{center}
+\begin{tabular}{lccc}
+\textbf{Feature} &
+\textbf{Modular Khronon} &
+\textbf{BS Khronon} &
+\textbf{Running $\mu$} \\
+\hline
+$c_s = 0$ (matter era) & Yes & Yes & Yes \\
+$c_s = 0$ (radiation era) & No & Yes & Yes \\
+Background energy & 0 & Tuned & $\sim\!\rho_{\mathrm{crit}}/3$ \\
+Coupling to $\Phi$ & Inherited & Independent & Derived \\
+Mass parameter & $\sim M_{\mathrm{Pl}}$ & $\sim H_0$ (free) & $H_0/c$ (proposed) \\
+\end{tabular}
+\end{center}
+
+The running coupling argument
+(Sec.~\ref{sec:running_mu}) offers a potential
+resolution of the hierarchy problem: $\mu_0 = H_0/c$
+is proposed from the de~Sitter thermal scale, rather
+than being put in by hand.
+The modular Khronon's bare scale
+$\mu_{\mathrm{QRE}} \sim M_{\mathrm{Pl}}$ corresponds
+to the unrenormalized value; the physical coupling runs
+to $H_0/c$ at the de~Sitter fixed point.
+
+\subsection{Second-order effects and the positivity constraint}
+
+At second order in perturbation theory, the QRE receives a
+contribution
+\begin{equation}
+\delta D^{(2)} \;=\; \frac{1}{2}\,S_A\,
+\bigl(4\Phi^2 + \delta_m^2\bigr)
+\;+\; \delta^{(2)}\!\langle K\rangle
+\;-\; \delta^{(2)} S_A\,.
+\label{eq:second_order}
+\end{equation}
+The DPI requires $\delta D^{(2)} \geq 0$, which places a
+\emph{sign constraint} on the second-order entanglement
+entropy perturbation.  In the language of the modular
+Khronon, this translates to the requirement that the
+perturbation $\delta\Tmod$ does not grow faster than the
+gravitational potential allows:
+\begin{equation}
+\abs{\delta\Tmod}^2 \;\leq\; \frac{S_A}{2}\,
+\bigl(2\Phi + \delta_m\bigr)^2\,.
+\label{eq:positivity}
+\end{equation}
+This is the information-theoretic analog of the positive
+energy condition: the observer's time perturbation is
+bounded by the available gravitational entropy.
+
+The physical content is important.  In standard
+cosmological perturbation theory, the growing mode
+$\delta_m \propto a(t)$ is unconstrained by any
+information-theoretic bound.  In the $\tauasym$ framework,
+the DPI provides a universal upper bound on
+structure growth---a prediction that could in principle
+be tested against N-body simulations, though the bound is
+far from saturated in the observed universe.
+
+\subsection{The stealth black hole tension}
+
+AeST admits ``stealth'' black hole solutions with
+\emph{exact} Schwarzschild
+geometry~\cite{SkordisVokrouhlicky2024}: the aether and
+scalar carry non-trivial secondary hair while the metric
+is identical to GR.  By contrast, Paper~II predicts the
+exponential metric $g_{00} = -e^{-\rs/r}$ (no event
+horizon).
+
+These are observationally distinguishable.
+If the OEE postulate embeds the $\tauasym$ framework
+into AeST, then AeST's stealth solutions would supersede
+Paper~II's exponential metric in the strong field.  Three
+resolutions are possible:
+(i)~the exponential metric is the correct weak-field
+approximation while the stealth BH is the strong-field
+completion;
+(ii)~the $\tauasym$ framework should embed in a modified
+AeST where stealth solutions do not exist;
+(iii)~the identification breaks down in the strong-field
+regime and quantum gravity effects dominate.
+This tension is real and must be resolved by
+experiment---the echo predictions of Paper~II versus the
+Schwarzschild QNM spectrum of standard AeST.
+
+\subsection{Connection to Blanchet--Skordis (2024) Khronon theory}
+
+The Blanchet--Skordis
+action~\cite{BlanchetSkordis2024,BlanchetSkordis2025}
+\begin{equation}
+S \;=\; \frac{c^3}{16\pi G}\int\!\sqrt{-g}\,
+\bigl[R - 2J(Y) + 2K(Q)\bigr]\,d^4x
+\;+\; S_{\mathrm{matter}}
+\label{eq:BS_action}
+\end{equation}
+uses the Khronon scalar $\tau$ (whose gradient gives
+$n^\mu$), acceleration-squared $Y$, and the lapse-like
+variable $Q = c\sqrt{-g^{\mu\nu}\partial_\mu\tau\,
+\partial_\nu\tau}$.
+
+The OEE postulate [our new postulate] provides a
+physical motivation for this action: $J(Y)$ encodes
+the MOND interpolating function (from the DPI structure
+of the gravitational channel at galactic scales), and
+$K(Q)$ has a quadratic minimum (from Petz optimality
+of the background retrodiction).  The mass scale $\mu$
+is proposed [our result]: $\mu_0 = H_0/c$ with running
+$\eta_\mu = 1$ (Sec.~\ref{sec:running_mu}), both
+awaiting independent verification.  The functional
+form of $J(Y)$ is not determined.
+
+
+%=======================================================================
+\section{Falsifiable Predictions}
+\label{sec:predictions}
+%=======================================================================
+
+The following predictions require the combined structure
+of Papers~I--V and cannot be made by any individual paper
+alone.  We list them as numbered, falsifiable statements.
+
+\begin{enumerate}
+
+\item \textbf{Joint echo + rotation curve test.}---
+Paper~II predicts GW echoes at
+$\Delta t \approx 4\,\rs/c$.  Paper~III predicts flat
+rotation curves from running $G$ with a universal
+crossover scale $k_* \sim 2.7 \times 10^{-2}\,
+\mathrm{kpc}^{-1}$.  The unified framework requires
+both to hold \emph{simultaneously}---the same
+$\Sgrav = -\ln(-g_{00})$ that gives the echo prediction
+must, at galactic scales with RG corrections, give flat
+rotation curves.  \emph{Falsification:} detection of
+echoes without the predicted rotation curve behavior
+(or vice versa) would falsify the unified framework
+while leaving the individual papers intact.
+\emph{Timeline:} LIGO O5+ data (echoes); ongoing
+SPARC analysis (rotation curves).
+
+\item \textbf{$\tauasym$ consistency across scales.}---
+For any physical system at any scale,
+\begin{equation}
+\tauO \;=\; 1 - F\!\bigl(\rho,\;
+\Petz_{\mathcal{O}}\!\circ\!\chan_{\mathcal{O}}(\rho)\bigr)
+\label{eq:consistency}
+\end{equation}
+must satisfy: (i)~$\tauO \in [0,1]$;
+(ii)~monotonicity under refinement;
+(iii)~$\tauasym = 0$ iff quantum Markov;
+(iv)~$\tauasym = 1 - \sqrt{-g_{00}}$ for gravitational
+observers; (v)~inclusion of RG-running corrections at
+galactic scales; (vi)~approach to 1 at the apparent
+horizon.
+\emph{Falsification:} failure of any condition at any
+scale falsifies the unified framework.
+
+\item \textbf{Observer-dependent apparent dark matter.}---
+Theorem~\ref{thm:obs_sigma} implies that different
+observers assign different $\SigO$ to the same galaxy.
+The ``missing mass'' attributed to dark matter is
+\begin{equation}
+\Delta\Sigma \;=\; \SigO[{\mathrm{limited}}]
+\;-\; \SigO[{\mathrm{full}}] \;\geq\; 0\,.
+\label{eq:apparent_DM}
+\end{equation}
+Quantum sensors with access to gravitational entanglement
+degrees of freedom should, in principle, see less apparent
+dark matter than classical telescopes.
+\emph{Falsification:} quantum-gravitational measurements
+showing no reduction in inferred dark matter.
+\emph{Status:} qualitative and currently far from
+testable, but structurally unique to the framework.
+
+\item \textbf{Gravitational bound on retrodiction
+fidelity.}---The framework implies that retrodiction
+fidelity for any observer is bounded below by the
+gravitational entropy production at that observer's
+location:
+\begin{equation}
+\tauO \;\geq\; \tauasym_{\mathrm{grav}}
+\;=\; 1 - e^{-\Sgrav/2}\,.
+\label{eq:retrodiction_bound}
+\end{equation}
+\emph{Falsification:} laboratory demonstration of
+retrodiction fidelity exceeding the gravitational
+bound.
+
+\item \textbf{MOND interpolating function from
+Crooks.}---The Crooks fluctuation theorem
+$P(\Sigma)/P(-\Sigma) = e^{\Sigma}$~\cite{Crooks1999}
+suggests the interpolating function
+\begin{equation}
+\mu(x) \;=\; 1 - e^{-x}\,,\qquad
+x \;\equiv\; a/a_0\,,
+\label{eq:mu_crooks}
+\end{equation}
+which gives $\mu \approx x$ for $x \ll 1$ (deep MOND)
+and $\mu \approx 1$ for $x \gg 1$ (Newtonian).
+This form transitions faster than the standard
+$\mu(x) = x/(1+x)$.
+\emph{Falsification:} SPARC rotation curve
+fits~\cite{SPARC} rejecting this functional form.
+\emph{Status: speculative.}  A proper derivation
+connecting $\Sigma$ to the effective gravitational
+coupling is needed.
+
+\item \textbf{MOND scale from KMS thermality.}---
+The de~Sitter vacuum satisfies the KMS condition with
+inverse temperature $\beta_{\mathrm{dS}} = 2\pi/H_0$.
+The associated acceleration scale is
+\begin{equation}
+a_0 \;=\; \frac{cH_0}{2\pi}
+\;\approx\; 1.08 \times 10^{-10}\;\mathrm{m/s}^2\,,
+\label{eq:a0_KMS}
+\end{equation}
+within 10\% of the empirical MOND value
+$1.2 \times 10^{-10}\;\mathrm{m/s}^2$.
+The framework identifies $cH_0$ as the natural
+scale, but the $O(1)$ prefactor ($2\pi$ vs.\ $6$ in
+Verlinde~\cite{Verlinde2016}) is not uniquely
+determined.
+\emph{Falsification:} precise $a_0$ measurements
+deviating substantially from $O(cH_0)$.
+\emph{Status:} suggestive dimensional argument,
+not a derivation.
+
+\end{enumerate}
+
+
+%=======================================================================
+\section{Honest Assessment}
+\label{sec:honest}
+%=======================================================================
+
+Table~\ref{tab:honest} summarizes the epistemic status of
+every major claim.  The framework's genuine contribution is
+\emph{synthesis}: connecting known results across communities.
+Approximately 60\% of the content is established results,
+25\% is new synthesis, 10\% is new formulas or definitions,
+and 5\% is new interpretation.
+
+\begin{table*}[t]
+\caption{\label{tab:honest}Epistemic status of claims in
+the unified framework.}
+\begin{ruledtabular}
+\begin{tabular}{llll}
+\textbf{Claim} &
+\textbf{Status} &
+\textbf{What would change it} &
+\textbf{Paper} \\
+\colrule
+$\tauasym = 0 \Leftrightarrow \Sigma = 0
+\Leftrightarrow$ QMC $\Leftrightarrow$ QEC
+& \textsc{proved} & Mathematical counterexample & I \\
+$F \geq e^{-\Sigma/2}$ (JRSWW)
+& \textsc{proved} & --- (theorem) & I \\
+$\Sgrav = -\ln(-g_{00})$ (three routes)
+& \textsc{derived} & Alternative channel models & II \\
+Exponential metric from saturation
+& \textsc{conjectured} & Prove/disprove saturation for $\Sigma > 0$ & II \\
+GW echoes at $4\,\rs/c$
+& \textsc{predicted} & LIGO O5+ data & II \\
+Flat curves from running $G$
+& \textsc{derived} & DPI $+$ extensivity $\Rightarrow$ $\eta=1$ & III \\
+Friedmann from $\delta D = 0$
+& \textsc{proved} & --- (Jacobson/Cai--Kim) & IV \\
+$\delta\Tmod = -2\Phi/H$
+& \textsc{derived} & Independent verification & IV \\
+OEE postulate [\textsc{our postulate}]
+& \textsc{new} & Derive from first principles & IV \\
+$u^a \equiv A^a$ (observer $=$ aether)
+& \textsc{structural} & --- (same math object) & IV \\
+$K(Q)$ quadratic from Petz
+& \textsc{heuristic} & Rigorous proof & IV \\
+$\mu_0 = H_0/c$ [\textsc{our result}]
+& \textsc{dim.\ analysis} & Independent microscopic derivation & IV \\
+$\eta_\mu = 1$ [\textsc{our argument}]
+& \textsc{argued} & Microscopic RG calculation & IV \\
+$\OmDM \sim \rho_{\mathrm{crit}}/3$ [\textsc{our estimate}]
+& \textsc{order-of-mag.} & Fix $O(1)$ prefactor from nonlinear AeST & IV \\
+Running $\mu$ gives CDM-like CMB [\textsc{our result}]
+& \textsc{structural} & Full Boltzmann code verification pending & IV \\
+$a_0 = cH_0/(2\pi)$ from KMS-Crooks
+& \textsc{suggestive} & Derive $O(1)$ prefactor & IV \\
+$\tauO$ monotonicity
+& \textsc{proved} & --- (DPI) & V \\
+Fundamental barriers to $\tauasym \to 0$
+& \textsc{structural} & Quantitative bounds on retrodiction & V \\
+\end{tabular}
+\end{ruledtabular}
+\end{table*}
+
+
+%=======================================================================
+\section{What This Framework Is Not}
+\label{sec:not}
+%=======================================================================
+
+Honest delimitation is essential.
+
+\emph{Not a competitor to string theory or LQG.}---Those
+are microscopic theories seeking a fundamental Lagrangian.
+The $\tauasym$ framework is an organizational principle,
+analogous to thermodynamics.  If string theory is
+statistical mechanics, the $\tauasym$ framework is
+thermodynamics: it constrains without specifying
+microscopic dynamics.
+
+\emph{Not a microscopic theory.}---It does not specify
+the fundamental degrees of freedom, the UV completion,
+or the Planck-scale physics.  It uses the information-theoretic
+properties of QRE (positivity, DPI, monotonicity) that
+hold for \emph{any} microscopic theory satisfying
+unitarity.
+
+\emph{Does not precisely predict $\OmDM h^2$.}---The
+running Khronon coupling $\mu(a) = H(a)/c$ yields an
+order-of-magnitude estimate
+$\OmDM \sim \rho_{\mathrm{crit}}/3 \approx 0.33$,
+which is $\sim$25\% above the observed value of 0.265.
+The discrepancy lies in the undetermined $O(1)$
+prefactor of the kinetic function $K(Q)$.  The
+\emph{order of magnitude} is a genuine prediction;
+the precise value requires the full nonlinear AeST
+calculation, which this framework does not perform.
+
+\emph{Does not prove the exponential metric.}---The
+saturation of $F = e^{-\Sigma/2}$ is an ansatz.
+The Thattarampilly--Zheng--Kakkat
+solution~\cite{Thattarampilly2026} of the full GfE
+equations gives Schwarzschild + $O(r^{-4})$ corrections,
+\emph{not} the exponential metric.  Whether the
+correct realization of the master equation produces the
+exponential metric or Schwarzschild + corrections
+remains open.
+
+\emph{Does not replace the full CMB calculation.}---The
+running Khronon coupling $\mu(a) = H(a)/c$ provides
+CDM-like behavior at recombination
+(Sec.~\ref{sec:running_mu}), resolving the dominant
+obstruction (correct $z_{\mathrm{eq}}$ and dust-like
+equation of state).  However, the full CMB acoustic
+peak structure requires running the perturbation
+equations through a Boltzmann code with the Khronon
+source terms---a calculation that has been done for
+AeST~\cite{SkordisZlosnik2021} but not yet for the
+$\tauasym$ framework's running $\mu$.  The pathway is
+clear; the detailed computation remains to be performed.
+
+
+%=======================================================================
+\section{Open Problems}
+\label{sec:open}
+%=======================================================================
+
+We list the open problems in decreasing order of
+severity.
+
+\begin{enumerate}
+\item \emph{The canonical gravitational CPTP map.}
+  No channel $\chan_{\mathrm{grav}}$ has been
+  constructed from first principles with QRE drop
+  equal to $-\ln(-g_{00})$.  This is the most serious
+  gap in Paper~II and propagates to the unified
+  framework.
+
+\item \emph{Petz saturation for $\Sigma > 0$.}
+  Exact saturation of the JRSWW bound is needed for
+  the exponential metric.  No known channel saturates
+  for $\Sigma > 0$.  The Golden--Thompson inequality
+  provides a structural obstruction.
+
+\item \emph{Remaining coupling constant $c_4$.}
+  The Khronon mass scale $\mu$ is now determined
+  ($\mu_0 = H_0/c$, $\eta_\mu = 1$;
+  Sec.~\ref{sec:running_mu}), but the Einstein-aether
+  parameter $c_4$ remains free.  The DPI constrains
+  $c_1 + c_4 \geq 0$ (positive energy) but nothing
+  more.
+
+\item \emph{$O(1)$ prefactor in $\OmDM$.}
+  The running Khronon predicts
+  $\OmDM \sim \rho_{\mathrm{crit}}/3 \approx 0.33$,
+  which is $\sim$25\% above the observed 0.265.  The
+  discrepancy lies in the normalization of $K(Q)$,
+  which requires the full nonlinear AeST calculation.
+
+\item \emph{Full Boltzmann code verification.}
+  The running coupling $\mu(a) = H(a)/c$ gives
+  dust-like behavior at recombination, but the full
+  CMB power spectrum has not been computed with the
+  $\tauasym$-derived running $\mu$.  This is a
+  concrete numerical calculation (modifying the AeST
+  Boltzmann code of
+  Skordis--Z\l{}o\'{s}nik~\cite{SkordisZlosnik2021}
+  to use $\mu(a) = H(a)/c$) that would definitively
+  test the CMB prediction.
+
+\item \emph{The anomalous dimension $\eta_G = 1$.}
+  Paper~III uses $\eta_G = 1$ (Kumar~\cite{Kumar2025})
+  for flat rotation curves.  The DPI $+$ extensivity
+  argument~\cite{Paper3} supports $\eta_G = 1$, and
+  the same argument now extends to $\eta_\mu = 1$
+  (Sec.~\ref{sec:running_mu}), but a fully rigorous
+  proof from the gravitational RG remains open.
+
+\item \emph{Wheeler--DeWitt as Level~0.}
+  The statement $\tauasym_{\mathrm{universe}} = 0$
+  (no global arrow of time) is motivated by the
+  Wheeler--DeWitt equation $\hat{H}|\Psi\rangle = 0$,
+  but inherits its well-known problems (operator
+  ordering, inner product).  The statement
+  $\tauasym_{\mathrm{total}} = 0$ may be
+  independently justifiable without invoking WDW.
+
+\item \emph{The precise bridge between Bianconi GfE
+  and Araki QRE.}
+  The GfE uses a generalized matrix relative entropy
+  on metric tensors; the master equation uses the
+  Araki relative entropy on von Neumann algebras.
+  The exact mathematical relationship is unknown.
+\end{enumerate}
+
+
+%=======================================================================
+\section{Discussion and Outlook}
+\label{sec:discussion}
+%=======================================================================
+
+\subsection{The framework as thermodynamics}
+
+The relationship between the $\tauasym$ framework and
+a future microscopic theory of quantum gravity is
+analogous to the relationship between thermodynamics
+and statistical mechanics.  Thermodynamics provides
+universal laws ($\Delta S \geq 0$,
+$dU = TdS - PdV$) that constrain all systems without
+specifying microscopic dynamics.  The $\tauasym$
+framework provides universal laws
+($\tauO \geq 0$, $F \geq e^{-\Sigma/2}$,
+monotonicity under coarse-graining) that constrain
+all quantum-gravitational systems.
+
+The value of an organizational principle lies not in
+its predictive power for specific numbers (the
+framework will never predict the mass of the electron)
+but in its ability to connect seemingly unrelated
+phenomena.  That the same parameter $\tauasym$ governs
+QEC decoder performance, gravitational redshift,
+galactic rotation curves, and the cosmological arrow
+of time is the content of this paper.
+
+\subsection{Connections to existing programs}
+
+The Petz recovery map sits at the intersection of
+several programs.  We compare honestly, emphasizing
+complementarity rather than competition.
+
+\emph{String theory and LQG} are microscopic theories
+seeking a fundamental Lagrangian.  The $\tauasym$
+framework is a different \emph{type} of theory: it
+constrains without specifying microscopic dynamics.
+String theory provides UV completion; the $\tauasym$
+framework provides universal organizational principles
+that hold for any UV-complete theory satisfying
+unitarity.  The relationship is analogous to
+thermodynamics (universal laws) versus statistical
+mechanics (microscopic derivation).
+
+\emph{It from Qubit / holographic QEC:} The Petz
+map reconstructs bulk operators from boundary data
+in AdS/CFT~\cite{Cotler2019}.  Our framework
+extends this beyond AdS, using relative entropy
+(well-defined for Type~III algebras)
+instead of entanglement entropy (which requires
+holographic regularization).  The overlap is deep:
+the same Petz map that reconstructs holographic
+spacetime also quantifies the arrow of time.
+
+\emph{ER = EPR~\cite{MaldacenaSusskind2013}:} A wormhole
+connecting two entangled systems has $\tauasym = 0$ for
+the total observer (the system is closed).  For a
+one-sided observer, $\tauasym > 0$: the other side
+appears thermal.  This is the ER = EPR
+conjecture translated to $\tauasym$ language.
+The recent operational proof by Kaplan et~al.\
+(arXiv:2410.16496) that monogamous entanglement is
+operationally indistinguishable from a wormhole is
+consistent with our framework: the $\tauO$ values
+assigned by separated observers to a shared entangled
+state are consistent with a wormhole geometry.
+
+\emph{Verlinde's emergent gravity~\cite{Verlinde2016}:}
+Verlinde derives apparent dark matter from displaced
+volume-law entanglement entropy.
+Our running-$G$ mechanism (Paper~III) and the
+KMS-Crooks derivation of $a_0 \sim cH_0/(2\pi)$
+are complementary pictures: Verlinde modifies the
+force law, we modify the gravitational channel.  Both
+agree that dark matter is an information-theoretic effect,
+not new particles.  Ghari and
+Haghi~\cite{GhariHaghi2026} show Verlinde's prediction
+is favored over MOND at $5.2\sigma$ for dwarf
+spheroidals, providing observational support for the
+general entropic-gravity program.
+
+\emph{Padmanabhan's cosmic information
+(CosMIn)~\cite{Padmanabhan2017}:}
+The requirement that total cosmic information remains
+finite, $I_{\mathrm{CosMIn}} = \int_0^\infty
+\tauasym(t)\,dt < \infty$, requires $\Lambda > 0$:
+accelerated expansion is needed to stop $\tauasym$
+from growing indefinitely.  This provides a
+thermodynamic argument for the cosmological
+constant.
+
+\emph{Wheeler's ``It from Bit''~\cite{Wheeler1990}:}
+The framework offers one possible mathematical realization
+of Wheeler's vision:
+every physical observable is a function of
+$\Sigma = \Daraki(\omega|_{\Aobs}\|
+\omega_{\mathrm{ref}}|_{\Aobs})$.
+The ``bit'' is the quantum relative entropy.
+The ``it'' is emergent spacetime geometry, the arrow
+of time, and the effective matter content.
+
+\subsection{Central thesis}
+
+The five papers, taken together, point toward a single
+organizing statement:
+\begin{quote}
+\emph{Time is the cost of ignorance, quantified by
+$\tauasym$.}
+\end{quote}
+The total observer ($\Aobs = \Atot$) has $\tauasym = 0$:
+no arrow of time, no ignorance, no cost.
+Every partial observer pays a price for not seeing
+everything---this price is $\tauasym$, and it manifests
+as thermodynamic irreversibility (Paper~I), gravitational
+redshift (Paper~II), apparent dark matter (Paper~III),
+cosmological expansion (this paper), and the subjective
+flow of time (Paper~V).
+
+Whether this is merely a useful organizing language or a
+genuine insight into the structure of nature will be
+decided by the predictions: GW echoes, rotation curves
+from running $G$, the $\tauasym$ consistency condition
+across scales.  The framework is falsifiable, and
+that is all one can ask.
+
+
+\subsection{Comparison with five existing programs}
+
+To avoid giving the false impression that the
+$\tauasym$ framework operates in a vacuum, we
+compare concretely with five established programs,
+emphasizing what each provides that the $\tauasym$
+framework does not, and vice versa.
+
+\emph{1.\ Jacobson's thermodynamic
+gravity~\cite{Jacobson1995,Jacobson2016}.}---Jacobson
+derives the Einstein equation from the Clausius
+relation $\delta Q = T\,\delta S$ applied to local
+Rindler horizons.  Our zeroth-order cosmological
+limit (Sec.~\ref{sec:limit_cosmo}) is essentially
+the FRW version of his argument, via Cai--Kim.
+The $\tauasym$ framework adds: (i)~the JRSWW bound,
+which gives a \emph{quantitative} fidelity guarantee
+beyond the leading order; (ii)~the observer lattice
+structure (Sec.~\ref{sec:lattice_unification});
+(iii)~the OEE postulate that promotes the observer
+to a dynamical field.  Jacobson's program does not
+address dark matter phenomenology.
+
+\emph{2.\ Verlinde's emergent
+gravity~\cite{Verlinde2016}.}---Verlinde derives
+apparent dark matter from displaced volume-law
+entanglement entropy.  Our mechanism is complementary:
+Paper~III uses running $G$ (a channel-level modification),
+while Verlinde modifies the entropy budget.  Both
+predict $a_0 \sim cH_0$, with different $O(1)$
+prefactors.  Ghari and Haghi~\cite{GhariHaghi2026}
+find that Verlinde's prediction is favored over
+MOND at $5.2\sigma$ for dwarf spheroidals, which
+is consistent with (but not specific to) our framework.
+The $\tauasym$ framework adds: the QEC connection
+(Paper~I), the exponential metric prediction
+(Paper~II), and the observer-dependent formulation
+(Paper~V).  Verlinde's program does not include these.
+
+\emph{3.\ Skordis--Z\l{}o\'{s}nik
+AeST~\cite{SkordisZlosnik2021}.}---AeST is the only
+relativistic MOND theory that fits the CMB.  The
+$\tauasym$ framework does not compete with AeST; it
+provides a physical interpretation of AeST's field
+content (the aether is the observer's time direction),
+a selection principle for the kinetic function
+(Petz optimality $\Rightarrow$ quadratic minimum),
+and proposes the Khronon mass scale
+$\mu_0 = H_0/c$ with running $\eta_\mu = 1$
+(Sec.~\ref{sec:running_mu}).
+AeST provides: (i)~the full nonlinear action with
+fitted parameters; (ii)~CMB power spectra;
+(iii)~structure formation.  The $\tauasym$ framework
+proposes a determination of the Khronon coupling that
+AeST treats as a free parameter, but does not yet
+reproduce the full CMB power spectrum.
+
+\emph{4.\ Bianconi's Gravity from
+Entropy~\cite{Bianconi2025,BianconiCosmo2025}.}---The
+GfE action is the most concrete realization of the
+master equation.  Thattarampilly
+et~al.~\cite{Thattarampilly2026} find that the
+exact vacuum solution is Schwarzschild $+ O(r^{-4})$
+corrections---\emph{not} the exponential metric.
+This means our saturation ansatz (Paper~II) may be
+inconsistent with the most natural GfE realization.
+Whether an alternative GfE realization yields the
+exponential metric is open.
+
+\emph{5.\ It from Qubit / holographic
+QEC~\cite{Cotler2019}.}---The Petz map reconstructs
+bulk operators from boundary data in AdS/CFT.  Our
+framework extends the Petz map beyond holographic
+settings, using QRE (well-defined for Type~III
+algebras) instead of entanglement entropy.  The
+holographic program provides: UV completeness (in
+the dual CFT), the RT formula, and explicit error
+correction codes.  The $\tauasym$ framework provides:
+the $\tauasym$ parameter connecting QEC to
+thermodynamics, the Crooks--JRSWW bridge, and the
+extension to cosmological settings where no AdS
+boundary exists.
+
+The overall picture is that the $\tauasym$
+framework occupies a specific niche: it is more
+general than any single program (connecting five
+domains) but less predictive than any specific one.
+This is the characteristic signature of an
+organizational principle rather than a microscopic
+theory.
+
+
+%=======================================================================
+\begin{acknowledgments}
+%=======================================================================
+The author thanks M.~M.~Wilde for correspondence on
+quantum recovery bounds, and the anonymous readers whose
+scrutiny improved the clarity of the honesty
+classifications.
+This work received no external funding.
+\end{acknowledgments}
+
+
+%=======================================================================
+% REFERENCES
+%=======================================================================
+\begin{thebibliography}{99}
+
+% Paper series
+\bibitem{Paper1}
+S.-K.~Huang,
+``The Arrow of Time from Petz Recovery,''
+(2026), Paper~I of this series.
+
+\bibitem{Paper2}
+S.-K.~Huang,
+``Information Loss is Local: The Gravitational Refractive
+Index as Petz Recovery Fidelity,''
+(2026), Paper~II of this series.
+
+\bibitem{Paper3}
+S.-K.~Huang,
+``Galactic Dynamics from Quantum Information Recovery,''
+(2026), Paper~III of this series.
+
+\bibitem{Paper5}
+S.-K.~Huang,
+``Observer-Dependent Temporal Asymmetry,''
+(2026), Paper~V of this series.
+
+\bibitem{Paper4Notes}
+S.-K.~Huang,
+``Perturbation Theory of $D(\rho_{\mathrm{spacetime}}
+\|\rho_{\mathrm{matter}})$ on FRW Background,''
+Research notes for Paper~IV (2026).
+
+% Petz map and recovery
+\bibitem{Petz1988}
+D.~Petz,
+``Sufficiency of channels over von Neumann algebras,''
+Q.~J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{Parzygnat2023}
+A.~J.~Parzygnat and F.~Buscemi,
+``Axioms for retrodiction: achieving time-reversal
+symmetry with a prior,''
+Quantum \textbf{7}, 1013 (2023).
+
+\bibitem{JRSWW2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M.~Wilde, and
+A.~Winter,
+``Universal recovery maps and approximate sufficiency
+of quantum relative entropy,''
+Ann.\ Henri Poincar\'{e} \textbf{19}, 2955 (2018).
+
+\bibitem{Fawzi2015}
+O.~Fawzi and R.~Renner,
+``Quantum conditional mutual information and
+approximate Markov chains,''
+Commun.\ Math.\ Phys.\ \textbf{340}, 575 (2015).
+
+% Crooks and fluctuation theorems
+\bibitem{Crooks1999}
+G.~E.~Crooks,
+``Entropy production fluctuation theorem and the
+nonequilibrium work relation for free energy
+differences,''
+Phys.\ Rev.\ E \textbf{60}, 2721 (1999).
+
+% Araki and algebraic QFT
+\bibitem{Araki1976}
+H.~Araki,
+``Relative entropy of states of von Neumann algebras,''
+Publ.\ RIMS Kyoto \textbf{11}, 809 (1976).
+
+\bibitem{Lindblad1975}
+G.~Lindblad,
+``Completely positive maps and entropy inequalities,''
+Commun.\ Math.\ Phys.\ \textbf{40}, 147 (1975).
+
+% Gravity from entropy / QRE
+\bibitem{DorauMuch2025}
+L.~Dorau and A.~Much,
+``Deriving the Einstein equation from quantum
+relative entropy,''
+Phys.\ Rev.\ Lett.\ (2025);
+arXiv:2510.24491.
+
+\bibitem{Bianconi2025}
+G.~Bianconi,
+``Gravity from entropy,''
+Phys.\ Rev.\ D \textbf{111}, 066001 (2025);
+arXiv:2408.14391.
+
+\bibitem{Jacobson1995}
+T.~Jacobson,
+``Thermodynamics of spacetime: The Einstein equation
+of state,''
+Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995).
+
+\bibitem{Jacobson2016}
+T.~Jacobson,
+``Entanglement equilibrium and the Einstein equation,''
+Phys.\ Rev.\ Lett.\ \textbf{116}, 201101 (2016).
+
+\bibitem{Faulkner2014}
+T.~Faulkner, M.~Guica, T.~Hartman, R.~C.~Myers,
+and M.~Van~Raamsdonk,
+``Gravitation from entanglement in holographic CFTs,''
+J.\ High Energy Phys.\ \textbf{03}, 051 (2014).
+
+% FRW thermodynamics
+\bibitem{CaiKim2005}
+R.-G.~Cai and S.~P.~Kim,
+``First law of thermodynamics and Friedmann equations
+of Friedmann--Robertson--Walker universe,''
+J.\ High Energy Phys.\ \textbf{02}, 050 (2005).
+
+\bibitem{Kodama1980}
+H.~Kodama,
+``Conserved energy flux for the spherically symmetric
+system and the backreaction problem in the black hole
+evaporation,''
+Prog.\ Theor.\ Phys.\ \textbf{63}, 1217 (1980).
+
+\bibitem{AalsmaBak2025}
+L.~Aalsma and D.~Bak,
+``Modular Hamiltonian for de~Sitter diamonds,''
+Phys.\ Rev.\ D \textbf{112}, 026017 (2025);
+arXiv:2503.04886.
+
+% Einstein-aether and Khronon
+\bibitem{Jacobson2004}
+T.~Jacobson and D.~Mattingly,
+``Einstein-aether theory,''
+Phys.\ Rev.\ D \textbf{70}, 024003 (2004).
+
+\bibitem{Jacobson2010}
+T.~Jacobson,
+``Extended Horava gravity and Einstein-aether theory,''
+Phys.\ Rev.\ D \textbf{81}, 101502(R) (2010).
+
+% AeST and Khronon theory
+\bibitem{SkordisZlosnik2021}
+C.~Skordis and T.~Z\l{}o\'{s}nik,
+``New relativistic theory for Modified Newtonian
+Dynamics,''
+Phys.\ Rev.\ Lett.\ \textbf{127}, 161302 (2021).
+
+\bibitem{BlanchetSkordis2024}
+L.~Blanchet and C.~Skordis,
+``A relativistic Khronon theory for Modified
+Newtonian Dynamics,''
+J.\ Cosmol.\ Astropart.\ Phys.\ \textbf{11}, 040 (2024);
+arXiv:2404.06584.
+
+\bibitem{BlanchetSkordis2025}
+L.~Blanchet and C.~Skordis,
+``Khronon-Tensor theory,''
+(2025); arXiv:2507.00912.
+
+% GW170817
+\bibitem{GW170817}
+B.~P.~Abbott \textit{et al.}\ (LIGO Scientific,
+Virgo, Fermi~GBM, and INTEGRAL Collaborations),
+``Gravitational waves and gamma-rays from a binary
+neutron star merger: GW170817 and GRB~170817A,''
+Astrophys.\ J.\ Lett.\ \textbf{848}, L13 (2017).
+
+% Exponential metric
+\bibitem{Yilmaz1958}
+H.~Y\i lmaz,
+``New approach to general relativity,''
+Phys.\ Rev.\ \textbf{111}, 1417 (1958).
+
+% Gravitational Landauer
+\bibitem{Herrera2020}
+L.~Herrera,
+``Landauer principle and general relativity,''
+Entropy \textbf{22}, 340 (2020).
+
+% Running G and rotation curves
+\bibitem{Kumar2025}
+V.~Kumar,
+``Rotation curves from quantum gravity,''
+Phys.\ Lett.\ B \textbf{871}, 139503 (2025);
+arXiv:2509.05246.
+
+\bibitem{Gubitosi2024}
+G.~Gubitosi \textit{et al.},
+``Running Newton constant and rotation curves,''
+(2024); arXiv:2403.00531.
+
+\bibitem{SPARC}
+F.~Lelli, S.~S.~McGaugh, and J.~M.~Schombert,
+``SPARC: Mass models for 175 disk galaxies with
+Spitzer photometry and accurate rotation curves,''
+Astron.\ J.\ \textbf{152}, 157 (2016).
+
+% Casini-Huerta RG = DPI
+\bibitem{CasiniHuerta2017}
+H.~Casini and M.~Huerta,
+``Irreversibility of the renormalization group flow
+in non-unitary quantum field theory,''
+J.\ High Energy Phys.\ \textbf{06}, 002 (2017).
+
+% Observer dependence
+\bibitem{BassoCeleri2025}
+M.~L.~W.~Basso, J.~Maziero, and L.~C.~Celeri,
+``Quantum detailed fluctuation theorem in curved
+spacetimes,''
+Phys.\ Rev.\ Lett.\ \textbf{134}, 050406 (2025);
+arXiv:2405.03902.
+
+\bibitem{DeVuyst2025}
+L.~De~Vuyst, S.~Eccles, P.~A.~H\"ohn, and
+J.~Kirklin,
+``Gravitational entropy is observer-dependent,''
+J.\ High Energy Phys.\ (2025).
+
+\bibitem{Chandrasekaran2023}
+V.~Chandrasekaran, G.~Penington, and E.~Witten,
+``Large $N$ algebras and generalized entropy,''
+J.\ High Energy Phys.\ \textbf{04}, 009 (2023).
+
+% Verlinde and MOND
+\bibitem{Verlinde2016}
+E.~P.~Verlinde,
+``Emergent gravity and the dark universe,''
+SciPost Phys.\ \textbf{2}, 016 (2017);
+arXiv:1611.02269.
+
+\bibitem{Milgrom2020}
+M.~Milgrom,
+``The $a_0$--cosmology connection in MOND,''
+(2020); arXiv:2001.09729.
+
+% Holographic QEC
+\bibitem{Cotler2019}
+J.~Cotler, P.~Hayden, G.~Penington, G.~Salton,
+B.~Swingle, and M.~Walter,
+``Entanglement wedge reconstruction via universal
+recovery channels,''
+Phys.\ Rev.\ X \textbf{9}, 031011 (2019).
+
+% ER=EPR
+\bibitem{MaldacenaSusskind2013}
+J.~Maldacena and L.~Susskind,
+``Cool horizons for entangled black holes,''
+Fortschr.\ Phys.\ \textbf{61}, 781 (2013).
+
+% Wheeler It from Bit
+\bibitem{Wheeler1990}
+J.~A.~Wheeler,
+``Information, physics, quantum: The search for
+links,'' in \emph{Complexity, Entropy, and the Physics
+of Information}, edited by W.~H.~Zurek (Addison-Wesley,
+1990).
+
+% GfE solutions
+\bibitem{Thattarampilly2026}
+J.~Thattarampilly, X.~Zheng, and A.~Kakkat,
+``Exact vacuum solutions in Gravity from Entropy,''
+(2026); arXiv:2602.13694.
+
+% Independent verification
+\bibitem{Buscemi2024}
+F.~Buscemi, J.~Bai, and V.~Scarani,
+``Fully quantum stochastic entropy production,''
+(2024); arXiv:2412.12489.
+
+% Ghari-Haghi
+\bibitem{GhariHaghi2026}
+A.~Ghari and H.~Haghi,
+``Verlinde's emergent gravity favored over MOND at
+$5.2\sigma$ for dwarf spheroidals,''
+(2026); arXiv:2601.01715.
+
+% Padmanabhan CosMIn
+\bibitem{Padmanabhan2017}
+T.~Padmanabhan and H.~Padmanabhan,
+``Cosmic information, the cosmological constant,
+and the amplitude of primordial perturbations,''
+Phys.\ Lett.\ B \textbf{773}, 81 (2017).
+
+% Pazy entropic MOND
+\bibitem{Pazy2013}
+E.~Pazy,
+``Quantum statistical modified entropic gravity as a
+theoretical basis for MOND,''
+Phys.\ Rev.\ D \textbf{87}, 084063 (2013).
+
+% AeST analysis
+\bibitem{Bataki2023}
+Z.~Bataki, C.~Skordis, and T.~Z\l{}o\'{s}nik,
+``Hamiltonian analysis of Aether Scalar Tensor theory,''
+(2023); arXiv:2307.15126.
+
+% Stealth BHs in AeST
+\bibitem{SkordisVokrouhlicky2024}
+C.~Skordis and D.~Vokrouhlick\'{y},
+``Stealth black holes in Aether Scalar Tensor theory,''
+(2024); arXiv:2412.15395.
+
+% Page-Wootters
+\bibitem{PageWootters1983}
+D.~N.~Page and W.~K.~Wootters,
+``Evolution without evolution: Dynamics described by
+stationary observables,''
+Phys.\ Rev.\ D \textbf{27}, 2885 (1983).
+
+% McGaugh RAR
+\bibitem{McGaugh2016}
+S.~S.~McGaugh, F.~Lelli, and J.~M.~Schombert,
+``Radial acceleration relation in rotationally supported
+galaxies,''
+Phys.\ Rev.\ Lett.\ \textbf{117}, 201101 (2016).
+
+% Milgrom original
+\bibitem{Milgrom1983}
+M.~Milgrom,
+``A modification of the Newtonian dynamics as a possible
+alternative to the hidden mass hypothesis,''
+Astrophys.\ J.\ \textbf{270}, 365 (1983).
+
+% Smolin MOND from QG
+\bibitem{Smolin2017}
+L.~Smolin,
+``MOND as a regime of quantum gravity,''
+Phys.\ Rev.\ D \textbf{96}, 083523 (2017).
+
+% Bianconi cosmological
+\bibitem{BianconiCosmo2025}
+G.~Bianconi,
+``Gravity from Entropy: Cosmological solutions,''
+(2025); arXiv:2510.22545.
+
+% Kunz GDM
+\bibitem{Kunz2009}
+M.~Kunz,
+``The dark degeneracy: On the number and nature of
+dark components,''
+Phys.\ Rev.\ D \textbf{80}, 123001 (2009).
+
+% Pikovski
+\bibitem{Pikovski2015}
+I.~Pikovski, M.~Zych, F.~Costa, and \v{C}.~Brukner,
+``Universal decoherence due to gravitational time
+dilation,''
+Nat.\ Phys.\ \textbf{11}, 668 (2015).
+
+\end{thebibliography}
+
+
+%=======================================================================
+\appendix
+\section{Derivation chain: FRW background to modular Khronon}
+\label{app:derivation}
+%=======================================================================
+
+We collect the key steps of Sec.~\ref{sec:limit_cosmo}
+and Sec.~\ref{sec:khronon} in a self-contained
+derivation chain.
+
+\emph{Step~1: Background state.}---On the flat FRW
+background
+$ds^2 = -dt^2 + a^2(t)\delta_{ij}\,dx^i\,dx^j$,
+the apparent horizon sits at $\rA = 1/H$ with
+associated thermodynamic quantities:
+\begin{align}
+T_A &= \frac{H}{2\pi}\,,\qquad
+S_A = \frac{\pi}{\GN H^2}\,,\notag\\
+E &= \frac{\rA}{2\GN} = \frac{1}{2\GN H}\,.
+\label{eq:app_background}
+\end{align}
+
+\emph{Step~2: Thermal state identification.}---The
+spacetime state at the apparent horizon is thermal
+at the Kodama temperature:
+$\rhost = Z_A^{-1}\exp(-K_A)$,
+where the modular Hamiltonian is
+$K_A = (2\pi/H)\cdot M(\rA) = S_A$
+(Aalsma--Bak~\cite{AalsmaBak2025}).
+
+\emph{Step~3: Zeroth-order QRE.}---At equilibrium
+(Friedmann equations satisfied),
+$D(\rhost\|\rhom) = 0$: the spacetime and matter
+states are matched.  Out of equilibrium, the
+Clausius relation $-dE = T_A\,dS_A$ projected along
+the Kodama vector yields~\cite{CaiKim2005}
+\begin{equation}
+H^2 = \frac{8\pi\GN}{3}\,\rho\,.
+\end{equation}
+
+\emph{Step~4: First-order perturbation.}---In
+Newtonian gauge
+$g_{00} = -(1+2\Phi)$,
+$g_{ij} = a^2(1-2\Psi)\delta_{ij}$
+with $\Phi = \Psi$ (no anisotropic stress), the
+modular Hamiltonian perturbation is
+$\delta K = 2S_A\,\Phi$.
+The entanglement first law gives
+\begin{equation}
+\delta D^{(1)} = \delta\langle K\rangle - \delta S_A
+= S_A(2\Phi + \delta_m) = 0\,,
+\end{equation}
+reproducing $\Phi = -\delta_m/2$ (linearized
+Poisson equation).
+
+\emph{Step~5: Modular Khronon.}---Define the
+deviation of modular time from coordinate time:
+\begin{equation}
+\delta\Tmod = -\frac{\delta K}{\langle K\rangle}
+\cdot\frac{1}{\kappa}
+= -\frac{2\Phi}{H}\,,
+\end{equation}
+where $\kappa = H$ is the surface gravity of
+the FRW apparent horizon.
+
+\emph{Step~6: Dispersion.}---In the matter era,
+$\Phi = \mathrm{const}$ (growing mode), so
+$\partial_t\delta\Tmod = 0$ and the mode has
+$\omega = 0$, $c_s = 0$: a non-propagating
+scalar perturbation that grows under gravitational
+instability without oscillating.
+
+\emph{Step~7: Identification.}---The field
+$\delta\Tmod$ has the same algebraic structure and
+dispersion relation as the Blanchet--Skordis
+Khronon perturbation in the matter era.  The
+physical identification is
+$\delta\Tmod \equiv \delta T_{\mathrm{Khronon}}$,
+with the caveat that the epoch-independent
+$c_s = 0$ of the Blanchet--Skordis theory
+requires an independent kinetic term $K(Q)$ that
+the QRE formalism does not provide.
+
+
+\end{document}

@@ -1,6 +1,6 @@
 % paper2_gravity_tau.tex
-% The Gravitational Refractive Index as Petz Recovery Fidelity:
-% Temporal Asymmetry from Spacetime Geometry
+% Information Loss is Local:
+% The Gravitational Refractive Index as Petz Recovery Fidelity
 % Paper II in the tau framework series
 % Author: Sheng-Kai Huang
 % Compile with: pdflatex paper2_gravity_tau.tex
@@ -44,8 +44,8 @@
 
 \begin{document}
 
-\title{The Gravitational Refractive Index as Petz Recovery Fidelity:\\
-Temporal Asymmetry from Spacetime Geometry}
+\title{Information Loss is Local:\\
+The Gravitational Refractive Index as Petz Recovery Fidelity}
 
 \author{Sheng-Kai Huang}
 \email{akai@fawstudio.com}
@@ -54,30 +54,37 @@ Temporal Asymmetry from Spacetime Geometry}
 \date{\today}
 
 \begin{abstract}
-In a companion paper (Paper~I), we established the temporal asymmetry
-parameter $\tauasym = 1 - F$ from the Petz recovery framework and the
-universal bound $F \geq e^{-\Sigma/2}$.
-Here we apply this framework to gravitational fields.
+The temporal asymmetry parameter
+$\tauasym = 1 - F \in [0,1]$, established in Paper~I
+from the Petz recovery framework, quantifies the arrow
+of time with the universal bound $F \geq e^{-\Sigma/2}$.
 Defining the gravitational entropy production
-$\Sgrav \equiv 2|\Phi|/c^2 = \rs/r$, we obtain the identification
-$\ceff/c = e^{\Phi/c^2} = e^{-\Sgrav/2} = \Fbound$:
-the coordinate speed of light \emph{is} the Petz recovery fidelity
-bound [\textsc{new synthesis}].
-This connects Dicke's gravitational refractive index to quantum
-information recovery.
-Three independent derivations---modular flow, gravitational Landauer
-principle, and quantum channel analysis---converge on
-$\Sgrav = -\ln(-g_{00})$.
-Saturation of the Petz bound uniquely determines the exponential
-metric $g_{00} = -e^{-\rs/r}$, which has no event horizon
-($\tauasym < 1$ everywhere).
-We extend the framework to gravitational decoherence (Pikovski
-mechanism), the Unruh effect, Bekenstein bound, black hole
-complementarity, the Page curve, the Hayden--Preskill protocol,
-and ER=EPR, classifying each result as [\textsc{known}],
-[\textsc{new synthesis}], [\textsc{new definition}], or
-[\textsc{speculative}].
-Testable strong-field predictions are tabulated.
+$\Sgrav \equiv -\ln(-g_{00}) = \rs/r$, we obtain the
+identification
+$\ceff/c = e^{-\Sgrav/2} = \Fbound$:
+the coordinate speed of light \emph{is} the Petz recovery
+fidelity bound [\textsc{new synthesis}].
+We then observe that $\tauasym(r) = 1 - \sqrt{-g_{00}(r)}$
+depends only on the \emph{local} metric component $g_{00}$---no
+knowledge of the global causal structure is needed.
+This locality has a notable consequence:
+the operationally relevant boundary where
+$\tauasym = 1$ is the \emph{apparent horizon},
+not the event horizon.
+Using the Kodama vector for dynamical spacetimes, we show
+that $\tauasym$ tracks the apparent horizon in Vaidya
+collapse and the Hubble radius in FRW cosmology---consistent
+with the quantum extremal surface prescription.
+Since $\tauasym < 1$ everywhere for finite
+$\Sgrav$, event horizons are excluded within this
+framework: information that falls in must eventually
+come out.
+The exponential metric $g_{00} = -e^{-\rs/r}$,
+which saturates the Petz bound, predicts
+gravitational-wave echoes at
+$\Delta t \approx 4\,\rs/c$---in principle testable
+with existing LIGO--Virgo data, though not yet searched
+for with appropriate templates.
 \end{abstract}
 
 \maketitle
@@ -87,34 +94,28 @@ Testable strong-field predictions are tabulated.
 \label{sec:intro}
 %=======================================================================
 
-In Paper~I~\cite{Paper1}, we established three results.
-First, the Petz recovery map~\cite{Petz1988} is the unique
-Bayesian retrodiction functor~\cite{Parzygnat2023}.
-Second, the temporal asymmetry parameter
+In Paper~I~\cite{Paper1}, we established that the Petz
+recovery map~\cite{Petz1988}---the unique Bayesian
+retrodiction functor~\cite{Parzygnat2023}---defines
+a temporal asymmetry parameter
 $\tauasym \equiv 1 - F(\rho,\,\Petz_{\sigma,\chan}\!\circ\!\chan(\rho))
-\in [0,1]$ quantifies the arrow of time:
-$\tauasym = 0$ for closed (unitary) evolution,
-$\tauasym > 0$ for open systems, with the universal
-bound~\cite{Fawzi2015,JRSWW2018}
+\in [0,1]$, bounded by~\cite{Fawzi2015,JRSWW2018}
 \begin{equation}
   \tauasym \;\leq\; 1 - e^{-\Sigma/2}\,,
   \label{eq:tau_bound_paper1}
 \end{equation}
-where $\Sigma$ is the entropy production of the channel $\chan$.
-Third, the equivalence chain
-$\tauasym = 0 \Leftrightarrow \Sigma = 0 \Leftrightarrow
-I(A;E|B) = 0 \Leftrightarrow \text{QMC}$
-connects quantum erasure, error correction, and thermodynamic
-irreversibility.
+where $\Sigma$ is the entropy production of the
+channel $\chan$.
+$\tauasym = 0$ for closed (unitary) evolution;
+$\tauasym > 0$ for open systems.
 
-General relativity admits a remarkable reformulation:
+General relativity admits a well-known reformulation in which
 gravity acts as a medium with position-dependent refractive
-index~\cite{Dicke1957,Einstein1911}.
-The coordinate speed of light in a weak gravitational field is
-$\ceff/c = e^{\Phi/c^2}$, where $\Phi < 0$ is the Newtonian
-potential.
-In this paper we show that this expression is not merely a kinematic
-accident but a manifestation of the Petz recovery bound:
+index~\cite{Dicke1957,Einstein1911}:
+the coordinate speed of light is
+$\ceff/c = e^{\Phi/c^2}$, where $\Phi < 0$ is the
+Newtonian potential.
+In this paper we show that
 \begin{equation}
   \frac{\ceff}{c}
   \;=\; e^{\Phi/c^2}
@@ -122,11 +123,45 @@ accident but a manifestation of the Petz recovery bound:
   \;=\; \Fbound\,.
   \label{eq:preview}
 \end{equation}
-Light slowing down in a gravitational field \emph{is} information
-loss; the Petz recovery fidelity \emph{is} the refractive index.
+Light slowing down in a gravitational field \emph{is}
+information loss; the Petz recovery fidelity \emph{is}
+the refractive index.
+
+This identification has a consequence that goes beyond
+translation.
+The quantity
+$\tauasym(r) = 1 - \sqrt{-g_{00}(r)}$
+is \emph{local}: to evaluate the degree of information
+loss at a spacetime point, one needs only $g_{00}$
+at that point---not the global causal structure, not
+the future evolution of the spacetime.
+In general relativity, event horizons are defined
+teleologically: determining whether a point lies inside
+an event horizon requires tracing null geodesics to
+future null infinity, which presupposes knowledge of
+the spacetime's entire future~\cite{Hawking1973}.
+But $\tauasym$ makes no reference to the future.
+The boundary where $\tauasym = 1$ is set by
+\emph{local} data, and that boundary is the
+\emph{apparent horizon}---a quasi-local,
+causal surface~\cite{Hayward1994,AshtekarKrishnan2004}.
+
+The logical chain of this paper is:
+\begin{enumerate}
+  \item $\ceff/c = \Fbound$
+    (Sec.~\ref{sec:identification}: triple identification);
+  \item $\tauasym$ is local
+    (Sec.~\ref{sec:locality}: information loss does not
+    require the future);
+  \item $\tauasym < 1$ everywhere for finite $\Sgrav$
+    (Sec.~\ref{sec:nohorizon}: no event horizon within
+    this framework);
+  \item echoes at $\Delta t \approx 4\,\rs/c$
+    (Sec.~\ref{sec:predictions}: testable consequence).
+\end{enumerate}
 
 %=======================================================================
-\section{The Exponential Identification}
+\section{The Triple Identification}
 \label{sec:identification}
 %=======================================================================
 
@@ -193,36 +228,71 @@ is $\Sigma = -\ln\eta = \rs/r$~\cite{AhmadiFuentes2014}.
 All three routes share the common mathematical core
 $\Sgrav = -\ln(-g_{00})$.
 
-\subsection{The channel problem}
+\subsection{The gravitational thermal attenuator channel}
+\label{sec:grav_channel}
 
-[\textsc{new synthesis}]  None of the three routes above
-constructs a canonical gravitational CPTP map
-$\chan_{\mathrm{grav}}$ from first principles---i.e., a map
-with explicit Kraus operators $\{K_i\}$ such that
-$\Sigma = D(\rho\|\sigma) - D(\chan_{\mathrm{grav}}(\rho)\|
-\chan_{\mathrm{grav}}(\sigma)) = \rs/r$.
-This remains an open problem~\cite{KasprzakTjoa2024}.
-We bypass it through a combined strategy:
-(i)~any consistent coupling of classical gravity to quantum
-matter is fundamentally irreversible ($\Sigma > 0$),
-guaranteeing the \emph{existence} of an irreversible CPTP
-map~\cite{GalleyGiacominiSelby2023};
-(ii)~the modular flow route~(a) provides the
-coefficient $\rs/r$ without requiring an explicit
-channel~\cite{DorauMuch2025};
-(iii)~the pure-loss bosonic channel~(c) serves as a concrete
-\emph{existence proof} that a CPTP map with
-$\Sigma = -\ln\eta = \rs/r$ exists when $\eta = -g_{00}$;
-(iv)~axiomatic uniqueness: any CPTP map satisfying additivity
-under channel composition and monotonicity under coarse-graining
-yields $\Sigma = -c\,\ln(-g_{00})$ with $c > 0$; routes~(a)--(c)
-fix $c = 1$.
-The recent modular channel construction of
-Trejo-Calder\'{o}n~\cite{TrejoCalderon2025}---a CPTP map
-built from Gibbs-weighted singular values of the modular
-operator---is the most promising candidate for a first-principles
-$\chan_{\mathrm{grav}}$, though the explicit computation of
-$\Delta D$ in Schwarzschild remains to be carried out.
+[\textsc{new result}]  The three routes above are not merely
+analogies---they are facets of a single rigorous construction.
+
+\begin{theorem}[Gravitational thermal attenuator]
+\label{thm:grav_channel}
+For a free scalar field mode of frequency $\omega$ propagating
+radially from $r_1$ to $r_2 > r_1$ in a static metric
+$ds^2 = -f(r)\,c^2\,dt^2 + f(r)^{-1}dr^2 + r^2 d\Omega^2$,
+in the geometric optics limit
+$(\omega^2 \gg V_{\mathrm{eff}})$:
+\emph{(a)}~there exists a CPTP thermal attenuator
+$\chan_{r_1 \to r_2}$ with transmissivity
+$\eta = f(r_1)/f(r_2)$;
+\emph{(b)}~the environment is thermal at the local Tolman
+temperature $T_{\mathrm{loc}}(r_1) = T_H/\sqrt{f(r_1)}$;
+\emph{(c)}~the entropy production satisfies
+\begin{equation}
+  \Sgrav(r) = -\ln f(r) + O(\omega^2/T^2)
+  = -\ln(-g_{00})\,;
+  \label{eq:Sgrav_channel}
+\end{equation}
+\emph{(d)}~the Petz recovery fidelity obeys
+$F \geq e^{-\Sgrav/2} = \sqrt{f(r)}$;
+\emph{(e)}~greybody corrections enter at
+$O((\rs/r)^2)$~\cite{Wald1994}.
+\end{theorem}
+
+\emph{Proof sketch.}---The WKB mode equation gives amplitude
+transmission $|t_\omega|^2 = f(r_1)/f(r_2)$: the energy ratio
+(gravitational redshift) contributes $\sqrt{f(r_1)/f(r_2)}$
+and the time-dilation ratio of proper times contributes an
+identical factor~\cite{BirrellDavies1982}.
+The Tolman relation identifies the environment as thermal,
+yielding a Gaussian thermal attenuator
+$\mathcal{E}_{\eta,N_B}$~\cite{IvanSabapathySimon2011} with
+explicit Kraus operators on Fock space.
+In the high-temperature limit,
+$\Sigma = -\ln\eta + O(\omega^2/T^2)$~\cite{HolevoWerner2001},
+establishing~(c).
+Part~(d) follows from the JRSWW bound~\cite{JRSWW2018}.
+The leading greybody correction is $|R_0|^2 \sim (\omega\rs)^2$,
+giving $|\Sigma_{\mathrm{exact}} - \Sigma_0|
+\leq \tfrac{1}{4}(\rs/r)^2$ (see Supplemental Material~\cite{supplement}).
+\hfill$\square$
+
+\medskip
+
+Three corollaries follow immediately:
+(i)~at the horizon ($f \to 0$), $\Sgrav \to \infty$,
+$F \to 0$, $\tauasym \to 1$---complete information loss;
+(ii)~in flat spacetime ($f = 1$), $\Sgrav = 0$, $F = 1$,
+$\tauasym = 0$---no gravitational arrow of time;
+(iii)~channels compose: $\Sgrav(r_1 \to r_3) =
+\Sgrav(r_1 \to r_2) + \Sgrav(r_2 \to r_3)$.
+The gravitational refractive index satisfies
+$\nref = e^{\Sgrav/2} = 1/\Fbound$: \emph{refraction is
+inverse recovery}~\cite{Dicke1957}.
+
+This theorem places the $\tauasym$ framework on a
+constructive footing:
+$\tauasym$ is the recovery failure of a specific,
+constructible CPTP map with explicit Kraus operators.
 
 \subsection{The triple identification}
 
@@ -289,229 +359,289 @@ correction is of order $10^{-18}$---far below current
 measurement capability~\cite{Bertotti2003}.
 
 %=======================================================================
-\section{Gravitational Decoherence as Petz Recovery}
-\label{sec:decoherence}
+\section{Information Loss is Local}
+\label{sec:locality}
 %=======================================================================
 
-\subsection{The Pikovski mechanism}
+\subsection{$\tauasym$ depends only on local $g_{00}$}
+\label{sec:tau_local}
 
-[\textsc{known}]  Pikovski et~al.~\cite{Pikovski2015} showed
-that gravitational time dilation induces universal dephasing
-of massive objects in spatial superposition.
-The Hamiltonian
-$H = p^2/(2m) + H_{\mathrm{int}}(1 + \Phi(\hat{x})/c^2)$
-produces a position-dependent phase on the internal state,
-yielding a CPTP dephasing channel $\chan_{\mathrm{grav}}$ on
-the spatial degree of freedom~\cite{Paper1b}.
-
-[\textsc{new synthesis}]  For $N$ internal modes in a thermal
-state, the temporal asymmetry parameter is~\cite{Paper1b}
+[\textsc{new synthesis}]
+The temporal asymmetry at a spacetime point $p$
+at radius $r$ from a mass $M$ is
 \begin{equation}
-  \tauasym_{\mathrm{grav}}(t)
-  = 1 - \exp\!\big(-N\Gamma t^2\big)\,,
-  \label{eq:tau_pikovski}
+  \tauasym(r) = 1 - \sqrt{-g_{00}(r)}\,.
+  \label{eq:tau_local}
 \end{equation}
-where $\Gamma = (\Delta E)^2(\Delta\Phi)^2/(2\hbar^2 c^4)$
-and $\Delta E$ is the internal energy variance.
-The connection to Sec.~\ref{sec:identification} is direct:
-the $\Sgrav = \rs/r$ from the gravitational potential provides
-the entropy production that bounds $\tauasym_{\mathrm{grav}}$
-via Eq.~\eqref{eq:tau_bound_paper1}.
-The dephasing rate is controlled by
-$\Delta\Phi/c^2 \sim \Sgrav/2$, establishing that the
-gravitational entropy production governs both the static
-(refractive index) and dynamic (decoherence) aspects of
-gravitational information loss.
+This is a \emph{local, operational} quantity:
+an observer at $r$ determines $\tauasym$ by comparing
+a local clock with a reference clock at infinity.
+No information about the future evolution of the
+spacetime, no knowledge of what happens at other radii,
+and no global causal analysis is required.
 
-\subsection{Unruh effect}
-
-[\textsc{new synthesis}]  The Unruh effect~\cite{Unruh1976}
-states that a uniformly accelerating observer with acceleration
-$a$ perceives a thermal bath at temperature
-$T_U = \hbar a/(2\pi c \kB)$.
-This thermal environment induces entropy production on any
-quantum system carried by the observer.
-For a system traversing a proper distance $\Delta x$
-at acceleration $a$, the dimensionless entropy production
-is~\cite{LandiPaternostro2021}
+This stands in sharp contrast with the event horizon.
+In general relativity, the event horizon is defined as
 \begin{equation}
-  \Sigma_{\mathrm{Unruh}}
-  = \frac{2\pi a\,\Delta x}{\hbar c^2}\,,
-  \label{eq:Sigma_Unruh}
+  \mathcal{H}^{+} = \partial J^{-}(\mathcal{I}^{+})\,,
+  \label{eq:EH_def}
 \end{equation}
-giving $\tauasym > 0$ for any accelerating observer.
-By the equivalence principle, this connects to gravitational
-entropy production: a static observer at radius $r$ experiences
-proper acceleration $a = GM/(r^2\sqrt{1 - \rs/r})$, and the
-accumulated entropy production over radial displacement
-$\Delta r$ reproduces $\Sgrav$ in the appropriate limit.
+the boundary of the causal past of future null
+infinity~\cite{Hawking1973}.
+To determine whether a point lies inside the event
+horizon, one must know the \emph{entire future} of the
+spacetime---including whether the black hole eventually
+evaporates, accretes more mass, or merges with another.
+The event horizon is a teleological concept:
+it is defined by where light rays \emph{will eventually}
+reach, not by what is happening \emph{now}.
 
-\subsection{Bekenstein bound in $\tauasym$ language}
+The $\tauasym$ framework replaces this global,
+teleological criterion with a local, operational one.
+Information loss is not a verdict delivered by the
+future---it is a condition determined by the present.
 
-[\textsc{new synthesis}]  The Bekenstein
-bound~\cite{Bekenstein1981} states that the entropy of a system
-of energy $E$ confined to a sphere of radius $R$ satisfies
-$S \leq 2\pi ER/(\hbar c)$.
-In the $\tauasym$ framework, this becomes
+\subsection{The apparent horizon as $\tauasym = 1$ surface}
+\label{sec:apparent_horizon}
+
+[\textsc{new synthesis}]
+In general relativity, the \emph{apparent horizon}
+is defined as the outermost marginally outer trapped
+surface (MOTS): the surface where the expansion
+of outgoing null geodesics vanishes,
+$\theta_{+} = 0$~\cite{Hayward1994}.
+Unlike the event horizon, the apparent horizon
+is quasi-local: it depends only on the metric and its
+first derivatives on a single time-slice.
+
+The $\tauasym$ framework naturally selects this surface.
+For the Schwarzschild metric, $\tauasym = 1$ when
+$g_{00} = 0$, which occurs at $r = \rs$---both the
+event horizon and the apparent horizon coincide.
+But in dynamical spacetimes they differ, and $\tauasym$
+tracks the apparent horizon.
+This has a precise mathematical content:
 \begin{equation}
-  \tauasym \;\leq\; 1 - \exp\!\left(-\frac{\pi E R}{\hbar c}\right),
-  \label{eq:bekenstein_tau}
+  \tauasym = 1 \;\;\Longleftrightarrow\;\;
+  g_{00} = 0 \;\;\Longleftrightarrow\;\;
+  \theta_{+} = 0 \;\text{(MOTS)}\,.
+  \label{eq:tau_MOTS}
 \end{equation}
-where we have used $\Sigma_{\mathrm{Bek}} = 2\pi ER/(\hbar c)$
-and the Petz bound $\tauasym \leq 1 - e^{-\Sigma/2}$.
-This provides a universal upper limit on the temporal asymmetry
-of any spatially bounded quantum system.
+The equivalence on the right holds for spherically
+symmetric spacetimes where
+$\theta_{+} = (2/r)(1 - 2M(v)/r)^{1/2}$:
+$\theta_{+} = 0$ precisely when $r = 2M(v)$,
+i.e., when $g_{00}^{\text{eff}} = 0$.
 
-%=======================================================================
-\section{Black Hole Physics through $\tauasym$}
-\label{sec:black_holes}
-%=======================================================================
+\emph{Connection to QES.}---[\textsc{new synthesis}]
+The quantum extremal surface (QES) prescription of
+Engelhardt and Wall~\cite{Engelhardt2015}
+and its applications by
+Penington~\cite{Penington2020} and the island
+formula~\cite{AEMM2021} identify the QES---not the
+classical event horizon---as the surface that controls
+the entanglement entropy of Hawking radiation.
+The QES extremizes the \emph{generalized} entropy
+$S_{\text{gen}} = A/(4G\hbar) + S_{\text{bulk}}$
+on a time-slice.
+The $\tauasym$ framework provides a complementary
+characterization: the QES is the surface where the
+\emph{operational} information loss saturates
+($\tauasym \to 1$), while the generalized entropy
+formulation controls the \emph{counting} of degrees
+of freedom.
+Both agree that the operationally relevant boundary
+is quasi-local and causal---defined by data on a single
+slice, not by the global causal structure.
+In the semiclassical limit, the QES reduces to the
+apparent horizon~\cite{Engelhardt2015}, and $\tauasym = 1$
+selects the same surface---the two prescriptions coincide.
 
-\subsection{Complementarity}
+\subsection{Dynamic extension: the Kodama vector}
+\label{sec:kodama}
 
-[\textsc{new synthesis}]  Black hole complementarity posits that
-infalling and external observers describe different but
-consistent physics~\cite{Susskind1993}.
-In the $\tauasym$ framework, this becomes quantitative:
-the infalling observer follows a geodesic and experiences
-$\tauasym_{\mathrm{infalling}} \approx 0$ (locally, spacetime
-is flat by the equivalence principle), while the external
-observer describes the same process with
-$\tauasym_{\mathrm{external}} \to 1$ (information appears to
-be lost at the horizon).
-Complementarity is thus the statement that different quantum
-channels---corresponding to different observer
-foliations---assign different $\tauasym$ values to the same
-physical process.
-The Petz recovery map is observer-dependent: the recovery
-available to the infalling observer (who has direct access to
-the interior) differs from that available to the external
-observer (who can only perform operations on Hawking radiation).
-
-\subsection{Page curve as $\tauasym(t)$}
-
-[\textsc{new synthesis}]  The Page curve describes the
-entanglement entropy $S_{\mathrm{Page}}(t)$ of Hawking
-radiation as a function of time~\cite{Page1993}.
-Before the Page time, entropy increases linearly;
-after the Page time, it decreases, returning to zero when
-evaporation is complete.
-In the $\tauasym$ framework, the Page curve translates to
-a time-dependent bound on recovery:
+[\textsc{new synthesis}]
+The static formulation of $\tauasym$ requires a
+timelike Killing vector $\xi^{a}$.
+The natural dynamical extension uses the Kodama
+vector~\cite{Kodama1980}---the unique divergence-free
+timelike vector field in spherically symmetric
+spacetimes:
 \begin{equation}
-  \tauasym(t) \;\leq\; 1
-  - \exp\!\big(-S_{\mathrm{Page}}(t)/2\big)\,.
-  \label{eq:page_tau}
+  K^{a} = \epsilon^{ab}\nabla_{b} R\,,
+  \label{eq:kodama_def}
 \end{equation}
-Before the Page time, $S_{\mathrm{Page}}$ increases and
-$\tauasym$ can grow---information becomes progressively harder
-to recover.
-After the Page time, $S_{\mathrm{Page}}$ decreases and the
-bound on $\tauasym$ tightens---information recovery improves.
-The Page curve is thus the trajectory of the system through
-$\tauasym$ space, and the Page time marks the maximum of
-temporal asymmetry.
-
-Recent developments~\cite{Penington2020,AEMM2021} have
-provided explicit calculations of the Page curve using the
-quantum extremal surface (QES) formula, confirming that
-$S_{\mathrm{Page}}(t)$ follows the Page curve and that
-unitarity is preserved.
-In our framework, the QES formula for generalized entropy
-$S_{\mathrm{gen}}$ provides the entropy production
-$\Sigma = \Delta S_{\mathrm{gen}}$ that enters the Petz
-bound.
-
-\subsection{Hayden--Preskill = Petz recovery}
-
-[\textsc{known}]  Cotler et~al.~\cite{Cotler2019} proved that
-the Hayden--Preskill decoder~\cite{HaydenPreskill2007}---the
-protocol for recovering information thrown into an old black
-hole---\emph{is} the Petz recovery map applied to the
-black hole channel.
-This is not an analogy: the HP decoder is mathematically
-identical to the rotated Petz map
-$\Petz_{\sigma,\chan}$~\cite{JRSWW2018}.
-The fidelity of information recovery satisfies the same bound
-$F \geq e^{-\Sigma/2}$, where $\Sigma$ is the entropy
-production of the black hole evaporation channel.
-
-\subsection{Entanglement wedge reconstruction}
-
-[\textsc{known}]  In AdS/CFT, bulk quantum fields are
-reconstructed from boundary data using the Petz recovery
-map~\cite{ADH2015,CPS2020,Cotler2019}.
-The fidelity of entanglement wedge reconstruction
-satisfies~\cite{Jafferis2016,Penington2020}
+where $R$ is the areal radius and $\epsilon^{ab}$ is the
+Levi-Civita tensor on the $(t,r)$ submanifold.
+In the static limit, $K^{a}$ reduces to the Killing vector
+$\xi^{a}$, and $|K| = \sqrt{-g_{00}}$.
+The Kodama recovery fidelity is
 \begin{equation}
-  F^2 \;\geq\; \exp(-\Delta S_{\mathrm{gen}})\,,
-  \label{eq:ewedge}
+  \Fbound^{K}(A\!\to\! B) = \frac{|K|_{A}}{|K|_{B}}\,,
+  \label{eq:FK}
 \end{equation}
-where $\Delta S_{\mathrm{gen}}$ is the change in generalized
-entropy.
-This is an instance of the same universal recovery
-inequality~\cite{JRSWW2018} that underlies our gravitational
-identification~\eqref{eq:triple}.
+recovering all results of Sec.~\ref{sec:identification}
+in the static limit.
 
-\subsection{ER=EPR}
+\emph{Vaidya collapse.}---[\textsc{new synthesis}]
+The ingoing Vaidya metric describes a spherically symmetric
+spacetime with a time-dependent mass function $M(v)$:
+\begin{equation}
+  ds^{2} = -\!\left(1 - \frac{2M(v)}{r}\right)dv^{2}
+  + 2\,dv\,dr + r^{2}\,d\Omega^{2}\,,
+  \label{eq:vaidya_metric}
+\end{equation}
+where $v$ is the advanced (Eddington--Finkelstein) time
+and $dM/dv > 0$ for accretion~\cite{Hiscock1981}.
+The Kodama vector norm
+is~\cite{Hayward1994,AbreuVisser2010}
+$|K| = \sqrt{1 - 2M(v)/r}$, giving
+\begin{equation}
+  \tauasym_{K}(r,v) = 1 - \sqrt{1 - \frac{2M(v)}{r}}\,.
+  \label{eq:tau_vaidya}
+\end{equation}
+This reaches $\tauasym = 1$ when $r = 2M(v)$---precisely
+the \emph{apparent} horizon, the outermost MOTS on
+each $v = \mathrm{const}$ slice.
+During gravitational collapse, $M(v)$ increases and the
+$\tauasym = 1$ surface expands outward, tracking the
+growing apparent horizon.
+During Hawking evaporation, $M(v)$ decreases and the
+$\tauasym = 1$ surface shrinks---information recovery
+improves, consistent with the Page curve.
 
-[\textsc{speculative}]  The ER=EPR
-conjecture~\cite{MaldacenaSusskind2013} identifies
-Einstein--Rosen bridges (wormholes) with Einstein--Podolsky--Rosen
-correlations (entanglement).
-In the $\tauasym$ framework, a wormhole connecting two entangled
-black holes provides a channel with $\tauasym = 0$ between the
-two sides: information can be perfectly recovered through the
-bridge, corresponding to the maximal entanglement of the two
-black holes.
-The non-traversability of the classical ER bridge corresponds
-to the fact that the $\tauasym = 0$ channel requires operations
-on both sides simultaneously (entanglement does not enable
-superluminal signaling).
+\emph{Explicit demonstration: AH $\neq$ EH.}---The
+event horizon is the outermost outgoing null geodesic that
+fails to escape to infinity.
+For radial null rays in Vaidya,
+$dr/dv = \frac{1}{2}(1 - 2M(v)/r)$, integrated backward
+from $r_{\text{EH}} = 2M_0$ at $v \to \infty$.
+For the self-similar profile $M(v) = \lambda v$, the null
+geodesic equation admits the exact solution
+$r_{\text{EH}}(v) = C_{-}\,v$, where
+$C_{-} = (1 - \sqrt{1 - 16\lambda})/4$, while
+$r_{\text{AH}}(v) = 2\lambda v$.
+Since $C_{-} > 2\lambda$ for $\lambda > 0$
+(see Supplemental Material~\cite{supplement} for proof),
+$r_{\text{EH}} > r_{\text{AH}}$ during accretion:
+the event horizon lies \emph{outside} the apparent horizon.
 
-\subsection{Classification}
-
-Table~\ref{tab:classification} classifies the connections
-developed in this section.
+Table~\ref{tab:AH_EH} quantifies the discrepancy.
+At the event horizon, $\tauasym_{K} < 1$---the
+$\tauasym$ framework says the EH is \emph{not} a surface
+of complete information loss.
+At the apparent horizon, $\tauasym_{K} = 1$ exactly,
+for all $v$.
+During evaporation ($dM/dv < 0$), the situation reverses:
+$r_{\text{EH}} < r_{\text{AH}}$, and the Kodama vector
+becomes spacelike at the EH.
+In both cases, $\tauasym_{K} = 1$ at the AH---never
+at the EH.
 
 \begin{table}[t]
-\caption{\label{tab:classification}Classification of results
-connecting the $\tauasym$ framework to black hole physics.}
+\caption{\label{tab:AH_EH}%
+$\tauasym_{K}$ at the event horizon versus the
+apparent horizon for the self-similar Vaidya
+spacetime $M(v) = \lambda v$.
+$\tauasym_{K}(\text{AH}) = 1$ exactly for all
+$\lambda$; $\tauasym_{K}(\text{EH}) < 1$.
+See Supplemental Material for derivations.}
 \begin{ruledtabular}
-\begin{tabular}{lc}
-  \textbf{Connection} & \textbf{Status} \\
+\begin{tabular}{cccc}
+  $\lambda$ & $r_{\text{EH}}/r_{\text{AH}}$
+    & $\tauasym_{K}(r_{\text{EH}})$
+    & $1 - \tauasym_{K}(r_{\text{EH}})$ \\
   \colrule
-  HP decoder = Petz map~\cite{Cotler2019}
-    & \textsc{known} \\
-  Entanglement wedge via Petz~\cite{CPS2020}
-    & \textsc{known} \\
-  $F^2 \geq e^{-\Delta S_{\mathrm{gen}}}$~\cite{Penington2020}
-    & \textsc{known} \\
-  Observer-dependent $\tauasym$ (complementarity)
-    & \textsc{new synthesis} \\
-  Page curve as $\tauasym(t)$
-    & \textsc{new synthesis} \\
-  $\ceff/c = \Fbound$ (refractive index)
-    & \textsc{new synthesis} \\
-  $\Sgrav = \rs/r$ (gravitational entropy production)
-    & \textsc{new definition} \\
-  ER=EPR as $\tauasym = 0$ channel
-    & \textsc{speculative} \\
+  $0.001$ & $1.004$ & $0.937$ & $6.3\%$ \\
+  $0.01$  & $1.044$ & $0.796$ & $20.4\%$ \\
+  $0.03$  & $1.162$ & $0.627$ & $37.3\%$ \\
+  $0.05$  & $1.382$ & $0.474$ & $52.6\%$ \\
+  $1/16$  & $2.000$ & $0.293$ & $70.7\%$ \\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
 
+For a step-function collapse ($M(v) = M_0\,\theta(v)$),
+the event horizon originates at $r = 0$ when
+$v = -4M_0$---in the \emph{flat} region, before the
+shell arrives.
+The EH ``anticipates'' the collapse; the AH appears
+only at $v = 0$.
+This illustrates the distinction clearly:
+$\tauasym_{K}$ is zero in the flat region (no information
+loss), even though the event horizon is already present.
+
+\emph{FRW cosmology.}---In a spatially flat FRW universe
+with Hubble parameter $H$,
+\begin{equation}
+  \tauasym_{K}(R) = 1 - \sqrt{1 - H^{2}R^{2}}\,,
+  \label{eq:tau_FRW}
+\end{equation}
+reaching $\tauasym = 1$ at $R = 1/H$, the Hubble
+radius---which is the apparent horizon of FRW, not an
+event horizon~\cite{AbreuVisser2010}.
+
+\subsection{Verification proposal: SYK model}
+\label{sec:SYK}
+
+[\textsc{speculative}]
+The SYK model~\cite{SachdevYe1993,MaldacenaStanford2016}
+is a solvable quantum-mechanical model with a holographic
+dual to nearly-AdS$_{2}$ (JT) gravity, exhibiting both
+scrambling and black hole formation.
+It provides a setting where both sides of the $\tauasym$
+equation---the QI recovery fidelity $F(t)$ and the
+gravitational entropy production $\Sgrav(t)$---can be
+computed independently.
+
+We propose the following test.
+In the SYK model with time-dependent coupling (modeling
+dynamical black hole formation and evaporation):
+(i)~compute the Petz recovery fidelity $F(t)$
+for an early-time operator from late-time data;
+(ii)~compute $\Sgrav(t) = -\ln(-g_{00}^{\text{bulk}}(t))$
+from the dual JT gravity;
+(iii)~compare whether $F(t)$ tracks the apparent
+horizon or the event horizon in the bulk.
+The $\tauasym$ framework predicts that $F(t)$ tracks the
+apparent horizon.
+This calculation is feasible with exact diagonalization
+at moderate $N$~\cite{MaldacenaStanford2016}; the
+prediction awaits numerical verification.
+
 %=======================================================================
-\section{The Exponential Metric}
-\label{sec:exponential}
+\section{No Event Horizon Within the $\tauasym$ Framework}
+\label{sec:nohorizon}
 %=======================================================================
 
-[\textsc{new synthesis}]  If the Petz bound is
-\emph{saturated}---i.e., the recovery fidelity equals rather
-than exceeds $e^{-\Sgrav/2}$---then the metric component is
-determined:
-$\sqrt{-g_{00}} = e^{-\Sgrav/2} = e^{-\rs/(2r)}$.
-This uniquely determines the exponential
+\subsection{Model-independent no-horizon theorem}
+
+[\textsc{new synthesis}]
+The locality of $\tauasym$ established in
+Sec.~\ref{sec:locality} has a direct physical consequence.
+If gravitational redshift is a quantum channel with
+\emph{finite} entropy production $\Sigma < \infty$, then
+the Petz bound gives
+$F \geq e^{-\Sigma/2} > 0$, so $\tauasym < 1$.
+An event horizon requires $F = 0$ (complete information loss),
+which demands $\Sigma \to \infty$---impossible for a
+finite-mass object at finite distance.
+Under this premise, the Petz bound~\cite{JRSWW2018} excludes
+event horizons; neither the specific
+form of $\Sgrav$ nor the saturation hypothesis is needed.
+
+In the language of Sec.~\ref{sec:locality}: because
+$\tauasym$ is local and finite, information loss is
+never complete.
+Within this framework, what falls in must eventually come out.
+
+\subsection{The exponential metric}
+
+[\textsc{new synthesis}]
+If the Petz bound is taken as an identity---$\sqrt{-g_{00}}
+= e^{-\Sgrav/2}$---the metric component is uniquely
+determined.
+This gives the exponential
 metric~\cite{Papapetrou1954,Yilmaz1958}:
 \begin{equation}
   ds^2 = -e^{-\rs/r}\, c^2 dt^2
@@ -519,15 +649,8 @@ metric~\cite{Papapetrou1954,Yilmaz1958}:
   \label{eq:exp_metric}
 \end{equation}
 in isotropic coordinates.
-
-\emph{No event horizon.}---Since $e^{-\rs/r} > 0$ for all
-$r > 0$, the metric component $g_{00}$ never vanishes.
-Equivalently, $\tauasym < 1$ everywhere: complete information
-loss never occurs.
-This is the information-theoretic statement that event horizons
-are forbidden when $\Sgrav < \infty$---a model-independent
-consequence of the Petz bound~\cite{JRSWW2018} that does not
-depend on the saturation hypothesis.
+Since $e^{-\rs/r} > 0$ for all $r > 0$,
+$\tauasym < 1$ everywhere.
 
 \emph{Exact solution.}---The exponential metric is not a vacuum
 solution of the Einstein equations ($R_{\mu\nu} \neq 0$).
@@ -563,61 +686,332 @@ Consequently, we classify our predictions as
 refractive index, gravitational decoherence rate) or
 \emph{conditional} (depending on the full metric:
 shadow size, ISCO radius, QNM frequencies, echo delay).
-Note that the Jacobson~\cite{Jacobson1995} and
+The Jacobson~\cite{Jacobson1995} and
 Dorau--Much~\cite{DorauMuch2025} programs \emph{do} derive
 all metric components from information-theoretic premises,
 but their vacuum solution is Schwarzschild, not exponential.
-This tension between derivability and the specific metric
-form remains an open question.
+More recently, Thattarampilly et~al.~\cite{Thattarampilly2026}
+solved the full Gravity-from-Entropy (GfE) field equations of
+Bianconi~\cite{Bianconi2025} for the static spherically
+symmetric vacuum, finding Schwarzschild with $O(r^{-4})$
+corrections---again not the exponential metric.
+Every known entanglement-based gravity program thus produces
+Schwarzschild (plus perturbative corrections) as its vacuum
+solution.
+This gap remains an open question: the exponential metric is
+best understood as a \emph{Petz saturation ansatz}---the
+geometry defined by promoting $F = e^{-\Sgrav/2}$ to an
+identity---rather than the output of any established
+entropy-to-gravity derivation.
 
-\emph{Comparison with Schwarzschild.}---The exponential and
-Schwarzschild metrics share identical PPN parameters
-$\gamma = \beta = 1$ and agree through $O(\rs/r)^2$:
+\emph{Comparison with Schwarzschild.}---A persistent
+misconception holds that the exponential metric ``predicts
+half the observed light bending.''
+This conflates the Yilmaz \emph{field equations}---an
+alternative theory of gravity shown to be inconsistent by
+Misner~\cite{Misner1999}---with the exponential \emph{metric}
+as a solution of standard GR coupled to a phantom scalar.
+Particles and photons follow standard geodesics
+of~\eqref{eq:exp_metric}; only the geometry differs from
+Schwarzschild.
+
+The PPN expansion in isotropic coordinates gives
 \begin{align}
-  g_{00}^{\text{Schw}} &= -1 + \frac{\rs}{r}
-    - \frac{\rs^2}{2r^2} + \cdots\,, \\
-  g_{00}^{\text{exp}} &= -1 + \frac{\rs}{r}
-    - \frac{\rs^2}{2r^2} + \cdots\,.
+  g_{00}^{\text{exp}} &= -e^{-\rs/r}
+  = -(1 - 2U + 2U^2 - \cdots) \,,\\
+  g_{ij}^{\text{exp}} &= e^{+\rs/r}\,\delta_{ij}
+  = (1 + 2U + 2U^2 + \cdots)\,\delta_{ij}\,,
 \end{align}
-The first difference appears at $O(\rs/r)^3$:
-$-1/6$ (exponential) versus $-1/4$ (Schwarzschild in isotropic
-coordinates).
-All solar-system tests are passed automatically, including the
+where $U = \rs/(2r)$ is the Newtonian potential.
+Matching with the standard PPN form
+$g_{00} = -(1-2U+2\beta U^2+\cdots)$,
+$g_{ij} = (1+2\gamma U+\cdots)\delta_{ij}$
+yields $\gamma = \beta = 1$---\emph{identical to GR}.
+Mychelkin et~al.~\cite{Mychelkin2024} verified explicitly
+that the perihelion precession at first post-Newtonian order
+matches Schwarzschild:
+$\Delta\phi_{\text{exp}} = \Delta\phi_{\text{Schw}}
+= 6\pi M/p$.
+The first difference appears at 2PN, where the precession
+differs by $\sim 2.3\times 10^{-7}$~arcsec/century for
+Mercury---four orders of magnitude below current precision.
+All solar-system tests are passed: light bending, Shapiro
+delay, perihelion precession, and the
 Cassini bound $|\gamma - 1| < 2.3\times 10^{-5}$~%
 \cite{Bertotti2003}.
+\emph{The exponential metric is observationally degenerate
+with Schwarzschild for every current and foreseeable
+weak-field test.}
 
-\emph{Observational constraints.}---In the strong-field regime,
-the exponential metric predicts a photon sphere at $r = \rs$
-(isotropic coordinates), a shadow $4.6\%$ larger than
-Schwarzschild~\cite{Boonserm2018}, QNM frequencies shifted
-by $\sim 4.4\%$, and gravitational-wave echoes at
-$\Delta t \approx 4.2\,\rs/c$~\cite{Cardoso2016}.
+\emph{Caveat on saturation.}---The JRSWW
+bound~\cite{JRSWW2018} is structurally strict for
+$\Sigma > 0$: the proof via the Golden--Thompson inequality
+is an equality only when the relevant operators
+commute---the $\Sigma = 0$ case~\cite{Petz1988}.
+No known quantum channel saturates the bound for
+$\Sigma > 0$.
+The exponential metric should be understood as the geometry
+defined by the \emph{identity}
+$\sqrt{-g_{00}} = e^{-\Sgrav/2}$; whether nature saturates
+this bound or admits a gap is empirical.
+
+%=======================================================================
+\section{Strong-Field Predictions}
+\label{sec:predictions}
+%=======================================================================
+
+[\textsc{conditional}]
+In the strong-field regime, the exponential and Schwarzschild
+metrics diverge, yielding three testable predictions.
+All depend on the spatial metric assumption
+$g_{rr} = e^{+\rs/r}$.
+
+\emph{(1) Shadow size.}---The exponential photon sphere
+at $r_{\text{ph}} = \rs$ (isotropic coordinates)
+yields a critical impact parameter
+$b_{\text{crit}} = 2e\,m \approx 5.44\,m$
+versus Schwarzschild's $3\sqrt{3}\,m \approx 5.20\,m$
+($m = GM/c^2$): a $4.6\%$ larger shadow.
 The EHT measurement of $42 \pm 3\;\mu\text{as}$ for
 M87*~\cite{EHT2019} is consistent with both metrics.
-NICER X-ray observations~\cite{NICER2019} and next-generation
-gravitational-wave detectors can probe the $\sim 5$--$19\%$
-strong-field deviations.
+This prediction awaits next-generation VLBI observations
+with sufficient angular resolution to distinguish the two.
 
-\emph{Honest assessment.}---The strong-field regime is
-speculative.
-The saturation hypothesis ($F = e^{-\Sgrav/2}$ exactly) is
-unproven; if nature selects $F > e^{-\Sgrav/2}$, the actual
+\emph{(2) Quasinormal modes.}---In the eikonal limit,
+$f_{\text{QNM}}^{\text{exp}}/
+f_{\text{QNM}}^{\text{Schw}}
+= 3\sqrt{3}/(2e) \approx 0.956$,
+a $\sim 4.4\%$ downward shift.
+WKB calculations find a $-7.8\%$ shift for a generalized
+exponential wormhole~\cite{NathSarma2025}.
+This prediction has not yet been tested; next-generation
+gravitational-wave detectors
+(Einstein Telescope, Cosmic Explorer) are expected to reach
+$\sim 1\%$ precision in QNM frequencies.
+
+\emph{(3) Gravitational-wave echoes}~[\textsc{most
+discriminating prediction}].---A concrete and
+falsifiable signature of the $\tauasym$ framework.
+The traversable wormhole structure of the exponential
+metric produces echoes---repeated, damped pulses following
+the initial ringdown.
+The echo delay is set by the round-trip light travel time
+in the tortoise coordinate $r^* = \int e^{\rs/r}\,dr$.
+For the exponential metric, $r^*$ remains bounded
+(no logarithmic divergence as in Schwarzschild), and
+the effective potential cavity extends from the photon
+sphere at $r_{\mathrm{ph}} = \rs$ (isotropic) to the
+wormhole throat at $r_{\mathrm{throat}} = \rs/2$.
+The echo delay is
+\begin{equation}
+  \Delta t_{\text{echo}}
+  = \frac{2}{c}\!\int_{r_{\mathrm{throat}}}^{r_{\mathrm{ph}}}
+  \!\!e^{\rs/r}\,dr
+  \;\approx\; \frac{4\,\rs}{c}
+  \ln\!\left(\frac{\rs}{r_{\mathrm{throat}}}\right),
+  \label{eq:echo}
+\end{equation}
+where the logarithmic approximation holds because
+$e^{\rs/r}$ is sharply peaked near the throat.
+Numerically, the exact integral gives
+$\Delta t_{\text{echo}} \approx 4.2\,\rs/c$.
+Table~\ref{tab:echo} gives explicit estimates for
+astrophysical sources across the LIGO and LISA bands.
+
+\begin{table}[t]
+\caption{\label{tab:echo}%
+Echo delay $\Delta t_{\text{echo}} \approx 4.2\,\rs/c$
+for representative sources compared with Planck-wall
+models~\cite{Cardoso2016} where
+$\Delta t_{\text{Planck}} \approx \rs\ln(\rs/\ell_P)/c$.
+The exponential-metric echoes are $\sim 2$ orders of
+magnitude shorter.}
+\begin{ruledtabular}
+\begin{tabular}{lccc}
+  \textbf{Source} & $M$ & $\Delta t_{\text{echo}}$
+    & $\Delta t_{\text{Planck}}$ \\
+  \colrule
+  Stellar BH (GW150914) & $60\,M_\odot$
+    & $2.5$~ms & $\sim 230$~ms \\
+  Intermediate-mass BH & $10^{3}\,M_\odot$
+    & $40$~ms & $\sim 4$~s \\
+  Sgr A* & $4{\times}10^{6}\,M_\odot$
+    & $165$~s & $\sim 1.9{\times}10^{4}$~s \\
+  M87* & $6.5{\times}10^{9}\,M_\odot$
+    & $74$~hr & $\sim 350$~d \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+The $2.5$~ms echo for stellar-mass mergers falls in
+the LIGO--Virgo--KAGRA sensitivity band
+($20$--$2000$~Hz; the echo frequency
+$\sim 1/\Delta t \sim 400$~Hz is near peak sensitivity).
+For supermassive black holes, the echo timescale of
+minutes to hours is within the LISA band
+($10^{-4}$--$10^{-1}$~Hz).
+This is $\sim 90\times$ shorter than Planck-wall
+models~\cite{Cardoso2016}; current echo searches use
+$\sim 200$~ms templates appropriate for Planck-wall
+scenarios and would \emph{miss} the exponential-metric
+signal.
+Dedicated short-delay searches in existing
+LIGO--Virgo O3/O4 data would be valuable.
+
+The echo prediction follows directly from the no-horizon
+theorem: since $\tauasym < 1$ everywhere, the
+gravitational potential forms a well, not a one-way
+membrane.
+Gravitational waves enter, scatter off the wormhole
+throat, and return---carrying the signature of
+incomplete information loss.
+This echo prediction has not yet been tested with
+appropriate short-delay templates.
+A null detection with templates matched to
+Eq.~\eqref{eq:echo} would falsify the saturation
+hypothesis ($\sqrt{-g_{00}} = e^{-\Sgrav/2}$), while
+a positive detection would provide direct evidence
+for the exponential metric.
+
+\emph{Summary of falsifiable predictions.}---Table~\ref{tab:predictions_summary}
+collects the three concrete predictions with numerical values.
+All three await experimental verification.
+
+\begin{table}[t]
+\caption{\label{tab:predictions_summary}%
+Falsifiable predictions of the exponential metric
+(conditional on $g_{rr} = e^{+\rs/r}$).
+None has been tested to date.}
+\begin{ruledtabular}
+\begin{tabular}{lcc}
+  \textbf{Observable} & \textbf{Prediction}
+    & \textbf{Schwarzschild} \\
+  \colrule
+  Shadow $b_{\text{crit}}/m$ & $2e \approx 5.44$
+    & $3\sqrt{3} \approx 5.20$ \\
+  QNM shift & $-4.4\%$ & (reference) \\
+  Echo delay (stellar) & $\approx 2.5$~ms
+    & none (horizon) \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\emph{Honest assessment.}---Since both metrics share
+$\gamma = \beta = 1$, weak-field data cannot
+distinguish them; the first differences are
+inherently \emph{strong-field} effects.
+If nature selects $F > e^{-\Sgrav/2}$, the actual
 metric lies between the exponential and Schwarzschild
 predictions.
-Current data cannot distinguish the two metrics:
-the most distinctive prediction---gravitational-wave echoes
-at $\Delta t \approx 4.2\,\rs/c$ ($\sim 2.5$~ms for
-$60\,M_\odot$)---has not been searched for, as existing echo
-analyses use $\sim 200$~ms templates optimized for Planck-wall
-models~\cite{Cardoso2016}.
-Dedicated short-delay searches using existing LIGO--Virgo O3/O4
-data could test this prediction.
-The identification~\eqref{eq:triple} is robust in weak fields
-and suggestive in strong fields.
-All conditional predictions (shadow, ISCO, QNM, echoes) depend
-on the isometry assumption $g_{rr} = e^{+\rs/r}$; the robust
-predictions (no-horizon theorem, $\nref = 1/\Fbound$,
-decoherence bound) depend only on $g_{00}$.
+We emphasize a two-layer structure:
+the \emph{robust} predictions (no-horizon theorem,
+$\nref = 1/\Fbound$, decoherence bound) depend only on
+$g_{00}$ and hold regardless of the spatial metric;
+the \emph{conditional} predictions (shadow, QNM,
+echoes) depend on the isometry assumption
+$g_{rr} = e^{+\rs/r}$.
+The most characteristic signature---short-delay
+echoes~\eqref{eq:echo}---has not yet been searched
+for with appropriate templates in LIGO--Virgo data.
+
+%=======================================================================
+\section{Supporting Connections}
+\label{sec:connections}
+%=======================================================================
+
+The $\tauasym$ framework connects to several established
+results in gravitational physics.
+We classify each connection in Table~\ref{tab:classification}.
+
+\emph{Gravitational decoherence.}---[\textsc{new synthesis}]
+Pikovski et~al.~\cite{Pikovski2015} showed that gravitational
+time dilation universally dephases composite quantum systems.
+In the $\tauasym$ framework~\cite{Paper1b},
+\begin{equation}
+  \tauasym_{\mathrm{grav}}(t)
+  = 1 - \exp\!\big(-N\Gamma t^2\big)\,,
+  \label{eq:tau_pikovski}
+\end{equation}
+where $\Gamma = (\Delta E)^2(\Delta\Phi)^2/(2\hbar^2 c^4)$.
+The dephasing rate is controlled by
+$\Delta\Phi/c^2 \sim \Sgrav/2$: the gravitational entropy
+production governs both the static (refractive index) and
+dynamic (decoherence) aspects of information loss.
+
+\emph{Unruh effect.}---[\textsc{new synthesis}]
+A uniformly accelerating observer at acceleration $a$
+perceives a thermal bath at $T_U = \hbar a/(2\pi c\kB)$,
+inducing entropy production
+$\Sigma_{\text{Unruh}} = 2\pi a\Delta x/(\hbar c^2)$
+on any carried system~\cite{Unruh1976,LandiPaternostro2021}.
+By the equivalence principle, this connects to $\Sgrav$.
+
+\emph{Bekenstein bound.}---[\textsc{new synthesis}]
+The bound $S \leq 2\pi ER/(\hbar c)$~\cite{Bekenstein1981}
+translates to $\tauasym \leq 1 - \exp(-\pi ER/(\hbar c))$,
+providing a universal upper limit on temporal asymmetry
+for spatially bounded systems.
+
+\emph{Complementarity.}---[\textsc{new synthesis}]
+The infalling observer experiences
+$\tauasym_{\text{in}} \approx 0$ (locally flat), while the
+external observer describes
+$\tauasym_{\text{ext}} \to 1$~\cite{Susskind1993}.
+Different observer foliations assign different $\tauasym$
+values---complementarity is observer-dependent $\tauasym$.
+
+\emph{Page curve.}---[\textsc{new synthesis}]
+The Page curve~\cite{Page1993} translates to
+$\tauasym(t) \leq 1 - e^{-S_{\text{Page}}(t)/2}$:
+$\tauasym$ grows before the Page time (information loss
+worsens) and shrinks after it (recovery
+improves)~\cite{Penington2020,AEMM2021}.
+
+\emph{Hayden--Preskill.}---[\textsc{known}]
+Cotler et~al.~\cite{Cotler2019} proved that the HP
+decoder~\cite{HaydenPreskill2007} \emph{is} the Petz
+recovery map, with fidelity satisfying the same
+bound~\eqref{eq:tau_bound_paper1}.
+
+\emph{Entanglement wedge.}---[\textsc{known}]
+In AdS/CFT, bulk reconstruction via the Petz
+map~\cite{ADH2015,CPS2020} satisfies
+$F^2 \geq e^{-\Delta S_{\text{gen}}}$~\cite{Cotler2019}---the
+same universal recovery inequality.
+
+\begin{table}[t]
+\caption{\label{tab:classification}Classification of results.}
+\begin{ruledtabular}
+\begin{tabular}{lc}
+  \textbf{Connection} & \textbf{Status} \\
+  \colrule
+  $\ceff/c = \Fbound$ (refractive index)
+    & \textsc{new synthesis} \\
+  $\Sgrav = -\ln(-g_{00})$ (entropy production)
+    & \textsc{new definition} \\
+  $\tauasym$ is local $\to$ apparent horizon
+    & \textsc{new synthesis} \\
+  Kodama extension to dynamic spacetimes
+    & \textsc{new synthesis} \\
+  No-horizon theorem
+    & \textsc{new synthesis} \\
+  Observer-dependent $\tauasym$ (complementarity)
+    & \textsc{new synthesis} \\
+  Page curve as $\tauasym(t)$
+    & \textsc{new synthesis} \\
+  Gravitational decoherence as Petz recovery
+    & \textsc{new synthesis} \\
+  HP decoder = Petz map~\cite{Cotler2019}
+    & \textsc{known} \\
+  Entanglement wedge via Petz~\cite{CPS2020}
+    & \textsc{known} \\
+  $F^2 \geq e^{-\Delta S_{\mathrm{gen}}}$~\cite{Penington2020}
+    & \textsc{known} \\
+  SYK verification of $\tauasym$ tracking AH
+    & \textsc{speculative} \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
 
 %=======================================================================
 \section{What $\tauasym$ Can and Cannot Explain}
@@ -626,19 +1020,22 @@ decoherence bound) depend only on $g_{00}$.
 
 \emph{Can:}
 \begin{itemize}
+\item Identify information loss as a local, operational
+  quantity that does not require knowledge of the future.
+\item Identify the apparent horizon---not the event
+  horizon---as the operationally relevant boundary,
+  consistent with the QES prescription.
 \item Unify quantum error correction, thermodynamic
   irreversibility, black hole information, and gravitational
   decoherence under a single parameter $\tauasym$.
 \item Provide universal bounds: any gravitational channel
   satisfies $F \geq e^{-\Sgrav/2}$, constraining recovery
   independently of the specific protocol.
-\item Reproduce the Bekenstein bound, the Unruh entropy
-  production, and the Page curve bound in $\tauasym$ language.
-\item Identify the Hayden--Preskill decoder as the Petz map
-  (established result~\cite{Cotler2019}).
 \item Derive the no-horizon theorem: $\tauasym < 1$ for any
   finite-mass object at finite distance
   (model-independent~\cite{JRSWW2018}).
+\item Extend to dynamical spacetimes via the Kodama vector,
+  tracking apparent horizons in Vaidya and FRW.
 \end{itemize}
 
 \emph{Cannot:}
@@ -646,27 +1043,27 @@ decoherence bound) depend only on $g_{00}$.
 \item Explain dark matter: at galactic scales,
   $\Sgrav \sim 10^{-6}$, far too small to produce observable
   effects beyond Newtonian gravity.
-\item Explain dark energy or the cosmological constant:
-  the framework is silent on cosmological dynamics.
-\item Derive $g_{ab}$ from $\tauasym$: the relation is
+\item Explain dark energy or the cosmological constant.
+\item Derive $g_{ab}$ from $\tauasym$ alone: the relation is
   one-directional ($g \to \Sigma \to \tauasym$); $\tauasym$
-  constrains only $g_{00}$, not the full metric tensor.
-  The spatial component $g_{rr}$ requires an independent
-  assumption (Sec.~\ref{sec:exponential}); programs that
-  derive all components (Jacobson, Dorau--Much)
-  yield Schwarzschild, not the exponential metric.
-\item Construct a canonical gravitational CPTP map: the bypass
-  strategy (Sec.~\ref{sec:identification}) establishes
-  $\Sgrav = \rs/r$ without an explicit channel, but the
-  Kraus-operator representation of $\chan_{\mathrm{grav}}$
-  remains open~\cite{KasprzakTjoa2024,TrejoCalderon2025}.
+  constrains only $g_{00}$.
+  The spatial component $g_{rr}$ follows from the Dicke
+  isometry condition; programs that derive all components
+  from entanglement equilibrium
+  (Jacobson, Dorau--Much, Bianconi GfE~\cite{Bianconi2025})
+  yield Schwarzschild (plus perturbative
+  corrections~\cite{Thattarampilly2026}) as the
+  \emph{vacuum} solution.
+  The exponential metric requires a phantom scalar source,
+  whose information-theoretic origin remains open.
+\item Provide the full non-perturbative Bogoliubov calculation
+  beyond geometric optics: the channel of
+  Theorem~\ref{thm:grav_channel} is derived in the WKB limit,
+  with greybody corrections bounded at $O((\rs/r)^2)$.
 \item Resolve the firewall paradox~\cite{AMPS2013}: while
   $\tauasym < 1$ removes the event horizon premise, the
   framework does not address the interior structure of compact
   objects.
-\item Apply to general dynamical spacetimes without
-  modification: the static formulation requires a timelike
-  Killing vector (see Discussion for the Kodama extension).
 \end{itemize}
 
 %=======================================================================
@@ -674,93 +1071,105 @@ decoherence bound) depend only on $g_{00}$.
 \label{sec:discussion}
 %=======================================================================
 
+The central result of this paper is that gravitational
+information loss is \emph{local}.
+The temporal asymmetry $\tauasym = 1 - \sqrt{-g_{00}}$
+depends only on the metric component at a single point.
+The operationally relevant boundary for information loss is
+therefore the apparent horizon---a quasi-local, causal
+surface~\cite{AshtekarKrishnan2004}---not the event
+horizon.
+This is consistent with the quantum extremal surface
+prescription~\cite{Penington2020,Engelhardt2015} and the
+crossed-product algebra approach~\cite{Witten2022,%
+Chandrasekaran2023}, which makes gravitational entropy
+well-defined and observer-dependent~\cite{KudlerFlam2025}.
+
 The identification $\ceff/c = \Fbound$
-(Eq.~\eqref{eq:triple}) provides a concrete bridge between
-quantum information theory and gravitational physics.
-Its logical structure is complementary to the Jacobson
+(Eq.~\eqref{eq:triple}) is complementary to the Jacobson
 program~\cite{Jacobson1995}: while Jacobson derives
 \emph{field equations} from thermodynamic entropy, we derive
 the \emph{metric} directly from information recoverability.
-Both approaches share the premise that geometry is
-information-theoretic in origin; they differ in which
-information-theoretic quantity is taken as fundamental and
-consequently arrive at different strong-field predictions.
-
 The Dorau--Much result~\cite{DorauMuch2025}---deriving the
 semiclassical Einstein equations from quantum relative
-entropy---suggests that the two programs may converge:
-our $\Sgrav = -\ln(-g_{00})$ and their QRE-based field
-equations share the same informational foundation.
-
-Several open questions merit investigation.
-
-(i)~\emph{Dynamic spacetimes.}---The most pressing limitation
-is the restriction to static metrics.
-The Kodama vector~\cite{Kodama1980}---the unique
-divergence-free timelike vector in spherically symmetric
-spacetimes---provides a natural extension:
-$\Fbound^K(A\!\to\!B) = |K|_A/|K|_B$.
-In the static limit, $K^a$ reduces to the Killing vector
-and $\Fbound^K = \sqrt{-g_{00}}$, recovering all results of
-this paper.
-In Vaidya collapse (mass accretion $M(v)$),
-$\tauasym_K(r,v) = 1 - \sqrt{1 - 2M(v)/r}$, tracking the
-\emph{apparent} horizon---a quasi-local, causal surface---rather
-than the event horizon.
-In FRW cosmology,
-$\tauasym_K(R) = 1 - \sqrt{1 - H^2 R^2}$, reaching
-$\tauasym = 1$ at the Hubble radius.
-Recent work extends the Kodama approach to axisymmetric
-spacetimes~\cite{DorauVerch2024}.
-The deeper theoretical foundation lies in modular
-flow~\cite{Witten2022,Chandrasekaran2023}: the
-Tomita--Takesaki modular automorphism defines $\tauasym$ for
-any spacetime and any state, without requiring symmetry.
-Crossed-product algebras make gravitational entropy
-well-defined and observer-dependent~\cite{KudlerFlam2025},
-consistent with the coordinate dependence of $\Sgrav$.
+entropy---suggests that the two programs share a common
+informational foundation.
 Cirafici~\cite{Cirafici2024} has established fluctuation
 theorems in gravitational algebras, confirming that the
-Crooks--Petz connection of Paper~I extends to de~Sitter
-spacetime.
+Crooks--Petz connection extends to de~Sitter spacetime.
 
-(ii)~\emph{$\tauasym$ at the Planck scale}: when
-$\Sgrav \sim O(1)$, quantum gravity effects become important.
-Loop quantum gravity corrections to the exponential metric
-have been computed~\cite{GuoYuan2025}, but their
-information-theoretic interpretation remains unexplored.
+We emphasize the logical structure of this paper.
+The results of Secs.~\ref{sec:identification}--\ref{sec:nohorizon}
+---the triple identification, locality of $\tauasym$,
+and the no-horizon theorem---hold for \emph{any} static metric
+satisfying $\Sgrav = -\ln(-g_{00})$ with $\Sgrav < \infty$;
+they are independent of whether the metric is Schwarzschild,
+exponential, or the Schwarzschild-plus-corrections solution of
+Gravity-from-Entropy~\cite{Thattarampilly2026,Bianconi2025}.
+The exponential metric enters only in Sec.~\ref{sec:predictions},
+where it serves as a maximal-recovery ansatz that saturates
+$F = e^{-\Sgrav/2}$.
+All currently known entanglement-based gravity programs
+(Jacobson, Dorau--Much, Bianconi GfE) produce Schwarzschild
+as the leading-order vacuum solution, with perturbative
+corrections~\cite{Thattarampilly2026}.
+Whether nature saturates the Petz bound
+or admits a gap of order $O((\rs/r)^2)$ is empirical---and
+the echo prediction of Sec.~\ref{sec:predictions} is precisely
+the observable that distinguishes the two possibilities.
 
-(iii)~\emph{The canonical channel}: the modular channel
-construction of Trejo-Calder\'{o}n~\cite{TrejoCalderon2025}
-builds a CPTP map from the singular values of the modular
-operator.
-Computing its QRE loss in Schwarzschild would either confirm
-$\Sigma = \rs/r$ from first principles or reveal a correction.
-Kasprzak and Tjoa~\cite{KasprzakTjoa2024} provide the most
-rigorous framework for quantum information transmission through
-curved-spacetime fields; combining their channel with the
-modular construction is a concrete next step.
-
-(iv)~\emph{Rotation}: the Kerr analog of the exponential
-metric~\cite{Graber2017,MakukovMychelkin2023} has neither
-horizons nor ergospheres; its information-theoretic derivation
-requires extending the framework beyond spherical symmetry.
-
-(v)~\emph{Non-Markovian gravity}: if the gravitational
-channel exhibits memory effects, the entropy production $\Sgrav$
-may not be additive, and the Petz bound requires
+Several directions remain.
+\emph{(i)~Beyond geometric optics}: the gravitational thermal
+attenuator (Theorem~\ref{thm:grav_channel}) is established in
+the WKB limit; computing the exact greybody spectrum for the
+exponential metric would determine whether the channel
+\emph{saturates} the Petz bound or admits a gap of order
+$O((\rs/r)^2)$.
+\emph{(ii)~Rotation}: the Kerr analog of the exponential
+metric~\cite{Graber2017,MakukovMychelkin2023} lacks both
+horizons and ergospheres; extending the framework beyond
+spherical symmetry requires the axisymmetric
+Kodama-type vector of Dorau and
+Verch~\cite{DorauVerch2024}.
+\emph{(iii)~Entanglement-assisted recovery}:
+[\textsc{new synthesis}]  When the gravitational channel
+$\chan_{\mathrm{grav}}$ acts on a system $L$ that is entangled
+with a reference $R$, the total QRE decrease decomposes as
+$\Delta D_{\mathrm{total}} = \Sgrav + I(L;R) - I(L';R) \geq 0$
+(by the data-processing inequality), where $L' = \chan(L)$.
+The single-party bound $F \geq e^{-\Sgrav/2}$ is derived
+without access to $R$; when the recovery map has access to the
+quantum side information in $R$, the assisted fidelity satisfies
+$F_{\mathrm{assisted}} \geq
+e^{-(\Sgrav + I(L;R) - I(L';R))/2}$.
+If the channel approximately preserves entanglement
+($I(L';R) \approx I(L;R)$), then
+$F_{\mathrm{assisted}} \gg e^{-\Sgrav/2}$:
+the recovery far exceeds the single-party geometric bound.
+This is precisely the mechanism behind the Gao--Jafferis--Wall
+traversable wormhole~\cite{GaoJafferisWall2017} and the
+Hayden--Preskill protocol~\cite{HaydenPreskill2007}---shared
+entanglement provides a quantum side channel that enhances
+recovery without making the total entropy production negative.
+The assisted vs.\ unassisted gap
+$\Delta F \equiv F_{\mathrm{assisted}} - e^{-\Sgrav/2}$
+is a continuous measure that unifies the Page curve transition
+(growing $I(L';R)$) with wormhole traversability
+(high $I(L';R)/I(L;R)$).
+This prediction is testable via SYK numerics and quantum
+circuit experiments~\cite{Jafferis2022}.
+\emph{(iv)~Non-Markovian gravity}: if the gravitational
+channel exhibits memory effects, $\Sgrav$ may not be additive
+and the Petz bound requires
 modification~\cite{LandiPaternostro2021}.
+This could serve as a signature of quantum gravity:
+classical gravity is necessarily Markovian, while quantum
+gravity may permit non-Markovian information backflow.
 
 In Paper~1b~\cite{Paper1b}, we applied the $\tauasym$ framework
-to wavefunction collapse, showing that gravitational
-decoherence drives $\tauasym \to 1$ and objectivity ($R \to N$)
-at the same timescale.
-The present paper extends the framework to strong gravitational
-fields.
+to wavefunction collapse.
 A future paper (Paper~3) will investigate the weak-field limit
-at galactic scales, where quantum corrections to the
-gravitational channel may produce observable effects on
-rotation curves.
+at galactic scales.
 
 \begin{acknowledgments}
 The author thanks the quantum information, quantum gravity,
@@ -772,7 +1181,7 @@ foundations on which this work builds.
 % BIBLIOGRAPHY
 %=======================================================================
 
-\begin{thebibliography}{48}
+\begin{thebibliography}{55}
 
 % === Paper series ===
 
@@ -826,6 +1235,11 @@ R.~H.~Dicke,
 ``Gravitation without a Principle of Equivalence,''
 Rev.\ Mod.\ Phys.\ \textbf{29}, 363 (1957).
 
+\bibitem{Hawking1973}
+S.~W.~Hawking and G.~F.~R.~Ellis,
+\emph{The Large Scale Structure of Space-Time}
+(Cambridge University Press, 1973).
+
 \bibitem{Papapetrou1954}
 A.~Papapetrou,
 ``Eine Theorie des Gravitationsfeldes mit einer Feldfunktion,''
@@ -845,6 +1259,19 @@ Found.\ Phys.\ \textbf{50}, 1346 (2020).
 P.~Boonserm, T.~Ngampitipan, A.~Simpson, and M.~Visser,
 ``Exponential metric represents a traversable wormhole,''
 Phys.\ Rev.\ D \textbf{98}, 084048 (2018).
+
+\bibitem{Misner1999}
+C.~W.~Misner,
+``Yilmaz Cancels Newton,''
+Nuovo Cimento B \textbf{114}, 1079 (1999);
+arXiv:gr-qc/9504050.
+
+\bibitem{Mychelkin2024}
+E.~G.~Mychelkin, M.~A.~Makukov, and G.~Suliyeva,
+``On the weak and strong field effects in antiscalar
+background,''
+Gen.\ Relativ.\ Gravit.\ \textbf{56}, 44 (2024);
+arXiv:2403.11610.
 
 \bibitem{Bertotti2003}
 B.~Bertotti, L.~Iess, and P.~Tortora,
@@ -971,16 +1398,6 @@ H.~Chen, G.~Penington, and G.~Salton,
 ``Entanglement Wedge Reconstruction using the Petz Map,''
 J.\ High Energy Phys.\ \textbf{2020}(01), 168 (2020).
 
-\bibitem{Jafferis2016}
-D.~L. Jafferis, A.~Lewkowycz, J.~Maldacena, and S.~S. Suh,
-``Relative entropy equals bulk relative entropy,''
-J.\ High Energy Phys.\ \textbf{2016}(06), 004 (2016).
-
-\bibitem{MaldacenaSusskind2013}
-J.~Maldacena and L.~Susskind,
-``Cool horizons for entangled black holes,''
-Fortschr.\ Phys.\ \textbf{61}, 781 (2013).
-
 \bibitem{AMPS2013}
 A.~Almheiri, D.~Marolf, J.~Polchinski, and J.~Sully,
 ``Black Holes: Complementarity vs.\ Firewalls,''
@@ -993,6 +1410,48 @@ T.~Jacobson,
 ``Thermodynamics of Spacetime: The Einstein Equation of State,''
 Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995).
 
+\bibitem{Bianconi2025}
+G.~Bianconi,
+``Gravity from entropy,''
+Phys.\ Rev.\ D \textbf{111}, 066001 (2025);
+arXiv:2408.14391.
+
+\bibitem{Thattarampilly2026}
+U.~Thattarampilly, Y.~Zheng, and V.~K.~Kakkat,
+``Spherically symmetric black holes in Gravity from Entropy
+and spontaneous emission,''
+arXiv:2602.13694 (2026).
+
+% === Horizons: apparent, quasi-local, QES ===
+
+\bibitem{Hayward1994}
+S.~A.~Hayward,
+``General laws of black-hole dynamics,''
+Phys.\ Rev.\ D \textbf{49}, 6467 (1994).
+
+\bibitem{AshtekarKrishnan2004}
+A.~Ashtekar and B.~Krishnan,
+``Isolated and dynamical horizons and their applications,''
+Living Rev.\ Relativ.\ \textbf{7}, 10 (2004).
+
+\bibitem{Engelhardt2015}
+N.~Engelhardt and A.~C.~Wall,
+``Quantum extremal surfaces: holographic entanglement
+entropy beyond the classical regime,''
+J.\ High Energy Phys.\ \textbf{2015}(01), 073 (2015).
+
+\bibitem{Kodama1980}
+H.~Kodama,
+``Conserved energy flux for the spherically symmetric system
+and the backreaction problem in the black hole evaporation,''
+Prog.\ Theor.\ Phys.\ \textbf{63}, 1217 (1980).
+
+\bibitem{AbreuVisser2010}
+G.~Abreu and M.~Visser,
+``Kodama time: geometrically preferred foliations of GR
+spacetimes,''
+Phys.\ Rev.\ D \textbf{82}, 044027 (2010).
+
 % === Observations ===
 
 \bibitem{EHT2019}
@@ -1000,31 +1459,37 @@ Event Horizon Telescope Collaboration,
 ``First M87 Event Horizon Telescope Results.\ I.,''
 Astrophys.\ J.\ Lett.\ \textbf{875}, L1 (2019).
 
-\bibitem{NICER2019}
-M.~C.~Miller \emph{et al.},
-``PSR J0030+0451 Mass and Radius from NICER Data,''
-Astrophys.\ J.\ Lett.\ \textbf{887}, L24 (2019).
-
 \bibitem{Cardoso2016}
 V.~Cardoso, E.~Franzato, and P.~Pani,
 ``Is the Gravitational-Wave Ringdown a Probe of the Event
 Horizon?,''
 Phys.\ Rev.\ Lett.\ \textbf{116}, 171101 (2016).
 
-\bibitem{DSW2022}
-D.~L. Danielson, G.~Satishchandran, and R.~M. Wald,
-``Gravitationally mediated entanglement: Newtonian field versus
-gravitons,''
-Phys.\ Rev.\ D \textbf{105}, 086001 (2022).
+% === SYK and holography ===
+
+\bibitem{SachdevYe1993}
+S.~Sachdev and J.~Ye,
+``Gapless spin-fluid ground state in a random quantum
+Heisenberg magnet,''
+Phys.\ Rev.\ Lett.\ \textbf{70}, 3339 (1993).
+
+\bibitem{MaldacenaStanford2016}
+J.~Maldacena and D.~Stanford,
+``Remarks on the Sachdev-Ye-Kitaev model,''
+Phys.\ Rev.\ D \textbf{94}, 106002 (2016).
+
+\bibitem{GaoJafferisWall2017}
+P.~Gao, D.~L.~Jafferis, and A.~C.~Wall,
+``Traversable wormholes via a double trace deformation,''
+J.\ High Energy Phys.\ \textbf{2017}(12), 151 (2017).
+
+\bibitem{Jafferis2022}
+D.~Jafferis, A.~Zlokapa, J.~D.~Lykken, D.~K.~Kolchmeyer,
+S.~I.~Davis, N.~Lauk, H.~Neven, and M.~Spiropulu,
+``Traversable wormhole dynamics on a quantum processor,''
+Nature \textbf{612}, 51 (2022).
 
 % === Recent related work ===
-
-\bibitem{GuoYuan2025}
-Y.~Guo and J.~Yuan,
-``Quantum effective dynamics of Papapetrou spacetime,''
-Eur.\ Phys.\ J.\ C (2025).
-
-% === New references from research round 2026-03-10 ===
 
 \bibitem{GalleyGiacominiSelby2023}
 T.~D.~Galley, F.~Giacomini, and J.~O.~E.~Selby,
@@ -1050,17 +1515,6 @@ M.~Cirafici,
 algebras,''
 arXiv:2408.04219 (2024).
 
-\bibitem{Kodama1980}
-H.~Kodama,
-``Conserved energy flux for the spherically symmetric system
-and the backreaction problem in the black hole evaporation,''
-Prog.\ Theor.\ Phys.\ \textbf{63}, 1217 (1980).
-
-\bibitem{Hayward1994}
-S.~A.~Hayward,
-``General laws of black-hole dynamics,''
-Phys.\ Rev.\ D \textbf{49}, 6467 (1994).
-
 \bibitem{DorauVerch2024}
 L.~Dorau and R.~Verch,
 ``Modular flow and entropy for axisymmetric spacetimes,''
@@ -1081,11 +1535,36 @@ J.~Kudler-Flam, S.~Leutheusser, and G.~Satishchandran,
 ``Generalized black hole entropy is von~Neumann entropy,''
 arXiv:2309.15897 (2025).
 
-\bibitem{MoreiraCeleri2026}
-S.~V.~Moreira and L.~C.~Celeri,
-``Decoherence and entropy production due to quantum
-fluctuations of spacetime,''
-arXiv:2603.02034 (2026).
+\bibitem{supplement}
+See Supplemental Material for detailed Kodama vector
+derivation, event horizon calculations in Vaidya
+spacetime, QES connection, and echo delay derivation.
+
+\bibitem{Hiscock1981}
+W.~A.~Hiscock,
+``Models of evaporating black holes,''
+Phys.\ Rev.\ D \textbf{23}, 2823 (1981).
+
+\bibitem{BirrellDavies1982}
+N.~D.~Birrell and P.~C.~W.~Davies,
+\emph{Quantum Fields in Curved Space}
+(Cambridge University Press, 1982).
+
+\bibitem{IvanSabapathySimon2011}
+J.~S.~Ivan, K.~K.~Sabapathy, and R.~Simon,
+``Operator-sum representation for bosonic Gaussian channels,''
+Phys.\ Rev.\ A \textbf{84}, 042311 (2011).
+
+\bibitem{HolevoWerner2001}
+A.~S.~Holevo and R.~F.~Werner,
+``Evaluating capacities of bosonic Gaussian channels,''
+Phys.\ Rev.\ A \textbf{63}, 032312 (2001).
+
+\bibitem{Wald1994}
+R.~M.~Wald,
+\emph{Quantum Field Theory in Curved Spacetime and
+Black Hole Thermodynamics}
+(University of Chicago Press, 1994).
 
 \end{thebibliography}
 

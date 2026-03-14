@@ -1,0 +1,408 @@
+% paper2_supplement.tex
+% Supplemental Material for:
+% "Information Loss is Local:
+%  The Gravitational Refractive Index as Petz Recovery Fidelity"
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper2_supplement.tex
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+% Macros (same as main paper)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\tauasym}{\tau}
+\newcommand{\ceff}{c_{\mathrm{eff}}}
+\newcommand{\rs}{r_{\mathrm{s}}}
+\newcommand{\Sgrav}{\Sigma_{\mathrm{grav}}}
+\newcommand{\Fbound}{F_{\mathrm{bound}}}
+
+\begin{document}
+
+\title{Supplemental Material for ``Information Loss is Local''}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\maketitle
+
+%=======================================================================
+\section{Kodama vector in Vaidya spacetime}
+\label{sec:kodama_derivation}
+%=======================================================================
+
+The ingoing Vaidya metric in advanced
+Eddington--Finkelstein coordinates $(v,r,\theta,\phi)$ is
+\begin{equation}
+  ds^2 = -f\,dv^2 + 2\,dv\,dr + r^2\,d\Omega^2\,,
+  \label{eq:vaidya}
+\end{equation}
+where $f(v,r) \equiv 1 - 2M(v)/r$ and $M(v)$ is the
+Bondi mass.
+The 2D orbit-space metric on the $(v,r)$ submanifold is
+\begin{equation}
+  h_{AB}\,dx^A dx^B = -f\,dv^2 + 2\,dv\,dr\,,
+  \label{eq:h2d}
+\end{equation}
+with $\det(h) = -1$.
+
+The Kodama vector~\cite{Kodama1980} is defined as
+$K_A = \epsilon_A{}^B\,\partial_B R$, where $R = r$ is
+the areal radius and $\epsilon_{AB}$ is the volume form
+on the orbit space: $\epsilon_{vr} = \sqrt{-\det h} = 1$.
+
+\emph{Inverse metric.}---From
+$h_{AB} = \bigl(\begin{smallmatrix} -f & 1 \\ 1 & 0
+\end{smallmatrix}\bigr)$, the inverse is
+\begin{equation}
+  h^{AB} = \begin{pmatrix} 0 & 1 \\ 1 & f \end{pmatrix}.
+  \label{eq:hinv}
+\end{equation}
+
+\emph{Mixed Levi-Civita tensor.}---Raising the second index:
+\begin{align}
+  \epsilon_v{}^v &= \epsilon_{vA}\,h^{Av}
+    = \epsilon_{vr}\,h^{rv} = 1\,,
+  \label{eq:eps1}\\
+  \epsilon_v{}^r &= \epsilon_{vA}\,h^{Ar}
+    = \epsilon_{vr}\,h^{rr} = f\,,
+  \label{eq:eps2}\\
+  \epsilon_r{}^v &= \epsilon_{rA}\,h^{Av}
+    = \epsilon_{rv}\,h^{vv} = 0\,,
+  \label{eq:eps3}\\
+  \epsilon_r{}^r &= \epsilon_{rA}\,h^{Ar}
+    = \epsilon_{rv}\,h^{vr} = -1\,.
+  \label{eq:eps4}
+\end{align}
+
+\emph{Covariant components.}---Since
+$\partial_B R = \delta^r_B$:
+\begin{align}
+  K_v &= \epsilon_v{}^B\,\partial_B R
+       = \epsilon_v{}^r = f = 1 - \frac{2M(v)}{r}\,,
+  \label{eq:Kv}\\
+  K_r &= \epsilon_r{}^B\,\partial_B R
+       = \epsilon_r{}^r = -1\,.
+  \label{eq:Kr}
+\end{align}
+
+\emph{Contravariant components and norm.}---Raising with
+$h^{AB}$:
+\begin{equation}
+  K^v = h^{vA}K_A = K_r = -1\,,\qquad
+  K^r = h^{rA}K_A = K_v + f\,K_r = 0\,.
+\end{equation}
+The norm is
+\begin{equation}
+  |K|^2 = h_{AB}\,K^A K^B
+  = h_{vv}\,(K^v)^2 = -f\,,
+  \label{eq:Knorm}
+\end{equation}
+so
+\begin{equation}
+  \boxed{\;|K| = \sqrt{1 - \frac{2M(v)}{r}}\;\;}
+  \quad\text{for } r > 2M(v)\,.
+  \label{eq:Knorm_result}
+\end{equation}
+
+The Kodama vector is timelike ($|K|^2 < 0$) for
+$r > 2M(v)$, null at $r = 2M(v)$, and spacelike for
+$r < 2M(v)$.
+Crucially, $|K|$ depends only on the \emph{current} mass
+$M(v)$ and radius $r$---it is a local quantity.
+
+The temporal asymmetry parameter is therefore
+\begin{equation}
+  \tauasym_K(r,v) = 1 - |K| = 1 - \sqrt{1 - \frac{2M(v)}{r}}\,,
+  \label{eq:tauK}
+\end{equation}
+reaching $\tauasym_K = 1$ at $r = 2M(v)$, the
+\emph{apparent horizon}.
+
+%=======================================================================
+\section{Event horizon in Vaidya spacetime}
+\label{sec:EH}
+%=======================================================================
+
+The event horizon (EH) is the outermost outgoing null
+geodesic that just fails to escape to $r \to \infty$.
+Outgoing radial null geodesics in the Vaidya
+metric~\eqref{eq:vaidya} satisfy
+\begin{equation}
+  \frac{dr}{dv} = \frac{1}{2}\!\left(1
+  - \frac{2M(v)}{r}\right).
+  \label{eq:null_ode}
+\end{equation}
+The EH is the solution $r_{\text{EH}}(v)$
+of~\eqref{eq:null_ode} with boundary condition
+$r_{\text{EH}}(v) \to 2M_{\text{final}}$ as
+$v \to \infty$.
+This must be integrated \emph{backward} from
+$v = \infty$---a manifestly teleological procedure.
+
+\subsection{Step-function collapse}
+
+For $M(v) = M_0\,\theta(v)$:
+\begin{itemize}
+\item $v > 0$ (Schwarzschild):
+  $dr/dv = \frac{1}{2}(1 - 2M_0/r)$, static EH at
+  $r = 2M_0$.
+\item $v < 0$ (Minkowski): $dr/dv = 1/2$, so
+  $r = v/2 + C$.  Matching at $v = 0$ gives
+  $r_{\text{EH}}(v) = v/2 + 2M_0$.
+\end{itemize}
+The EH originates at $r = 0$ when $v = -4M_0$---in flat
+space, \emph{before} the shell arrives.  The apparent
+horizon appears only at $v = 0$ at $r = 2M_0$.
+
+\subsection{Self-similar accretion: $M(v) = \lambda v$}
+\label{sec:selfsimilar}
+
+The null geodesic equation~\eqref{eq:null_ode} admits a
+self-similar ansatz $r(v) = C\,v$:
+\begin{equation}
+  C = \frac{1}{2}\!\left(1 - \frac{2\lambda}{C}\right)
+  \quad\Longrightarrow\quad
+  2C^2 - C + 2\lambda = 0\,.
+  \label{eq:selfsimilar}
+\end{equation}
+For $\lambda < 1/16$, two real roots:
+\begin{equation}
+  C_{\pm} = \frac{1 \pm \sqrt{1 - 16\lambda}}{4}\,.
+  \label{eq:Cpm}
+\end{equation}
+The event horizon is $r_{\text{EH}}(v) = C_{-}\,v$.
+The apparent horizon is $r_{\text{AH}}(v) = 2\lambda\,v$.
+
+\emph{Proof that $C_{-} > 2\lambda$} (i.e.,
+$r_{\text{EH}} > r_{\text{AH}}$).---Define
+$g(\lambda) \equiv C_{-} - 2\lambda
+= \frac{1}{4}(1 - \sqrt{1-16\lambda}) - 2\lambda$.
+At $\lambda = 0$: $g(0) = 0$.
+The derivative
+\begin{equation}
+  g'(\lambda) = \frac{2}{\sqrt{1-16\lambda}} - 2
+  = 2\!\left(\frac{1}{\sqrt{1-16\lambda}} - 1\right)
+  > 0
+\end{equation}
+for all $\lambda > 0$.  Since $g(0) = 0$ and
+$g' > 0$, we have $g(\lambda) > 0$ for
+$\lambda \in (0, 1/16)$.  \hfill$\square$
+
+For small $\lambda$:
+\begin{equation}
+  \frac{r_{\text{EH}}}{r_{\text{AH}}}
+  = \frac{C_{-}}{2\lambda}
+  = 1 + 4\lambda + O(\lambda^2)\,,
+\end{equation}
+so the fractional excess grows linearly with accretion
+rate.
+
+\subsection{$\tauasym_K$ at the event horizon}
+
+At $r = r_{\text{EH}} = C_{-}\,v$ with
+$M(v) = \lambda v$:
+\begin{equation}
+  \frac{2M(v)}{r_{\text{EH}}}
+  = \frac{2\lambda}{C_{-}}\,.
+  \label{eq:ratio}
+\end{equation}
+This is a constant (independent of $v$!).
+The $\tauasym$ deficit at the EH is
+\begin{equation}
+  \tauasym_K(r_{\text{EH}}) = 1
+  - \sqrt{1 - \frac{2\lambda}{C_{-}}} < 1\,.
+  \label{eq:tau_EH}
+\end{equation}
+
+Table~I of the main text is computed from
+Eqs.~\eqref{eq:Cpm}--\eqref{eq:tau_EH}.
+For example, at $\lambda = 0.03$:
+$C_{-} = (1-\sqrt{0.52})/4 = 0.0697$,
+$2\lambda/C_{-} = 0.861$,
+$\tauasym_K = 1 - \sqrt{0.139} = 0.627$.
+
+\subsection{Smooth accretion: $M(v) = M_0(1-e^{-v/v_0})$}
+
+At late times ($v \gg v_0$), linearization of the null
+ODE around $r = 2M_0$ gives the particular solution
+\begin{equation}
+  r_{\text{EH}}(v) \approx 2M_0
+  - \frac{2M_0 v_0}{4M_0 + v_0}\,e^{-v/v_0}\,.
+  \label{eq:rEH_smooth}
+\end{equation}
+The difference
+\begin{equation}
+  \Delta r \equiv r_{\text{EH}} - r_{\text{AH}}
+  = \frac{8M_0^2}{4M_0 + v_0}\,e^{-v/v_0} > 0
+  \label{eq:Delta_r}
+\end{equation}
+confirms $r_{\text{EH}} > r_{\text{AH}}$ during
+accretion, with the gap proportional to the accretion
+rate $dM/dv = (M_0/v_0)\,e^{-v/v_0}$.
+
+%=======================================================================
+\section{Evaporating black hole}
+\label{sec:evaporation}
+%=======================================================================
+
+For an evaporating black hole with linearly decreasing
+mass $M(v) = M_0(1 - v/v_{\text{evap}})$, the
+situation reverses~\cite{Hiscock1981}:
+\begin{equation}
+  r_{\text{AH}}(v) = 2M(v) > r_{\text{EH}}(v)\,.
+\end{equation}
+The EH is \emph{inside} the AH because it ``knows''
+the mass will decrease.  The Kodama vector is spacelike
+at $r_{\text{EH}}$ (since $r_{\text{EH}} < 2M(v)$,
+the argument of the square root in
+Eq.~\eqref{eq:Knorm_result} is negative), confirming
+that the EH is inside the trapped region.
+
+The sign of $\Delta r = r_{\text{EH}} - r_{\text{AH}}$
+encodes the direction of mass change:
+\begin{center}
+\begin{tabular}{lcc}
+  \textbf{Scenario} & $dM/dv$ & $\Delta r$ \\
+  \colrule
+  Accretion & $> 0$ & $> 0$ (EH outside AH) \\
+  Static    & $= 0$ & $= 0$ (EH $=$ AH) \\
+  Evaporation & $< 0$ & $< 0$ (EH inside AH) \\
+\end{tabular}
+\end{center}
+
+In all cases, $\tauasym_K = 1$ at the AH, never at the EH.
+The event horizon requires future knowledge;
+the apparent horizon (and $\tauasym$) does not.
+
+%=======================================================================
+\section{Connection to quantum extremal surfaces}
+\label{sec:QES}
+%=======================================================================
+
+The quantum extremal surface
+(QES)~\cite{Engelhardt2015,Penington2020}
+extremizes the generalized entropy
+\begin{equation}
+  S_{\text{gen}} = \frac{A}{4G\hbar} + S_{\text{bulk}}
+\end{equation}
+on a time-slice.  In the classical limit
+($\hbar \to 0$), $S_{\text{bulk}} \to 0$ and the QES
+reduces to the classical extremal surface, which for
+spherically symmetric spacetimes is the apparent horizon
+(the outermost MOTS where $\partial_r A = 0$
+$\Leftrightarrow$ $\theta_+ = 0$).
+
+Including quantum corrections:
+\begin{equation}
+  r_{\text{QES}} = r_{\text{AH}}
+  + O\!\left(\frac{\hbar}{M^2}\right),
+\end{equation}
+where the correction comes from $\partial_r S_{\text{bulk}}$.
+During evaporation, $\partial_r S_{\text{bulk}} > 0$
+(bulk entropy increases outward due to Hawking pairs),
+pushing the QES slightly inward:
+$r_{\text{EH}} < r_{\text{QES}} \lesssim r_{\text{AH}}$.
+
+The hierarchy is:
+\begin{equation}
+  r_{\text{EH}} \;<\; r_{\text{QES}}
+  \;\lesssim\; r_{\text{AH}}
+  \qquad\text{(during evaporation)}.
+\end{equation}
+
+In the $\tauasym$ framework:
+\begin{itemize}
+\item $\tauasym_K = 1$ at $r_{\text{AH}}$ (classical);
+\item $\tauasym_K^{\text{quantum}} = 1$ at
+  $r_{\text{QES}}$ (quantum-corrected);
+\item $\tauasym_K \neq 1$ at $r_{\text{EH}}$ in either case.
+\end{itemize}
+
+The $\tauasym$ framework and the QES prescription agree:
+the operationally relevant boundary for information
+dynamics is the (quantum-corrected) apparent horizon,
+not the event horizon.
+
+%=======================================================================
+\section{Echo time delay}
+\label{sec:echo}
+%=======================================================================
+
+The tortoise coordinate for the exponential metric
+$g_{00} = -e^{-\rs/r}$,
+$g_{rr} = e^{+\rs/r}$ is
+\begin{equation}
+  r^{*} = \int \frac{\sqrt{g_{rr}}}{\sqrt{-g_{00}}}\,dr
+  = \int e^{\rs/r}\,dr\,.
+  \label{eq:tortoise}
+\end{equation}
+Since $e^{\rs/r}$ is bounded for $r > 0$ (it equals $e$
+at $r = \rs$ and approaches 1 as $r \to \infty$), the
+tortoise coordinate remains finite.
+This contrasts with Schwarzschild, where
+$r^{*} \to -\infty$ as $r \to \rs$.
+
+The round-trip light travel time from the photon sphere
+($r = \rs$ in isotropic coordinates) through the wormhole
+throat and back is
+\begin{equation}
+  \Delta t_{\text{echo}} = 2 \int_{0}^{\rs}
+  e^{\rs/r}\,dr \approx 4.2\,\frac{\rs}{c}\,,
+  \label{eq:echo_delay}
+\end{equation}
+where the numerical coefficient is evaluated by
+substituting $u = \rs/r$:
+$\int_0^{\rs} e^{\rs/r}\,dr
+= \rs \int_1^{\infty} u^{-2}\,e^u\,du$.
+The integral converges and equals approximately
+$2.1\,\rs$, giving a round trip of $\approx 4.2\,\rs/c$.
+
+For a $60\,M_\odot$ remnant:
+$\rs = 2GM/c^2 = 177$~km,
+$\Delta t \approx 4.2 \times 177/c \approx 2.5$~ms,
+at a frequency $\sim 400$~Hz---squarely in the LIGO band.
+
+%=======================================================================
+% BIBLIOGRAPHY
+%=======================================================================
+
+\begin{thebibliography}{10}
+
+\bibitem{Kodama1980}
+H.~Kodama,
+Prog.\ Theor.\ Phys.\ \textbf{63}, 1217 (1980).
+
+\bibitem{Hayward1994}
+S.~A.~Hayward,
+Phys.\ Rev.\ D \textbf{49}, 6467 (1994).
+
+\bibitem{AbreuVisser2010}
+G.~Abreu and M.~Visser,
+Phys.\ Rev.\ D \textbf{82}, 044027 (2010).
+
+\bibitem{Hiscock1981}
+W.~A.~Hiscock,
+Phys.\ Rev.\ D \textbf{23}, 2823 (1981).
+
+\bibitem{Engelhardt2015}
+N.~Engelhardt and A.~C.~Wall,
+J.\ High Energy Phys.\ \textbf{2015}(01), 073 (2015).
+
+\bibitem{Penington2020}
+G.~Penington,
+J.\ High Energy Phys.\ \textbf{2020}(09), 002 (2020).
+
+\end{thebibliography}
+
+\end{document}

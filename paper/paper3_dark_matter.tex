@@ -1,0 +1,1599 @@
+% paper3_dark_matter.tex
+% Observer-Dependent Dark Matter: Gravitational Entanglement
+% and the MOND Scale from Quantum Retrodiction
+% For submission to Physical Review D
+% Author: Sheng-Kai Huang
+% Compile with: pdflatex paper3_dark_matter.tex
+
+\documentclass[prd,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem*{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+
+% Convenience macros (consistent with Papers 1, 2, 5)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\KL}{D}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\op}[2]{|#1\rangle\langle#2|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tauasym}{\tau}
+\newcommand{\algO}{\mathcal{A}}
+\newcommand{\Msun}{M_\odot}
+
+\begin{document}
+
+\title{Observer-Dependent Dark Matter: Gravitational Entanglement\\
+and the MOND Scale from Quantum Retrodiction}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+We propose that dark matter phenomenology at galactic scales
+arises from the observer-dependence of gravitational entropy
+production $\Sigma$.
+A classical observer, with access only to electromagnetic
+degrees of freedom, assigns a larger entropy production
+$\Sigma_{\mathrm{cl}}$ to a gravitational process than a
+quantum observer who can additionally access the gravitational
+entanglement structure: $\Sigma_{\mathrm{cl}} \geq
+\Sigma_{\mathrm{q}}$, by the data processing inequality.
+The difference $\Sigma_{\mathrm{DM}} \equiv
+\Sigma_{\mathrm{cl}} - \Sigma_{\mathrm{q}}$ manifests as
+apparent dark matter.
+We develop this framework quantitatively by connecting
+observer-dependent $\tauasym = 1 - F$ (Paper~V) to the
+scale-dependent gravitational channel: the anomalous dimension
+$\eta = 1$ identified by Kumar [arXiv:2509.05246], reproduced
+within the $\tauasym$ framework via the data processing
+inequality and extensivity, produces a logarithmic correction
+to the Newtonian potential, yielding flat rotation curves with
+a universal crossover scale $k_* \approx 2.7 \times 10^{-2}
+\;\mathrm{kpc}^{-1}$, consistent with the 100-galaxy SPARC
+validation of Gubitosi \emph{et al.}
+The MOND acceleration scale $a_0 \approx
+cH_0/(2\pi)$ is related to the KMS thermal periodicity of the
+de~Sitter vacuum through the Crooks fluctuation theorem,
+interpreting the MOND transition as the onset of marginal
+irreversibility ($\Sigma \sim 1$).
+A Crooks-inspired interpolation function
+$\mu(x) = 1 - e^{-x}$ with $x = a/a_0$ is proposed and
+shown to be competitive with standard MOND interpolations.
+The Bullet Cluster is addressed through an entanglement
+rigidity argument.
+The Khronon coupling
+$\mu_0 = H_0/c$---the unique dimensionally-determined value
+from the de~Sitter temperature---with anomalous dimension
+$\eta_\mu = 1$ produces dust-like behavior
+($\tilde{w}_0 \sim 4 \times 10^{-10}$) at CMB scales,
+providing a candidate for the pressureless mode needed for
+the acoustic peaks.
+The exact $\Omega_{\mathrm{DM}} h^2$ prefactor requires
+the numerical computation of Paper~IV, and this CMB
+resolution remains unverified.
+\end{abstract}
+
+\maketitle
+
+%=======================================================================
+\section{Introduction}
+\label{sec:intro}
+%=======================================================================
+
+The dark matter problem is one of the central puzzles in
+physics.  Galaxy rotation curves flatten at large
+radii~\cite{Rubin1980}, the cosmic microwave background (CMB)
+acoustic peaks require a pressureless, non-baryonic component
+with $\Omega_{\mathrm{CDM}} h^2 \approx 0.12$~\cite{Planck2018},
+and gravitational lensing in the Bullet Cluster shows mass
+displaced from the dominant baryonic component~\cite{Clowe2006}.
+These observations are well described by the
+$\Lambda$CDM concordance model, in which cold dark matter
+(CDM) particles constitute roughly 27\% of the energy budget
+of the universe.
+
+Yet four decades of direct detection experiments have found no
+CDM particles~\cite{Schumann2019}.  This null result, combined
+with the tight empirical scaling relations that CDM does not
+predict---the radial acceleration relation
+(RAR)~\cite{McGaughRAR2016}, the baryonic Tully--Fisher
+relation~\cite{McGaughBTFR2000}, and the near-universal
+acceleration scale $a_0 \approx 1.2 \times 10^{-10}\;
+\mathrm{m/s}^2$---motivates the search for alternative
+explanations.
+
+Modified Newtonian dynamics (MOND)~\cite{Milgrom1983}
+reproduces galactic phenomenology with a single parameter
+$a_0$ but lacks a satisfactory relativistic completion
+and fails at CMB scales~\cite{Skordis2021}.
+Verlinde's emergent gravity~\cite{Verlinde2016} derives
+$a_0 \sim cH_0/6$ from volume-law entanglement in
+de~Sitter space and achieves zero-parameter fits to
+rotation curves, but has no covariant formulation and
+fails quantitatively at cluster scales~\cite{Ettori2019}.
+The AeST theory of Skordis and
+Zlo\v{s}nik~\cite{Skordis2021} fits both galactic rotation
+curves and the CMB power spectrum, but does so by introducing
+a vector field and scalar field that are, in a precise sense,
+functionally equivalent to a dark sector.
+
+In this paper, we propose a different perspective.  We argue
+that ``dark matter'' at galactic scales is the gravitational
+information that classical observers cannot access.  The
+framework rests on the observer-dependent temporal asymmetry
+parameter $\tauasym_O = 1 - F(\rho, \Petz \circ \chan_O(\rho))$
+developed in Ref.~\cite{Paper5} (hereafter Paper~V), where $F$
+is the fidelity of Petz recovery and $\chan_O$ is the effective
+channel determined by the observer's accessible
+algebra~$\algO_O$.  A classical astronomer, restricted to
+electromagnetic observables ($\algO_{\mathrm{cl}}$), assigns a
+larger entropy production $\Sigma_{\mathrm{cl}}$ to the same
+gravitational process than a hypothetical quantum observer with
+access to the full gravitational entanglement structure
+($\algO_{\mathrm{q}} \supseteq \algO_{\mathrm{cl}}$).  The
+data processing inequality (DPI) guarantees
+$\Sigma_{\mathrm{cl}} \geq \Sigma_{\mathrm{q}}$, and the
+excess $\Sigma_{\mathrm{DM}} = \Sigma_{\mathrm{cl}} -
+\Sigma_{\mathrm{q}}$ manifests as apparent dark matter.
+
+The paper is organized as follows.
+Section~\ref{sec:framework} formalizes observer-dependent dark
+matter using the subalgebra framework of Paper~V.
+Section~\ref{sec:galactic} develops the galactic-scale
+phenomenology: running Newton's constant from the
+renormalization group (RG) flow of the gravitational channel,
+flat rotation curves, the RAR, and the baryonic Tully--Fisher
+relation.
+Section~\ref{sec:a0} relates the MOND acceleration scale
+to the Crooks fluctuation theorem in de~Sitter space and
+proposes a Crooks-inspired interpolation function.
+Section~\ref{sec:bullet} addresses the Bullet Cluster.
+Section~\ref{sec:cosmo} discusses cosmic acceleration and
+dark energy.
+Section~\ref{sec:cmb} assesses the CMB gap and
+identifies the structural parallel with AeST/Khronon theories;
+the running Khronon coupling $\mu_0 = H_0/c$ with
+$\eta_\mu = 1$ then provides a resolution yielding dust-like
+behavior at CMB scales, with the full treatment deferred to
+Paper~IV.
+Section~\ref{sec:predictions} lists testable predictions,
+and Sec.~\ref{sec:discussion} provides a critical assessment
+of what is genuinely new and what remains open.
+
+%=======================================================================
+\section{Framework: Observer-Dependent Dark Matter}
+\label{sec:framework}
+%=======================================================================
+
+\subsection{Review: observer-dependent $\tauasym$}
+
+In Paper~V~\cite{Paper5}, each observer $O$ is identified with
+a von~Neumann subalgebra $\algO_O \subseteq
+\algO_{\mathrm{total}}$ of the total algebra of observables.
+The observer's effective channel is the conditional expectation
+$\chan_O = \Tr_{\algO_O^c}$, and the observer-dependent
+temporal asymmetry is
+\begin{equation}
+\tauasym_O = 1 - F\!\big(\rho,\,
+\tilde{\Petz}_{\sigma,\chan_O}(\chan_O(\rho))\big),
+\label{eq:tau_O}
+\end{equation}
+bounded by the JRSWW inequality~\cite{Junge2018}:
+\begin{equation}
+\tauasym_O \leq 1 - \exp(-\Sigma_O/2),
+\label{eq:tau_bound}
+\end{equation}
+where $\Sigma_O = \KL(\rho\|\sigma) -
+\KL(\chan_O(\rho)\|\chan_O(\sigma))$ is the relative entropy
+lost by restricting to $\algO_O$.  The monotonicity theorem
+(Theorem~1 of Paper~V) states: if $O_1 \leq O_2$ (i.e.,
+$\algO_{O_1} \subseteq \algO_{O_2}$), then
+$\tauasym_{O_1} \geq \tauasym_{O_2}$ and
+$\Sigma_{O_1} \geq \Sigma_{O_2}$.
+
+\subsection{Classical and quantum observers for a galaxy}
+
+\begin{definition}[Classical observer]
+\label{def:classical}
+The classical galactic observer $O_{\mathrm{cl}}$ has
+accessible algebra
+\begin{equation}
+\algO_{\mathrm{cl}} = \algO_{\mathrm{EM}} \otimes
+\mathbf{1}_{\mathrm{grav}} \otimes \mathbf{1}_{\mathrm{env}},
+\end{equation}
+where $\algO_{\mathrm{EM}}$ contains all observables
+constructible from electromagnetic field modes and their
+couplings to baryonic matter (photometry, spectroscopy,
+21\,cm emission, thermal bremsstrahlung).
+\end{definition}
+
+\begin{definition}[Quantum observer]
+\label{def:quantum}
+The quantum galactic observer $O_{\mathrm{q}}$ has
+\begin{equation}
+\algO_{\mathrm{q}} = \algO_{\mathrm{EM}} \vee
+\algO_{\mathrm{grav}},
+\end{equation}
+the algebra generated by $\algO_{\mathrm{EM}}$ and the
+gravitational entanglement observables
+$\algO_{\mathrm{grav}}$, which include vacuum entanglement
+between spatial regions of the gravitational field,
+volume-law entanglement from the de~Sitter
+background~\cite{Verlinde2016}, and modular flow observables
+of the gravitational field~\cite{DorauMuch2025}.
+\end{definition}
+
+Since $\algO_{\mathrm{cl}} \subset \algO_{\mathrm{q}}$, the
+monotonicity theorem gives:
+
+\begin{theorem}[Dark matter inequality]
+\label{thm:dm}
+For any gravitational process with reference state
+$\sigma$,
+\begin{equation}
+\Sigma_{\mathrm{cl}} \geq \Sigma_{\mathrm{q}} \geq 0,
+\label{eq:dm_ineq}
+\end{equation}
+with equality if and only if the gravitational entanglement
+carries no information beyond what is accessible
+electromagnetically.
+\end{theorem}
+
+\begin{proof}
+Immediate from the DPI applied to the conditional expectation
+$\mathcal{E}: \algO_{\mathrm{q}} \to \algO_{\mathrm{cl}}$,
+since $\chan_{\mathrm{cl}} = \mathcal{E} \circ
+\chan_{\mathrm{q}}$.
+\end{proof}
+
+\begin{definition}[Dark matter entropy production]
+\label{def:sigma_dm}
+The observer-dependent dark matter entropy production is
+\begin{equation}
+\Sigma_{\mathrm{DM}} \equiv \Sigma_{\mathrm{cl}} -
+\Sigma_{\mathrm{q}} \geq 0.
+\label{eq:sigma_dm}
+\end{equation}
+\end{definition}
+
+\subsection{From $\Sigma_{\mathrm{DM}}$ to apparent dark
+matter mass}
+
+Using the connection $\Sigma_{\mathrm{grav}} = -\ln(-g_{00})$
+established in Ref.~\cite{Paper2} (Paper~II), the gravitational
+potential is
+$\Phi(r) = -(c^2/2)\,\Sigma(r)$ in the weak-field limit.
+The mass inferred by the classical observer within radius $r$
+is
+\begin{equation}
+M_{\mathrm{obs}}(r) = \frac{c^2 r^2}{2G_N}\,
+\Sigma_{\mathrm{cl}}'(r),
+\label{eq:M_obs}
+\end{equation}
+and the baryonic mass attributed by the quantum observer is
+\begin{equation}
+M_{\mathrm{bar}}(r) = \frac{c^2 r^2}{2G_N}\,
+\Sigma_{\mathrm{q}}'(r).
+\label{eq:M_bar}
+\end{equation}
+The apparent dark matter mass is therefore
+\begin{equation}
+M_{\mathrm{DM}}(r) = M_{\mathrm{obs}}(r) - M_{\mathrm{bar}}(r)
+= \frac{c^2 r^2}{2G_N}\,\Sigma_{\mathrm{DM}}'(r).
+\label{eq:M_DM}
+\end{equation}
+
+The challenge is to determine $\Sigma_{\mathrm{DM}}(r)$.
+We now show that the scale-dependent gravitational channel
+provides the answer.
+
+%=======================================================================
+\section{Galactic Scale: Rotation Curves}
+\label{sec:galactic}
+%=======================================================================
+
+\subsection{Scale-dependent gravitational channel}
+
+The gravitational field acts as a quantum channel
+$\chan_{\mathrm{grav}}$ that processes quantum information.
+At different momentum scales $k$ (corresponding to distance
+scales $r \sim 1/k$), the channel has different properties
+because Newton's constant $G$ runs under the renormalization
+group~\cite{Reuter2004,Donoghue1994}.  The entropy production
+at scale $k$ is
+\begin{equation}
+\Sigma(k) = \KL(\rho\|\sigma) -
+\KL\!\big(\chan_{\mathrm{grav}}(k)(\rho)
+\big\|\chan_{\mathrm{grav}}(k)(\sigma)\big).
+\label{eq:sigma_k}
+\end{equation}
+
+The DPI, applied to the RG flow---which is itself a quantum
+channel~\cite{CasiniHuerta2017}---gives a monotonicity
+condition:
+\begin{equation}
+\Sigma(k_{\mathrm{IR}}) \geq \Sigma(k_{\mathrm{UV}}) \geq 0.
+\label{eq:sigma_mono}
+\end{equation}
+The gravitational channel at infrared (IR) scales is
+noisier---it loses more information---than at ultraviolet (UV)
+scales.  This monotonicity is the entropic $c$-theorem
+of Casini and Huerta~\cite{CasiniHuerta2012}, reinterpreted
+as a statement about the gravitational channel.
+
+\subsection{Running $G$ and the logarithmic correction}
+
+The anomalous dimension $\eta$ governs the IR running:
+\begin{equation}
+\frac{d\ln G}{d\ln k} = -\eta.
+\label{eq:anomalous}
+\end{equation}
+For $k \ll k_*$, the solution is
+$G(k) = G_N(k_*/k)^\eta$.
+Kumar~\cite{Kumar2025} showed from QFT first principles that
+$\eta = 1$ is the unique marginal value: it is the boundary
+between corrections that die off ($\eta < 1$) and corrections
+that grow without bound ($\eta > 1$).  Within the $\tauasym$
+framework, this value is independently reproduced by the DPI
+plus extensivity of de~Sitter entanglement entropy
+(see Sec.~\ref{sec:discussion} for a sketch of the argument;
+the complete proof requires the perturbative RG analysis
+of Paper~IV~\cite{Paper4}).  In position space, $\eta = 1$ produces the
+unique scale-invariant, rotationally symmetric deformation
+of the Newtonian potential:
+\begin{equation}
+G(r) = G_N\!\left[1 + \frac{2k_* r}{\pi}\right],
+\quad r \gg 1/k_*,
+\label{eq:G_running}
+\end{equation}
+with the coefficient $2/\pi$ being universal and
+regulator-independent.
+
+The modified potential, circular velocity, and effective
+entropy production are:
+\begin{align}
+\Phi(r) &= -\frac{G_N M}{r} +
+\frac{2G_N M k_*}{\pi}\ln\!\left(\frac{r}{r_0}\right),
+\label{eq:phi}\\
+v^2(r) &= \frac{G_N M}{r} +
+\frac{2G_N M k_*}{\pi},
+\label{eq:v2}\\
+\Sigma_{\mathrm{grav}}(r) &= \frac{r_s}{r} +
+\frac{2k_* r_s}{\pi}\ln\!\left(\frac{r}{r_0}\right),
+\label{eq:sigma_grav}
+\end{align}
+where $r_s = 2G_N M/c^2$ is the Schwarzschild radius and
+$r_0$ is a reference scale.  Equation~\eqref{eq:v2} yields
+a flat rotation curve at $r \gg 1/k_*$:
+\begin{equation}
+V_0^2 = \frac{2G_N M_{\mathrm{bar}}\, k_*}{\pi},
+\label{eq:V0}
+\end{equation}
+which is constant.
+
+The logical chain connecting established results is:
+\begin{align}
+&\text{RG flow is a quantum channel}
+\;\cite{CasiniHuerta2017}
+\nonumber\\
+\xrightarrow{\mathrm{DPI}}\;&
+\text{QRE monotonicity under RG}
+\nonumber\\
+\xrightarrow{\mathrm{Dorau\text{-}Much}}\;&
+\text{QRE} \to \text{semiclassical Einstein eqns.}
+\;\cite{DorauMuch2025}
+\nonumber\\
+\xrightarrow{\mathrm{Kumar}}\;&
+\text{Running }G\text{ with }\eta=1
+\to \text{flat rotation curves}
+\;\cite{Kumar2025}.
+\nonumber
+\end{align}
+
+\subsection{SPARC galaxies and the universal crossover scale}
+
+Gubitosi, Piattella, and Casarini~\cite{Gubitosi2024}
+validated the running-$G$ framework (termed RGGR) against 100
+galaxies from the SPARC database~\cite{SPARC2016}, finding it
+competitive with NFW dark matter halos (RGGR preferred for
+47 galaxies, NFW for 40, inconclusive for 13 by the BIC
+criterion).
+
+Kumar~\cite{Kumar2025} fitted three SPARC galaxies and found a
+consistent crossover scale
+(Table~\ref{tab:sparc}):
+
+\begin{table}[t]
+\caption{\label{tab:sparc}Crossover scale $k_*$ for three
+SPARC galaxies from Ref.~\cite{Kumar2025}.  The near-universality
+of $k_*$ across a factor of $\sim\!3$ in baryonic mass is a
+specific prediction of the framework.}
+\begin{ruledtabular}
+\begin{tabular}{lccc}
+Galaxy & $M_{\mathrm{bar}}\;[\Msun]$ & $V_0\;[\mathrm{km/s}]$
+& $k_*\;[\mathrm{kpc}^{-1}]$ \\
+\colrule
+S:700624 & $1.01\times 10^{12}$ & $271 \pm 3$
+& $(2.66 \pm 0.05)\!\times\!10^{-2}$ \\
+S:700916 & $5.85\times 10^{11}$ & $210 \pm 2$
+& $(2.76 \pm 0.06)\!\times\!10^{-2}$ \\
+S:705253 & $3.55\times 10^{11}$ & $159 \pm 2$
+& $(2.60 \pm 0.06)\!\times\!10^{-2}$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+The universal $k_* \approx 2.7 \times 10^{-2}\;\mathrm{kpc}^{-1}$
+(crossover radius $r_c = 1/k_* \approx 37\;\mathrm{kpc}$) is
+a specific prediction absent from NFW halo models, which
+require two parameters ($M_{200}$, concentration $c$) per galaxy.
+
+\subsection{Baryonic Tully--Fisher relation}
+
+From Eq.~\eqref{eq:V0}, for universal $k_*$:
+\begin{equation}
+M_{\mathrm{bar}} = \frac{\pi}{2G_N k_*}\,V_0^2.
+\label{eq:BTFR_quadratic}
+\end{equation}
+Since $k_*$ is approximately constant across galaxies, this
+is a linear relation $M_{\mathrm{bar}} \propto V_0^2$.
+The observed baryonic Tully--Fisher relation
+$M_{\mathrm{bar}} \propto V_0^4$~\cite{McGaughBTFR2000}
+is recovered in the deep MOND limit where the Verlinde
+contribution dominates (Sec.~\ref{sec:a0}).
+The running-$G$ contribution gives the correct
+intermediate-radius behavior, while the Verlinde contribution
+governs the asymptotic regime where
+$v^4 = a_0 G_N M_{\mathrm{bar}}$.
+
+\subsection{Radial acceleration relation}
+
+The RAR~\cite{McGaughRAR2016} relates observed acceleration
+$g_{\mathrm{obs}}$ to baryonic acceleration $g_{\mathrm{bar}}$
+via
+\begin{equation}
+g_{\mathrm{obs}} = \frac{g_{\mathrm{bar}}}
+{1 - e^{-\sqrt{g_{\mathrm{bar}}/g_\dagger}}},
+\label{eq:RAR}
+\end{equation}
+with $g_\dagger = a_0 = (1.20 \pm 0.02) \times 10^{-10}\;
+\mathrm{m/s}^2$.  In the $\tauasym$ framework, the
+running-$G$ correction at the galactic scale produces
+\begin{equation}
+g_{\mathrm{obs}} = g_{\mathrm{bar}} +
+\frac{2G_N M_{\mathrm{bar}}\, k_*}{\pi r^2},
+\label{eq:g_obs}
+\end{equation}
+which reproduces the deep-MOND behavior
+$g_{\mathrm{obs}} \sim \sqrt{a_0\, g_{\mathrm{bar}}}$
+when $k_*$ is related to $a_0$ through the cosmological
+connection (Sec.~\ref{sec:a0}).
+
+\subsection{Dark matter density profile}
+
+The apparent dark matter density from
+Eq.~\eqref{eq:sigma_grav} is
+\begin{equation}
+\rho_{\mathrm{DM}}(r) = \frac{1}{4\pi G_N}\,
+\frac{k_* V_0^2}{r^2} \propto \frac{1}{r^2},
+\label{eq:rho_dm}
+\end{equation}
+which gives an enclosed mass $M_{\mathrm{DM}}(r) \propto r$.
+This is a $1/r^2$ density profile, steeper than isothermal
+($1/r^2$, coincidentally the same) but distinct from the
+NFW profile ($1/r$ at small $r$, $1/r^3$ at large $r$).
+The key prediction is the \emph{absence} of a break:
+the $1/r^2$ profile extends to arbitrarily large $r$ without
+the $1/r^3$ falloff characteristic of NFW halos.  This is
+testable with weak lensing data extending to the
+virial radius and beyond.  The KiDS-1000 weak lensing
+analysis~\cite{Brouwer2021} already extends the RAR by
+two decades in acceleration and is consistent with the
+absence of a break.
+
+\subsection{Dwarf spheroidal galaxies}
+
+Ghari and Haghi~\cite{GhariHaghi2026} compared Verlinde's
+emergent gravity to MOND for 23 Milky Way dwarf spheroidal
+satellites and found Verlinde favored over MOND at
+$5.2\sigma$.  Since the Verlinde contribution is a subset
+of the $\tauasym$ framework's $\Sigma_{\mathrm{DM}}$ (the
+volume-law entanglement component), this result supports the
+information-theoretic interpretation.
+
+\subsection{Solar system constraints}
+
+At solar system scales ($r \ll r_c$), the running-$G$
+correction is negligible: $G(r)/G_N - 1 \sim 2k_* r/\pi
+\sim 2 \times 10^{-14}$ at $r = 1\;\mathrm{AU}$, well
+below current constraints
+$|G_{\mathrm{eff}}/G_N - 1| < 10^{-5}$~\cite{Will2014}.
+
+%=======================================================================
+\section{The MOND Scale from the Crooks Theorem}
+\label{sec:a0}
+%=======================================================================
+
+\subsection{The $a_0$--cosmology coincidence}
+
+The empirical MOND acceleration scale
+$a_0 \approx 1.2 \times 10^{-10}\;\mathrm{m/s}^2$ is
+numerically close to $cH_0$:
+\begin{equation}
+\frac{cH_0}{a_0} \approx 5.7,
+\end{equation}
+with $H_0 = 70\;\mathrm{km/s/Mpc}$.  More precisely,
+$a_0 \approx cH_0/(2\pi) \approx cH_0/6$
+(these differ by $\sim\!5\%$).  The coincidence has been
+noted by Milgrom~\cite{Milgrom2020} and is a key input to
+Verlinde's derivation~\cite{Verlinde2016}, where
+$a_0 = cH_0/6$.
+
+\subsection{KMS--Crooks argument}
+
+We provide a thermodynamic argument for this connection.
+The de~Sitter vacuum satisfies the KMS condition with modular
+time periodicity
+\begin{equation}
+\beta_{\mathrm{dS}} = \frac{2\pi}{H_0}.
+\label{eq:beta_dS}
+\end{equation}
+The spatial thermal wavelength is
+\begin{equation}
+\lambda_{\mathrm{dS}} = c\,\beta_{\mathrm{dS}} =
+\frac{2\pi c}{H_0},
+\label{eq:lambda_dS}
+\end{equation}
+and the associated acceleration scale is
+\begin{equation}
+a_0 = \frac{c^2}{\lambda_{\mathrm{dS}}} =
+\frac{cH_0}{2\pi} \approx 1.08 \times 10^{-10}\;
+\mathrm{m/s}^2.
+\label{eq:a0}
+\end{equation}
+
+The Crooks fluctuation theorem~\cite{Crooks1999,Kwon2019}
+gives the ratio of forward to reverse transition probabilities
+as $P_F(\Sigma)/P_R(-\Sigma) = e^\Sigma$.  For a gravitational
+process, the entropy production per degree of freedom is
+\begin{equation}
+\Sigma = \frac{\kB T_U}{\kB T_{\mathrm{dS}}} =
+\frac{a}{cH_0},
+\label{eq:sigma_a}
+\end{equation}
+where $T_U = \hbar a/(2\pi c \kB)$ is the Unruh temperature
+at acceleration $a$ and
+$T_{\mathrm{dS}} = \hbar H_0/(2\pi \kB)$.
+
+Three regimes emerge:
+\begin{itemize}
+\item $a \gg a_0$ ($\Sigma \gg 1$):
+Gravitational processes are irreversible.
+The forward process dominates by a factor $e^\Sigma \gg 1$.
+The time arrow is strong.  This is the Newtonian regime.
+
+\item $a \sim a_0$ ($\Sigma \sim 1$):
+Forward and reverse processes have comparable probabilities
+($\sim\!63\%$ vs.\ $\sim\!37\%$).  Irreversibility is
+\emph{marginal}.  This is the MOND transition.
+
+\item $a \ll a_0$ ($\Sigma \ll 1$):
+Processes are nearly reversible.
+The time arrow weakens.  This is the deep MOND regime,
+where the de~Sitter thermal bath dominates.
+\end{itemize}
+
+The MOND transition is therefore the transition from
+strong to marginal irreversibility in the gravitational
+channel, as measured by the Crooks entropy
+production~\cite{BassoCeleri2025}.
+
+\subsection{Crooks interpolation function}
+
+The exponential form of the Crooks ratio suggests a natural
+MOND interpolation function.  Writing $x = g_{\mathrm{bar}}/a_0$,
+we propose
+\begin{equation}
+\mu(x) = 1 - e^{-x}.
+\label{eq:mu_crooks}
+\end{equation}
+The effective acceleration is
+$g_{\mathrm{obs}} = g_{\mathrm{bar}}/\mu(x)$.
+Properties of Eq.~\eqref{eq:mu_crooks}:
+\begin{align}
+x \gg 1:&\quad \mu \to 1 \quad (\text{Newtonian}),
+\nonumber\\
+x \ll 1:&\quad \mu \approx x \quad (\text{deep MOND}).
+\nonumber
+\end{align}
+This is the same asymptotic behavior as the standard MOND
+interpolation functions.  Numerically, for representative
+values:
+\begin{align}
+x = 0.1:&\quad \mu_{\mathrm{Crooks}} = 0.095,\quad
+\mu_{\mathrm{std}} = 0.091,
+\nonumber\\
+x = 1.0:&\quad \mu_{\mathrm{Crooks}} = 0.632,\quad
+\mu_{\mathrm{std}} = 0.500,
+\nonumber\\
+x = 3.0:&\quad \mu_{\mathrm{Crooks}} = 0.950,\quad
+\mu_{\mathrm{std}} = 0.750.
+\nonumber
+\end{align}
+The Crooks form transitions faster from MOND to Newton than
+the standard $\mu(x) = x/(1+x)$; whether this is preferred by
+the data requires systematic fitting to SPARC galaxies, which
+we leave to future work.
+
+\subsection{Limitations of the $a_0$ argument}
+
+The identification of $a_0 = cH_0/(2\pi)$ should be classified as
+a \emph{dimensional argument with physical content}, not a
+rigorous derivation.  The scale $cH_0$ follows inevitably from
+combining the speed of light with the Hubble rate.  The factor
+$2\pi$ is motivated by the KMS periodicity of the de~Sitter
+thermal state but is not uniquely derived from the Crooks
+theorem.  Verlinde's factor of 6 arises from a different
+geometric argument (the volume-to-area ratio of a sphere
+combined with the quadratic elastic energy).  Since
+$2\pi \approx 6.28 \approx 6$ to within 5\%, these
+predictions are observationally indistinguishable with current
+data.
+
+The situation is analogous to the Chandrasekhar mass:
+$M_{\mathrm{Ch}} \sim (\hbar c/G)^{3/2}/m_p^2$ follows from
+dimensional analysis, but the coefficient 0.77 requires
+solving the Lane--Emden equation.  Similarly, the precise
+$O(1)$ prefactor in $a_0$ awaits a more detailed calculation
+of the Crooks entropy production for test particles in
+de~Sitter spacetime, using the formalism of
+Ref.~\cite{BassoCeleri2025}.
+
+%=======================================================================
+\section{The Bullet Cluster}
+\label{sec:bullet}
+%=======================================================================
+
+The Bullet Cluster (1E\,0657-558)~\cite{Clowe2006} poses the
+sharpest challenge to any theory that explains dark matter
+through modified gravity or emergent effects.  The lensing
+mass peaks are offset from the X-ray gas (which contains
+$\sim\!85\%$ of the baryonic mass) by $\sim\!150\;\mathrm{kpc}$,
+coinciding instead with the galaxy distribution.
+
+\subsection{The challenge for modified gravity}
+
+For a theory where the gravitational modification is
+proportional to the local baryonic mass (as in running $G$),
+the gas dominates the total gravitational signal.  Running $G$
+cannot by itself produce a lensing peak offset from the gas.
+This is a generic problem shared by all modified gravity
+theories that have been tested against the Bullet
+Cluster~\cite{Famaey2012}, with the exception of
+MOG/STVG~\cite{Brownstein2007}, whose additional vector field
+provides the needed offset.
+
+\subsection{Entanglement rigidity argument}
+
+We offer a qualitative argument based on the dynamical
+timescales.  The volume-law entanglement pattern that
+produces the apparent dark matter (the Verlinde component of
+$\Sigma_{\mathrm{DM}}$) was established over the equilibration
+timescale
+$t_{\mathrm{eq}} \sim H_0^{-1} \sim 10^{10}\;\mathrm{yr}$.
+The cluster collision timescale is
+$t_{\mathrm{coll}} \sim 10^{8}\;\mathrm{yr}$.  The ratio
+\begin{equation}
+\frac{t_{\mathrm{eq}}}{t_{\mathrm{coll}}} \sim 100
+\label{eq:timescale}
+\end{equation}
+suggests that the entanglement pattern responds sluggishly
+to the rapid collision.  During the merger, the gas is
+ram-pressure stripped and decelerates, but the entanglement
+displacement pattern---associated with the pre-collision mass
+distribution---cannot fully re-equilibrate.  If $\sim\!95\%$ of
+the entanglement-based $\Sigma_{\mathrm{DM}}$ is ``frozen''
+during the collision, the lensing signal would partially track
+the pre-collision mass distribution, which is centered on the
+galaxy positions.
+
+This argument is qualitative and speculative.  It requires a
+theory of entanglement equilibration timescales in de~Sitter
+space that does not currently exist.  We note that the Bullet
+Cluster is also problematic for $\Lambda$CDM: the inferred
+collision velocity ($\sim\!3000\;\mathrm{km/s}$) is
+statistically improbable~\cite{Lee2010}, and the Abell~520
+cluster shows the \emph{opposite} pattern (a lensing peak
+without galaxies), which CDM also struggles to
+explain~\cite{Jee2007}.
+
+%=======================================================================
+\section{Cosmological Scale: Dark Energy}
+\label{sec:cosmo}
+%=======================================================================
+
+At cosmological scales, the entropy production from the
+de~Sitter vacuum gives
+\begin{equation}
+\Sigma_{\mathrm{dS}}(r) = -\ln\!\left(1 -
+\frac{H_0^2 r^2}{c^2}\right),
+\label{eq:sigma_dS}
+\end{equation}
+which diverges at the Hubble horizon $r_H = c/H_0$,
+corresponding to $\tauasym \to 1$: complete information loss
+at the cosmological horizon.  This is the ultimate
+gravitational $\tauasym$.
+
+Padmanabhan's CosMIn framework~\cite{Padmanabhan2017}
+establishes that finite cosmic information requires
+$\Lambda > 0$.  In the $\tauasym$ framework, this translates
+to: a finite total information loss ($\int \Sigma\,dt < \infty$)
+over the history of the universe requires a cosmic information
+horizon where $\tauasym = 1$.  This is precisely the
+de~Sitter horizon set by $\Lambda$.
+
+The connection between the cosmological constant and the
+de~Sitter thermal state provides the bridge to dark matter:
+the \emph{same} vacuum entanglement that produces
+$\Lambda > 0$ (through the volume-law contribution) also
+produces the apparent dark matter at galactic scales (through
+its displacement by baryonic matter).  In the
+$\Sigma$ language:
+\begin{equation}
+\Sigma_{\mathrm{total}}(r) \approx
+\underbrace{\frac{r_s}{r}}_{\text{Newtonian}} +
+\underbrace{\alpha\,\ln\!\left(\frac{r}{r_c}\right)
+}_{\text{running }G} +
+\underbrace{\beta\,\frac{r}{L_{\mathrm{dS}}}
+}_{\text{de Sitter}},
+\label{eq:sigma_total}
+\end{equation}
+where $L_{\mathrm{dS}} = c/H_0$.  Each term dominates in a
+different regime: the Newtonian term near the mass source, the
+running-$G$ term at galactic scales, and the de~Sitter term at
+cosmological scales.  All three emerge as limits of the single
+quantum relative entropy
+$\Sigma = \KL(\rho_{\mathrm{spacetime}} \|
+\rho_{\mathrm{matter}})$~\cite{Paper2,Bianconi2025}.
+
+The DESI DR2 results showing $w(z) \neq -1$ at
+$\sim\!4\sigma$~\cite{DESI2024} are naturally compatible with
+the $\tauasym$ framework, since a scale-dependent
+$\Sigma_{\mathrm{grav}}$ generically produces evolving dark
+energy.  We note this as a qualitative consistency, not a
+prediction.
+
+%=======================================================================
+\section{The CMB Gap}
+\label{sec:cmb}
+%=======================================================================
+
+The $\tauasym$ framework, as currently formulated,
+\emph{cannot} explain the CMB acoustic peaks without
+introducing additional degrees of freedom.  This section
+presents the argument in full, because the inability to solve
+this problem is as informative as the successes.
+
+\subsection{The quantitative failure}
+
+The CMB third acoustic peak requires a pressureless
+($c_s^2 = 0$), photon-decoupled component with
+$\Omega h^2 \approx 0.12$.  Without such a component,
+the predicted first peak position shifts from $\ell \approx 220$
+to $\ell \approx 170$ (a 23\% error, $>100\sigma$),
+the third-to-second peak ratio drops from 0.97 to $\sim\!0.55$
+(a 43\% error, $>20\sigma$), and the matter-radiation equality
+redshift shifts from $z_{\mathrm{eq}} \approx 3400$ to
+$z_{\mathrm{eq}} \approx 530$ (a factor 6.4
+discrepancy)~\cite{Planck2018,Hu2008}.  These are catastrophic
+failures, not marginal discrepancies.
+
+\subsection{Why running $G$ is irrelevant at CMB scales}
+
+The IR running formula $G(k) = G_N[1 + k_*/k]$ with
+$k_* \sim 10^{-2}\;\mathrm{kpc}^{-1}$ gives $G/G_N \sim 2700$
+at CMB scales ($k_{\mathrm{CMB}} \sim 10^{-2}\;
+\mathrm{Mpc}^{-1}$), which is physically absurd.  The running
+is a late-time, galactic-scale effect that does not apply at
+$z \sim 1100$.  Constraints from Planck require
+$|G(z\!\sim\!1100)/G_0 - 1| < 0.05$ at 95\% CL.
+
+\subsection{The fundamental obstruction}
+
+The core problem is that any perturbation mode derived from a
+local, Lorentz-invariant quantum field theory on an FRW
+background has a sound speed $c_s > 0$.  The quantum relative
+entropy $\KL(\rho_{\mathrm{spacetime}} \|
+\rho_{\mathrm{matter}})$ is Lorentz invariant, so its
+perturbations propagate at the speed of light.  But the CMB
+requires $c_s = 0$---a non-propagating mode.
+
+The only known ways to achieve $c_s = 0$ are: (i)~breaking
+Lorentz invariance in the gravity sector (as in AeST's
+aether~\cite{Skordis2021} and the Khronon
+field~\cite{Blanchet2024}), (ii)~introducing massive
+non-relativistic particles (CDM), or (iii)~imposing a
+non-propagating constraint via a Lagrange multiplier (as in
+Bianconi's $G$-field~\cite{Bianconi2025}).
+
+\subsection{Structural parallel with AeST and the Modular
+Khronon}
+
+The parallel between the $\tauasym$ framework and the
+Khronon/AeST theories is notable
+(Table~\ref{tab:parallel}):
+
+\begin{table}[t]
+\caption{\label{tab:parallel}Structural parallel between the
+$\tauasym$ framework and relativistic MOND theories.  The
+observer's 4-velocity $u^\mu$ plays the same structural role
+as the aether field $A^\mu$.}
+\begin{ruledtabular}
+\begin{tabular}{lcc}
+& \textbf{$\tauasym$ framework} & \textbf{AeST/Khronon} \\
+\colrule
+Scalar field & $\Sigma$ (entropy prod.) &
+$\tau$ (Khronon) \\
+Background & $\Sigma = 0$ (comoving) &
+$Q = 1$ (comoving) \\
+Observer/aether & $u^\mu$ (observer) &
+$A^\mu$ (aether) \\
+MOND limit & Running $G$ &
+$J(Y)$ function \\
+CMB behavior & Running $\mu$, dust-like at $z > 100$ &
+GDM: $w\!\sim\!0$, $c_s\!\sim\!0$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+In the Khronon theory~\cite{Blanchet2024}, the DBI-inspired
+kinetic function $K(Q) = \mu^2(Q-1)^2$ has a minimum at $Q = 1$
+(unit timelike gradient), producing a mode with $\omega = 0$
+(non-propagating) on the Minkowski background.  This is the
+mechanism that yields $c_s = 0$ and hence CDM-like behavior.
+
+In the $\tauasym$ framework, the observer's 4-velocity $u^\mu$
+plays the role of the Khronon gradient
+$\nabla^\mu \tauasym$.  If $u^\mu$ is promoted from an
+external input to a dynamical field---constrained by
+$g_{\mu\nu} u^\mu u^\nu = -1$ (unit timelike)---the resulting
+theory would naturally contain:
+(i)~a preferred foliation (breaking Lorentz invariance in the
+gravity sector),
+(ii)~a scalar mode with $c_s = 0$ from the unit-timelike
+constraint, and
+(iii)~a connection to the AeST/Khronon field content.
+
+This ``observer-as-aether'' identification
+is a natural route to closing the CMB gap.  It changes
+the framework fundamentally: the observer is no longer external
+but becomes part of the dynamics.  If successful, dark matter at
+cosmological scales would be \emph{the energetic cost of
+maintaining a time direction in the universe}.  Paper~IV
+develops this idea: the modular Khronon
+$\delta T_{\mathrm{mod}} = -2\Phi/H$ emerges from QRE
+perturbation theory and has $c_s = 0$ in the matter era,
+providing exactly the CDM-like perturbation behavior needed
+for the CMB~\cite{Paper4}.
+
+\subsection{The CMB gap in context}
+
+The CMB gap is shared by \emph{all} modified gravity
+approaches.  MOND~\cite{Milgrom1983} has no CMB prediction
+without a relativistic completion.
+Verlinde~\cite{Verlinde2016} has no perturbation theory.
+The only existing modified gravity theory that fits both
+galactic rotation curves and the CMB is
+AeST~\cite{Skordis2021}, and it achieves this by introducing
+precisely the field content (vector $+$ scalar) that our
+analysis identifies as structurally necessary.  The $\tauasym$
+framework's contribution is to identify \emph{why} this field
+content is needed: to break Lorentz invariance in a way that
+produces a $c_s = 0$ mode.
+
+\subsection{Resolution via running Khronon}
+\label{sec:khronon_resolution}
+
+The CMB gap identified above has a candidate resolution within
+the $\tauasym$ framework once the Khronon coupling $\mu$ is
+promoted from a free parameter to a dimensionally-determined
+quantity.
+
+\emph{Dimensional uniqueness of $\mu_0$.}---The Khronon kinetic
+function $K(Q) = \mu^2(Q - 1)^2$~\cite{Blanchet2024} requires
+a coupling $\mu$ with dimensions of inverse length.  In
+de~Sitter space, the only available scales are $H_0$, $c$, $\hbar$,
+and $\kB$.  The unique combination with dimensions of inverse
+length that is independent of $\hbar$ (as befits a classical
+coupling) is
+\begin{equation}
+\mu_0 = \frac{H_0}{c}
+= \frac{2\pi \kB T_{\mathrm{dS}}}{\hbar c},
+\label{eq:mu0}
+\end{equation}
+where $T_{\mathrm{dS}} = \hbar H_0/(2\pi \kB)$ is the
+de~Sitter temperature.  This is not an assumption but a
+consequence of dimensional analysis: the same thermal scale
+that determines $a_0 = cH_0/(2\pi)$ also determines
+$\mu_0$.
+
+\emph{Running of $\mu$.}---The anomalous dimension of $\mu$
+follows from the same DPI~$+$~extensivity argument that
+fixes $\eta_G = 1$ for the gravitational coupling
+(Sec.~\ref{sec:galactic}):
+\begin{equation}
+\eta_\mu = 1, \qquad
+\mu(k) = \mu_0\!\left(\frac{k_*}{k}\right),
+\label{eq:mu_running}
+\end{equation}
+because the Khronon field couples to gravity through the same
+renormalization group flow.  The DPI forbids $\eta_\mu > 1$
+(would violate the de~Sitter entropy bound on the Khronon
+sector), while $\eta_\mu < 1$ makes the Khronon IR-irrelevant,
+contradicting its required role at CMB scales.
+$\eta_\mu = 1$ is the unique marginal value.
+
+\emph{Dust-like behavior at CMB scales.}---On an FRW
+background, the Khronon gradient satisfies $Q = 1$ (comoving
+frame), and the background coupling runs as
+\begin{equation}
+\mu_{\mathrm{bg}}(a) = \frac{H(a)}{c},
+\label{eq:mu_bg}
+\end{equation}
+where $H(a)$ is the Hubble parameter at scale factor $a$.
+The effective equation-of-state parameter for the Khronon
+perturbations is~\cite{Blanchet2024}
+\begin{equation}
+\tilde{w}_0 = \frac{\mu_{\mathrm{bg}}^2}{k_{\mathrm{phys}}^2},
+\label{eq:w_tilde}
+\end{equation}
+where $k_{\mathrm{phys}}$ is the physical wavenumber of the
+perturbation mode.  At recombination ($z \approx 1100$),
+$\mu_0 = H_0/c \approx 2.25 \times 10^{-4}\;
+\mathrm{Mpc}^{-1}$ and the first acoustic peak corresponds to
+$k_{\mathrm{phys}} = k_{\mathrm{co}} (1+z) \sim 0.01 \times 1101
+\approx 11\;\mathrm{Mpc}^{-1}$, giving
+\begin{equation}
+\tilde{w}_0(z \approx 1100) \sim 4 \times 10^{-10}
+\ll 1.
+\label{eq:w_dust}
+\end{equation}
+This is effectively pressureless: the Khronon perturbations
+behave as dust at CMB scales, precisely the $c_s = 0$ mode
+identified as structurally necessary in
+Sec.~\ref{sec:cmb}.
+
+\emph{Unification.}---The de~Sitter temperature
+$T_{\mathrm{dS}}$ now serves as the single origin of both
+galactic and cosmological dark-matter phenomenology:
+\begin{equation}
+T_{\mathrm{dS}} \;\longrightarrow\;
+\begin{cases}
+a_0 = cH_0/(2\pi) & \text{(galactic: MOND scale)}, \\
+\mu_0 = H_0/c & \text{(CMB: Khronon coupling)}.
+\end{cases}
+\label{eq:unification}
+\end{equation}
+At galactic scales, the running of $G$ with $\eta_G = 1$
+provides MOND-like rotation curves
+(Sec.~\ref{sec:galactic}).  At CMB scales, the running of
+$\mu$ with $\eta_\mu = 1$ provides a candidate for the
+pressureless, non-propagating mode needed for the acoustic
+peaks.  Both originate from the same de~Sitter vacuum
+entanglement.
+Paper~IV~\cite{Paper4} develops the full cosmological
+perturbation theory; here we note only that the mechanism
+exists and produces the correct qualitative behavior.
+
+\emph{Status: experimentally unverified.}---The running
+Khronon resolution has not been tested against the full Planck
+CMB power spectrum.  The qualitative argument (dust-like
+$\tilde{w}_0 \ll 1$) is encouraging but does not constitute a
+quantitative fit.  Until the numerical computation of
+Paper~IV reproduces the observed $C_\ell^{TT}$ spectrum to
+within Planck error bars, this resolution should be regarded
+as a conjecture.
+
+\emph{Limitations.}---The $\Omega_{\mathrm{DM}} h^2$
+prefactor---the precise numerical value that Planck measures
+as $0.120 \pm 0.001$---is \emph{not} determined by the
+dimensional argument alone.  It depends on the full
+nonlinear dynamics of the Khronon field on an FRW background,
+which requires numerical integration beyond the scope of this
+paper.  We predict the dark matter density to order of
+magnitude (from $T_{\mathrm{dS}}$ and $\mu_0$); the exact
+prefactor requires the numerical computation presented in
+Paper~IV.
+
+%=======================================================================
+\section{Testable Predictions}
+\label{sec:predictions}
+%=======================================================================
+
+The $\tauasym$ framework makes five testable predictions
+distinguishable from $\Lambda$CDM and standard MOND:
+
+\emph{1. DM density profile $\propto 1/r^2$ without NFW
+break.}---The running-$G$ correction produces an enclosed mass
+$M_{\mathrm{DM}}(r) \propto r$ at large $r$, without the
+$M_{\mathrm{DM}} \to \mathrm{const}$ behavior of NFW halos.
+For a Milky Way--mass galaxy ($M_{\mathrm{bar}} \approx
+5 \times 10^{10}\;\Msun$), the predicted dark matter density
+at $r = 100\;\mathrm{kpc}$ is
+$\rho_{\mathrm{DM}} \approx 3 \times 10^{-4}\;\Msun/
+\mathrm{pc}^3$, declining as $r^{-2}$ with no steepening.
+Weak lensing profiles extending beyond the virial radius should
+show no turnover.  The BIG-SPARC
+survey~\cite{Haubner2024} with $\sim\!4000$ galaxies can test
+this.
+
+\emph{2. Universal crossover scale and running $G$.}---The
+crossover momentum
+$k_* \approx 2.7 \times 10^{-2}\;\mathrm{kpc}^{-1}$
+(crossover radius $r_c \approx 37\;\mathrm{kpc}$) should be
+independent of galaxy mass (within observational scatter).
+Concretely, $G(r)/G_N = 1 + 2k_* r/\pi$ predicts:
+$G/G_N \approx 1.02$ at $r = 1\;\mathrm{kpc}$,
+$G/G_N \approx 1.17$ at $r = 10\;\mathrm{kpc}$, and
+$G/G_N \approx 2.72$ at $r = 100\;\mathrm{kpc}$.
+A systematic variation $k_*(M_{\mathrm{bar}})$ would indicate
+environment-dependent running rather than a universal
+fundamental scale.
+
+\emph{3. Interpolation function $\mu(x) = 1 - e^{-x}$.}---The
+Crooks-inspired interpolation transitions faster from MOND to
+Newtonian than the standard $\mu(x) = x/(1+x)$.  At
+$x = 1$, $\mu_{\mathrm{Crooks}} = 0.63$ vs.\
+$\mu_{\mathrm{std}} = 0.50$.  This is distinguishable with
+high-quality rotation curves near the transition radius.
+
+\emph{4. Observer-dependent $a_0$.}---Since
+$\Sigma$ is observer-dependent~\cite{BassoCeleri2025}, the
+MOND acceleration scale should depend on the observer's
+worldline.  Comoving observers see the standard
+$a_0 \approx cH_0/(2\pi) \approx 1.08 \times 10^{-10}\;
+\mathrm{m/s}^2$, while observers near massive
+objects (galaxy clusters, black holes) should see a locally
+modified $a_0$ due to gravitational redshift.  Specifically,
+at gravitational potential $\Phi$:
+\begin{equation}
+a_0^{\mathrm{local}} = a_0\,\sqrt{-g_{00}}
+\approx a_0\left(1 + \frac{\Phi}{c^2}\right).
+\label{eq:a0_local}
+\end{equation}
+For galaxies in a cluster with $\Phi/c^2 \sim -10^{-5}$,
+the predicted shift is
+$\delta a_0/a_0 \sim 10^{-5}$---small but in principle
+measurable through precision RAR studies of cluster satellite
+galaxies compared to field galaxies.
+
+\emph{5. Lensing vs.\ kinematic DM mass may differ.}---If
+$\Sigma_{\mathrm{DM}}$ has both running-$G$ and Verlinde
+components with different radial profiles, the
+``dark matter mass'' inferred from lensing (which probes
+$g_{00} + g_{rr}$) may differ from that inferred from
+kinematics (which probes $g_{00}$ alone).  In GR, these are
+identical for static metrics; in the $\tauasym$ framework,
+the logarithmic correction modifies both $g_{00}$ and
+$g_{rr}$ equally, preserving the GR prediction.
+However, at the transition between the running-$G$ and
+Verlinde regimes, deviations are possible.
+
+%=======================================================================
+\section{Discussion}
+\label{sec:discussion}
+%=======================================================================
+
+\subsection{What is genuinely new}
+
+Six elements distinguish this work from previous
+approaches to the dark matter problem:
+
+(i)~The identification of ``dark matter'' with
+observer-dependent entropy production
+$\Sigma_{\mathrm{DM}} = \Sigma_{\mathrm{cl}} -
+\Sigma_{\mathrm{q}}$, which is guaranteed non-negative by
+the DPI (Theorem~\ref{thm:dm}).  This is not a model
+assumption but a mathematical consequence of the framework.
+
+(ii)~The logical chain connecting the Casini--Huerta
+entropic $c$-theorem~\cite{CasiniHuerta2012,CasiniHuerta2017},
+the Dorau--Much QRE-to-Einstein link~\cite{DorauMuch2025},
+and the Kumar running $G$~\cite{Kumar2025} into a coherent
+information-theoretic narrative for galactic rotation curves.
+Each step is established; the synthesis is new.
+
+(iii)~The identification of $a_0 \approx cH_0/(2\pi)$ with the
+KMS thermal periodicity of de~Sitter space through the Crooks
+theorem, interpreting the MOND transition as marginal
+irreversibility (Sec.~\ref{sec:a0}; note that the $O(1)$
+prefactor is a dimensional argument, not a rigorous
+derivation).
+
+(iv)~The Crooks interpolation function $\mu(x) = 1 - e^{-x}$,
+which is a specific, falsifiable prediction.
+
+(v)~The identification of the observer's 4-velocity with the
+aether/Khronon field, providing a concrete bridge between the
+$\tauasym$ framework and relativistic MOND theories.
+
+(vi)~The identification of the Khronon coupling
+$\mu_0 = H_0/c$ from dimensional uniqueness, and $\eta_\mu = 1$
+from DPI~$+$~extensivity, yielding dust-like behavior at CMB
+scales without introducing new free parameters
+(Sec.~\ref{sec:khronon_resolution}).  This CMB resolution
+is not yet verified against the full Planck power spectrum;
+the quantitative test requires Paper~IV.
+
+\subsection{What is not claimed}
+
+We do \emph{not} claim: (i)~that the CMB acoustic peaks
+are quantitatively fitted---the running Khronon coupling
+$\mu_0 = H_0/c$ with $\eta_\mu = 1$ provides CDM-like
+behavior at CMB scales
+(Sec.~\ref{sec:khronon_resolution}), but the exact
+$\Omega_{\mathrm{DM}} h^2$ prefactor remains undetermined
+without the full numerical computation of Paper~IV;
+(ii)~that the Bullet Cluster is quantitatively fitted (only
+a qualitative argument is given); or (iii)~superiority over
+$\Lambda$CDM at all scales.
+We \emph{do} note that $\eta = 1$ is derived, not assumed:
+Kumar~\cite{Kumar2025} identified $\eta = 1$ as the unique
+marginal value from QFT first principles.  Within the
+$\tauasym$ framework, this is independently reproduced by
+the DPI applied to the gravitational RG flow, combined with
+the extensivity of de~Sitter entanglement entropy (volume-law
+scaling at cosmological scales~\cite{Verlinde2016}), which
+uniquely selects $\eta = 1$ in $3+1$ dimensions.
+The argument is: $\eta > 1$ violates the de~Sitter entropy
+bound; $\eta < 1$ contradicts extensivity (the correction
+becomes IR-irrelevant); $\eta = 1$ is the unique marginal
+value producing the logarithmic potential.
+In general $d$ dimensions, $\eta = d - 3$.
+The same DPI~$+$~extensivity argument fixes
+$\eta_\mu = 1$ for the Khronon coupling
+(Sec.~\ref{sec:khronon_resolution}), providing the
+mechanism---though not yet the precise numerical
+coefficient---for CMB-scale dark matter behavior.
+
+\subsection{The three-term $\Sigma$ as a unified equation}
+
+Equation~\eqref{eq:sigma_total} approximates the single
+quantum relative entropy
+$\Sigma = \KL(\rho_{\mathrm{spacetime}} \|
+\rho_{\mathrm{matter}})$ in three regimes.  In the vision of
+the four-paper series~\cite{Paper1,Paper2,Paper5}, different
+boundary conditions on this one QRE give:
+Paper~I ($\Sigma = 0$): flat spacetime, perfect recovery;
+Paper~II ($\Sigma = r_s/r$): Schwarzschild, the time arrow
+of gravity;
+Paper~III ($\Sigma = r_s/r + \alpha\ln(r/r_c)$):
+galactic scales, dark matter;
+Paper~IV ($\Sigma$ with cosmological boundary conditions):
+dark energy and the CMB.
+These are not four separate theories but four limits of one
+equation, analogous to $F = ma$ producing planetary orbits,
+spring oscillations, and fluid dynamics depending on
+boundary conditions.
+
+\subsection{The CMB gap as a signpost}
+
+The failure at CMB scales is not a deficiency to be
+papered over but a signpost.  It points to a specific
+mathematical program: determine whether the constrained
+minimization of
+$\KL(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$
+produces Lagrange multiplier fields with $c_s = 0$.  If it
+does, the $\tauasym$ framework would derive CDM-like behavior
+from quantum information theory.  If it does not, then CDM
+particles are a necessary ingredient that the framework must
+incorporate rather than explain.  Either outcome would
+clarify the scope of the framework.
+
+The running Khronon analysis of Sec.~\ref{sec:khronon_resolution}
+suggests an affirmative answer: the constrained observer
+dynamics produces a dust-like mode at CMB scales, via the
+running coupling $\mu_0 = H_0/c$.  Whether this survives a
+full numerical comparison with the Planck power spectrum
+remains to be determined (Paper~IV).
+
+\subsection{Division of labor: $G$ and $\mu$}
+
+The $\tauasym$ framework now exhibits a clear division of
+labor between two running couplings, both originating from the
+de~Sitter vacuum and both with anomalous dimension
+$\eta = 1$:
+
+\emph{Running $G$} governs galactic scales.  The infrared
+running $G(k) = G_N(1 + k_*/k)$ produces the logarithmic
+correction to the Newtonian potential, flat rotation curves,
+and the radial acceleration relation.  The crossover scale
+$k_* \sim 10^{-2}\;\mathrm{kpc}^{-1}$ is set by
+$a_0 = cH_0/(2\pi)$.  This is a modification of the
+\emph{strength} of gravity.
+
+\emph{Running $\mu$} governs cosmological scales.  The
+Khronon coupling $\mu(k) = \mu_0(k_*/k)$ with
+$\mu_0 = H_0/c$ determines the dynamics of the observer
+field.  At CMB scales, $\mu_{\mathrm{bg}}(a) = H(a)/c$
+produces a pressureless mode ($\tilde{w}_0 \ll 1$) that
+mimics cold dark matter perturbations.  This is a
+modification of the \emph{observer dynamics}---the energetic
+cost of maintaining a time direction.
+
+The two effects are complementary, not redundant: running
+$G$ is a late-time, small-scale effect that is irrelevant at
+$z \sim 1100$ (Sec.~\ref{sec:cmb}), while running $\mu$ is
+a large-scale effect whose galactic contribution is
+subdominant to the running-$G$ correction.  Together, they
+cover the full range from kiloparsec to gigaparsec scales
+with a single origin: the de~Sitter temperature
+$T_{\mathrm{dS}}$.
+
+\begin{acknowledgments}
+The author thanks M.~M.~Wilde for valuable feedback on
+the $\tauasym$ framework, and A.~J.~Parzygnat and
+F.~Buscemi for foundational work on retrodiction.
+\end{acknowledgments}
+
+%=======================================================================
+% BIBLIOGRAPHY
+%=======================================================================
+
+\begin{thebibliography}{60}
+
+\bibitem{Rubin1980}
+V.~C. Rubin, W.~K. Ford, Jr., and N.~Thonnard,
+``Rotational properties of 21 Sc galaxies with a large range
+of luminosities and radii, from NGC 4605 ($R = 4\;\mathrm{kpc}$)
+to UGC 2885 ($R = 122\;\mathrm{kpc}$),''
+Astrophys.\ J.\ \textbf{238}, 471 (1980).
+
+\bibitem{Planck2018}
+N.~Aghanim \emph{et~al.} (Planck Collaboration),
+``Planck 2018 results.\ VI.\ Cosmological parameters,''
+Astron.\ Astrophys.\ \textbf{641}, A6 (2020);
+arXiv:1807.06209.
+
+\bibitem{Clowe2006}
+D.~Clowe, M.~Brada\v{c}, A.~H. Gonzalez, M.~Markevitch,
+S.~W. Randall, C.~Jones, and D.~Zaritsky,
+``A direct empirical proof of the existence of dark matter,''
+Astrophys.\ J.\ Lett.\ \textbf{648}, L109 (2006);
+astro-ph/0608407.
+
+\bibitem{Schumann2019}
+M.~Schumann,
+``Direct detection of WIMP dark matter: Concepts and status,''
+J.\ Phys.\ G \textbf{46}, 103003 (2019);
+arXiv:1903.03026.
+
+\bibitem{McGaughRAR2016}
+S.~S. McGaugh, F.~Lelli, and J.~M. Schombert,
+``Radial acceleration relation in rotationally supported
+galaxies,''
+Phys.\ Rev.\ Lett.\ \textbf{117}, 201101 (2016);
+arXiv:1609.05917.
+
+\bibitem{McGaughBTFR2000}
+S.~S. McGaugh, J.~M. Schombert, G.~D. Bothun, and
+W.~J.~G. de~Blok,
+``The baryonic Tully--Fisher relation,''
+Astrophys.\ J.\ Lett.\ \textbf{533}, L99 (2000);
+astro-ph/0003001.
+
+\bibitem{Milgrom1983}
+M.~Milgrom,
+``A modification of the Newtonian dynamics as a possible
+alternative to the hidden mass hypothesis,''
+Astrophys.\ J.\ \textbf{270}, 365 (1983).
+
+\bibitem{Skordis2021}
+C.~Skordis and T.~Zlo\v{s}nik,
+``New relativistic theory for modified Newtonian dynamics,''
+Phys.\ Rev.\ Lett.\ \textbf{127}, 161302 (2021);
+arXiv:2007.00082.
+
+\bibitem{Verlinde2016}
+E.~P. Verlinde,
+``Emergent gravity and the dark universe,''
+SciPost Phys.\ \textbf{2}, 016 (2017);
+arXiv:1611.02269.
+
+\bibitem{Ettori2019}
+S.~Ettori, V.~Ghirardini, D.~Eckert, E.~Pointecouteau,
+F.~Gastaldello, M.~Sereno, M.~Gaspari, S.~Ghizzardi,
+M.~Roncarelli, and M.~Rossetti,
+``Hydrostatic mass profiles in X-COP galaxy clusters,''
+Astron.\ Astrophys.\ \textbf{621}, A39 (2019);
+arXiv:1805.00035.
+
+\bibitem{Paper5}
+S.-K. Huang,
+``Observer-dependent temporal asymmetry: From quantum erasure
+to gravitational time'' (Paper~V), in preparation (2026).
+
+\bibitem{Junge2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M. Wilde, and A.~Winter,
+``Universal recovery maps and approximate sufficiency of
+quantum relative entropy,''
+Ann.\ Henri Poincar\'e \textbf{19}, 2955 (2018).
+
+\bibitem{Paper2}
+S.-K. Huang,
+``Gravitational temporal asymmetry from information loss''
+(Paper~II), in preparation (2026).
+
+\bibitem{CasiniHuerta2017}
+H.~Casini, E.~Teste, and G.~Torroba,
+``Relative entropy and the RG flow,''
+J.\ High Energy Phys.\ \textbf{03}, 089 (2017);
+arXiv:1611.00016.
+
+\bibitem{CasiniHuerta2012}
+H.~Casini and M.~Huerta,
+``On the RG running of the entanglement entropy of a circle,''
+Phys.\ Rev.\ D \textbf{85}, 125016 (2012);
+arXiv:1202.5650.
+
+\bibitem{DorauMuch2025}
+V.~Dorau and A.~Much,
+``From quantum relative entropy to the semiclassical Einstein
+equations,''
+Phys.\ Rev.\ Lett.\ \textbf{136}, 091602 (2026);
+arXiv:2510.24491.
+
+\bibitem{Kumar2025}
+N.~Kumar,
+``Marginal IR running of gravity as a natural explanation
+for dark matter,''
+Phys.\ Lett.\ B \textbf{871}, 140008 (2025);
+arXiv:2509.05246.
+
+\bibitem{Reuter2004}
+M.~Reuter and H.~Weyer,
+``Running Newton constant, improved gravitational actions, and
+galaxy rotation curves,''
+Phys.\ Rev.\ D \textbf{70}, 124028 (2004);
+hep-th/0410117.
+
+\bibitem{Donoghue1994}
+J.~F. Donoghue,
+``General relativity as an effective field theory: The leading
+quantum corrections,''
+Phys.\ Rev.\ D \textbf{50}, 3874 (1994);
+gr-qc/9405057.
+
+\bibitem{Gubitosi2024}
+G.~Gubitosi, O.~F. Piattella, and L.~Casarini,
+``Phenomenology of renormalization group improved gravity from
+the kinematics of SPARC galaxies,''
+Phys.\ Rev.\ D \textbf{110}, 124014 (2024);
+arXiv:2403.00531.
+
+\bibitem{SPARC2016}
+F.~Lelli, S.~S. McGaugh, and J.~M. Schombert,
+``SPARC: Mass models for 175 disk galaxies with Spitzer
+photometry and accurate rotation curves,''
+Astron.\ J.\ \textbf{152}, 157 (2016);
+arXiv:1606.09251.
+
+\bibitem{Brouwer2021}
+M.~M. Brouwer \emph{et~al.},
+``The radial acceleration relation in GAMA/KiDS:
+Bridging the gap between theory and observations,''
+Astron.\ Astrophys.\ \textbf{650}, A113 (2021);
+arXiv:2106.11677.
+
+\bibitem{GhariHaghi2026}
+A.~Ghari and H.~Haghi,
+``Verlinde's emergent gravity vs.\ MOND in dwarf spheroidal
+galaxies,''
+arXiv:2601.01715 (2026).
+
+\bibitem{Will2014}
+C.~M. Will,
+``The confrontation between general relativity and experiment,''
+Living Rev.\ Relativ.\ \textbf{17}, 4 (2014);
+arXiv:1403.7377.
+
+\bibitem{Milgrom2020}
+M.~Milgrom,
+``The $a_0$--cosmology connection in MOND,''
+arXiv:2001.09729 (2020).
+
+\bibitem{Crooks1999}
+G.~E. Crooks,
+``Entropy production fluctuation theorem and the nonequilibrium
+work relation for free energy differences,''
+Phys.\ Rev.\ E \textbf{60}, 2721 (1999);
+cond-mat/9901352.
+
+\bibitem{Kwon2019}
+H.~Kwon and M.~S. Kim,
+``Fluctuation theorems for a quantum channel,''
+Phys.\ Rev.\ X \textbf{9}, 031029 (2019).
+
+\bibitem{BassoCeleri2025}
+M.~L.~W. Basso, J.~Maziero, and L.~C. Celeri,
+``Quantum detailed fluctuation theorem in curved spacetimes:
+The observer dependent nature of entropy production,''
+Phys.\ Rev.\ Lett.\ \textbf{134}, 050406 (2025);
+arXiv:2405.03902.
+
+\bibitem{Famaey2012}
+B.~Famaey and S.~S. McGaugh,
+``Modified Newtonian dynamics (MOND): Observational
+phenomenology and relativistic extensions,''
+Living Rev.\ Relativ.\ \textbf{15}, 10 (2012);
+arXiv:1112.3960.
+
+\bibitem{Brownstein2007}
+J.~R. Brownstein and J.~W. Moffat,
+``The Bullet Cluster 1E0657-558 evidence shows modified gravity
+in the absence of dark matter,''
+Mon.\ Not.\ R.\ Astron.\ Soc.\ \textbf{382}, 29 (2007);
+astro-ph/0702146.
+
+\bibitem{Lee2010}
+J.~Lee and E.~Komatsu,
+``Bullet Cluster: A challenge to $\Lambda$CDM cosmology,''
+Astrophys.\ J.\ \textbf{718}, 60 (2010);
+arXiv:1003.0939.
+
+\bibitem{Jee2007}
+M.~J. Jee \emph{et~al.},
+``Discovery of a ringlike dark matter structure in the core of
+the galaxy cluster Cl\,0024+17,''
+Astrophys.\ J.\ \textbf{661}, 728 (2007);
+arXiv:0706.3048.
+
+\bibitem{Blanchet2024}
+L.~Blanchet and C.~Skordis,
+``A new class of relativistic MOND theories,''
+J.\ Cosmol.\ Astropart.\ Phys.\ \textbf{11}, 040 (2024);
+arXiv:2404.06584.
+
+\bibitem{Bianconi2025}
+G.~Bianconi,
+``Gravity from entropy,''
+Phys.\ Rev.\ D \textbf{111}, 066001 (2025);
+arXiv:2408.14391.
+
+\bibitem{Padmanabhan2017}
+T.~Padmanabhan,
+``Cosmic information, the cosmological constant and the
+amplitude of primordial perturbations,''
+Phys.\ Lett.\ B \textbf{773}, 81 (2017);
+arXiv:1703.06144.
+
+\bibitem{DESI2024}
+DESI Collaboration,
+``DESI 2024 VI: Cosmological constraints from the measurements
+of baryon acoustic oscillations,''
+arXiv:2404.03002 (2024).
+
+\bibitem{Hu2008}
+W.~Hu,
+``Lecture notes on CMB theory: From nucleosynthesis to
+recombination,''
+arXiv:0802.3688 (2008).
+
+\bibitem{Haubner2024}
+M.~Haubner, F.~Lelli, \emph{et~al.},
+``BIG-SPARC: A new galaxy sample for testing dark matter and
+galaxy formation models,''
+arXiv:2411.13329 (2024).
+
+\bibitem{Paper1}
+S.-K. Huang,
+``The arrow of time from Petz recovery'' (Paper~I),
+arXiv:2603.xxxxx (2026).
+
+\bibitem{Jacobson1995}
+T.~Jacobson,
+``Thermodynamics of spacetime: The Einstein equation of state,''
+Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995);
+gr-qc/9504004.
+
+\bibitem{Jacobson2016}
+T.~Jacobson,
+``Entanglement equilibrium and the Einstein equation,''
+Phys.\ Rev.\ Lett.\ \textbf{116}, 201101 (2016);
+arXiv:1505.04753.
+
+\bibitem{Smolin2017}
+L.~Smolin,
+``MOND as a regime of quantum gravity,''
+Phys.\ Rev.\ D \textbf{96}, 083523 (2017);
+arXiv:1704.00780.
+
+\bibitem{Pazy2013}
+E.~Pazy,
+``Quantum statistical modified entropic gravity as a theoretical
+basis for MOND,''
+Phys.\ Rev.\ D \textbf{87}, 084063 (2013);
+arXiv:1302.4411.
+
+\bibitem{deNetto2022}
+T.~de~Paula~Netto, L.~Modesto, and I.~L. Shapiro,
+``Universal leading quantum correction to the Newton potential,''
+Eur.\ Phys.\ J.\ C \textbf{82}, 160 (2022);
+arXiv:2110.14263.
+
+\bibitem{Donoghue2020}
+J.~F. Donoghue,
+``A critique of the asymptotic safety program,''
+Front.\ Phys.\ \textbf{8}, 56 (2020);
+arXiv:1911.02967.
+
+\bibitem{Deddo2024}
+E.~Deddo, J.~Kang, L.~Ren, and A.~C. Wall,
+``Entropic irreversibility theorems,''
+J.\ High Energy Phys.\ \textbf{09}, 179 (2024);
+arXiv:2404.15077.
+
+\bibitem{Grumiller2010}
+D.~Grumiller,
+``Model for gravity at large distances,''
+Phys.\ Rev.\ Lett.\ \textbf{105}, 211303 (2010);
+arXiv:1011.3625.
+
+\bibitem{Brouwer2017}
+M.~M. Brouwer \emph{et~al.},
+``First test of Verlinde's theory of emergent gravity using
+weak gravitational lensing measurements,''
+Mon.\ Not.\ R.\ Astron.\ Soc.\ \textbf{466}, 2547 (2017);
+arXiv:1612.03034.
+
+\bibitem{DeVuyst2025}
+S.~De~Vuyst, P.~A. H\"ohn, A.~Kirklin, and J.~Eccles,
+``Gravitational entropy is observer-dependent,''
+J.\ High Energy Phys.\ \textbf{07}, 146 (2025).
+
+\bibitem{Parzygnat2023}
+A.~J. Parzygnat and F.~Buscemi,
+``Axioms for retrodiction: Achieving time-reversal symmetry
+with a prior,''
+Quantum \textbf{7}, 1013 (2023).
+
+\bibitem{Fawzi2015}
+O.~Fawzi and R.~Renner,
+``Quantum conditional mutual information and approximate
+Markov chains,''
+Commun.\ Math.\ Phys.\ \textbf{340}, 575 (2015).
+
+\bibitem{Paper4}
+S.-K.~Huang,
+``One equation, three scales:
+$\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$
+as the universal action,''
+Paper~IV in this series (2026).
+
+\end{thebibliography}
+
+\end{document}

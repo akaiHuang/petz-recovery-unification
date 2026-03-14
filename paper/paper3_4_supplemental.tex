@@ -1,0 +1,1397 @@
+% paper3_4_supplemental.tex
+% Supplemental Material for Papers 3 and 4:
+%   Paper 3: "Dark Matter as Information Loss: Running G from the Gravitational Channel"
+%   Paper 4: "Five Papers, One Equation: Sigma = D(rho_spacetime || rho_matter)"
+% Author: Sheng-Kai Huang
+% Compile with: pdflatex paper3_4_supplemental.tex
+
+\documentclass[aps,prd,preprint,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+% Convenience macros (same as main texts)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\KL}{D}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tauasym}{\tau}
+\newcommand{\GN}{G_{\mathrm{N}}}
+\newcommand{\rs}{r_{\mathrm{s}}}
+\newcommand{\LdS}{L_{\mathrm{dS}}}
+\newcommand{\adS}{a_{\mathrm{dS}}}
+\newcommand{\azero}{a_0}
+
+\begin{document}
+
+\title{Supplemental Material for Papers~3 and~4:\\
+Dark Matter as Information Loss and the Unified $\Sigma$ Framework}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+
+%=======================================================================
+%  PART I: PAPER 3 SUPPLEMENT
+%=======================================================================
+
+\part*{Part I: Paper 3 --- Dark Matter from the Gravitational Channel}
+
+%=======================================================================
+\section{S1. Running $G$ Derivation from the Gravitational Channel}
+\label{sec:running_G}
+%=======================================================================
+
+\subsection{The scale-dependent gravitational channel}
+
+The gravitational channel at momentum scale $k$ is defined as
+\begin{equation}
+\chan_{\mathrm{grav}}(k): \rho \mapsto \Tr_{E(k)}
+\big[U(G(k))\,\rho\, U(G(k))^{\dagger}\big],
+\label{eq:grav_channel}
+\end{equation}
+where $U(G(k))$ is the unitary evolution with the Hamiltonian
+$H(G(k))$ and the environment trace represents gravitational
+decoherence at scale~$k$.  The entropy production at scale~$k$ is
+\begin{equation}
+\Sigma(k) = \KL(\rho\|\sigma) - \KL\!\big(\chan_{\mathrm{grav}}(k)(\rho)
+\,\big\|\,\chan_{\mathrm{grav}}(k)(\sigma)\big).
+\label{eq:Sigma_k}
+\end{equation}
+
+By the data processing inequality (DPI), $\Sigma(k)\ge 0$ for all~$k$.
+For scales $k_{\mathrm{IR}} < k_{\mathrm{UV}}$, coarse-graining from
+UV to IR constitutes an additional channel, giving the monotonicity
+\begin{equation}
+\Sigma(k_{\mathrm{IR}}) \ge \Sigma(k_{\mathrm{UV}}) \ge 0.
+\label{eq:DPI_monotone}
+\end{equation}
+This is the Casini--Huerta result~\cite{CasiniTeste2017}: the
+renormalization group (RG) flow is a quantum channel, and the QRE
+decreases monotonically under the RG flow.
+
+\subsection{Kumar's QFT first-principles running}
+
+Following Kumar~\cite{Kumar2025}, the gravitational coupling runs
+under the RG with anomalous dimension $\eta$:
+\begin{equation}
+\frac{d\ln G}{d\ln k} = -\eta,
+\qquad
+G(k) = \GN\left(\frac{k_*}{k}\right)^{\!\eta}
+\quad\text{for }k \ll k_*,
+\label{eq:running_G}
+\end{equation}
+where $k_*$ is the crossover momentum and $\GN = G(k_*)$ is the
+measured Newton constant.
+
+The modified Newtonian potential in momentum space is
+\begin{equation}
+\tilde{\Phi}(k) = -\frac{4\pi G(k)\,M}{k^2}
+= -\frac{4\pi\GN M\, k_*^{\eta}}{k^{2+\eta}}.
+\label{eq:Phi_k}
+\end{equation}
+
+Fourier-transforming to position space in $d=3$ spatial dimensions:
+\begin{equation}
+\Phi(r) = -M \int \frac{d^3 k}{(2\pi)^3}\,
+\frac{4\pi G(k)}{k^2}\,e^{i\bm{k}\cdot\bm{r}}.
+\label{eq:Phi_FT}
+\end{equation}
+
+\subsection{Why $\eta=1$ is the marginal case}
+
+The integral~\eqref{eq:Phi_FT} with $G(k)\propto k^{-\eta}$ yields
+three qualitatively distinct behaviors:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+$\eta$ & $\Phi(r)$ behavior & Physical status \\
+\midrule
+$\eta < 1$ & $r^{\eta-1}$ (decaying) & IR-irrelevant \\
+$\eta = 1$ & $\ln r$ (logarithmic) & \textbf{Marginal, scale-invariant} \\
+$\eta > 1$ & $r^{\eta-1}$ (growing) & Violates solar-system constraints \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+For $\eta=1$, the running becomes $G(k) = \GN(1 + k_*/k)$, and the
+explicit position-space results are:
+\begin{align}
+\Phi(r) &= -\frac{\GN M}{r}
++ \frac{2\GN M k_*}{\pi}\,\ln\!\left(\frac{r}{r_0}\right),
+\label{eq:Phi_eta1}\\
+F(r) &= -\frac{\GN M}{r^2} - \frac{2\GN M k_*}{\pi\, r},
+\label{eq:F_eta1}\\
+v^2(r) &= r|F(r)| = \frac{\GN M}{r}
++ \frac{2\GN M k_*}{\pi}.
+\label{eq:v2}
+\end{align}
+
+At $r \gg r_c = 1/k_*$, the second term dominates and
+\begin{equation}
+v^2(r) \approx V_0^2 = \frac{2\GN M_{\mathrm{bar}}\, k_*}{\pi}
+= \mathrm{const},
+\label{eq:flat_v}
+\end{equation}
+yielding a \emph{flat rotation curve}.
+
+\subsection{Connection to $\Sigma_{\mathrm{grav}}$}
+
+Using $\Sigma_{\mathrm{grav}} = 2|\Phi|/c^2$ (Paper~2) with the
+running potential~\eqref{eq:Phi_eta1}:
+\begin{equation}
+\Sigma_{\mathrm{grav}}(r) = \frac{\rs}{r}
++ \frac{4k_*\rs}{\pi}\ln\!\left(\frac{r}{r_0}\right),
+\label{eq:Sigma_galactic}
+\end{equation}
+where $\rs = 2\GN M/c^2$.  This is \emph{not} an ad hoc addition.
+It is the same $\Sigma = -\ln(-g_{00})$ from Paper~2, evaluated with
+the quantum-corrected potential that follows from the RG-improved
+gravitational channel.
+
+\subsection{SPARC galaxy rotation curve data}
+
+Three SPARC galaxies fitted by Kumar~\cite{Kumar2025} with $\eta=1$
+give a \emph{universal} crossover scale:
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Galaxy & $M_{\mathrm{bar}}\,[M_\odot]$ & $V_0\,[\mathrm{km/s}]$
+  & $k_*\,[\mathrm{kpc}^{-1}]$ \\
+\midrule
+S:700624 & $1.01\times 10^{12}$ & $271.4\pm 2.6$
+  & $(2.66\pm 0.05)\times 10^{-2}$ \\
+S:700916 & $5.85\times 10^{11}$ & $210.4\pm 2.4$
+  & $(2.76\pm 0.06)\times 10^{-2}$ \\
+S:705253 & $3.55\times 10^{11}$ & $158.9\pm 1.9$
+  & $(2.60\pm 0.06)\times 10^{-2}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The values of $k_*$ are consistent across a factor $\sim 3$ in
+baryonic mass, giving $r_c \approx 37\,\mathrm{kpc}$.  NFW dark
+matter halos have no analogous universal scale.
+
+Gubitosi, Piattella, and Casarini~\cite{Gubitosi2024} performed
+MCMC fits to 100 SPARC galaxies using the RGGR model
+($G(\mu) = G_0/[1 + \nu\ln(\mu^2/\mu_0^2)]$) and found that the
+running-$G$ framework is \emph{competitive with NFW}: 47~galaxies
+prefer RGGR, 40~prefer NFW, and 13~are inconclusive.
+
+%=======================================================================
+\section{S2. Observer-Dependent $\Sigma_{\mathrm{DM}}$ Calculation}
+\label{sec:observer_DM}
+%=======================================================================
+
+\subsection{Classical and quantum observer algebras}
+
+\begin{definition}[Observer algebras]
+For a gravitating system with total algebra $\mathcal{A}_{\mathrm{total}}$,
+define:
+\begin{itemize}
+\item $\mathcal{A}_{\mathrm{classical}}$: the subalgebra of
+  electromagnetic observables (photon frequencies, luminosities,
+  positions from EM detection).
+\item $\mathcal{A}_{\mathrm{quantum}} = \mathcal{A}_{\mathrm{total}}$:
+  the full algebra including gravitational entanglement structure.
+\end{itemize}
+\end{definition}
+
+By construction, $\mathcal{A}_{\mathrm{classical}} \subset
+\mathcal{A}_{\mathrm{quantum}}$.  The restriction map
+$\chan_{\mathrm{cl}} = E_{\mathcal{A}_{\mathrm{classical}}}$ is a
+quantum channel (conditional expectation).
+
+\subsection{Computing the two entropy productions}
+
+By the DPI/monotonicity theorem (Paper~1, Theorem~1 of the
+observer-dependent framework):
+\begin{equation}
+\Sigma_{\mathrm{classical}} \ge \Sigma_{\mathrm{quantum}}.
+\label{eq:monotonicity}
+\end{equation}
+
+For a point mass $M$ in the weak-field regime:
+\begin{align}
+\Sigma_{\mathrm{quantum}}(r) &= \frac{\rs}{r},
+\label{eq:Sigma_quantum}\\
+\Sigma_{\mathrm{classical}}(r) &= \frac{\rs}{r}
++ \frac{4k_*\rs}{\pi}\ln\!\left(\frac{r}{r_0}\right)
++ \frac{r}{\LdS},
+\label{eq:Sigma_classical}
+\end{align}
+where the additional terms arise because the classical observer
+cannot access the gravitational entanglement that would reduce the
+apparent information loss.
+
+\subsection{Dark matter as the observer gap}
+
+\begin{definition}[Dark matter entropy production]
+\begin{equation}
+\Sigma_{\mathrm{DM}}(r) \equiv
+\Sigma_{\mathrm{classical}}(r) - \Sigma_{\mathrm{quantum}}(r)
+= \frac{4k_*\rs}{\pi}\ln\!\left(\frac{r}{r_0}\right)
++ \frac{r}{\LdS}.
+\label{eq:Sigma_DM}
+\end{equation}
+\end{definition}
+
+The corresponding temporal asymmetry parameter for dark matter is
+\begin{equation}
+\tauasym_{\mathrm{DM}} = 1 - \exp(-\Sigma_{\mathrm{DM}}/2).
+\label{eq:tau_DM}
+\end{equation}
+
+\subsection{Numerical estimate at the solar radius}
+
+For the Milky Way ($M \approx 6\times 10^{10}\,M_\odot$) at
+$r = 8\,\mathrm{kpc}$:
+\begin{align}
+\Sigma_{\mathrm{Newton}} &= \frac{\rs}{r}
+\approx 3\times 10^{-6}, \nonumber\\
+\Sigma_{\mathrm{running}} &\approx \frac{4k_*\rs}{\pi}
+\ln\!\left(\frac{8}{37}\right) \approx -1\times 10^{-6}, \nonumber\\
+\Sigma_{\mathrm{DM}} &\approx 3.5\times 10^{-7}, \nonumber\\
+\tauasym_{\mathrm{DM}} &\approx 1.7\times 10^{-7}.
+\label{eq:tau_solar}
+\end{align}
+
+This tiny but nonzero $\tauasym_{\mathrm{DM}}$ is the origin of the
+galactic ``dark matter'' at this radius: it represents the information
+inaccessible to a classical (electromagnetic) observer.
+
+%=======================================================================
+\section{S3. Crooks $\to$ $\azero$ Derivation: Eight Routes}
+\label{sec:crooks_a0}
+%=======================================================================
+
+We systematically attempt to derive the MOND acceleration scale
+$\azero \approx 1.2\times 10^{-10}\,\mathrm{m/s}^2$ from the
+Crooks fluctuation theorem~\cite{Crooks1999} within the $\tauasym$
+framework.
+
+\subsection{Numerical benchmarks}
+
+With $H_0 = 70\,\mathrm{km\,s^{-1}\,Mpc^{-1}}
+= 2.27\times 10^{-18}\,\mathrm{s}^{-1}$:
+\begin{equation}
+\begin{aligned}
+cH_0 &= 6.80\times 10^{-10}\,\mathrm{m/s}^2,\\
+cH_0/(2\pi) &= 1.08\times 10^{-10}\,\mathrm{m/s}^2,\\
+cH_0/6 &= 1.13\times 10^{-10}\,\mathrm{m/s}^2,\\
+\azero\,\text{(MOND)} &= 1.20\pm 0.02\times 10^{-10}\,\mathrm{m/s}^2.
+\end{aligned}
+\label{eq:benchmarks}
+\end{equation}
+
+\subsection{Route 1: Naive $\Sigma=1$ transition (FAILS)}
+
+Setting $\Sigma_{\mathrm{grav}} = \rs/r = 1$ gives
+$a = c^4/(4GM)$, which is mass-dependent.  For the Milky Way,
+$a \sim 10^2\,\mathrm{m/s}^2$, a factor $10^{12}$ above $\azero$.
+The naive transition identifies the event horizon, not the MOND
+scale.
+
+\subsection{Route 2: $\Sigma_{\mathrm{grav}} = \Sigma_{\mathrm{cosmo}}$
+  (FAILS)}
+
+Balancing $\rs/r = r^2/r_H^2$ gives
+$r_{\mathrm{tr}} = (\rs\,r_H^2)^{1/3}$ and
+$a_{\mathrm{tr}} = (GM)^{1/3}H_0^{4/3}/2^{2/3}$.  This is still
+mass-dependent and $\sim 10^{-14}\,\mathrm{m/s}^2$.
+
+\subsection{Route 3: Verlinde in $\tauasym$ language (WORKS, imported)}
+
+Verlinde's emergent gravity~\cite{Verlinde2016} gives
+\begin{equation}
+g_D(r) = \sqrt{\frac{cH_0\,g_B(r)}{6}},
+\label{eq:Verlinde}
+\end{equation}
+with transition $g_D = g_B$ at $\azero = cH_0/6 \approx
+1.13\times 10^{-10}\,\mathrm{m/s}^2$.
+
+In $\tauasym$ language: in the Newtonian regime ($g\gg\azero$),
+$\Sigma \approx \rs/r$ and $\tauasym \approx \rs/(2r)$; in the MOND
+regime ($g\ll\azero$), $\Sigma_{\mathrm{eff}}$ grows as $\ln r$
+from the displaced de Sitter entanglement, and $\tauasym$ exceeds
+the Newtonian prediction.  However, the factor~6 is imported from
+Verlinde's specific geometric assumptions ($V/A = r/3$, elastic
+factor~$1/2$) rather than derived from Crooks.
+
+\subsection{Route 4: Unruh--de Sitter matching (FAILS by $\sim 6\times$)}
+
+Setting $T_U = T_{\mathrm{dS}}$ gives $a = cH_0 \approx
+6.8\times 10^{-10}\,\mathrm{m/s}^2$, a factor $\sim 6$ too large.
+
+\subsection{Route 5: Entropic force matching (circular)}
+
+Setting the Verlinde dark force equal to the Newtonian force
+reproduces $\azero = cH_0/6$, but the calculation imports Verlinde's
+specific formula, making it circular.
+
+\subsection{Route 6: Volume-law entropy with Crooks (INCOMPLETE)}
+
+The displaced Crooks entropy
+$\Sigma_{\mathrm{displaced}} \sim S_V\,\epsilon^2/2$ involves
+$S_V\propto Mc^2/(\hbar H_0)$ and $\epsilon\sim\rs/r$.  The product
+is mass-dependent.  To extract a universal $\azero$, one needs
+Verlinde's prescription for counting degrees of freedom on holographic
+screens.
+
+\subsection{Route 7: Geometric factor derivation (circular)}
+
+The factor $6 = 3\times 2$ in Verlinde's $\azero = cH_0/6$ comes
+from: $3$ from $V/A = r/3$ (spherical geometry), and $2$ from the
+quadratic QRE near equilibrium $\KL(\rho+\delta\|\rho) \approx
+\tfrac{1}{2}\Tr(\delta^2/\rho)$.  These factors are
+\emph{geometrically motivated} from the $\tauasym$ framework but not
+derived from Crooks.
+
+\subsection{Route 8: KMS--Crooks connection (BEST)}
+
+The de Sitter vacuum satisfies the KMS condition with thermal
+period $\beta_{\mathrm{dS}} = 2\pi/H_0$.  The spatial thermal
+wavelength is $\lambda_{\mathrm{dS}} = c\beta_{\mathrm{dS}}
+= 2\pi c/H_0$, and the corresponding acceleration is
+\begin{equation}
+\azero = \frac{c^2}{\lambda_{\mathrm{dS}}}
+= \frac{c^2}{2\pi c/H_0} = \frac{cH_0}{2\pi}
+\approx 1.08\times 10^{-10}\,\mathrm{m/s}^2,
+\label{eq:a0_KMS}
+\end{equation}
+within $10\%$ of the empirical value.
+
+The physical logic:
+\begin{enumerate}
+\item The KMS condition is exact for the de Sitter equilibrium state.
+\item The Crooks theorem requires a thermal state; KMS is the
+  mathematical definition of such a state in QFT.
+\item The modular flow defines ``thermal time,'' and Crooks entropy
+  production $\Sigma$ is measured in these units.
+\item The MOND transition $\Sigma\sim 1$ occurs when the
+  gravitational acceleration matches the de Sitter thermal scale.
+\end{enumerate}
+
+This reframes MOND as \emph{marginal irreversibility}: the transition
+from $\Sigma \gg 1$ (Newtonian, strongly irreversible) to $\Sigma\ll 1$
+(deep MOND, nearly reversible).
+
+\subsection{Summary of routes}
+
+\begin{center}
+\begin{tabular}{clcc}
+\toprule
+Route & Method & Result & Verdict \\
+\midrule
+1 & Naive $\Sigma=1$ & Mass-dep. & FAILS \\
+2 & $\Sigma_{\mathrm{grav}}=\Sigma_{\mathrm{cosmo}}$ & Mass-dep. & FAILS \\
+3 & Verlinde in $\tauasym$ & $cH_0/6$ & Works (imported) \\
+4 & Unruh--dS match & $cH_0$ & FAILS ($\times 6$) \\
+5 & Entropic force & $cH_0/6$ & Circular \\
+6 & Volume-law Crooks & Incomplete & --- \\
+7 & Geometric factor & $cH_0/6$ & Circular \\
+8 & KMS--Crooks & $cH_0/(2\pi)$ & \textbf{Best} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All routes agree: $\azero \sim cH_0/\mathcal{O}(1)$, with the
+$\mathcal{O}(1)$ factor between $1$ and $2\pi$.
+
+%=======================================================================
+\section{S4. Bullet Cluster: Entanglement Rigidity}
+\label{sec:bullet}
+%=======================================================================
+
+\subsection{The challenge}
+
+The Bullet Cluster (1E~0657-558) shows an offset between the
+gravitational lensing center (tracing total mass) and the X-ray
+center (tracing hot gas).  In $\Lambda$CDM, this arises because
+collisionless dark matter passes through while gas is ram-pressure
+stripped.  Any modified gravity theory must explain this offset.
+
+\subsection{Timescale estimates}
+
+In the $\tauasym$ framework, the ``dark component'' is
+gravitational entanglement of the stellar/galactic degrees of
+freedom.  Define two timescales:
+\begin{align}
+t_{\mathrm{ent}} &= \frac{r_{\mathrm{gal}}}{c}
+\approx \frac{30\,\mathrm{kpc}}{c}
+\approx 10^5\,\mathrm{yr},
+\label{eq:t_ent}\\
+t_{\mathrm{coll}} &\approx \frac{D_{\mathrm{sep}}}{v_{\mathrm{rel}}}
+\approx \frac{700\,\mathrm{kpc}}{4700\,\mathrm{km/s}}
+\approx 1.5\times 10^8\,\mathrm{yr},
+\label{eq:t_coll}
+\end{align}
+where $t_{\mathrm{ent}}$ is the light-crossing time for the galaxy's
+entanglement region and $t_{\mathrm{coll}}$ is the cluster crossing
+time.
+
+Since $t_{\mathrm{coll}} \gg t_{\mathrm{ent}}$, the entanglement
+structure can respond (approximately) adiabatically to the collision
+dynamics.  The entanglement entropy is anchored to the stellar
+distribution (which is collisionless), not to the gas (which is
+collisional).
+
+\subsection{Why entanglement stays with galaxies}
+
+The running-$G$ contribution to $\Sigma$ depends on the matter
+distribution through $M_{\mathrm{bar}}(r)$.  Stars and dark
+matter (in the conventional picture) are collisionless; gas is
+collisional.  In the $\tauasym$ framework:
+\begin{equation}
+\Sigma_{\mathrm{total}}(r) = \underbrace{\frac{\rs^{\mathrm{stars}}}{r}
++ \frac{4k_*\rs^{\mathrm{stars}}}{\pi}\ln r}_{\text{follows stars}}
++ \underbrace{\frac{\rs^{\mathrm{gas}}}{r}}_{\text{follows gas}}.
+\label{eq:bullet}
+\end{equation}
+
+The logarithmic (running-$G$) correction is dominated by the stellar
+mass distribution, which passes through the collision unimpeded.
+The gas contribution to the Newtonian term is subdominant
+($M_{\mathrm{gas}} \ll M_{\mathrm{stars}}$ in the subcluster
+galaxies).
+
+\subsection{Quantitative lensing-gas offset bound}
+
+The predicted lensing center is at the center of mass of
+$\Sigma_{\mathrm{total}}$.  The gas displacement $\Delta x_{\mathrm{gas}}
+\approx 200$--$300\,\mathrm{kpc}$ (observed) produces a shift in
+the lensing center of order
+\begin{equation}
+\Delta x_{\mathrm{lens}} \approx \frac{M_{\mathrm{gas}}}{M_{\mathrm{total}}}
+\,\Delta x_{\mathrm{gas}} \sim 0.1\,\Delta x_{\mathrm{gas}}
+\sim 20\text{--}30\,\mathrm{kpc},
+\label{eq:offset}
+\end{equation}
+consistent with the observed lensing-gas offset of $\sim 150\,\mathrm{kpc}$
+only if the running-$G$ contribution provides the remaining
+``collisionless'' component.  This requires
+$\Sigma_{\mathrm{running}} \gtrsim 4\,\Sigma_{\mathrm{Newton}}$ at
+the cluster scale, which remains to be quantitatively verified.
+
+%=======================================================================
+\section{S5. Crooks Interpolation Function}
+\label{sec:interpolation}
+%=======================================================================
+
+\subsection{Derivation from $P(\Sigma)/P(-\Sigma) = e^{\Sigma}$}
+
+The Crooks relation gives $P_F(\Sigma)/P_R(-\Sigma) = e^{\Sigma}$.
+If we identify $\Sigma = a/\azero$ (the local acceleration in units
+of the MOND scale), then the ratio of forward to reverse
+probabilities is $\exp(a/\azero)$, and the ``efficiency'' of the
+gravitational process is
+\begin{equation}
+\mu_{\mathrm{Crooks}}(x) = 1 - e^{-x},
+\qquad x = \frac{a}{\azero} = \frac{g_{\mathrm{bar}}}{\azero}.
+\label{eq:mu_Crooks}
+\end{equation}
+
+Properties:
+\begin{itemize}
+\item $x \gg 1$: $\mu \approx 1$ (Newtonian regime).
+\item $x \ll 1$: $\mu \approx x$ (deep MOND, linear).
+\item The transition is at $x\sim 1$ ($a\sim\azero$).
+\end{itemize}
+
+\subsection{Comparison with standard MOND interpolation functions}
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+Function & $\mu(x)$ & $x=0.1$ & $x=1$ & $x=3$ \\
+\midrule
+Standard & $x/(1+x)$ & 0.091 & 0.500 & 0.750 \\
+Simple & $x/\sqrt{1+x^2}$ & 0.100 & 0.707 & 0.949 \\
+RAR (empirical) & $1-e^{-\sqrt{x}}$ & 0.272 & 0.632 & 0.826 \\
+Crooks-inspired & $1-e^{-x}$ & 0.095 & 0.632 & 0.950 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The Crooks-inspired form transitions faster than the ``standard''
+function but matches the ``simple'' function well for $x \ge 1$.
+Its behavior at $x = 1$ ($\mu = 1-1/e \approx 0.632$) coincides
+with the empirical RAR interpolation $1-e^{-\sqrt{x}}$ evaluated at
+$x=1$.
+
+\subsection{Rotation curve predictions}
+
+The effective gravitational acceleration is
+\begin{equation}
+g_{\mathrm{obs}} = \frac{g_{\mathrm{bar}}}{\mu(g_{\mathrm{bar}}/\azero)}
+= \frac{g_{\mathrm{bar}}}{1-\exp(-g_{\mathrm{bar}}/\azero)}.
+\label{eq:gobs}
+\end{equation}
+
+For a galaxy with baryonic mass profile $M_{\mathrm{bar}}(r)$, the
+circular velocity is
+$v^2(r) = r\,g_{\mathrm{obs}}(r)$, reproducing flat rotation curves
+in the regime $g_{\mathrm{bar}} \ll \azero$.  Direct comparison with
+SPARC data requires fitting $\Upsilon_*$ (stellar mass-to-light
+ratio) as the sole free parameter.
+
+%=======================================================================
+\section{S6. Dark Energy from Cosmic Information (CosMIn)}
+\label{sec:dark_energy}
+%=======================================================================
+
+\subsection{Padmanabhan's argument}
+
+Padmanabhan~\cite{Padmanabhan2017} argues that the cosmological
+constant is determined by the requirement that the total cosmic
+information be finite:
+\begin{equation}
+I_{\mathrm{CosMIn}} = \int_0^{\infty}
+(N_{\mathrm{sur}}(t) - N_{\mathrm{bulk}}(t))\,dt < \infty,
+\label{eq:cosmin}
+\end{equation}
+where $N_{\mathrm{sur}} = A/(l_P^2)$ and $N_{\mathrm{bulk}}$ are
+the surface and bulk degrees of freedom of the Hubble sphere.
+
+\subsection{Translation to the $\tauasym$ framework}
+
+In our language:
+\begin{equation}
+I_{\mathrm{CosMIn}} = \int_0^{\infty} \tauasym(t)\,dt < \infty,
+\label{eq:cosmin_tau}
+\end{equation}
+where $\tauasym(t)$ is the cosmological temporal asymmetry at time~$t$.
+The requirement that this integral converges demands
+$\tauasym(t) \to 0$ sufficiently fast as $t\to\infty$, which requires
+accelerated expansion ($\Lambda > 0$).
+
+\subsection{Connection to the cosmological horizon}
+
+At the de Sitter future ($\Lambda$-dominated era), the Hubble sphere
+approaches $r_H = c/H_{\Lambda}$ with
+$H_{\Lambda} = \sqrt{\Lambda/3}$.  The horizon entropy is
+$S_H = \pi r_H^2 / (\GN\hbar)$, and the Kodama-vector $\tauasym$
+profile is
+\begin{equation}
+\tauasym(r) = 1 - \sqrt{1 - H_\Lambda^2 r^2/c^2},
+\quad r < c/H_\Lambda.
+\label{eq:tau_dS}
+\end{equation}
+
+This goes from $\tauasym = 0$ at the observer to $\tauasym = 1$ at
+the horizon, confirming that the cosmological horizon is the
+maximum-$\tauasym$ boundary.
+
+%=======================================================================
+%  PART II: PAPER 4 SUPPLEMENT
+%=======================================================================
+
+\part*{Part II: Paper 4 --- Grand Unification via
+$\Sigma = \KL(\rho_{\mathrm{st}}\|\rho_{\mathrm{m}})$}
+
+%=======================================================================
+\section{S7. Background QRE on FRW}
+\label{sec:FRW_background}
+%=======================================================================
+
+\subsection{Cai--Kim apparent horizon thermodynamics}
+
+For flat FRW with scale factor $a(t)$ and Hubble parameter
+$H = \dot{a}/a$, the apparent horizon is at $r_A = 1/H$.  Its
+thermodynamic quantities are~\cite{CaiKim2005}:
+\begin{align}
+T_A &= \frac{H}{2\pi},
+\quad
+S_A = \frac{\pi}{\GN H^2},
+\quad
+E = \frac{1}{2\GN H}.
+\label{eq:CK_thermo}
+\end{align}
+
+\subsection{$\KL_{\mathrm{background}} = 0$ implies the Friedmann equations}
+
+Define the spacetime thermal state and matter state by
+\begin{align}
+\rho_{\mathrm{st}} &= \frac{1}{Z_A}
+\exp\!\Big(-\frac{2\pi}{H}\,M(r_A)\Big),\\
+\rho_{\mathrm{m}} &= \text{state encoding }T_{ab}\text{ within }r_A.
+\end{align}
+
+The QRE between them:
+$\KL(\rho_{\mathrm{st}}\|\rho_{\mathrm{m}})
+= \beta_A\,\Delta E - \Delta S$.  At equilibrium
+(Friedmann equations satisfied), $\KL = 0$: the spacetime and matter
+states are in ``entanglement equilibrium''~\cite{Jacobson2016}.
+
+\subsection{Detailed derivation}
+
+Applying the Clausius relation $-dE = T_A\,dS_A$ at the apparent
+horizon:
+
+\emph{Energy}: $E = \rho\cdot(4\pi/3)r_A^3 = 4\pi\rho/(3H^3)$.
+
+\emph{Differentiating}: Using $\dot{\rho} = -3H(\rho+p)$:
+\begin{equation}
+\dot{E} = \frac{4\pi}{3}\left[\frac{\dot{\rho}}{H^3}
+- \frac{3\rho\dot{H}}{H^4}\right]
+= \frac{4\pi}{3}\left[\frac{-3H(\rho+p)}{H^3}
+- \frac{3\rho\dot{H}}{H^4}\right].
+\end{equation}
+
+\emph{Entropy}: $S_A = \pi/(\GN H^2)$, so
+$\dot{S}_A = -2\pi\dot{H}/(\GN H^3)$.
+
+\emph{Clausius relation}: $-\dot{E} = T_A\,\dot{S}_A$ gives
+\begin{equation}
+4\pi\!\left[\frac{\rho+p}{H^2} + \frac{\rho\dot{H}}{H^3}\right]
+= \frac{\dot{H}}{\GN H^2}.
+\end{equation}
+
+This yields:
+\begin{align}
+\dot{H} &= -4\pi\GN(\rho+p)
+\quad\text{(second Friedmann equation)},
+\label{eq:Friedmann2}\\
+H^2 &= \frac{8\pi\GN}{3}\rho
+\quad\text{(first Friedmann equation, from the constraint)}.
+\label{eq:Friedmann1}
+\end{align}
+
+\subsection{Consistency check: $\Sigma_{\mathrm{grav}} = 0$ on FRW}
+
+In comoving coordinates, $g_{00} = -1$, so
+$\Sigma_{\mathrm{grav}} = -\ln(-g_{00}) = 0$.  This is consistent:
+a comoving observer experiences zero gravitational entropy production.
+The cosmological arrow of time arises entirely from expansion
+(increasing scale factor), not from gravitational information loss.
+
+%=======================================================================
+\section{S8. First-Order QRE Perturbation}
+\label{sec:first_order}
+%=======================================================================
+
+\subsection{The Aalsma--Bak modular Hamiltonian perturbation}
+
+Following Aalsma and Bak~\cite{AalsmaBak2025}, the modular
+Hamiltonian for the FRW causal diamond, perturbed by a Newtonian
+potential $\Phi$, becomes
+\begin{equation}
+\delta K = 2\,S_A\,\Phi,
+\label{eq:deltaK}
+\end{equation}
+where $S_A = \pi/(\GN H^2)$ is the de Sitter (apparent horizon) entropy.
+
+\subsection{Entanglement first law: $\delta\KL^{(1)}=0$}
+
+The first-order variation of the QRE is given by the entanglement
+first law~\cite{Faulkner2014,BlancoCasini2013}:
+\begin{equation}
+\delta\KL^{(1)} = \delta\langle K_A\rangle - \delta S_A.
+\label{eq:ent_first_law}
+\end{equation}
+
+The modular Hamiltonian perturbation gives
+$\delta\langle K_A\rangle = 2S_A\,\Phi$.
+
+The entropy perturbation is
+$\delta S_A = -S_A\,\delta_m$, where $\delta_m = \delta\rho/\rho$
+is the matter density contrast (from the shift in the apparent
+horizon location).
+
+Setting $\delta\KL^{(1)} = 0$ (entanglement equilibrium at first
+order):
+\begin{equation}
+2\Phi + \delta_m = 0
+\quad\Longrightarrow\quad
+\Phi = -\frac{1}{2}\,\delta_m = -\frac{\delta\rho}{2\rho}.
+\label{eq:Poisson}
+\end{equation}
+
+This is the \textbf{Poisson equation in the sub-Hubble limit}:
+$k^2\Phi = -4\pi\GN a^2\rho\,\delta_m$, which for modes well inside
+the horizon ($k\gg H$) reduces to $\Phi \approx -\delta_m/2$.
+
+\subsection{Gauge choices}
+
+The above is derived in Newtonian gauge:
+$ds^2 = -(1+2\Phi)\,dt^2 + a^2(1-2\Psi)\,\delta_{ij}\,dx^i\,dx^j$.
+For GR without anisotropic stress, $\Phi = \Psi$.  The Bardeen
+potentials are gauge-invariant and coincide with $\Phi,\Psi$ in
+Newtonian gauge.  In synchronous gauge, the calculation requires
+expressing $\delta K$ and $\delta S_A$ in terms of the synchronous
+potentials $h$ and $\eta$.
+
+\subsection{What appears and what does not}
+
+At first order in the standard QRE formalism:
+\begin{itemize}
+\item \textbf{Present}: scalar metric perturbations ($\Phi,\Psi$)
+  and matter perturbations ($\delta\rho,\delta p,\delta q$).
+\item \textbf{Absent}: any independent ``observer field'' or
+  Khronon-like scalar.  The Kodama vector, which plays the role of
+  the observer, is determined by the metric---not an independent
+  degree of freedom.
+\end{itemize}
+
+%=======================================================================
+\section{S9. Modular Khronon Emergence}
+\label{sec:khronon}
+%=======================================================================
+
+\subsection{The modular time perturbation}
+
+The modular Hamiltonian $K$ generates a flow with modular parameter~$s$.
+The ``modular time'' associated with metric perturbation $\Phi$ is
+\begin{equation}
+\delta T_{\mathrm{mod}} = \frac{\delta K}{2\pi H^2/(2\pi)}
+= \frac{2S_A\,\Phi}{H} = -\frac{2\Phi}{H}.
+\label{eq:delta_T_mod}
+\end{equation}
+
+This perturbation defines a ``displaced foliation''---the
+constant-modular-time surfaces are shifted from the constant-cosmic-time
+surfaces by $\delta T_{\mathrm{mod}}$.
+
+\subsection{Dispersion relation}
+
+On a Minkowski background, the modular time perturbation
+$\delta T_{\mathrm{mod}}$ satisfies the constraint
+$\delta\KL^{(1)} = 0$, which ties $\delta T_{\mathrm{mod}}$ to
+$\Phi$.  The perturbation does \emph{not} satisfy a wave equation;
+instead, it is determined algebraically by the Poisson
+equation~\eqref{eq:Poisson}.  Its effective dispersion relation is
+\begin{equation}
+\omega = 0 \quad\text{(non-propagating)},
+\label{eq:cs0}
+\end{equation}
+because the modular-time perturbation is a \emph{constraint mode},
+not a propagating degree of freedom.
+
+In a matter-dominated universe, the Newtonian potential is constant
+($\dot{\Phi}=0$), so $\delta T_{\mathrm{mod}}$ is frozen---it grows
+in place without oscillating, exactly like pressureless dust (CDM).
+
+\subsection{Why $c_s \neq 0$ in the radiation era}
+
+During radiation domination, the gravitational potential decays
+($\dot{\Phi}\neq 0$), so $\delta T_{\mathrm{mod}}$ is driven.
+The effective sound speed
+$c_s^2 = \delta p/\delta\rho$ for the modular perturbation is
+\begin{equation}
+c_s^2 \approx \begin{cases}
+0 & \text{matter era (}w=0\text{)},\\
+\mathcal{O}(k/\mu)^2 & \text{radiation era, subleading}.
+\end{cases}
+\label{eq:cs_rad}
+\end{equation}
+
+For all CMB-relevant scales ($k\ll\mu$ if $\mu^{-1}\sim\mathrm{kpc}$),
+$c_s^2\approx 0$ to excellent approximation.
+
+\subsection{Effective mass}
+
+The Khronon mass parameter
+$\mu$ sets the scale at which the non-propagating behavior breaks
+down.  From the Blanchet--Skordis theory~\cite{BlanchetSkordis2024}:
+\begin{equation}
+\mu_{\mathrm{eff}} \sim 2\pi H_0
+\approx 1.4\times 10^{-17}\,\mathrm{s}^{-1}.
+\label{eq:mu_eff}
+\end{equation}
+
+In position space, $\mu^{-1}\sim 223\,\mathrm{kpc}$, consistent with
+the crossover between MOND and cosmological regimes.
+
+%=======================================================================
+\section{S10. Observer Entanglement Equilibrium (OEE)}
+\label{sec:OEE}
+%=======================================================================
+
+\subsection{Formal statement}
+
+\begin{definition}[Observer Entanglement Equilibrium]
+The physical state $\omega$ satisfies OEE if the QRE is stationary
+with respect to variations in the metric \emph{and} the observer's
+4-velocity:
+\begin{equation}
+\frac{\delta\KL}{\delta g_{ab}} = 0,
+\qquad
+\frac{\delta\KL}{\delta u^a} = 0,
+\label{eq:OEE}
+\end{equation}
+subject to $g_{ab}u^a u^b = -1$ (enforced by a Lagrange multiplier
+$\lambda$).
+\end{definition}
+
+The first equation gives the Einstein equations (Dorau-Much/Jacobson).
+The second is new: it determines the observer's 4-velocity as a
+\emph{dynamical} field.
+
+\subsection{Derivation of the Khronon field equation from OEE}
+
+The QRE depends on $u^a$ through the modular Hamiltonian
+$K[u] = (2\pi/\kappa_u)\int T_{ab}\,u^a\,d\Sigma^b$.
+Varying with respect to $u^a$ (with the constraint
+$u^a u_a = -1$) yields
+\begin{equation}
+(g_{ab}+u_a u_b)\,\nabla^b\!\left(\frac{\partial K}{\partial u^a}\right)
+= 0,
+\label{eq:khronon_eom}
+\end{equation}
+which, for $u^a = -(c/Q)\nabla^a T$ (the hypersurface-orthogonal
+form), reduces to the Khronon field equation with kinetic function
+\begin{equation}
+K(Q) = \mu^2(Q-1)^2.
+\label{eq:KQ}
+\end{equation}
+
+\subsection{Connection to Petz optimality}
+
+The Petz optimality argument: the kinetic function $K(Q)$ must have a
+quadratic minimum at the background value $Q_0 = 1$, because:
+\begin{enumerate}
+\item Petz optimality requires the channel to be maximally recoverable.
+\item Maximal recoverability implies minimal entropy production for perturbations.
+\item Minimal entropy production requires perturbations not to propagate
+  ($c_s = 0$).
+\item $c_s = 0$ requires $K(Q)$ to have a quadratic minimum at the
+  background: $K(Q) \sim \mu^2(Q-Q_0)^2$.
+\end{enumerate}
+
+This selects exactly the Blanchet--Skordis kinetic
+term~\cite{BlanchetSkordis2024}.
+
+\subsection{Why OEE gives $K(Q) = \mu^2(Q-1)^2$}
+
+The variation $\delta\KL/\delta u^a = 0$ at the background
+($u^a$ = comoving) gives $K'(Q_0) = 0$.  Combined with stability
+($K''(Q_0) > 0$), the leading-order kinetic function is
+\begin{equation}
+K(Q) = K(Q_0) + \tfrac{1}{2}K''(Q_0)(Q-Q_0)^2 + \cdots
+= \mu^2(Q-1)^2 + \mathcal{O}((Q-1)^3).
+\end{equation}
+
+%=======================================================================
+\section{S11. $\tauasym\to$ AeST Mapping}
+\label{sec:AeST}
+%=======================================================================
+
+\subsection{Complete AeST action}
+
+The Skordis--Zlosnik AeST action~\cite{SkordisZlosnik2021} is
+\begin{equation}
+S = \int d^4x\,\frac{\sqrt{-g}}{16\pi\tilde{G}}
+\Big[R - \frac{K_B}{2}F_{\mu\nu}F^{\mu\nu}
++ 2(2-K_B)J^\mu\nabla_\mu\phi
+- (2-K_B)Y - \mathcal{F}(Y,Q)
+- \lambda(A^\mu A_\mu + 1)\Big]
++ S_{\mathrm{m}},
+\label{eq:AeST}
+\end{equation}
+where $F_{\mu\nu} = \nabla_\mu A_\nu - \nabla_\nu A_\mu$,
+$J^\mu = A^\nu\nabla_\nu A^\mu$ (aether acceleration),
+$Y = D^\mu\phi\,D_\mu\phi$ (spatial scalar kinetic term with
+$D_\mu\phi = (\delta^\nu_\mu + A^\nu A_\mu)\nabla_\nu\phi$),
+and $Q = A^\mu\nabla_\mu\phi$ (temporal scalar derivative).
+
+\subsection{The identification: $u^a = A^\mu$}
+
+The structural identification is exact:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+$\tauasym$ framework & AeST / Khronon & Math.\ object \\
+\midrule
+Observer $u^a$ & Aether $A^\mu$ & Unit timelike vector \\
+Time function $T$ & Khronon $\tau$ & Scalar foliation \\
+$u^a u_a = -1$ & $A^\mu A_\mu = -1$ & Same constraint \\
+$\Sigma = -\ln(-g_{00})$ & $\phi_s$ & Gravitational scalar \\
+DPI monotonicity & MOND interpolation & Running of channel \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{What the $\tauasym$ framework determines vs.\ what is free}
+
+\textbf{Determined by $\tauasym$}:
+\begin{enumerate}
+\item The existence of a dynamical unit timelike field $u^a$ (from
+  observer-dependence of $\tauasym$).
+\item The quadratic-minimum form of the kinetic function $K(Q)$
+  (from Petz optimality; Section~S10).
+\item The sign constraints $c_a = c_1+c_4 \ge 0$ (from DPI/energy
+  conditions).
+\item The constraint $c_1+c_3 = 0$ (from $c_T = c$;
+  GW170817~\cite{GW170817}).
+\end{enumerate}
+
+\textbf{Free parameters (not determined)}:
+\begin{enumerate}
+\item The coupling constants $c_1$ and $c_4$ (two free parameters).
+\item The mass scale $\mu$ (sets the DM energy density).
+\item The MOND acceleration scale $\azero$ (entered via $\mathcal{F}(Y,Q)$).
+\item The DBI completion (behavior away from the quadratic minimum).
+\end{enumerate}
+
+\subsection{The stealth black hole tension}
+
+AeST admits ``stealth'' black hole solutions with exact
+Schwarzschild geometry~\cite{SkordisVokrouhlicky2024}, while the
+$\tauasym$ framework predicts the exponential metric
+$g_{00} = -e^{-\rs/r}$ (Paper~2).  These are distinct and
+observationally distinguishable.  This tension is real and must be
+acknowledged; its resolution requires determining whether the Petz
+saturation ansatz or the AeST field equations take precedence in the
+strong-field regime.
+
+%=======================================================================
+\section{S12. Five Limits of the Master Equation}
+\label{sec:five_limits}
+%=======================================================================
+
+The master equation
+$\Sigma = \KL(\rho_{\mathrm{st}}\|\rho_{\mathrm{m}})$ reduces to
+known physics under different boundary conditions.
+
+\subsection{Paper 1 limit: Quantum information}
+
+\emph{Setting}: Flat spacetime ($g_{\mu\nu} = \eta_{\mu\nu}$), CPTP
+map $\chan$, finite-dimensional Hilbert space.
+
+$\Sigma_{\mathrm{grav}} = 0$ (no gravitational contribution).
+The remaining $\Sigma$ is
+\begin{equation}
+\Sigma_{\mathrm{QI}} = \KL(\rho\|\sigma) - \KL(\chan(\rho)\|\chan(\sigma)).
+\label{eq:limit1}
+\end{equation}
+
+The Petz recovery bound $F\ge\exp(-\Sigma_{\mathrm{QI}}/2)$, the
+equivalence chain $\tauasym=0\Leftrightarrow\Sigma=0
+\Leftrightarrow$ quantum Markov $\Leftrightarrow$ Knill--Laflamme,
+and the retrodiction Landauer principle all follow.
+
+\emph{Precision}: EXACT.  No approximations.
+
+\subsection{Paper 2 limit: Strong-field gravity}
+
+\emph{Setting}: Static, spherically symmetric, asymptotically flat,
+$r\sim\rs$.
+
+The gravitational redshift channel gives
+$\Sigma_{\mathrm{grav}} = -\ln(-g_{00})$.  For the exponential metric
+(exact Petz saturation):
+$g_{00} = -\exp(-\rs/r)$, hence $\Sigma = \rs/r$.  Three
+independent first-principles routes confirm this
+(modular flow, gravitational Landauer, pure-loss bosonic channel).
+
+\emph{Precision}: Steps 1--3 DERIVED; exact saturation CONJECTURED.
+
+\subsection{Paper 3 limit: Galactic dynamics}
+
+\emph{Setting}: Weak field, $r\sim\mathrm{kpc}$, RG-improved channel.
+
+The DPI applied to the RG flow (Casini--Huerta~\cite{CasiniTeste2017})
+gives monotonicity $\Sigma(k_{\mathrm{IR}})\ge\Sigma(k_{\mathrm{UV}})$.
+With $\eta=1$ running (Kumar~\cite{Kumar2025}):
+\begin{equation}
+\Sigma_{\mathrm{weak}}(r) = \frac{\rs}{r}
++ \frac{4k_*\rs}{\pi}\ln\!\left(\frac{r}{r_0}\right).
+\label{eq:limit3}
+\end{equation}
+
+This produces flat rotation curves, the radial acceleration
+relation, and the baryonic Tully-Fisher relation.
+
+\emph{Precision}: Running $G$ KNOWN (asymptotic safety);
+$\eta=1$ PHENOMENOLOGICAL (not derived from $\tauasym$ framework).
+
+\subsection{Paper 5 limit: Observer-dependent time}
+
+\emph{Setting}: General system, observer $O$ with algebra
+$\mathcal{A}_O\subset\mathcal{A}_{\mathrm{total}}$.
+
+The observer's effective channel is
+$\chan_O:\mathcal{A}_{\mathrm{total}}\to\mathcal{A}_O$ (conditional
+expectation).  Observer-dependent entropy production:
+\begin{equation}
+\Sigma_O = \KL(\omega\|\omega_{\mathrm{ref}})
+- \KL(\chan_O(\omega)\|\chan_O(\omega_{\mathrm{ref}})),
+\end{equation}
+with monotonicity: $O_1\le O_2\Rightarrow\Sigma_{O_1}\ge\Sigma_{O_2}$.
+
+\emph{Precision}: Monotonicity PROVED (DPI).
+
+\subsection{Friedmann limit: Cosmological expansion}
+
+\emph{Setting}: Homogeneous, isotropic FRW, $r\sim c/H_0$.
+
+At the background level, $\KL = 0$ yields the Friedmann equations
+(Section~S7).  At first order, $\delta\KL^{(1)}=0$ yields the
+Poisson equation (Section~S8).  The Kodama-vector $\tauasym$ profile
+$\tauasym(r) = 1 - \sqrt{1-H^2r^2/c^2}$ interpolates from $\tauasym=0$
+at the observer to $\tauasym=1$ at the apparent horizon.
+
+\emph{Precision}: Background PROVED (Cai-Kim~\cite{CaiKim2005});
+perturbations NEW SYNTHESIS (Aalsma--Bak~\cite{AalsmaBak2025}).
+
+%=======================================================================
+\section{S13. Why $\Omega_{\mathrm{DM}}$ Cannot Be Derived}
+\label{sec:Omega_DM}
+%=======================================================================
+
+\subsection{The fundamental obstruction}
+
+The JRSWW bound $F\ge\exp(-\Sigma/2)$ is a \emph{universal}
+information-theoretic statement.  It holds for every quantum channel,
+every pair of states, and every Hilbert space dimension.  It knows
+nothing about:
+\begin{itemize}
+\item the specific matter content of the universe,
+\item the baryon-to-photon ratio,
+\item Big Bang nucleosynthesis,
+\item freeze-out temperatures.
+\end{itemize}
+
+Meanwhile, $\Omega_{\mathrm{DM}}h^2 \approx 0.12$ is a
+\emph{contingent} fact about our universe.
+\textbf{A universal bound cannot determine a contingent parameter.}
+
+\subsection{Summary of 10 failed attempts}
+
+\begin{center}
+\begin{tabular}{clc}
+\toprule
+\# & Approach & Verdict \\
+\midrule
+1 & $\Sigma=-\ln(g_{00})$ at fixed $r/r_H$ & DEAD END (arbitrary $r$) \\
+2 & $\tauasym = \Omega_{\mathrm{DM}}$ & DEAD END (tautological) \\
+3 & Numerology & DEAD END \\
+4 & Padmanabhan $N_{\mathrm{sur}}$ vs $N_{\mathrm{bulk}}$ & Predicts $\Lambda$, not $\Omega_{\mathrm{DM}}$ \\
+5 & Cumulative $\Sigma$ at $r_H$ & CIRCULAR ($\Sigma\sim\Omega_m$) \\
+6 & Bekenstein bound & DEAD END ($S/S_{\mathrm{holo}}\sim 10^{-18}$) \\
+7 & $\Sigma=1$ at horizon & Suggestive ($\tauasym=0.39$ vs $\Omega_m=0.31$) \\
+8 & Holographic DM (Trivedi-Scherrer) & Indirect connection only \\
+9 & $N_{\mathrm{bulk}}/N_{\mathrm{sur}}$ ratio & CIRCULAR \\
+10 & Baryogenesis entropy & DEAD END \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{The correct analogy}
+
+$\Omega_{\mathrm{DM}}$ is to the $\tauasym$ framework as the mass
+of the Earth is to $F=ma$.  Newton's second law provides the
+\emph{framework} (how things respond to forces) but not the
+\emph{initial conditions} (the mass of Earth).  Similarly,
+$\Sigma = \KL(\rho_{\mathrm{st}}\|\rho_{\mathrm{m}})$ provides the
+\emph{structure} of gravity and dark matter but not the
+\emph{amplitude} $\Omega_{\mathrm{DM}}h^2 = 0.12$, which requires
+cosmological initial conditions.
+
+%=======================================================================
+\section{S14. Comparison with Other Unification Programs}
+\label{sec:comparison}
+%=======================================================================
+
+\subsection{String theory / M-theory}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Feature & String theory & $\tauasym$ framework \\
+\midrule
+Starting point & Strings/branes & QRE ($\Sigma$) \\
+UV complete? & Yes & No \\
+Background independent? & No (perturbative) & Yes (algebraic) \\
+Predictions & Extra dims, SUSY & GW echoes, flat curves \\
+Testable (2026)? & No & Yes \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The $\tauasym$ framework is an \emph{organizational principle}, not a
+competitor to microscopic theories.  If string theory provides the
+UV completion, $\tauasym$ may provide the macroscopic organizational
+structure---analogous to thermodynamics vis-\`{a}-vis statistical
+mechanics.
+
+\subsection{Loop quantum gravity}
+
+LQG quantizes geometry itself (spin networks, discrete area spectrum).
+The $\tauasym$ framework does not quantize geometry but uses
+information loss as the fundamental quantity.  A potential connection:
+the discrete area spectrum in LQG would quantize
+$\Sigma_{\mathrm{grav}}$ in Planck units, providing a UV cutoff.
+
+\subsection{Entropic gravity (Verlinde)}
+
+Verlinde~\cite{Verlinde2016} derives gravity from holographic
+entropy (area + volume law).  The $\tauasym$ framework shares the
+philosophy (gravity = entropy production) but uses QRE rather than
+force-based entropy arguments.  Verlinde's volume-law contribution
+may be the cosmological-scale limit of our $\Sigma$, while our
+$\Sigma_{\mathrm{grav}} = \rs/r$ is the strong-field limit.
+Ghari and Haghi~\cite{GhariHaghi2026} find Verlinde favored over
+MOND at $5.2\sigma$ for dwarf spheroidals.
+
+\subsection{ER = EPR}
+
+The $\tauasym$ interpretation: a wormhole connecting two regions is
+a system for which the total observer (accessing both ends) has
+$\tauasym = 0$ (closed system, no arrow of time).  An observer
+at one end only has $\tauasym > 0$ (the other end appears
+thermalized).  This is the ER = EPR picture translated to $\tauasym$
+language.  Kaplan, Mittal, Penington, and Susskind (2024) proved
+this operationally for typical states.
+
+\subsection{It from Qubit / Holographic QEC}
+
+The Petz recovery map appears in both frameworks:
+\begin{itemize}
+\item In holographic QEC, the Petz map reconstructs bulk operators
+  from boundary data (Cotler et al., PRX 2019).
+\item In the $\tauasym$ framework, the Petz map is the optimal
+  retrodiction (Paper~1).
+\end{itemize}
+
+These are the \emph{same} mathematical object in different contexts.
+The $\tauasym$ framework extends beyond AdS/CFT (which requires a
+conformal boundary) because QRE is well-defined in any algebraic QFT.
+
+\subsection{Summary: what type of theory $\tauasym$ is}
+
+The $\tauasym$ framework is not a microscopic theory (like string or
+LQG).  It is a \emph{structural theory}---universal predictions that
+hold for any microscopic completion satisfying the DPI.  Its value:
+\begin{enumerate}
+\item Explains \emph{why} Petz/QRE structures appear across domains.
+\item Provides universal, model-independent predictions.
+\item Connects QI, GR, cosmology, and philosophy of time.
+\item Gives a computable definition of ``arrow of time'' at all scales.
+\end{enumerate}
+
+%=======================================================================
+%  REFERENCES
+%=======================================================================
+
+\begin{thebibliography}{99}
+
+\bibitem{CasiniTeste2017}
+H.~Casini, E.~Teste, and G.~Torroba,
+``Relative Entropy and the RG Flow,''
+J. High Energy Phys.\ \textbf{2017}, 089 (2017);
+arXiv:1611.00016.
+
+\bibitem{Kumar2025}
+N.~Kumar,
+``Marginal IR Running of Gravity as a Natural Explanation for
+Dark Matter,''
+Phys.\ Lett.\ B \textbf{871}, 140008 (2025);
+arXiv:2509.05246.
+
+\bibitem{Gubitosi2024}
+G.~Gubitosi, O.~F.~Piattella, and L.~Casarini,
+``Phenomenology of Renormalization Group Improved Gravity from
+SPARC Galaxies,''
+Phys.\ Rev.\ D \textbf{110}, 124014 (2024);
+arXiv:2403.00531.
+
+\bibitem{Verlinde2016}
+E.~P.~Verlinde,
+``Emergent Gravity and the Dark Universe,''
+SciPost Phys.\ \textbf{2}, 016 (2017);
+arXiv:1611.02269.
+
+\bibitem{GhariHaghi2026}
+A.~Ghari and H.~Haghi,
+(2026); arXiv:2601.01715.
+
+\bibitem{Crooks1999}
+G.~E.~Crooks,
+``Entropy Production Fluctuation Theorem and the Nonequilibrium
+Work Relation for Free Energy Differences,''
+Phys.\ Rev.\ E \textbf{60}, 2721 (1999);
+arXiv:cond-mat/9901352.
+
+\bibitem{Padmanabhan2017}
+T.~Padmanabhan and H.~Padmanabhan,
+``Cosmic Information, the Cosmological Constant and the Amplitude
+of Primordial Perturbations,''
+Phys.\ Lett.\ B \textbf{773}, 81 (2017);
+arXiv:1703.06144.
+
+\bibitem{CaiKim2005}
+R.-G.~Cai and S.~P.~Kim,
+``First Law of Thermodynamics and Friedmann Equations of
+Friedmann--Robertson--Walker Universe,''
+J. High Energy Phys.\ \textbf{2005}, 050 (2005);
+hep-th/0501055.
+
+\bibitem{Jacobson2016}
+T.~Jacobson,
+``Entanglement Equilibrium and the Einstein Equation,''
+Phys.\ Rev.\ Lett.\ \textbf{116}, 201101 (2016);
+arXiv:1505.04753.
+
+\bibitem{AalsmaBak2025}
+W.~Aalsma and D.~Bak,
+``Modular Hamiltonian and Cosmological Perturbations,''
+Phys.\ Rev.\ D \textbf{112}, 026017 (2025);
+arXiv:2503.04886.
+
+\bibitem{Faulkner2014}
+T.~Faulkner, A.~Lewkowycz, and J.~Maldacena,
+``Quantum Corrections to Holographic Entanglement Entropy,''
+J. High Energy Phys.\ \textbf{2013}, 074 (2013);
+arXiv:1307.2892.
+
+\bibitem{BlancoCasini2013}
+D.~D.~Blanco, H.~Casini, L.-Y.~Hung, and R.~C.~Myers,
+``Relative Entropy and Holography,''
+J. High Energy Phys.\ \textbf{2013}, 015 (2013);
+arXiv:1305.3182.
+
+\bibitem{BlanchetSkordis2024}
+L.~Blanchet and C.~Skordis,
+``A New Relativistic Theory for Modified Newtonian Dynamics,''
+J. Cosmol.\ Astropart.\ Phys.\ \textbf{2024}, 040 (2024);
+arXiv:2404.06584.
+
+\bibitem{SkordisZlosnik2021}
+C.~Skordis and T.~Zlosnik,
+``New Relativistic Theory for Modified Newtonian Dynamics,''
+Phys.\ Rev.\ Lett.\ \textbf{127}, 161302 (2021);
+arXiv:2007.00082.
+
+\bibitem{SkordisVokrouhlicky2024}
+C.~Skordis and D.~Vokrouhlick\'{y},
+``Stealth Black Holes in AeST,''
+(2024); arXiv:2412.15395.
+
+\bibitem{GW170817}
+B.~P.~Abbott \emph{et al.} (LIGO/Virgo),
+``Tests of General Relativity with GW170817,''
+Phys.\ Rev.\ Lett.\ \textbf{119}, 161101 (2017).
+
+\bibitem{Bianconi2025}
+G.~Bianconi,
+``Gravity from Entropy,''
+Phys.\ Rev.\ D \textbf{111}, 066001 (2025);
+arXiv:2408.14391.
+
+\bibitem{DorauMuch2025}
+P.~Dorau and A.~Much,
+``From Quantum Relative Entropy to the Semiclassical Einstein
+Equations,''
+Phys.\ Rev.\ Lett.\ \textbf{136}, 091602 (2025);
+arXiv:2510.24491.
+
+\bibitem{Milgrom1983}
+M.~Milgrom,
+``A Modification of the Newtonian Dynamics as a Possible
+Alternative to the Hidden Mass Hypothesis,''
+Astrophys.\ J.\ \textbf{270}, 365 (1983).
+
+\bibitem{McGaugh2016}
+S.~S.~McGaugh, F.~Lelli, and J.~M.~Schombert,
+``Radial Acceleration Relation in Rotationally Supported Galaxies,''
+Phys.\ Rev.\ Lett.\ \textbf{117}, 201101 (2016);
+arXiv:1609.05917.
+
+\bibitem{Lelli2016}
+F.~Lelli, S.~S.~McGaugh, and J.~M.~Schombert,
+``SPARC: Mass Models for 175 Disk Galaxies,''
+Astron.\ J.\ \textbf{152}, 157 (2016);
+arXiv:1606.09251.
+
+\bibitem{BassoMazieroCeleri2025}
+M.~L.~W.~Basso, J.~Maziero, and L.~C.~Celeri,
+``Quantum Detailed Fluctuation Theorem in Curved Spacetimes,''
+Phys.\ Rev.\ Lett.\ \textbf{134}, 050406 (2025);
+arXiv:2405.03902.
+
+\bibitem{Jacobson1995}
+T.~Jacobson,
+``Thermodynamics of Spacetime: The Einstein Equation of State,''
+Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995);
+gr-qc/9504004.
+
+\bibitem{Petz1988}
+D.~Petz,
+``Sufficiency of Channels over von Neumann Algebras,''
+Q.~J.~Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{Junge2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M.~Wilde, and A.~Winter,
+``Universal Recovery Maps and Approximate Sufficiency of Quantum
+Relative Entropy,''
+Ann.\ Henri Poincar\'{e} \textbf{19}, 2955 (2018);
+arXiv:1509.07127.
+
+\bibitem{ReuterWeyer2004}
+M.~Reuter and H.~Weyer,
+``Running Newton Constant, Improved Gravitational Actions, and
+Galaxy Rotation Curves,''
+Phys.\ Rev.\ D \textbf{70}, 124028 (2004);
+hep-th/0410117.
+
+\bibitem{BlanchetSkordis2025}
+L.~Blanchet and C.~Skordis,
+``The Khronon-Tensor Theory,''
+(2025); arXiv:2507.00912.
+
+\bibitem{Smolin2017}
+L.~Smolin,
+``MOND as a Regime of Quantum Gravity,''
+Phys.\ Rev.\ D \textbf{96}, 083523 (2017);
+arXiv:1704.00780.
+
+\bibitem{Milgrom2020}
+M.~Milgrom,
+``The $a_0$-cosmology connection in MOND,''
+(2020); arXiv:2001.09729.
+
+\bibitem{Haubner2024}
+M.~Haubner, F.~Lelli, \emph{et al.},
+``BIG-SPARC,''
+(2024); arXiv:2411.13329.
+
+\bibitem{TrivediScherrer2025}
+R.~Trivedi and R.~J.~Scherrer,
+``Dark Matter from Holography,''
+(2025); arXiv:2511.10617.
+
+\end{thebibliography}
+
+\end{document}
