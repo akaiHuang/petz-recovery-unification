@@ -1803,15 +1803,15 @@ is exactly saturated, for $\sigma = I/d$.
 
 Let $\chan$ be a CPTP map, $\sigma = I/d$ the maximally mixed
 state, and $\rho = \ket{\psi}\!\bra{\psi}$ a pure state.
-Write $\omega = \chan(\rho)$ and $\tau = \chan(\sigma)$.  Then
+Write $\omega = \chan(\rho)$ and $\nu = \chan(\sigma)$.  Then
 \begin{equation}
 F^2\!\big(\rho,\,\Petz_{\sigma,\chan}(\chan(\rho))\big)
 = \exp(-\Delta D)
 \end{equation}
 if and only if:
 \begin{enumerate}
-\item[(i)] $[\omega, \tau] = 0$ (channel outputs commute);
-\item[(ii)] $\omega_i/\tau_i = c$ for all $i$ with
+\item[(i)] $[\omega, \nu] = 0$ (channel outputs commute);
+\item[(ii)] $\omega_i/\nu_i = c$ for all $i$ with
   $\omega_i > 0$ (constant likelihood ratio on support).
 \end{enumerate}
 When these hold, $F^2 = c/d$ and $\Delta D = \ln(d/c)$.
@@ -1830,33 +1830,33 @@ for $d = 2$ the proof is non-perturbative.
 With $\sigma = I/d$, the Petz map~\eqref{eq:petz} simplifies to
 \begin{equation}
 \Petz_{\sigma,\chan}(\cdot) = \frac{1}{d}\,
-\chan^\dagger\!\big(\tau^{-1/2}\,(\cdot)\,\tau^{-1/2}\big).
+\chan^\dagger\!\big(\nu^{-1/2}\,(\cdot)\,\nu^{-1/2}\big).
 \end{equation}
 
 \emph{Step~2: Fidelity as arithmetic mean.}
 For pure $\rho = \ket{\psi}\!\bra{\psi}$, the recovery fidelity is
 \begin{equation}
 F^2 = \bra{\psi}\Petz_{\sigma,\chan}(\omega)\ket{\psi}
-= \frac{1}{d}\,\Tr\!\big[\omega\,\tau^{-1/2}\omega\,\tau^{-1/2}\big].
+= \frac{1}{d}\,\Tr\!\big[\omega\,\nu^{-1/2}\omega\,\nu^{-1/2}\big].
 \end{equation}
-When (i) holds, $\omega$ and $\tau$ are simultaneously
-diagonalizable with eigenvalues $\{\omega_i\}$ and $\{\tau_i\}$,
+When (i) holds, $\omega$ and $\nu$ are simultaneously
+diagonalizable with eigenvalues $\{\omega_i\}$ and $\{\nu_i\}$,
 giving
 \begin{equation}
-F^2 = \frac{1}{d}\sum_{i:\,\tau_i > 0}
-\frac{\omega_i^2}{\tau_i}.
+F^2 = \frac{1}{d}\sum_{i:\,\nu_i > 0}
+\frac{\omega_i^2}{\nu_i}.
 \label{eq:F2_arith}
 \end{equation}
-Writing $x_i = \omega_i/\tau_i$ (the likelihood ratios), this is
+Writing $x_i = \omega_i/\nu_i$ (the likelihood ratios), this is
 a weighted arithmetic mean:
 $F^2 = \frac{1}{d}\sum_i \omega_i\, x_i$.
 
 \emph{Step~3: Relative entropy drop as geometric mean.}
 \begin{align}
-D(\omega\|\tau) &= \sum_i \omega_i \ln(\omega_i/\tau_i)
+D(\omega\|\nu) &= \sum_i \omega_i \ln(\omega_i/\nu_i)
 = \sum_i \omega_i \ln x_i, \notag\\
 D(\rho\|\sigma) &= \ln d, \notag\\
-\Delta D &= \ln d - D(\omega\|\tau).
+\Delta D &= \ln d - D(\omega\|\nu).
 \end{align}
 Therefore
 \begin{equation}
@@ -1876,15 +1876,15 @@ By the weighted arithmetic-mean/geometric-mean inequality,
 with $\sum_i \omega_i = 1$.
 Hence $F^2 \geq \exp(-\Delta D)$.  The AM--GM inequality is
 saturated if and only if all $x_i$ with $\omega_i > 0$ are equal,
-i.e., $\omega_i/\tau_i = c$ for some constant $c$.
+i.e., $\omega_i/\nu_i = c$ for some constant $c$.
 This is condition~(ii).
 
 \emph{Step~5: Non-commutativity gives strict inequality.}
-When (i) fails ($[\omega,\tau] \neq 0$), we prove the gap
+When (i) fails ($[\omega,\nu] \neq 0$), we prove the gap
 $F^2 - \exp(-\Delta D) > 0$ by perturbation around the
 commuting case.
 
-Work in the eigenbasis of $\tau = \sum_j t_j \ket{e_j}\!\bra{e_j}$
+Work in the eigenbasis of $\nu = \sum_j t_j \ket{e_j}\!\bra{e_j}$
 and write $\omega = \omega_{\mathrm{diag}} + C$,
 where $\omega_{\mathrm{diag}}$ is diagonal and
 $C$ contains the off-diagonal elements.
@@ -1903,11 +1903,11 @@ The classical inequality $\sqrt{ab} < L(a,b)$ for $a \neq b > 0$
 (which follows from the strict concavity of the logarithm)
 gives $A(a,b) > 0$ whenever $t_j \neq t_k$.
 
-If $[\omega,\tau] \neq 0$, there exist $j \neq k$ with
+If $[\omega,\nu] \neq 0$, there exist $j \neq k$ with
 $\omega_{jk} \neq 0$ \emph{and} $t_j \neq t_k$
 (otherwise all off-diagonal elements of $\omega$ lie within
-degenerate eigenspaces of $\tau$, forcing
-$[\omega,\tau] = 0$).  Therefore the gap is strictly positive
+degenerate eigenspaces of $\nu$, forcing
+$[\omega,\nu] = 0$).  Therefore the gap is strictly positive
 at second order.
 
 For $d = 2$, the result extends non-perturbatively:
@@ -1921,11 +1921,11 @@ so $A(s) \geq 1 > 0$ for all $s \in [0,1)$.
 
 Beyond the perturbative regime for $d > 2$,
 strict inequality is confirmed numerically:
-$1.3\times 10^5$ random non-commuting $(\omega,\tau)$ pairs in
+$1.3\times 10^5$ random non-commuting $(\omega,\nu)$ pairs in
 dimensions $d \in \{2,3,4,5,6,8\}$, zero achieve saturation.
 
 \emph{Combining:} Saturation $F^2 = \exp(-\Delta D)$ holds iff
-(i)~$[\omega,\tau] = 0$ \emph{and} (ii)~$\omega_i/\tau_i$ is
+(i)~$[\omega,\nu] = 0$ \emph{and} (ii)~$\omega_i/\nu_i$ is
 constant on $\mathrm{supp}(\omega)$. \hfill$\square$
 
 \subsection{S17.3: Sufficient-statistic interpretation}
@@ -1952,20 +1952,20 @@ constant but not necessarily equal to~1.
 \emph{(a)~Amplitude damping, ground-state input.}
 $\chan_\gamma^{\mathrm{AD}}$ with $\rho = \ket{0}\!\bra{0}$:
 $\omega = \ket{0}\!\bra{0}$ (rank 1),
-$\tau = \mathrm{diag}((1+\gamma)/2,\,(1-\gamma)/2)$.
-Ratio: $\omega_0/\tau_0 = 2/(1+\gamma) = c$.
+$\nu = \mathrm{diag}((1+\gamma)/2,\,(1-\gamma)/2)$.
+Ratio: $\omega_0/\nu_0 = 2/(1+\gamma) = c$.
 Only one term in the support, so (ii) is trivially satisfied.
 $F^2 = c/2 = 1/(1+\gamma)$. Saturated.
 
 \emph{(b)~Completely depolarizing channel.}
 $\chan(\rho) = I/d$ for all $\rho$:
-$\omega = \tau = I/d$, ratio $c = 1$, $F^2 = 1/d$.
+$\omega = \nu = I/d$, ratio $c = 1$, $F^2 = 1/d$.
 Saturated for all pure inputs.
 
 \emph{(c)~Amplitude damping, excited-state input.}
 $\rho = \ket{1}\!\bra{1}$:
 $\omega = \mathrm{diag}(\gamma, 1-\gamma)$,
-$\tau = \mathrm{diag}((1+\gamma)/2,\,(1-\gamma)/2)$.
+$\nu = \mathrm{diag}((1+\gamma)/2,\,(1-\gamma)/2)$.
 Ratios: $2\gamma/(1+\gamma) \neq 2(1-\gamma)/(1-\gamma) = 2$
 for $\gamma \neq 0$. Not saturated.
 

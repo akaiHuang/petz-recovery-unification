@@ -143,8 +143,8 @@ The map $\Petz_{\sigma,\chan}$ is completely positive and trace-preserving
 (CPTP)~\cite{Petz1986}, and satisfies exact recovery
 $\Petz_{\sigma,\chan} \circ \chan = \id$ on the support of $\sigma$ if
 and only if the data-processing inequality (DPI) for relative entropy is
-saturated: $D(\sigma\|\tau) = D(\chan(\sigma)\|\chan(\tau))$ for all
-$\tau$~\cite{Petz1988}.
+saturated: $D(\sigma\|\gamma) = D(\chan(\sigma)\|\chan(\gamma))$ for all
+$\gamma$~\cite{Petz1988}.
 
 Table~\ref{tab:dictionary} shows how the mathematical ingredients of
 Eq.~\eqref{eq:petz} map to physical meaning in each domain.
@@ -327,8 +327,8 @@ $\rho$:
 }
 \label{eq:master}
 \end{equation}
-where $F = F(\rho,\,\Petz_{\sigma,\chan}(\chan(\rho)))$ is the recovery
-fidelity; $I(A;E|B)_\omega$ is the conditional mutual information of
+where $F = F(\rho,\,\tilde{\Petz}_{\sigma,\chan}(\chan(\rho)))$ is the recovery
+fidelity (using the rotated Petz map of Ref.~\cite{Junge2018}); $I(A;E|B)_\omega$ is the conditional mutual information of
 the Stinespring complementary output; $\Sigma$ is the entropy production\footnote{For
 ideal (infinite, memoryless) thermal baths, the total entropy production
 of the Kolchinsky--Wolpert decomposition~\cite{Kolchinsky2017} and the
@@ -512,31 +512,31 @@ Petz recovery to the classical theory of sufficient statistics.
 \label{thm:saturation}
 Let\/ $\chan$ be a CPTP map with $\sigma = I/d$ and
 $\rho = \ket{\psi}\!\bra{\psi}$ a pure state.  Write
-$\omega = \chan(\rho)$ and $\tau = \chan(\sigma)$.  Then
+$\omega = \chan(\rho)$ and $\nu = \chan(\sigma)$.  Then
 \begin{equation}
 F^2\!\big(\rho,\,\Petz_{\sigma,\chan}(\chan(\rho))\big)
 = \exp(-\Delta D)
 \label{eq:saturation}
 \end{equation}
 if and only if\footnote{All directions are proved analytically.
-The necessity of condition~(i) ($[\omega,\tau]\neq 0$ precludes
+The necessity of condition~(i) ($[\omega,\nu]\neq 0$ precludes
 saturation) follows from the classical inequality
 $\sqrt{ab} < L(a,b)$ between the geometric and logarithmic means;
 for $d = 2$ the proof is non-perturbative
 (see~\cite{SM}, Sec.~S17).}:
 \begin{enumerate}
-\item[\emph{(i)}] $[\omega, \tau] = 0$
+\item[\emph{(i)}] $[\omega, \nu] = 0$
   \emph{(channel outputs commute);}
-\item[\emph{(ii)}] $\omega_i/\tau_i = c$ for all $i$ with
+\item[\emph{(ii)}] $\omega_i/\nu_i = c$ for all $i$ with
   $\omega_i > 0$
   \emph{(constant likelihood ratio on support).}
 \end{enumerate}
 When these hold, $F^2 = c/d$ and $\Delta D = \ln(d/c)$,
-where $c = \omega_i/\tau_i$ is the common ratio.
+where $c = \omega_i/\nu_i$ is the common ratio.
 \end{theorem}
 
 \emph{Proof.}---\emph{Sufficiency:}
-When (i)--(ii) hold, $\tau^{-1/2}\omega\,\tau^{-1/2}
+When (i)--(ii) hold, $\nu^{-1/2}\omega\,\nu^{-1/2}
 = c\,P_{\mathrm{supp}(\omega)}$.
 Since each Kraus vector $E_k\ket{\psi}$ lies in the range of
 $\omega$, we have $P_{\mathrm{supp}(\omega)}E_k\ket{\psi}
@@ -544,24 +544,24 @@ $\omega$, we have $P_{\mathrm{supp}(\omega)}E_k\ket{\psi}
 $F^2 = \tfrac{1}{d}\,\bra{\psi}\chan^\dagger(c\,
 P_{\mathrm{supp}(\omega)})\ket{\psi}
 = \tfrac{c}{d}\sum_k\!\norm{E_k\ket{\psi}}^2 = c/d$.
-Meanwhile $D(\omega\|\tau) = \sum_i \omega_i\ln(c) = \ln c$,
+Meanwhile $D(\omega\|\nu) = \sum_i \omega_i\ln(c) = \ln c$,
 so $\exp(-\Delta D) = \exp(\ln c - \ln d) = c/d$.
 
 \emph{Necessity:}
-When (i) holds, in the joint eigenbasis of $\omega$ and $\tau$,
-$F^2 = \tfrac{1}{d}\sum_i \omega_i^2/\tau_i$
-(weighted arithmetic mean of $x_i = \omega_i/\tau_i$)
+When (i) holds, in the joint eigenbasis of $\omega$ and $\nu$,
+$F^2 = \tfrac{1}{d}\sum_i \omega_i^2/\nu_i$
+(weighted arithmetic mean of $x_i = \omega_i/\nu_i$)
 and $\exp(-\Delta D) = \tfrac{1}{d}\prod_i x_i^{\omega_i}$
 (weighted geometric mean).  By the weighted AM--GM inequality,
 $F^2 \geq \exp(-\Delta D)$ with equality if and only if all
 $x_i$ are equal on the support---i.e., condition~(ii).
-When (i) fails ($[\omega,\tau]\neq 0$), perturbation in the
-$\tau$-eigenbasis shows that each off-diagonal mode $(j,k)$
+When (i) fails ($[\omega,\nu]\neq 0$), perturbation in the
+$\nu$-eigenbasis shows that each off-diagonal mode $(j,k)$
 contributes a positive gap
 $\propto |\omega_{jk}|^2 [1/\sqrt{t_j t_k} - 1/L(t_j,t_k)]$,
 where $L(a,b) = (a-b)/\ln(a/b)$ is the logarithmic mean.
 The classical inequality $\sqrt{ab} < L(a,b)$ for $a \neq b$
-ensures strict inequality whenever $[\omega,\tau] \neq 0$
+ensures strict inequality whenever $[\omega,\nu] \neq 0$
 (see~\cite{SM}, Sec.~S17).
 \hfill$\square$
 
@@ -577,15 +577,15 @@ sufficiency of the channel.
 
 \emph{Examples.}---(a)~Amplitude damping
 $\chan_\gamma^{\mathrm{AD}}$, $\rho = \ket{0}\!\bra{0}$:
-$\omega = \ket{0}\!\bra{0}$ (pure), $\tau = ((1\!+\!\gamma)\ket{0}\!\bra{0}
+$\omega = \ket{0}\!\bra{0}$ (pure), $\nu = ((1\!+\!\gamma)\ket{0}\!\bra{0}
 + (1\!-\!\gamma)\ket{1}\!\bra{1})/2$, ratio $c = 2/(1+\gamma)$,
 $F^2 = 1/(1+\gamma)$. Saturated.
 (b)~Completely depolarizing $\chan(\rho) = I/d$:
-$\omega = \tau = I/d$, ratio $c = 1$, $F^2 = 1/d$. Saturated
+$\omega = \nu = I/d$, ratio $c = 1$, $F^2 = 1/d$. Saturated
 for \emph{all} pure inputs.
 (c)~Amplitude damping, $\rho = \ket{1}\!\bra{1}$:
-ratios $\omega_0/\tau_0 \neq \omega_1/\tau_1$. Not saturated.
-(d)~Depolarizing $0 < p < 1$: $\omega \neq \tau$, ratios
+ratios $\omega_0/\nu_0 \neq \omega_1/\nu_1$. Not saturated.
+(d)~Depolarizing $0 < p < 1$: $\omega \neq \nu$, ratios
 unequal. Not saturated.
 
 \emph{Experimental relevance.}---Amplitude damping ($T_1$ decay)
@@ -982,7 +982,7 @@ $-\!\log F^2 \leq \Delta D$ holds without this assumption.
 
 \bibitem{Note2}
 All directions are proved analytically.
-The necessity of condition~(i) ($[\omega,\tau]\neq 0$ precludes
+The necessity of condition~(i) ($[\omega,\nu]\neq 0$ precludes
 saturation) follows from the classical inequality
 $\sqrt{ab} < L(a,b)$ between the geometric and logarithmic means;
 for $d = 2$ the proof is non-perturbative
