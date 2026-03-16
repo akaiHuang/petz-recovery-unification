@@ -31,6 +31,7 @@
 \newcommand{\abs}[1]{\left|#1\right|}
 \newcommand{\norm}[1]{\left\|#1\right\|}
 \newcommand{\tauasym}{\tau}
+\newcommand{\taurot}{\tilde{\tau}}
 
 \begin{document}
 
@@ -840,17 +841,23 @@ the temporal asymmetry parameter $\tauasym$.
 \subsection{Definition and Basic Properties}
 
 For a quantum channel $\chan$, faithful reference state $\sigma$, and
-input $\rho$, define:
+input $\rho$, we define the temporal asymmetry using the
+\emph{standard} Petz map---the unique retrodiction functor
+(Theorem~1 of the main text):
 \begin{equation}
 \tauasym(\rho, \sigma, \chan) = 1 - F\!\big(\rho,\,
-  \tilde{\Petz}_{\sigma,\chan}(\chan(\rho))\big),
+  \Petz_{\sigma,\chan}(\chan(\rho))\big).
 \end{equation}
-where $\tilde{\Petz}$ is the rotated Petz map of
-Junge~et~al.~\cite{Junge2018}.
+The \emph{rotated} Petz map $\tilde{\Petz}$ of
+Junge~et~al.~\cite{Junge2018} achieves higher fidelity,
+yielding $\taurot = 1 - F(\rho,\,
+\tilde{\Petz}_{\sigma,\chan}(\chan(\rho))) \leq \tauasym$.
+The two quantities coincide when $[\rho,\sigma] = 0$ or
+$\Delta D = 0$.
 
-By construction, $0 \leq \tauasym \leq 1$, with
+By construction, $0 \leq \taurot \leq \tauasym \leq 1$, with
 $\tauasym = 0$ if and only if exact Petz recovery holds:
-$\tilde{\Petz}_{\sigma,\chan} \circ \chan(\rho) = \rho$.
+$\Petz_{\sigma,\chan} \circ \chan(\rho) = \rho$.
 Continuity of fidelity implies continuity of $\tauasym$ in all
 arguments. Monotonicity under composition also follows: for
 composable $\chan_1, \chan_2$,
@@ -901,24 +908,28 @@ $\Sigma = 0$.
 
 This completes the chain. \hfill$\square$
 
-\subsection{Bound: $\tauasym \leq 1 - \exp(-\Sigma/2)$}
+\subsection{Bound: $\taurot \leq 1 - \exp(-\Sigma/2)$}
 
-From the Proposition of the main text (master inequality chain):
+From the Proposition of the main text (master inequality chain),
+the \emph{rotated} Petz map fidelity satisfies:
 \begin{equation}
-F^2 \geq \exp(-\Sigma).
+F_{\mathrm{rot}}^2 \geq \exp(-\Sigma).
 \end{equation}
-Since $F \geq 0$ and $\exp(-x/2) \geq 0$, taking the square root:
+Since $F_{\mathrm{rot}} \geq 0$, taking the square root:
 \begin{equation}
-F \geq \exp(-\Sigma/2).
+F_{\mathrm{rot}} \geq \exp(-\Sigma/2).
 \end{equation}
 Therefore:
 \begin{equation}
-\tauasym = 1 - F \leq 1 - \exp(-\Sigma/2).
+\taurot = 1 - F_{\mathrm{rot}} \leq 1 - \exp(-\Sigma/2).
 \end{equation}
+Since $\taurot \leq \tauasym$ (the rotated map achieves higher
+fidelity), $\Sigma = 0$ implies $\taurot = 0$ and hence
+$\tauasym = 0$.
 
-For small $\Sigma$: Taylor-expanding gives $\tauasym \lesssim \Sigma/2$.
-For large $\Sigma$: $\tauasym \to 1$. The bound is tight when
-$F^2 = \exp(-\Sigma)$ (saturation of the Junge bound).
+For small $\Sigma$: Taylor-expanding gives $\taurot \lesssim \Sigma/2$.
+For large $\Sigma$: $\taurot \to 1$. The bound is tight when
+$F_{\mathrm{rot}}^2 = \exp(-\Sigma)$ (saturation of the Junge bound).
 
 \subsection{Connection to the Crooks Fluctuation Theorem}
 
