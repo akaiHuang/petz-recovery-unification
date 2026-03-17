@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tau-chrono"
+version = "0.2.0"
+description = "Bayesian Noise Tracker for Quantum Circuits — per-gate tau estimates 50-100% more accurate than independent noise models"
+readme = "tau_chrono/PKG_README.md"
+license = {text = "MIT"}
+authors = [{name = "Sheng-Kai Huang", email = "akai@fawstudio.com"}]
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.22"]
+keywords = [
+    "quantum computing",
+    "noise characterization",
+    "petz recovery",
+    "bayesian",
+    "process tomography",
+    "error mitigation",
+    "NISQ",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/akaiHuang/petz-recovery-unification"
+Documentation = "https://tau-chrono.readthedocs.io"
+Repository = "https://github.com/akaiHuang/petz-recovery-unification"
+Issues = "https://github.com/akaiHuang/petz-recovery-unification/issues"
+
+[project.optional-dependencies]
+qiskit = ["qiskit>=1.0", "qiskit-aer>=0.13"]
+cirq = ["cirq-core>=1.3"]
+viz = ["matplotlib>=3.5"]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1",
+    "mypy>=1.0",
+]
+all = ["tau-chrono[qiskit,viz,dev]"]
+
+[project.scripts]
+tau-chrono = "tau_chrono.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["tau_chrono*"]
+
+[tool.setuptools.package-data]
+tau_chrono = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+target-version = "py39"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true

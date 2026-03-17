@@ -23,5 +23,10 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
 # Internal only (not for public sharing)
 research/MAXWELL_COMPARISON.md
