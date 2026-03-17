@@ -1,0 +1,75 @@
+{
+  "prompt_1": {
+    "prompt": "A photorealistic red fox sitting in a snowy forest, golden hour light",
+    "psnr_ddim": 7.545,
+    "ssim_ddim": 0.2481,
+    "psnr_sigma_naive": 7.301,
+    "ssim_sigma_naive": 0.2198,
+    "psnr_sigma_strat": 7.581,
+    "ssim_sigma_strat": 0.2529,
+    "winner_psnr": "sigma_strat"
+  },
+  "prompt_2": {
+    "prompt": "An astronaut riding a horse on Mars, cinematic lighting, 4k",
+    "psnr_ddim": 7.912,
+    "ssim_ddim": 0.1401,
+    "psnr_sigma_naive": 7.553,
+    "ssim_sigma_naive": 0.1236,
+    "psnr_sigma_strat": 7.936,
+    "ssim_sigma_strat": 0.1416,
+    "winner_psnr": "sigma_strat"
+  },
+  "prompt_3": {
+    "prompt": "A futuristic city skyline at sunset, reflections on water, concept art",
+    "psnr_ddim": 8.65,
+    "ssim_ddim": 0.1848,
+    "psnr_sigma_naive": 8.474,
+    "ssim_sigma_naive": 0.1756,
+    "psnr_sigma_strat": 8.681,
+    "ssim_sigma_strat": 0.1879,
+    "winner_psnr": "sigma_strat"
+  },
+  "summary": {
+    "wins": {
+      "ddim": 0,
+      "sigma_naive": 0,
+      "sigma_strat": 3
+    },
+    "avg_delta_strat_vs_ddim_psnr": 0.03,
+    "avg_delta_strat_vs_ddim_ssim": 0.0031,
+    "ddim_timesteps": [
+      876,
+      751,
+      626,
+      501,
+      376,
+      251,
+      126,
+      1
+    ],
+    "sigma_naive_timesteps": [
+      301,
+      281,
+      261,
+      241,
+      221,
+      201,
+      181,
+      21
+    ],
+    "sigma_stratified_timesteps": [
+      861,
+      741,
+      621,
+      501,
+      381,
+      261,
+      241,
+      21
+    ],
+    "model": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+    "baseline_steps": 50,
+    "reduced_steps": 8,
+    "seed": 42
+  }
+}

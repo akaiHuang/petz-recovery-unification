@@ -1,0 +1,11 @@
+{
+  "experiment": "Line 2: Diffusion LLM",
+  "model": "GPT2 + discrete diffusion",
+  "device": "mps",
+  "baseline_steps": 100,
+  "guided_steps": 10,
+  "speedup": 10.0,
+  "perplexity_baseline": 4321.536040467895,
+  "perplexity_guided": 7900.831838585356,
+  "elapsed_seconds": 13.396132230758667
+}

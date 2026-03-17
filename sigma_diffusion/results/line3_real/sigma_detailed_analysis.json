@@ -1,0 +1,16 @@
+{
+  "experiment": "3DGS_lego_1000iter",
+  "decay_rate": 0.00453684180235037,
+  "half_life": 152.78187134513956,
+  "amplitude": 0.006786165844911711,
+  "sigma_initial": 0.02077186293900013,
+  "sigma_final": 0.0002635543642099947,
+  "sigma_ratio": 78.81433874663345,
+  "total_sigma": 0.04782759980298579,
+  "total_bits_per_gaussian": 0.06900064105338956,
+  "loss_initial": 0.452415,
+  "loss_final": 0.0898967,
+  "num_gaussians": 295,
+  "total_training_time_sec": 1755,
+  "timing_per_iteration_sec": 1.755
+}

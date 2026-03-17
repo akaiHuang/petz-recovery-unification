@@ -1,0 +1,282 @@
+{
+  "prompt": "A photorealistic red fox sitting in a snowy forest, golden hour light",
+  "baseline_steps": 50,
+  "reduced_steps": 8,
+  "all_sigma_values": [
+    {
+      "step": 1,
+      "timestep": 961,
+      "sigma_kl": 2.4860648082714043e-05
+    },
+    {
+      "step": 2,
+      "timestep": 941,
+      "sigma_kl": 2.398578348383751e-05
+    },
+    {
+      "step": 3,
+      "timestep": 921,
+      "sigma_kl": 2.181399472767076e-05
+    },
+    {
+      "step": 4,
+      "timestep": 901,
+      "sigma_kl": 2.244938104156713e-05
+    },
+    {
+      "step": 5,
+      "timestep": 881,
+      "sigma_kl": 2.444263542011882e-05
+    },
+    {
+      "step": 6,
+      "timestep": 861,
+      "sigma_kl": 2.5298881377811e-05
+    },
+    {
+      "step": 7,
+      "timestep": 841,
+      "sigma_kl": 2.4278542448463725e-05
+    },
+    {
+      "step": 8,
+      "timestep": 821,
+      "sigma_kl": 2.4259840356033457e-05
+    },
+    {
+      "step": 9,
+      "timestep": 801,
+      "sigma_kl": 2.7006986529354293e-05
+    },
+    {
+      "step": 10,
+      "timestep": 781,
+      "sigma_kl": 3.2684314835051964e-05
+    },
+    {
+      "step": 11,
+      "timestep": 761,
+      "sigma_kl": 3.873471031201614e-05
+    },
+    {
+      "step": 12,
+      "timestep": 741,
+      "sigma_kl": 4.335001746158529e-05
+    },
+    {
+      "step": 13,
+      "timestep": 721,
+      "sigma_kl": 4.6130949476475e-05
+    },
+    {
+      "step": 14,
+      "timestep": 701,
+      "sigma_kl": 5.755187991129951e-05
+    },
+    {
+      "step": 15,
+      "timestep": 681,
+      "sigma_kl": 7.033547667145701e-05
+    },
+    {
+      "step": 16,
+      "timestep": 661,
+      "sigma_kl": 8.129648673715906e-05
+    },
+    {
+      "step": 17,
+      "timestep": 641,
+      "sigma_kl": 9.04772565326617e-05
+    },
+    {
+      "step": 18,
+      "timestep": 621,
+      "sigma_kl": 9.913592159827012e-05
+    },
+    {
+      "step": 19,
+      "timestep": 601,
+      "sigma_kl": 0.00010755083590174852
+    },
+    {
+      "step": 20,
+      "timestep": 581,
+      "sigma_kl": 0.0001183757642370109
+    },
+    {
+      "step": 21,
+      "timestep": 561,
+      "sigma_kl": 0.00013397448158380953
+    },
+    {
+      "step": 22,
+      "timestep": 541,
+      "sigma_kl": 0.00014882321186093783
+    },
+    {
+      "step": 23,
+      "timestep": 521,
+      "sigma_kl": 0.0001632767466820395
+    },
+    {
+      "step": 24,
+      "timestep": 501,
+      "sigma_kl": 0.00017979945208779213
+    },
+    {
+      "step": 25,
+      "timestep": 481,
+      "sigma_kl": 0.00019700008046730222
+    },
+    {
+      "step": 26,
+      "timestep": 461,
+      "sigma_kl": 0.0002131194490593291
+    },
+    {
+      "step": 27,
+      "timestep": 441,
+      "sigma_kl": 0.00023081394692692214
+    },
+    {
+      "step": 28,
+      "timestep": 421,
+      "sigma_kl": 0.0002470297401844235
+    },
+    {
+      "step": 29,
+      "timestep": 401,
+      "sigma_kl": 0.00026291983125892315
+    },
+    {
+      "step": 30,
+      "timestep": 381,
+      "sigma_kl": 0.00027884325261284815
+    },
+    {
+      "step": 31,
+      "timestep": 361,
+      "sigma_kl": 0.00029610264178270285
+    },
+    {
+      "step": 32,
+      "timestep": 341,
+      "sigma_kl": 0.00031106667796454435
+    },
+    {
+      "step": 33,
+      "timestep": 321,
+      "sigma_kl": 0.0003243335699849581
+    },
+    {
+      "step": 34,
+      "timestep": 301,
+      "sigma_kl": 0.00033267244248325056
+    },
+    {
+      "step": 35,
+      "timestep": 281,
+      "sigma_kl": 0.0003371034149557417
+    },
+    {
+      "step": 36,
+      "timestep": 261,
+      "sigma_kl": 0.00034030082215363855
+    },
+    {
+      "step": 37,
+      "timestep": 241,
+      "sigma_kl": 0.0003418865502835544
+    },
+    {
+      "step": 38,
+      "timestep": 221,
+      "sigma_kl": 0.00033999005046747577
+    },
+    {
+      "step": 39,
+      "timestep": 201,
+      "sigma_kl": 0.00033401164678004136
+    },
+    {
+      "step": 40,
+      "timestep": 181,
+      "sigma_kl": 0.0003272466777334282
+    },
+    {
+      "step": 41,
+      "timestep": 161,
+      "sigma_kl": 0.0003157036139163072
+    },
+    {
+      "step": 42,
+      "timestep": 141,
+      "sigma_kl": 0.0003023847505166932
+    },
+    {
+      "step": 43,
+      "timestep": 121,
+      "sigma_kl": 0.0002876048489626193
+    },
+    {
+      "step": 44,
+      "timestep": 101,
+      "sigma_kl": 0.0002704491373377582
+    },
+    {
+      "step": 45,
+      "timestep": 81,
+      "sigma_kl": 0.00025084426001709126
+    },
+    {
+      "step": 46,
+      "timestep": 61,
+      "sigma_kl": 0.00023527048440452614
+    },
+    {
+      "step": 47,
+      "timestep": 41,
+      "sigma_kl": 0.00023280407767456435
+    },
+    {
+      "step": 48,
+      "timestep": 21,
+      "sigma_kl": 0.00040842118232886637
+    },
+    {
+      "step": 49,
+      "timestep": 1,
+      "sigma_kl": 5.487434220352583e-07
+    }
+  ],
+  "ddim_uniform_timesteps": [
+    876,
+    751,
+    626,
+    501,
+    376,
+    251,
+    126,
+    1
+  ],
+  "sigma_naive_timesteps": [
+    301,
+    281,
+    261,
+    241,
+    221,
+    201,
+    181,
+    21
+  ],
+  "sigma_stratified_timesteps": [
+    861,
+    741,
+    621,
+    501,
+    381,
+    261,
+    241,
+    21
+  ]
+}

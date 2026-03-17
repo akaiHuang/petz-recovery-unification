@@ -1,0 +1,41 @@
+{
+  "config": {
+    "full_steps": 128,
+    "reduced_steps": 64,
+    "seq_len": 256,
+    "batch_size": 4,
+    "n_runs": 3,
+    "model": "kuleshov-group/mdlm-owt",
+    "device": "mps",
+    "model_params_M": 169.627218
+  },
+  "sigma_stats": {
+    "min": -4.1064288325287635e-07,
+    "max": 9.567306551616639e-05,
+    "mean": 2.369105711513657e-06,
+    "std": 1.0228593774422825e-05,
+    "median": 5.356733012717996e-08
+  },
+  "results": {
+    "baseline": {
+      "ppl_mean": 87.54605102539062,
+      "ppl_std": 8.22399922813635,
+      "time_mean": 22.807522296905518,
+      "time_std": 7.650058507958261
+    },
+    "uniform_skip": {
+      "ppl_mean": 110.30881754557292,
+      "ppl_std": 13.586391687349458,
+      "time_mean": 8.64367938041687,
+      "time_std": 3.6725481739316033
+    },
+    "sigma_guided": {
+      "ppl_mean": 91.16386413574219,
+      "ppl_std": 8.021016950428368,
+      "time_mean": 8.355105638504028,
+      "time_std": 3.2545216209121786
+    }
+  },
+  "sigma_guided_wins": true,
+  "verdict": "sigma_guided_wins"
+}
