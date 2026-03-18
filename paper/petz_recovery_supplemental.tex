@@ -305,7 +305,7 @@ F_e(\code,\, \Petz_{\sigma_\code,\chan} \circ \chan) \geq
 Note the factor of $1/2$: the standard Petz map is within a
 constant factor of optimal, but does not saturate the exponential
 bound in general.  For the saturation theorem
-(Theorem~3 of the main text, $\sigma = I/d$), the bound
+(Theorem~4 of the main text, $\sigma = I/d$), the bound
 $F^2 \geq \exp(-\Delta D)$ for the standard Petz map is proved
 directly via the AM--GM inequality (Sec.~S17), without invoking the
 Junge et~al.\ machinery.
@@ -1458,8 +1458,8 @@ ingredients---Petz recovery~\cite{Petz1988}, the Crooks
 theorem~\cite{Crooks1999}, the Fawzi--Renner
 characterization~\cite{Fawzi2015}, and entropy production
 bounds~\cite{Kolchinsky2017,ReebWolf2014}---are established.
-The new mathematical results are Theorem~3 (saturation
-characterization) and Theorem~4 (composition sub-additivity).
+The new mathematical results are Theorem~4 (saturation
+characterization) and Theorem~5 (composition sub-additivity).
 The remaining contributions---the $\tauasym$ definition,
 the equivalence chain, the eraser calculation, and the
 $\tauasym$ bound (which restates the Junge~et~al.\
@@ -1794,7 +1794,7 @@ loss $\Delta D$.
 \label{sec:S17}
 %=======================================================================
 
-We prove Theorem~3 of the main text: a complete characterization
+We prove Theorem~4 of the main text: a complete characterization
 of when the Junge et~al.\ bound
 $F^2(\rho,\Petz_{\sigma,\chan}(\chan(\rho))) \geq \exp(-\Delta D)$
 is exactly saturated, for $\sigma = I/d$.
@@ -2006,7 +2006,7 @@ and any state $\rho$:
 \end{equation}
 where $\tauasym_{12}$, $\tauasym_1$, and
 $\tauasym_2^{\mathrm{eff}}$ are defined in the main text
-(Theorem~4), with $\tauasym_2^{\mathrm{eff}}$ evaluated at
+(Theorem~5), with $\tauasym_2^{\mathrm{eff}}$ evaluated at
 evolved state $\chan_1(\rho)$ and updated reference
 $\chan_1(\sigma)$.
 
@@ -2132,7 +2132,7 @@ with the convention $\rho_1 = \rho$, $\sigma_1 = \sigma$.
 The proof proceeds by induction on $n$.
 
 \emph{Base case ($n = 2$).}
-This is exactly Theorem~4 (Eq.~\eqref{eq:comp_supp}), proved in
+This is exactly Theorem~5 (Eq.~\eqref{eq:comp_supp}), proved in
 Sec.~\ref{sec:S18}.
 
 \emph{Inductive step.}
@@ -2144,7 +2144,7 @@ Assume the bound holds for $n-1$ channels:
 Write the $n$-fold composition as
 $\chan_n \circ \cdots \circ \chan_1
 = \chan_n \circ (\chan_{n-1} \circ \cdots \circ \chan_1)$.
-Apply Theorem~4 to this pair:
+Apply Theorem~5 to this pair:
 \begin{equation}
 \sqrt{\tauasym_{1\ldots n}}
 \;\leq\; \sqrt{\tauasym_{1\ldots(n-1)}}

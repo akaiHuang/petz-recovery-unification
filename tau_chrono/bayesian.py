@@ -175,6 +175,7 @@ def bayesian_compose(
     channel_names: Optional[List[str]] = None,
     comm_threshold: float = 0.01,
     memory_alpha: Optional[float] = None,
+    min_depth: int = 0,
 ) -> CompositionResult:
     """Bayesian composition engine: per-gate tau with updated sigma.
 
@@ -208,6 +209,11 @@ def bayesian_compose(
         *  ``alpha = 0.0`` freezes sigma (full memory, no update).
         Typical useful range is 0.85 -- 0.95.  Default ``None`` is
         equivalent to the Markovian case (``alpha = 1``).
+    min_depth : int, optional
+        Minimum circuit depth for Bayesian tracking to activate.
+        For circuits shorter than this, tau_eff = tau_naive (no Bayesian
+        update) because sigma hasn't had enough gates to stabilize.
+        Default is 0 (always use Bayesian).
 
     Returns
     -------
@@ -227,7 +233,11 @@ def bayesian_compose(
 
         pre_comm_norm = commutator_norm(rho_current, sigma_current)
         tau_naive = tau_parameter(rho, kraus, sigma_0)
-        tau_eff = tau_parameter(rho_current, kraus, sigma_current)
+        # Warmup: for shallow circuits, use naive tau until sigma stabilizes
+        if n_gates < min_depth:
+            tau_eff = tau_naive
+        else:
+            tau_eff = tau_parameter(rho_current, kraus, sigma_current)
 
         rho_after = apply_channel(rho_current, kraus)
         sigma_after = apply_channel(sigma_current, kraus)

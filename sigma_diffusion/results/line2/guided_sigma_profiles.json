@@ -1,0 +1,188 @@
+[
+  [
+    {
+      "step": 10,
+      "sigma_t": 0.0,
+      "cumulative_sigma": 0.0,
+      "petz_fidelity_bound": 1.0
+    },
+    {
+      "step": 12,
+      "sigma_t": 0.3533143401145935,
+      "cumulative_sigma": 0.3533143401145935,
+      "petz_fidelity_bound": 0.8380670497572682
+    },
+    {
+      "step": 14,
+      "sigma_t": 0.3079562187194824,
+      "cumulative_sigma": 0.6612705588340759,
+      "petz_fidelity_bound": 0.7184671610225392
+    },
+    {
+      "step": 23,
+      "sigma_t": 0.6064270734786987,
+      "cumulative_sigma": 1.2676976323127747,
+      "petz_fidelity_bound": 0.5305458927663362
+    },
+    {
+      "step": 24,
+      "sigma_t": 0.3734460771083832,
+      "cumulative_sigma": 1.6411437094211578,
+      "petz_fidelity_bound": 0.4401798635904542
+    },
+    {
+      "step": 25,
+      "sigma_t": 0.39859911799430847,
+      "cumulative_sigma": 2.0397428274154663,
+      "petz_fidelity_bound": 0.36064131072068983
+    },
+    {
+      "step": 26,
+      "sigma_t": 0.5552464127540588,
+      "cumulative_sigma": 2.594989240169525,
+      "petz_fidelity_bound": 0.27321544476059334
+    },
+    {
+      "step": 27,
+      "sigma_t": 0.40205904841423035,
+      "cumulative_sigma": 2.9970482885837555,
+      "petz_fidelity_bound": 0.22345971119401736
+    },
+    {
+      "step": 30,
+      "sigma_t": 0.3402599096298218,
+      "cumulative_sigma": 3.3373081982135773,
+      "petz_fidelity_bound": 0.18850059810905173
+    },
+    {
+      "step": 31,
+      "sigma_t": 0.559701144695282,
+      "cumulative_sigma": 3.8970093429088593,
+      "petz_fidelity_bound": 0.1424869772093075
+    }
+  ],
+  [
+    {
+      "step": 10,
+      "sigma_t": 0.0,
+      "cumulative_sigma": 0.0,
+      "petz_fidelity_bound": 1.0
+    },
+    {
+      "step": 12,
+      "sigma_t": 0.3875003159046173,
+      "cumulative_sigma": 0.3875003159046173,
+      "petz_fidelity_bound": 0.8238637143549126
+    },
+    {
+      "step": 14,
+      "sigma_t": 0.31235551834106445,
+      "cumulative_sigma": 0.6998558342456818,
+      "petz_fidelity_bound": 0.7047388874945231
+    },
+    {
+      "step": 23,
+      "sigma_t": 0.8899290561676025,
+      "cumulative_sigma": 1.5897848904132843,
+      "petz_fidelity_bound": 0.45162980726104573
+    },
+    {
+      "step": 24,
+      "sigma_t": 0.38593626022338867,
+      "cumulative_sigma": 1.975721150636673,
+      "petz_fidelity_bound": 0.37237250235160446
+    },
+    {
+      "step": 25,
+      "sigma_t": 0.4399082660675049,
+      "cumulative_sigma": 2.415629416704178,
+      "petz_fidelity_bound": 0.29884963999348857
+    },
+    {
+      "step": 26,
+      "sigma_t": 0.4016232490539551,
+      "cumulative_sigma": 2.817252665758133,
+      "petz_fidelity_bound": 0.24447888520428088
+    },
+    {
+      "step": 27,
+      "sigma_t": 0.49578866362571716,
+      "cumulative_sigma": 3.31304132938385,
+      "petz_fidelity_bound": 0.19080168959414665
+    },
+    {
+      "step": 30,
+      "sigma_t": 0.4001811742782593,
+      "cumulative_sigma": 3.7132225036621094,
+      "petz_fidelity_bound": 0.15620106056184707
+    },
+    {
+      "step": 31,
+      "sigma_t": 0.5291025042533875,
+      "cumulative_sigma": 4.242325007915497,
+      "petz_fidelity_bound": 0.11989217234313625
+    }
+  ],
+  [
+    {
+      "step": 10,
+      "sigma_t": 0.0,
+      "cumulative_sigma": 0.0,
+      "petz_fidelity_bound": 1.0
+    },
+    {
+      "step": 12,
+      "sigma_t": 0.38282111287117004,
+      "cumulative_sigma": 0.38282111287117004,
+      "petz_fidelity_bound": 0.8257934837159991
+    },
+    {
+      "step": 14,
+      "sigma_t": 0.7037009000778198,
+      "cumulative_sigma": 1.0865220129489899,
+      "petz_fidelity_bound": 0.5808510017046615
+    },
+    {
+      "step": 23,
+      "sigma_t": 0.6121497750282288,
+      "cumulative_sigma": 1.6986717879772186,
+      "petz_fidelity_bound": 0.42769887504811577
+    },
+    {
+      "step": 24,
+      "sigma_t": 0.40008682012557983,
+      "cumulative_sigma": 2.0987586081027985,
+      "petz_fidelity_bound": 0.3501550214773543
+    },
+    {
+      "step": 25,
+      "sigma_t": 0.5386985540390015,
+      "cumulative_sigma": 2.6374571621418,
+      "petz_fidelity_bound": 0.2674751588498566
+    },
+    {
+      "step": 26,
+      "sigma_t": 0.352321982383728,
+      "cumulative_sigma": 2.989779144525528,
+      "petz_fidelity_bound": 0.2242733693638601
+    },
+    {
+      "step": 27,
+      "sigma_t": 0.45963817834854126,
+      "cumulative_sigma": 3.449417322874069,
+      "petz_fidelity_bound": 0.17822496801599572
+    },
+    {
+      "step": 30,
+      "sigma_t": 0.48123791813850403,
+      "cumulative_sigma": 3.9306552410125732,
+      "petz_fidelity_bound": 0.14010997619429166
+    },
+    {
+      "step": 31,
+      "sigma_t": 0.567459225654602,
+      "cumulative_sigma": 4.498114466667175,
+      "petz_fidelity_bound": 0.10549863829205916
+    }
+  ]
+]

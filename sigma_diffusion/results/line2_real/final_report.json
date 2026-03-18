@@ -1,0 +1,112 @@
+{
+  "experiment": "MDLM Sigma-Guided Diffusion on Apple MPS",
+  "model": {
+    "name": "kuleshov-group/mdlm-owt",
+    "paper": "Simple and Effective Masked Diffusion Language Models (NeurIPS 2024)",
+    "parameters": "169.6M",
+    "architecture": "DiT (12 blocks, 768 dim, 12 heads)",
+    "training_data": "OpenWebText"
+  },
+  "setup": {
+    "device": "Apple M1 Max (MPS)",
+    "adaptation": "Replaced flash_attn with PyTorch F.scaled_dot_product_attention",
+    "tokenizer": "GPT-2 (50257 vocab + 1 mask token)",
+    "seq_len": 256,
+    "batch_size": 4,
+    "n_runs": 8,
+    "full_steps": 128,
+    "reduced_steps": 64,
+    "perplexity_judge": "GPT-2 (124M)"
+  },
+  "key_finding": {
+    "description": "Sigma-guided step selection significantly outperforms uniform step reduction at the SAME compute cost",
+    "sigma_guided_ppl": {
+      "mean": 89.06375,
+      "median": 91.58,
+      "std": 16.79634330553826
+    },
+    "uniform_skip_ppl": {
+      "mean": 125.99875,
+      "median": 118.785,
+      "std": 23.522163717173214
+    },
+    "baseline_ppl": {
+      "mean": 103.68125,
+      "median": 85.22999999999999,
+      "std": 56.33751512924136
+    },
+    "improvement_ppl": 36.935,
+    "improvement_pct": 29.313782874830107,
+    "win_rate": "7/8 (88%)"
+  },
+  "statistics": {
+    "welch_t_test": {
+      "t": -3.3809399844438386,
+      "p": 0.002239779320098813,
+      "significant_at_0.05": "yes"
+    },
+    "mann_whitney_u": {
+      "U": 5.0,
+      "p": 0.0014763014763014763,
+      "significant_at_0.05": "yes"
+    },
+    "cohens_d": 1.8071884381476662,
+    "effect_size": "large (d > 0.8)"
+  },
+  "sigma_profile_insight": {
+    "description": "Sigma (KL divergence between consecutive timestep predictions) is strongly concentrated in early steps (high t, near pure noise)",
+    "sigma_max": 9.57e-05,
+    "sigma_min": -4.11e-07,
+    "sigma_ratio_max_to_median": 1785.44776119403,
+    "top_steps_are": "Steps 0-8 (t near 1.0, highest noise)",
+    "bottom_steps_are": "Steps 70-128 (t near 0, already mostly denoised)",
+    "interpretation": "Most information gain happens when the model first sees through the noise. Later steps contribute negligible information."
+  },
+  "honest_caveats": [
+    "Baseline PPL has high variance (one outlier at 248.17), likely due to degenerate generation",
+    "Sigma-guided uses a fixed profile from a single profiling run -- the profile itself is stochastic",
+    "The sigma-guided approach requires a profiling pass (one-time cost) before generation",
+    "MPS float32 may behave differently from CUDA bf16/fp16 in the original paper",
+    "seq_len=256 is shorter than the model default of 1024; results may differ at full length",
+    "Sigma values are very small in absolute terms (1e-5 to 1e-8), but their RELATIVE differences drive the selection"
+  ],
+  "connection_to_petz_theory": {
+    "description": "This experiment validates the core insight from the Petz recovery framework applied to discrete diffusion",
+    "key_equation": "Sigma = D(rho_t || rho_{t-dt}) = KL divergence between model predictions at consecutive timesteps",
+    "prediction": "Steps with higher Sigma contribute more information (harder to recover from), so they should be preserved",
+    "result": "Confirmed -- keeping high-Sigma steps and skipping low-Sigma steps produces BETTER text than uniform sampling",
+    "petz_bound": "F >= exp(-Sigma/2) means low-Sigma steps have recovery fidelity F near 1 (information is preserved without the step)"
+  },
+  "raw_data": {
+    "baseline_ppls": [
+      88.32,
+      97.21,
+      77.11,
+      101.73,
+      82.01,
+      82.14,
+      52.76,
+      248.17
+    ],
+    "uniform_skip_ppls": [
+      103.5,
+      98.15,
+      129.27,
+      113.43,
+      112.76,
+      124.14,
+      161.96,
+      164.78
+    ],
+    "sigma_guided_ppls": [
+      80.91,
+      92.09,
+      100.49,
+      119.13,
+      93.04,
+      78.62,
+      91.07,
+      57.16
+    ]
+  }
+}

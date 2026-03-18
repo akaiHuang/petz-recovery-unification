@@ -1,0 +1,18 @@
+{
+  "original_steps": 100,
+  "guided_steps": 10,
+  "speedup": 10.0,
+  "quality_loss_estimate": 0.9923627779952755,
+  "active_steps": [
+    10,
+    12,
+    14,
+    23,
+    24,
+    25,
+    26,
+    27,
+    30,
+    31
+  ]
+}

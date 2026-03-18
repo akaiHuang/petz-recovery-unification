@@ -1,0 +1,12 @@
+Sigma-Weighted vs Standard Training Comparison
+============================================================
+
+Training steps: 5000
+Model: 6 layers, dim=256, 31,835,986 params
+Data: WikiText-2, seq_len=128
+
+Steps      Std PPL         Sigma PPL       Winner         
+-------------------------------------------------------
+64         2349.93         5110.87         Standard       
+16         3471.01         4196.22         Standard       
+8          3748.66         4645.33         Standard       

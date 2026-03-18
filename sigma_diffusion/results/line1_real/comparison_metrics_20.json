@@ -1,0 +1,80 @@
+{
+  "prompt_1": {
+    "prompt": "A photorealistic red fox sitting in a snowy forest, golden hour light",
+    "psnr_ddim": 8.323,
+    "ssim_ddim": 0.3512,
+    "psnr_sigma_strat": 8.676,
+    "ssim_sigma_strat": 0.3886,
+    "winner": "sigma_strat"
+  },
+  "prompt_2": {
+    "prompt": "An astronaut riding a horse on Mars, cinematic lighting, 4k",
+    "psnr_ddim": 9.442,
+    "ssim_ddim": 0.2668,
+    "psnr_sigma_strat": 9.989,
+    "ssim_sigma_strat": 0.3154,
+    "winner": "sigma_strat"
+  },
+  "prompt_3": {
+    "prompt": "A futuristic city skyline at sunset, reflections on water, concept art",
+    "psnr_ddim": 9.247,
+    "ssim_ddim": 0.2438,
+    "psnr_sigma_strat": 9.488,
+    "ssim_sigma_strat": 0.2649,
+    "winner": "sigma_strat"
+  },
+  "summary": {
+    "wins": {
+      "ddim": 0,
+      "sigma_strat": 3
+    },
+    "avg_delta_psnr": 0.38,
+    "avg_delta_ssim": 0.0357,
+    "ddim_timesteps": [
+      951,
+      901,
+      851,
+      801,
+      751,
+      701,
+      651,
+      601,
+      551,
+      501,
+      451,
+      401,
+      351,
+      301,
+      251,
+      201,
+      151,
+      101,
+      51,
+      1
+    ],
+    "sigma_timesteps": [
+      961,
+      901,
+      861,
+      841,
+      781,
+      741,
+      701,
+      661,
+      621,
+      581,
+      541,
+      501,
+      461,
+      421,
+      381,
+      341,
+      301,
+      261,
+      241,
+      21
+    ],
+    "baseline_steps": 50,
+    "reduced_steps": 20
+  }
+}

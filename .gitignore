@@ -30,3 +30,9 @@ dist/
 
 # Internal only (not for public sharing)
 research/MAXWELL_COMPARISON.md
+*.pt
+sigma_diffusion/results/sigma_training/*.pt
+sigma_diffusion/results/sharp_sigma/*.ply
+*.ply
+*.ply
+*.pt
