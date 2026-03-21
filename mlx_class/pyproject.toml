@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlx-class"
+version = "0.2.0"
+description = "GPU-accelerated CMB Boltzmann solver for Apple Silicon"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Sheng-Kai Huang", email = "akai@fawstudio.com"}]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.22",
+    "scipy>=1.9",
+    "mlx>=0.20.0",
+]
+keywords = [
+    "CMB",
+    "Boltzmann solver",
+    "cosmology",
+    "Apple Silicon",
+    "GPU",
+    "MLX",
+    "power spectrum",
+    "Khronon",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Operating System :: MacOS",
+]
+
+[project.urls]
+Homepage = "https://github.com/akaiHuang/petz-recovery-unification"
+Repository = "https://github.com/akaiHuang/petz-recovery-unification"
+Issues = "https://github.com/akaiHuang/petz-recovery-unification/issues"
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.5"]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1",
+]
+all = ["mlx-class[plot,dev]"]
+
+[project.scripts]
+mlx-class = "mlx_class.main:main"
+
+[tool.setuptools.packages.find]
+include = ["mlx_class*"]
+
+[tool.setuptools.package-data]
+mlx_class = ["*.dat"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 95
