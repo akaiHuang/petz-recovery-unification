@@ -369,6 +369,8 @@ def gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime, eta_prime):
     # The sign depends on the metric convention for Phi_N/Psi_N in the code:
     # our Phi_N = eta - calH*alpha maps to the SPATIAL curvature perturbation,
     # not the temporal lapse, which explains the sign flip from the standard formula.
+    # Gauge transformation: delta_N = delta_S + (rho'/rho)*alpha
+    # For radiation: rho'/rho = -4*calH, so delta_gamma_N = delta_gamma_S - 4*calH*alpha
     delta_g_N = Fg[0] - 4.0 * calH * alpha
 
     # Velocity: theta_b_N = theta_b_S + k^2 alpha

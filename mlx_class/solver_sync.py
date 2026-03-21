@@ -365,10 +365,10 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='Radau',
     Cl = np.maximum(Cl, 0.0)
 
     ell_f = ell_values.astype(float)
-    # Normalization: sync gauge IC has eta = C = 1.
-    # Empirically, the factor (2/3)^2 gives best match at first peak (~1.04x CLASS).
-    # Without it: first peak is ~1.17x CLASS and high l is badly overestimated.
-    Dl = ell_f * (ell_f + 1.0) * Cl / (2.0 * np.pi) * (T_CMB * 1e6) ** 2
+    # Normalization: sync gauge C=1 → R = -(3/2)C, so |R/C| = 3/2.
+    # Multiply by (C/R)² = (2/3)² to convert to per-unit-R basis.
+    norm = (2.0 / 3.0) ** 2
+    Dl = norm * ell_f * (ell_f + 1.0) * Cl / (2.0 * np.pi) * (T_CMB * 1e6) ** 2
 
     t_cl = time.time() - t0
     t_elapsed = time.time() - t_total
