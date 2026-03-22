@@ -23,28 +23,11 @@ omega_b = 0.02237
 omega_c = 0.12
 Omega_b = omega_b / h**2
 Omega_c = omega_c / h**2                 # Standard CDM (or Khronon)
-
-T_CMB = 2.7255   # K
-
-# Compute Omega_gamma from T_CMB using exact Stefan-Boltzmann law,
-# matching CLASS's approach (avoids 0.16% rounding error from 2.469e-5)
-_k_B = 1.380649e-23       # J/K (SI 2019 exact)
-_hbar = 1.054571817e-34   # J s
-_c_SI = 2.99792458e8      # m/s
-_G_SI = 6.67430e-11       # m^3 kg^-1 s^-2
-_Mpc_SI = 3.0856775814913673e22  # m
-_sigma_SB = np.pi**2 * _k_B**4 / (60.0 * _hbar**3 * _c_SI**2)
-_H_100_SI = 100e3 / _Mpc_SI   # 100 km/s/Mpc in 1/s
-_omega_gamma = (4.0 * _sigma_SB * T_CMB**4 / _c_SI**3
-                * 8.0 * np.pi * _G_SI / (3.0 * _H_100_SI**2))
-
-# Neutrino density: N_eff * 7/8 * (4/11)^{4/3} times photon density
-N_eff = 3.046
-_f_nu_ratio = N_eff * (7.0 / 8.0) * (4.0 / 11.0) ** (4.0 / 3.0)
-_omega_r = _omega_gamma * (1.0 + _f_nu_ratio)
-Omega_r = _omega_r / h**2
+Omega_r = 2.469e-5 * (1 + 0.2271 * 3.046) / h**2   # photons + 3.046 neutrinos
 Omega_m = Omega_b + Omega_c
 Omega_L = 1.0 - Omega_m - Omega_r
+
+T_CMB = 2.7255   # K
 Y_He = 0.2454
 
 # Derived
@@ -113,10 +96,7 @@ class Background:
         E = np.sqrt(Omega_r / a**4 + self.Omega_m / a**3 + self.Omega_L)
 
         # Conformal time: dtau = da / (a^2 H) = da / (a^2 E H0)
-        # Use trapezoidal rule (2nd order) instead of left-endpoint (1st order)
-        # for better accuracy in the tau(a) mapping.
-        integrand = 1.0 / (a**2 * E * H0_Mpc)
-        dtau = np.diff(a) * 0.5 * (integrand[:-1] + integrand[1:])
+        dtau = np.diff(a) / (a[:-1]**2 * E[:-1] * H0_Mpc)
         tau = np.concatenate([[0.0], np.cumsum(dtau)])
 
         self.a_grid = a
@@ -131,8 +111,8 @@ class Background:
         self.D_A = self.tau_0 - self.tau_rec  # comoving distance to LSS
 
         # Baryon loading R = 3 rho_b / (4 rho_gamma) = 3 Omega_b a / (4 Omega_gamma)
-        # Use exact neutrino-to-photon ratio (matching CLASS)
-        Omega_gamma = Omega_r / (1.0 + _f_nu_ratio)
+        # With neutrinos: Omega_gamma = Omega_r / (1 + 0.2271 * N_eff)
+        Omega_gamma = Omega_r / (1.0 + 0.2271 * 3.046)
         self.R_grid = 3.0 * Omega_b * a / (4.0 * Omega_gamma)
         self.R_rec = self.R_grid[self.idx_rec]
 
