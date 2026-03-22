@@ -5,13 +5,20 @@ All k-modes integrated simultaneously on the GPU via batched ODE solvers.
 Achieves ~2s total runtime on Apple M1 with 4.9% RMS accuracy vs CLASS.
 
 Primary API:
-    from mlx_class import ProductionSolver
-    solver = ProductionSolver()
+    from mlx_class import CMBSolver
+    solver = CMBSolver()                    # sync gauge (accurate, ~420s)
+    solver = CMBSolver(backend='fast')      # conformal Newtonian (~2s)
     result = solver.run()
     # result.ell, result.Dl_TT, result.Dl_TE, result.Dl_EE, result.peaks, result.timing
 
-Architecture (44 modules):
-    solver_production.py       -- ProductionSolver: recommended entry point
+Legacy API (backward compatible):
+    from mlx_class import ProductionSolver
+    solver = ProductionSolver()
+    result = solver.run()
+
+Architecture (45 modules):
+    solver_api.py              -- CMBSolver: unified entry point (sync + fast backends)
+    solver_production.py       -- ProductionSolver: fast backend (conformal Newtonian)
     solver_optimized.py        -- OptimizedSolver: production engine (4.9% RMS vs CLASS)
     solver_unified.py          -- UnifiedSolver: multi-mode pipeline (TT/TE/EE/BB/P(k)/lensing)
     solver_accurate.py         -- AccurateBoltzmannSolver: correct Psi != Phi physics
@@ -60,11 +67,16 @@ Deprecated (kept for backward compatibility):
 Author: Sheng-Kai Huang, 2026
 Theory: Sigma = 2 ln Q, ghost-condensation Khronon with c_s^2 = 0
 """
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
+from .solver_api import CMBSolver, CMBResult
+
+# Legacy API (backward compatible)
 from .solver_production import ProductionSolver, ProductionResult
 
 __all__ = [
+    'CMBSolver',
+    'CMBResult',
     'ProductionSolver',
     'ProductionResult',
     '__version__',
