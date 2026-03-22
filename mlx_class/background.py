@@ -56,7 +56,7 @@ class Background:
     """Solve background Friedmann + recombination. All in Mpc units."""
 
     def __init__(self, N_points=50000, a_min=1e-7, a_max=1.0, khronon=False,
-                 recombination='tanh'):
+                 recombination='tanh', tau_reio=0.054):
         """
         Parameters
         ----------
@@ -70,12 +70,17 @@ class Background:
             'recfast' : RECFAST-like solver with helium, T_b evolution, and
                         enhanced fudge factors. Visibility FWHM ~ 20-25 Mpc.
                         Recommended for CMB precision work.
+        tau_reio : float
+            Reionization optical depth (Planck 2018 best fit: 0.054).
+            Set to 0 to disable reionization. The corresponding z_reio
+            is determined iteratively to match this optical depth.
         """
         self.N = N_points
         self.a_min = a_min
         self.a_max = a_max
         self.khronon = khronon
         self.recombination_method = recombination
+        self.tau_reio = tau_reio
 
         if khronon:
             self.Omega_cdm = 0.265        # Khronon sector
@@ -196,6 +201,9 @@ class Background:
               f"k_D = {self.k_D:.4f} Mpc^-1")
         print(f"[Background] Visibility peak: z = {z_peak:.0f}")
 
+        # Add reionization
+        self._add_reionization()
+
     def _compute_recombination_peebles(self):
         """
         Peebles three-level atom recombination.
@@ -248,6 +256,9 @@ class Background:
         print(f"[Background] R_rec = {self.R_rec:.3f}, "
               f"k_D = {self.k_D:.4f} Mpc^-1")
         print(f"[Background] Visibility peak (Peebles): z = {z_peak:.0f}")
+
+        # Add reionization
+        self._add_reionization()
 
     def _compute_recombination_recfast(self):
         """
@@ -319,6 +330,90 @@ class Background:
               f"g_peak = {g_peak:.4f}")
         print(f"[Background] Visibility FWHM = {fwhm:.1f} Mpc, "
               f"integral = {g_integral:.4f}")
+
+        # Add reionization
+        self._add_reionization()
+
+    def _add_reionization(self):
+        """
+        Add reionization to x_e_grid, then recompute kappa and visibility.
+
+        Uses a tanh model: x_e_reio = 0.5*(1 + tanh((z_reio - z) / delta_z)).
+        At z < z_reio, x_e rises to (1 + f_He) for fully ionized hydrogen +
+        singly ionized helium.
+
+        The reionization redshift z_reio is determined iteratively so that
+        the total optical depth from reionization matches self.tau_reio.
+        """
+        if self.tau_reio <= 0:
+            return
+
+        z_grid = 1.0 / self.a_grid - 1.0
+        f_He = Y_He / (4.0 * (1.0 - Y_He))  # ~ 0.08
+        delta_z_reio = 0.5  # transition width
+
+        # Physical constants for optical depth computation
+        rho_b0_SI = Omega_b * 3 * H0_SI**2 / (8 * np.pi * G_SI)
+        n_H0 = (1 - Y_He) * rho_b0_SI / m_H_SI
+
+        # Iteratively find z_reio that gives the target tau_reio
+        # Start with Planck 2018 best-fit z_reio = 7.67
+        z_reio = 7.67
+
+        for iteration in range(20):
+            # Reionization profile
+            x_e_reio = 0.5 * (1.0 + np.tanh((z_reio - z_grid) / delta_z_reio))
+            # Full x_e: max of recombination and reionization
+            x_e_total = np.maximum(self.x_e_grid,
+                                   (1.0 + f_He) * x_e_reio)
+
+            # Compute optical depth from reionization only
+            # (the extra x_e beyond the recombination value)
+            x_e_extra = x_e_total - self.x_e_grid
+            kappa_rate_extra = x_e_extra * n_H0 * sigma_T_SI * Mpc_SI / self.a_grid**2
+            tau_reio_computed = np.trapezoid(kappa_rate_extra, self.tau_grid)
+
+            # Newton-like update: tau_reio scales roughly as z_reio^{3/2}
+            if abs(tau_reio_computed) < 1e-15:
+                z_reio *= 2.0
+                continue
+            ratio = self.tau_reio / tau_reio_computed
+            # Gentle update to avoid overshoot
+            z_reio *= ratio ** 0.6
+            z_reio = max(z_reio, 2.0)  # don't go below z=2
+
+            if abs(ratio - 1.0) < 1e-4:
+                break
+
+        self.z_reio = z_reio
+
+        # Final reionization profile with converged z_reio
+        x_e_reio = 0.5 * (1.0 + np.tanh((z_reio - z_grid) / delta_z_reio))
+        self.x_e_grid = np.maximum(self.x_e_grid,
+                                    (1.0 + f_He) * x_e_reio)
+
+        # Recompute kappa, visibility with the updated x_e
+        kappa_rate = self.x_e_grid * n_H0 * sigma_T_SI * Mpc_SI / self.a_grid**2
+        kappa_cumul = cumulative_trapezoid(kappa_rate, self.tau_grid, initial=0.0)
+        kappa = kappa_cumul[-1] - kappa_cumul
+
+        self.kappa_grid = kappa
+        self.kappa_dot_grid = -kappa_rate
+        self.visibility_grid = kappa_rate * np.exp(-kappa)
+
+        # Rebuild interpolators for kappa/visibility
+        self._kappa_dot_of_tau = interp1d(self.tau_grid, self.kappa_dot_grid,
+                                           kind='cubic', fill_value='extrapolate')
+        self._visibility_of_tau = interp1d(self.tau_grid, self.visibility_grid,
+                                            kind='cubic', fill_value='extrapolate')
+        self._kappa_of_tau = interp1d(self.tau_grid, kappa,
+                                       kind='cubic', fill_value='extrapolate')
+
+        # Verify optical depth
+        tau_total = kappa[0]  # kappa at tau=0 is total optical depth to today
+        print(f"[Background] Reionization: z_reio = {z_reio:.2f}, "
+              f"tau_reio(target) = {self.tau_reio:.4f}, "
+              f"tau_total = {tau_total:.4f}")
 
     # === Evaluation on arbitrary tau arrays (for MLX precomputation) ===
 
