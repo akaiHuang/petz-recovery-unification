@@ -221,8 +221,16 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='Radau',
 
             Phi_N[ik, it] = gt['Phi_N']
             Psi_N[ik, it] = gt['Psi_N']
-            Theta0_N[ik, it] = gt['delta_g_N'] / 4.0
-            vb_N[ik, it] = gt['theta_b_N'] / k  # v_b = theta_b / k
+            # Gauge-invariant SW source: avoid catastrophic cancellation in
+            # delta_g_N = F_g0 - 4*calH*alpha by using the identity:
+            #   Theta0_N + Psi_N = F_g0/4 - eta + Phi_N + Psi_N
+            # (since calH*alpha = eta - Phi_N, and Theta0_N = F_g0/4 - calH*alpha)
+            # This avoids computing calH*alpha which loses precision for subhorizon.
+            # Store Theta0_N as the gauge-invariant combination minus Psi_N:
+            eta_val = y[IDX_ETA]
+            Theta0_N[ik, it] = y[IDX_FG_START] / 4.0 - eta_val + gt['Phi_N']
+            # Velocity: v_b_N = theta_b/k + k*alpha = theta_b/k + (h'+6eta')/(2k)
+            vb_N[ik, it] = y[IDX_THETA_B] / k + (h_prime + 6*eta_prime) / (2*k)
 
         if verbose and (ik + 1) % 20 == 0:
             elapsed = time.time() - t0
