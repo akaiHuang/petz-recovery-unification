@@ -41,9 +41,12 @@ from .background import (
 
 # ============================================================================
 # Radiation density split: photons vs neutrinos
+# Uses the exact ratio 7/8 * (4/11)^{4/3} per species (matching CLASS)
+# instead of the rounded 0.2271 approximation.
 # ============================================================================
 N_EFF = 3.046
-_f_nu = 0.2271 * N_EFF / (1.0 + 0.2271 * N_EFF)
+_f_nu_ratio = N_EFF * (7.0 / 8.0) * (4.0 / 11.0) ** (4.0 / 3.0)
+_f_nu = _f_nu_ratio / (1.0 + _f_nu_ratio)
 _OMEGA_GAMMA = _OMEGA_R * (1.0 - _f_nu)   # photon density parameter
 _OMEGA_NU = _OMEGA_R * _f_nu               # neutrino density parameter
 
