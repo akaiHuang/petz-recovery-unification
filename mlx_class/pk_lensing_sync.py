@@ -18,8 +18,7 @@ Author: Sheng-Kai Huang, 2026
 import numpy as np
 import time
 import sys
-from scipy.integrate import quad
-from scipy.interpolate import interp1d, CubicSpline
+from scipy.interpolate import interp1d
 
 from .background import (
     Background, A_s, n_s, k_pivot, T_CMB,
@@ -27,12 +26,11 @@ from .background import (
     H0_Mpc, h as h_param, z_rec, a_rec,
 )
 from .perturbations_sync import (
-    IDX_ETA, IDX_DELTA_C, IDX_DELTA_B, IDX_THETA_B, IDX_FG_START,
+    IDX_DELTA_C, IDX_DELTA_B,
     L_GAMMA_MAX, L_NU_MAX_SYNC,
-    diagnose_metric, gauge_transform,
 )
 from .solver_sync import solve_single_k
-from .matter_pk import growth_factor_integral, growth_factor_ratio, _compute_sigma8
+from .matter_pk import growth_factor_ratio, _compute_sigma8
 
 
 # ============================================================================
@@ -46,9 +44,22 @@ def compute_pk_from_sync(bg, k_arr=None, N_k=200, k_min=1e-4, k_max=0.5,
     """
     Compute the matter power spectrum P(k) using the synchronous gauge solver.
 
-    Solves perturbation equations for each k-mode up to tau_rec, then extracts
-    delta_c and delta_b to build the matter transfer function.  The transfer
-    function is grown to z_out using the linear growth factor.
+    METHOD:
+    Each k-mode is integrated to tau_rec using solve_single_k().  The CDM
+    density contrast delta_c (sync gauge, CDM rest frame) is extracted and
+    used as the transfer function.  The transfer function is grown from
+    z_rec to z_out using the linear growth factor D(a), and optionally
+    multiplied by a Silk damping envelope.
+
+    The normalization uses (C/R)^2 = (2/3)^2, the same convention as the
+    C_l calculation in solver_sync.py.
+
+    NOTE: The sync gauge delta_c includes contributions from the spatial
+    metric perturbation h that make it systematically larger than the
+    Newtonian gauge delta_c used in matter_pk.py.  As a result, sigma_8
+    from this function differs from the Newtonian gauge result.  For
+    precision P(k), use matter_pk.compute_matter_pk() with the implicit
+    solver.
 
     Parameters
     ----------
@@ -62,7 +73,7 @@ def compute_pk_from_sync(bg, k_arr=None, N_k=200, k_min=1e-4, k_max=0.5,
     z_out : float
         Output redshift (default 0).
     apply_silk : bool
-        Apply Silk damping envelope.
+        Apply Silk damping envelope to the transfer function.
     method : str
         ODE method for solve_ivp.
     rtol, atol : float
@@ -77,9 +88,9 @@ def compute_pk_from_sync(bg, k_arr=None, N_k=200, k_min=1e-4, k_max=0.5,
         'k_Mpc'     : k in Mpc^-1
         'Pk_Mpc3'   : P(k) in Mpc^3
         'sigma8'    : sigma_8 value
-        'T_k'       : transfer function (unnormalized)
-        'delta_c'   : CDM density contrast at tau_rec
-        'delta_b'   : baryon density contrast at tau_rec
+        'T_k'       : grown transfer function (delta_c * D_ratio * silk)
+        'delta_c_S' : sync gauge CDM density at tau_rec per unit C
+        'delta_b_S' : sync gauge baryon density at tau_rec per unit C
         'D_ratio'   : growth factor D(z_out)/D(z_rec)
     """
     t0 = time.time()
@@ -101,23 +112,10 @@ def compute_pk_from_sync(bg, k_arr=None, N_k=200, k_min=1e-4, k_max=0.5,
         print(f"  Omega_b = {Omega_b:.4f}, Omega_c = {Omega_c_eff:.4f}")
         sys.stdout.flush()
 
-    # We only need to integrate to slightly past tau_rec
+    # Integrate to tau_rec, extract CDM density contrast delta_c (sync gauge)
     tau_end = bg.tau_rec * 1.05
 
-    # Background quantities at tau_rec for gauge transformation
-    calH_rec = float(bg.calH_at_tau(np.array([bg.tau_rec]))[0])
-    a_rec_val = float(bg.a_at_tau(np.array([bg.tau_rec]))[0])
-
-    # Solve each k-mode and extract NEWTONIAN GAUGE delta_c, delta_b at tau_rec.
-    # The sync gauge delta_c/delta_b are gauge-dependent; we must transform them
-    # to the Newtonian gauge for the physical matter power spectrum.
-    #
-    # Gauge transformation (Ma & Bertschinger 1995):
-    #   delta_c_N = delta_c_S + 3 calH alpha   (CDM: w=0, rho'/rho = -3calH)
-    #   delta_b_N = delta_b_S + 3 calH alpha   (baryons: w=0 at recombination)
-    # where alpha = (h' + 6 eta') / (2 k^2).
-    delta_c_N = np.zeros(N_k_actual)
-    delta_b_N = np.zeros(N_k_actual)
+    # Solve each k-mode
     delta_c_S = np.zeros(N_k_actual)
     delta_b_S = np.zeros(N_k_actual)
     n_failed = 0
@@ -132,20 +130,9 @@ def compute_pk_from_sync(bg, k_arr=None, N_k=200, k_min=1e-4, k_max=0.5,
                 print(f"  WARNING: k={k:.4e} failed: {sol.message}")
             continue
 
-        # Evaluate at tau_rec using dense output
         y_rec = sol.sol(bg.tau_rec)
         delta_c_S[ik] = y_rec[IDX_DELTA_C]
         delta_b_S[ik] = y_rec[IDX_DELTA_B]
-
-        # Gauge transformation: sync -> Newtonian
-        h_prime, eta_prime = diagnose_metric(
-            y_rec, k, calH_rec, a_rec_val, L_GAMMA_MAX, L_NU_MAX_SYNC)
-        alpha = (h_prime + 6.0 * eta_prime) / (2.0 * k * k)
-
-        # CDM and baryons are pressureless: rho'/rho = -3 calH
-        # delta_N = delta_S - (rho'/rho) alpha = delta_S + 3 calH alpha
-        delta_c_N[ik] = y_rec[IDX_DELTA_C] + 3.0 * calH_rec * alpha
-        delta_b_N[ik] = y_rec[IDX_DELTA_B] + 3.0 * calH_rec * alpha
 
         if verbose and (ik + 1) % 50 == 0:
             elapsed = time.time() - t0
@@ -157,13 +144,9 @@ def compute_pk_from_sync(bg, k_arr=None, N_k=200, k_min=1e-4, k_max=0.5,
     if verbose:
         print(f"  Perturbations: {t_pert:.1f}s ({n_failed} failed)")
 
-    # Matter transfer function.
-    # At subhorizon scales (k >> aH), the gauge transformation is negligible
-    # (alpha ~ 0) and delta_c_N ≈ delta_c_S.  Use delta_c_S as the transfer
-    # function: it represents the CDM density contrast in the CDM rest frame,
-    # which is the physical late-time matter distribution.
-    # Baryons fall into CDM wells after recombination (delta_b -> delta_c at
-    # z << z_rec), avoiding deep BAO zeros from baryon oscillations.
+    # Transfer function: use CDM density contrast delta_c_S.
+    # Baryons fall into CDM wells after recombination, so delta_b -> delta_c
+    # at z << z_rec.  Using delta_c avoids deep BAO zeros.
     T_k = delta_c_S.copy()
 
     # Growth factor from z_rec to z_out
@@ -176,29 +159,27 @@ def compute_pk_from_sync(bg, k_arr=None, N_k=200, k_min=1e-4, k_max=0.5,
     if verbose:
         print(f"  D(z={z_out:.1f})/D(z={z_rec:.0f}) = {D_ratio:.2f}")
 
-    T_k_grown = T_k * D_ratio
+    T_k = T_k * D_ratio
 
-    # Silk damping
+    # Silk damping: the sync gauge solver already captures Silk damping
+    # through the photon Boltzmann hierarchy (Thomson scattering).
+    # An additional Silk envelope may be applied for empirical correction.
     if apply_silk:
         silk = np.exp(-(k_arr / bg.k_D)**2)
-        T_k_grown = T_k_grown * silk
+        T_k = T_k * silk
 
     # Primordial power spectrum: P_R(k) = A_s * (k/k_pivot)^(n_s-1)
     P_R = A_s * (k_arr / k_pivot) ** (n_s - 1.0)
 
-    # P(k) = (2 pi^2 / k^3) * P_R(k) * (C/R)^2 * |T(k)|^2
+    # P(k) = (2 pi^2 / k^3) * P_R(k) * norm * |T(k)|^2
     #
     # NORMALIZATION:
-    # The sync gauge uses C = 1 as the initial curvature perturbation.
-    # The primordial comoving curvature perturbation R = -(3/2) C, so
-    # |C/R|^2 = (2/3)^2.  The primordial power spectrum P_R(k) = A_s * ...
-    # is per unit R^2, so we need (C/R)^2 to convert delta_c (per unit C)
-    # to delta_c per unit R.
-    #
-    # This is the same normalization used in the C_l calculation
-    # (solver_sync.py line 379).
+    # The sync gauge initial condition C = 1 corresponds to the primordial
+    # curvature perturbation R = -(3/2) C.  The (C/R)^2 = (2/3)^2 factor
+    # converts from per-unit-C to per-unit-R, the same normalization used
+    # in the C_l calculation (solver_sync.py).
     norm_sync = (2.0 / 3.0) ** 2   # (C/R)^2
-    Pk_Mpc3 = norm_sync * (2.0 * np.pi**2 / k_arr**3) * P_R * T_k_grown**2
+    Pk_Mpc3 = norm_sync * (2.0 * np.pi**2 / k_arr**3) * P_R * T_k**2
 
     # Sigma_8
     sigma8 = _compute_sigma8(k_arr, Pk_Mpc3, h_param)
@@ -221,8 +202,6 @@ def compute_pk_from_sync(bg, k_arr=None, N_k=200, k_min=1e-4, k_max=0.5,
         'Pk_Mpc3': Pk_Mpc3,
         'sigma8': sigma8,
         'T_k': T_k,
-        'delta_c_N': delta_c_N,
-        'delta_b_N': delta_b_N,
         'delta_c_S': delta_c_S,
         'delta_b_S': delta_b_S,
         'D_ratio': D_ratio,
