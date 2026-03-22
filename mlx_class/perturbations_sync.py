@@ -5,9 +5,10 @@ Following Ma & Bertschinger (1995) ApJ 455, 7 [astro-ph/9506072].
 
 GAUGE: Synchronous gauge in CDM rest frame (theta_c = 0).
 
-STATE VECTOR per k-mode:
+STATE VECTOR per k-mode (with polarization, l_pol_max > 0):
   [eta, delta_c, delta_b, theta_b,
    F_g0, F_g1, ..., F_g{lg_max},
+   E_0, E_1, ..., E_{l_pol_max},
    F_n0, F_n1, ..., F_n{ln_max}]
 
   where:
@@ -17,8 +18,12 @@ STATE VECTOR per k-mode:
     theta_b     = baryon velocity divergence
     F_g,l       = photon Boltzmann hierarchy multipoles
                   (F_g,0 = delta_gamma, theta_gamma = 3k/4 * F_g,1)
+    E_l         = E-mode polarization hierarchy multipoles
     F_n,l       = neutrino Boltzmann hierarchy multipoles
                   (F_n,0 = delta_nu, theta_nu = 3k/4 * F_n,1)
+
+  When l_pol_max = 0, the E-mode block is absent and the layout matches the
+  original code exactly (backward compatible).
 
 METRIC PERTURBATIONS:
   h' and eta' are DIAGNOSED from Einstein constraint equations at each step.
@@ -32,6 +37,15 @@ GAUGE TRANSFORMATION to Newtonian gauge (for LOS source):
   Phi_N = eta - calH * alpha
   Psi_N = Phi_N - 12 H0^2/(a^2 k^2) (Omega_gamma sigma_gamma + Omega_nu sigma_nu)
   delta_N = delta_S + (rho'/rho) * alpha  =>  delta_gamma_N = delta_gamma_S + 4 calH alpha
+
+POLARIZATION FEEDBACK (l_pol_max > 0):
+  Pi = F_gamma,2 + E_0 + E_2   (polarization source)
+  F_gamma,2 gets +|kd|*Pi/10 correction (replacing -(9/10)|kd|F_g2 with -|kd|(F_g2 - Pi/10))
+  E-mode hierarchy:
+    E_0' = -k*E_1 - |kd|*E_0 + (1/2)*|kd|*Pi
+    E_1' = k/3*(E_0 - 2*E_2) - |kd|*E_1
+    E_2' = k/5*(2*E_1 - 3*E_3) - |kd|*E_2 + (1/10)*|kd|*Pi
+    E_l' = k/(2l+1)*(l*E_{l-1} - (l+1)*E_{l+1}) - |kd|*E_l   for l >= 3
 
 Author: Sheng-Kai Huang, 2026
 """
@@ -55,6 +69,7 @@ from .perturbations_neutrino import (
 # ============================================================================
 L_GAMMA_MAX = 25    # photon multipole truncation (25 gives best balance of damping and phase)
 L_NU_MAX_SYNC = 25  # neutrino multipole truncation (free-streaming => need more)
+L_POL_MAX = 8       # E-mode polarization hierarchy truncation (0 = no polarization)
 
 
 # ============================================================================
@@ -72,26 +87,52 @@ def idx_fg(l):
     return IDX_FG_START + l
 
 
-def idx_fn_start(lg_max):
-    """Starting index of neutrino hierarchy."""
+def idx_e_start(lg_max):
+    """Starting index of E-mode polarization hierarchy (right after photon block)."""
     return IDX_FG_START + lg_max + 1
 
 
-def idx_fn(l, lg_max):
+def idx_e(l, lg_max):
+    """Index of E-mode polarization multipole E_l in the state vector."""
+    return idx_e_start(lg_max) + l
+
+
+def idx_fn_start(lg_max, l_pol_max=0):
+    """Starting index of neutrino hierarchy.
+
+    When l_pol_max=0 (default), the E-mode block is absent and this returns
+    IDX_FG_START + lg_max + 1 (identical to the original code).
+    When l_pol_max>0, the E-mode block sits between photons and neutrinos.
+    """
+    if l_pol_max > 0:
+        return idx_e_start(lg_max) + l_pol_max + 1
+    else:
+        return IDX_FG_START + lg_max + 1
+
+
+def idx_fn(l, lg_max, l_pol_max=0):
     """Index of neutrino multipole F_nu,l."""
-    return idx_fn_start(lg_max) + l
+    return idx_fn_start(lg_max, l_pol_max) + l
 
 
-def n_var_sync(lg_max, ln_max):
-    """Total number of variables per k-mode."""
-    return IDX_FG_START + (lg_max + 1) + (ln_max + 1)
+def n_var_sync(lg_max, ln_max, l_pol_max=0):
+    """Total number of variables per k-mode.
+
+    When l_pol_max=0: IDX_FG_START + (lg_max+1) + (ln_max+1)  (original)
+    When l_pol_max>0: IDX_FG_START + (lg_max+1) + (l_pol_max+1) + (ln_max+1)
+    """
+    if l_pol_max > 0:
+        return IDX_FG_START + (lg_max + 1) + (l_pol_max + 1) + (ln_max + 1)
+    else:
+        return IDX_FG_START + (lg_max + 1) + (ln_max + 1)
 
 
 # ============================================================================
 # RHS function for synchronous gauge (single k-mode, for scipy solve_ivp)
 # ============================================================================
 
-def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
+def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
+                  l_pol_max=0):
     """
     Build the RHS function f(tau, y) -> dy/dtau for synchronous gauge.
 
@@ -104,6 +145,7 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
     bg : Background object (solved)
     lg_max : int, photon hierarchy truncation
     ln_max : int, neutrino hierarchy truncation
+    l_pol_max : int, E-mode polarization hierarchy truncation (0 = no polarization)
 
     Returns
     -------
@@ -113,8 +155,11 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
     k2 = k * k
     H02 = _H0_MPC ** 2
     Og, On, Ob, Oc = _OMEGA_GAMMA, _OMEGA_NU, _OMEGA_B, _OMEGA_C
-    nvar = n_var_sync(lg_max, ln_max)
-    fn_s = idx_fn_start(lg_max)
+    nvar = n_var_sync(lg_max, ln_max, l_pol_max)
+    fn_s = idx_fn_start(lg_max, l_pol_max)
+    _has_pol = l_pol_max > 0
+    if _has_pol:
+        _e_s = idx_e_start(lg_max)
 
     # Pre-tabulate background for fast np.interp (called ~10k-50k times per k)
     _tau = bg.tau_grid.copy()
@@ -143,6 +188,10 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
         Fg = y[IDX_FG_START: IDX_FG_START + lg_max + 1]
         Fn = y[fn_s: fn_s + ln_max + 1]
 
+        # Extract E-mode polarization if present
+        if _has_pol:
+            E = y[_e_s: _e_s + l_pol_max + 1]
+
         delta_g = Fg[0]
         delta_n = Fn[0]
         theta_g = 0.75 * k * Fg[1]   # theta_gamma = (3/4) k F_1
@@ -169,6 +218,16 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
         # c_s^2 k^2 delta_b omitted (cold baryon approximation)
         d_theta_b = -calH * theta_b + abs_kd / R * (theta_g - theta_b)
 
+        # --- Polarization source Pi ---
+        # Pi = F_gamma,2 + E_0 + E_2 when polarization is evolved
+        # Pi = F_gamma,2 when l_pol_max = 0 (reduces to original -(9/10)|kd|F_g2)
+        if _has_pol and lg_max >= 2:
+            Pi = Fg[2] + E[0] + (E[2] if l_pol_max >= 2 else 0.0)
+        elif lg_max >= 2:
+            Pi = Fg[2]  # no polarization feedback
+        else:
+            Pi = 0.0
+
         # --- Photon hierarchy (M&B Eq. 27) ---
         dFg = np.zeros(lg_max + 1)
 
@@ -179,14 +238,23 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
         F2g = Fg[2] if lg_max >= 2 else 0.0
         dFg[1] = (k / 3.0) * (Fg[0] - 2.0 * F2g) + abs_kd * (-Fg[1] + 4.0 * theta_b / (3.0 * k))
 
-        # l=2: F_2' = (2k/5)F_1 - (3k/5)F_3 + (4/15)h' + (8/5)eta' - (9/10)|kd|F_2
-        # eta' coeff = 8/5 (not 8/15): from (8/15)*k²*sigma where sigma=(h'+6eta')/(2k²)
+        # l=2: F_2' with polarization feedback
+        # Without polarization: -(9/10)|kd|F_g2
+        # With polarization:    -|kd|(F_g2 - Pi/10) = -(9/10)|kd|F_g2 + (1/10)|kd|(E_0+E_2)
+        # eta' coeff = 8/5 (not 8/15): from (8/15)*k^2*sigma where sigma=(h'+6eta')/(2k^2)
         # Confirmed by CLASS perturbations.c line 8982 and first-principles derivation
         if lg_max >= 2:
             F3g = Fg[3] if lg_max >= 3 else 0.0
-            dFg[2] = ((k / 5.0) * (2.0 * Fg[1] - 3.0 * F3g)
-                      + (4.0 / 15.0) * h_prime + (8.0 / 5.0) * eta_prime
-                      - (9.0 / 10.0) * abs_kd * Fg[2])
+            if _has_pol:
+                # Full collision term: -|kd|*(F_g2 - Pi/10)
+                dFg[2] = ((k / 5.0) * (2.0 * Fg[1] - 3.0 * F3g)
+                          + (4.0 / 15.0) * h_prime + (8.0 / 5.0) * eta_prime
+                          - abs_kd * (Fg[2] - Pi / 10.0))
+            else:
+                # Original: -(9/10)|kd|F_g2  (since Pi=F_g2 -> F_g2 - F_g2/10 = 9/10 F_g2)
+                dFg[2] = ((k / 5.0) * (2.0 * Fg[1] - 3.0 * F3g)
+                          + (4.0 / 15.0) * h_prime + (8.0 / 5.0) * eta_prime
+                          - (9.0 / 10.0) * abs_kd * Fg[2])
 
         # l=3..lg_max-1: streaming + Thomson damping
         for ell in range(3, lg_max):
@@ -198,6 +266,36 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
             dFg[lg_max] = (k * Fg[lg_max - 1] * lg_max / (2.0 * lg_max + 1.0)
                            - (lg_max + 1.0) / tau_safe * Fg[lg_max]
                            - abs_kd * Fg[lg_max])
+
+        # --- E-mode polarization hierarchy ---
+        if _has_pol:
+            dE = np.zeros(l_pol_max + 1)
+
+            # l=0: E_0' = -k*E_1 - |kd|*E_0 + (1/2)*|kd|*Pi
+            E1 = E[1] if l_pol_max >= 1 else 0.0
+            dE[0] = -k * E1 - abs_kd * E[0] + 0.5 * abs_kd * Pi
+
+            # l=1: E_1' = k/3*(E_0 - 2*E_2) - |kd|*E_1
+            if l_pol_max >= 1:
+                E2 = E[2] if l_pol_max >= 2 else 0.0
+                dE[1] = (k / 3.0) * (E[0] - 2.0 * E2) - abs_kd * E[1]
+
+            # l=2: E_2' = k/5*(2*E_1 - 3*E_3) - |kd|*E_2 + (1/10)*|kd|*Pi
+            if l_pol_max >= 2:
+                E3 = E[3] if l_pol_max >= 3 else 0.0
+                dE[2] = ((k / 5.0) * (2.0 * E[1] - 3.0 * E3)
+                         - abs_kd * E[2] + (1.0 / 10.0) * abs_kd * Pi)
+
+            # l=3..l_pol_max-1: streaming + Thomson damping
+            for ell in range(3, l_pol_max):
+                dE[ell] = (k / (2.0 * ell + 1.0) * (ell * E[ell - 1] - (ell + 1) * E[ell + 1])
+                           - abs_kd * E[ell])
+
+            # l=l_pol_max: truncation boundary
+            if l_pol_max >= 3:
+                dE[l_pol_max] = (k * E[l_pol_max - 1] * l_pol_max / (2.0 * l_pol_max + 1.0)
+                                 - (l_pol_max + 1.0) / tau_safe * E[l_pol_max]
+                                 - abs_kd * E[l_pol_max])
 
         # --- Neutrino hierarchy (M&B Eq. 28, no collisions) ---
         dFn = np.zeros(ln_max + 1)
@@ -232,6 +330,8 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
         dydt[IDX_DELTA_B] = d_delta_b
         dydt[IDX_THETA_B] = d_theta_b
         dydt[IDX_FG_START: IDX_FG_START + lg_max + 1] = dFg
+        if _has_pol:
+            dydt[_e_s: _e_s + l_pol_max + 1] = dE
         dydt[fn_s: fn_s + ln_max + 1] = dFn
 
         return dydt
@@ -243,7 +343,8 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
 # Adiabatic initial conditions (synchronous gauge, CDM rest frame)
 # ============================================================================
 
-def adiabatic_ic_sync(k, tau_init, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
+def adiabatic_ic_sync(k, tau_init, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
+                      l_pol_max=0):
     """
     Adiabatic growing-mode ICs following Ma & Bertschinger (1995) Sec. V.
 
@@ -258,14 +359,15 @@ def adiabatic_ic_sync(k, tau_init, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
       theta_b = theta_gamma ~ 0       (tight coupling, O(x^3))
       F_g,2 ~ 0                       (Thomson-damped)
       F_n,2 ~ f(R_nu) x^2            (free-streaming neutrinos)
+      E_l = 0 for all l               (Thomson-damped at early times)
     """
     R_nu = _OMEGA_NU / (_OMEGA_GAMMA + _OMEGA_NU)
     C = 1.0
     x = k * tau_init
     x2 = x * x
 
-    nvar = n_var_sync(lg_max, ln_max)
-    fn_s = idx_fn_start(lg_max)
+    nvar = n_var_sync(lg_max, ln_max, l_pol_max)
+    fn_s = idx_fn_start(lg_max, l_pol_max)
     y0 = np.zeros(nvar, dtype=np.float64)
 
     # eta
@@ -289,6 +391,9 @@ def adiabatic_ic_sync(k, tau_init, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
     # (the equilibrium value is suppressed by |kappa_dot|)
     if lg_max >= 2:
         y0[idx_fg(2)] = 0.0
+
+    # E-mode polarization: Thomson-damped at early times, all zero
+    # (the E_l block is already zero from np.zeros initialization)
 
     # Neutrino monopole: adiabatic, delta_nu = delta_gamma
     y0[fn_s + 0] = -(2.0 / 3.0) * C * x2
@@ -316,7 +421,8 @@ def adiabatic_ic_sync(k, tau_init, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
 # Gauge transformation: synchronous -> Newtonian
 # ============================================================================
 
-def gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime, eta_prime):
+def gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime, eta_prime,
+                    l_pol_max=0):
     """
     Transform sync gauge state to Newtonian gauge quantities needed for LOS.
 
@@ -332,6 +438,7 @@ def gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime, eta_prime):
     a : scale factor
     lg_max, ln_max : hierarchy truncation
     h_prime, eta_prime : metric derivatives (diagnosed from constraints)
+    l_pol_max : int, E-mode polarization hierarchy truncation (0 = no polarization)
 
     Returns
     -------
@@ -340,7 +447,7 @@ def gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime, eta_prime):
     k2 = k * k
     H02 = _H0_MPC ** 2
     Og, On = _OMEGA_GAMMA, _OMEGA_NU
-    fn_s = idx_fn_start(lg_max)
+    fn_s = idx_fn_start(lg_max, l_pol_max)
 
     eta = y[IDX_ETA]
     Fg = y[IDX_FG_START: IDX_FG_START + lg_max + 1]
@@ -391,7 +498,7 @@ def gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime, eta_prime):
     }
 
 
-def diagnose_metric(y, k, calH, a, lg_max, ln_max):
+def diagnose_metric(y, k, calH, a, lg_max, ln_max, l_pol_max=0):
     """
     Compute h' and eta' from Einstein constraints for a given state.
 
@@ -404,7 +511,7 @@ def diagnose_metric(y, k, calH, a, lg_max, ln_max):
     k2 = k * k
     H02 = _H0_MPC ** 2
     Og, On, Ob, Oc = _OMEGA_GAMMA, _OMEGA_NU, _OMEGA_B, _OMEGA_C
-    fn_s = idx_fn_start(lg_max)
+    fn_s = idx_fn_start(lg_max, l_pol_max)
     ia = 1.0 / a
     ia2 = ia * ia
 

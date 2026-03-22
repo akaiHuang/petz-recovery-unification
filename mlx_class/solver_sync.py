@@ -43,9 +43,9 @@ from .perturbations_neutrino import (
 )
 from .perturbations_sync import (
     make_sync_rhs, adiabatic_ic_sync, gauge_transform, diagnose_metric,
-    n_var_sync, idx_fn_start, idx_fg,
+    n_var_sync, idx_fn_start, idx_fg, idx_e_start, idx_e,
     IDX_ETA, IDX_DELTA_C, IDX_DELTA_B, IDX_THETA_B, IDX_FG_START,
-    L_GAMMA_MAX, L_NU_MAX_SYNC,
+    L_GAMMA_MAX, L_NU_MAX_SYNC, L_POL_MAX,
 )
 
 
@@ -54,7 +54,7 @@ from .perturbations_sync import (
 # ============================================================================
 
 def solve_single_k(k, bg, tau_end, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
-                   method='BDF', rtol=1e-6, atol=1e-9):
+                   l_pol_max=0, method='BDF', rtol=1e-6, atol=1e-9):
     """
     Solve the synchronous gauge Boltzmann equations for a single k-mode.
 
@@ -63,8 +63,8 @@ def solve_single_k(k, bg, tau_end, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
     Returns the OdeSolution object.
     """
     tau_init = bg.tau_grid[1]
-    rhs_fn, nvar = make_sync_rhs(k, bg, lg_max, ln_max)
-    y0 = adiabatic_ic_sync(k, tau_init, lg_max, ln_max)
+    rhs_fn, nvar = make_sync_rhs(k, bg, lg_max, ln_max, l_pol_max)
+    y0 = adiabatic_ic_sync(k, tau_init, lg_max, ln_max, l_pol_max)
 
     sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
                     method=method, dense_output=True,
@@ -166,14 +166,16 @@ def _solve_single_k_worker(args):
     Receives background data as raw numpy arrays (not the Background object,
     which contains unpicklable scipy interpolators).
 
-    Returns a numpy array of shape (N_snap, 5) with columns:
-      [Phi_N, Psi_N, Theta0_N, vb_N, Theta2]
-    or None if the ODE solve fails.
+    Returns a numpy array of shape (N_snap, 6) with columns:
+      [Phi_N, Psi_N, Theta0_N, vb_N, Theta2, Pi_4]
+    where Pi_4 = (F_gamma,2 + E_0 + E_2) / 4 is the polarization source / 4.
+    When l_pol_max=0, Pi_4 = Theta2 = F_gamma,2 / 4 (backward compatible).
+    Returns None if the ODE solve fails.
     """
     import numpy as np
     from scipy.integrate import solve_ivp
 
-    (k, bg_arrays, tau_end, lg_max, ln_max, method, rtol, atol,
+    (k, bg_arrays, tau_end, lg_max, ln_max, l_pol_max, method, rtol, atol,
      tau_all, a_snap, calH_snap) = args
 
     # Reconstruct a lightweight background-like object from raw arrays.
@@ -198,13 +200,17 @@ def _solve_single_k_worker(args):
     # Import perturbation functions (each worker process needs its own import)
     from mlx_class.perturbations_sync import (
         make_sync_rhs, adiabatic_ic_sync, gauge_transform, diagnose_metric,
-        IDX_ETA, IDX_THETA_B, IDX_FG_START,
+        IDX_ETA, IDX_THETA_B, IDX_FG_START, idx_e_start,
     )
+
+    _has_pol = l_pol_max > 0
+    if _has_pol:
+        _e_s = idx_e_start(lg_max)
 
     # Build RHS and initial conditions
     tau_init = bg_lite.tau_grid[1]
-    rhs_fn, nvar = make_sync_rhs(k, bg_lite, lg_max, ln_max)
-    y0 = adiabatic_ic_sync(k, tau_init, lg_max, ln_max)
+    rhs_fn, nvar = make_sync_rhs(k, bg_lite, lg_max, ln_max, l_pol_max)
+    y0 = adiabatic_ic_sync(k, tau_init, lg_max, ln_max, l_pol_max)
 
     # Solve ODE
     sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
@@ -216,7 +222,7 @@ def _solve_single_k_worker(args):
 
     # Evaluate at snapshot points and perform gauge transformation
     N_snap = len(tau_all)
-    results = np.zeros((N_snap, 5), dtype=np.float64)
+    results = np.zeros((N_snap, 6), dtype=np.float64)
 
     for it in range(N_snap):
         tau = tau_all[it]
@@ -224,8 +230,10 @@ def _solve_single_k_worker(args):
         a = a_snap[it]
         calH = calH_snap[it]
 
-        h_prime, eta_prime = diagnose_metric(y, k, calH, a, lg_max, ln_max)
-        gt = gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime, eta_prime)
+        h_prime, eta_prime = diagnose_metric(y, k, calH, a, lg_max, ln_max,
+                                             l_pol_max)
+        gt = gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime, eta_prime,
+                             l_pol_max)
 
         eta_val = y[IDX_ETA]
         results[it, 0] = gt['Phi_N']
@@ -235,7 +243,15 @@ def _solve_single_k_worker(args):
         # Newtonian gauge baryon velocity: theta_b/k + (h'+6eta')/(2k)
         results[it, 3] = y[IDX_THETA_B] / k + (h_prime + 6 * eta_prime) / (2 * k)
         # Photon quadrupole (gauge-invariant for l>=2): F_gamma,2 / 4
-        results[it, 4] = y[IDX_FG_START + 2] / 4.0
+        Theta2 = y[IDX_FG_START + 2] / 4.0
+        results[it, 4] = Theta2
+        # Polarization source Pi/4 = (F_gamma,2 + E_0 + E_2) / 4
+        if _has_pol:
+            E0 = y[_e_s]
+            E2 = y[_e_s + 2] if l_pol_max >= 2 else 0.0
+            results[it, 5] = (y[IDX_FG_START + 2] + E0 + E2) / 4.0
+        else:
+            results[it, 5] = Theta2  # Pi = F_gamma,2 when no polarization
 
     return results
 
@@ -246,6 +262,7 @@ def _solve_single_k_worker(args):
 
 def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
                              lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
+                             l_pol_max=0,
                              rtol=1e-6, atol=1e-9, n_workers=None,
                              verbose=True):
     """
@@ -260,6 +277,9 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
     ----------
     N_k : int
         Number of k-modes (default 500 for better C_l resolution).
+    l_pol_max : int
+        E-mode polarization hierarchy truncation. 0 = no polarization (default,
+        backward compatible). 8 = recommended for full polarization feedback.
     n_workers : int or None
         Number of worker processes. Defaults to min(os.cpu_count(), 8).
     """
@@ -305,8 +325,10 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
             n_reion_pts = N_snap - len(tau_vis) - len(tau_late) - len(np.array([]))
             print(f"  Reionization: z_reio={bg.z_reio:.2f}, "
                   f"tau_reio={bg.tau_reio:.4f}")
-        print(f"Hierarchy: lg_max={lg_max}, ln_max={ln_max}, "
-              f"nvar={n_var_sync(lg_max, ln_max)}")
+        print(f"Hierarchy: lg_max={lg_max}, ln_max={ln_max}, l_pol_max={l_pol_max}, "
+              f"nvar={n_var_sync(lg_max, ln_max, l_pol_max)}")
+        if l_pol_max > 0:
+            print(f"  Polarization feedback: ENABLED (E-mode hierarchy with {l_pol_max+1} multipoles)")
         sys.stdout.flush()
 
     # ================================================================
@@ -333,7 +355,7 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
 
     # Build work items
     work_items = [
-        (k, bg_arrays, tau_end, lg_max, ln_max, method, rtol, atol,
+        (k, bg_arrays, tau_end, lg_max, ln_max, l_pol_max, method, rtol, atol,
          tau_all, a_snap, calH_snap)
         for k in k_arr
     ]
@@ -356,6 +378,7 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
     Theta0_N = np.zeros((N_k, N_snap))
     vb_N = np.zeros((N_k, N_snap))
     Theta2_arr = np.zeros((N_k, N_snap))
+    Pi_arr = np.zeros((N_k, N_snap))  # Pi/4 = (F_gamma,2 + E_0 + E_2) / 4
 
     n_failed = 0
     for ik, res in enumerate(worker_results):
@@ -369,6 +392,7 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
         Theta0_N[ik] = res[:, 2]
         vb_N[ik] = res[:, 3]
         Theta2_arr[ik] = res[:, 4]
+        Pi_arr[ik] = res[:, 5]
 
     if verbose:
         print(f"Perturbations: {t_pert:.1f}s ({n_failed} failed, "
@@ -430,8 +454,18 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
     Delta_l = np.zeros((N_ell, N_k), dtype=np.float64)
     Delta_l_E = np.zeros((N_ell, N_k), dtype=np.float64)
 
-    alpha_P = 1.7
-    pol_prefactor = 0.75 * alpha_P
+    # EE source prefactor:
+    # When l_pol_max > 0: Pi/4 is already computed from the full polarization
+    #   hierarchy, so S_E = (3/4) * g * Pi_arr (Pi_arr already stores Pi/4).
+    # When l_pol_max = 0: approximate Pi ~ alpha_P * Theta_2 (no polarization
+    #   hierarchy), so S_E = (3/4) * alpha_P * g * Theta2_arr.
+    if l_pol_max > 0:
+        pol_prefactor = 0.75  # exact: (3/4) * Pi/4, Pi_arr already has Pi/4
+        _use_pi_arr = True
+    else:
+        alpha_P = 1.7
+        pol_prefactor = 0.75 * alpha_P
+        _use_pi_arr = False
 
     eps_prefactors = np.zeros(N_ell)
     for il, ell in enumerate(ell_values):
@@ -441,6 +475,10 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
 
     if verbose:
         print(f"Computing LOS transfer functions (TT + EE)...")
+        if _use_pi_arr:
+            print(f"  EE source: full Pi = F_gamma,2 + E_0 + E_2 (from polarization hierarchy)")
+        else:
+            print(f"  EE source: approximate Pi ~ {alpha_P:.1f} * Theta_2 (no polarization hierarchy)")
         sys.stdout.flush()
 
     for it in range(N_snap):
@@ -458,7 +496,11 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
         S_SW = g_snap[it] * (Theta0_N[:, it] + Psi_N[:, it])
         S_Dop = g_snap[it] * vb_N[:, it]
         S_ISW = exp_neg_kappa[it] * PhiPsi_prime[:, it]
-        S_E = g_snap[it] * pol_prefactor * Theta2_arr[:, it]
+        # EE source: use Pi_arr when polarization hierarchy is available
+        if _use_pi_arr:
+            S_E = g_snap[it] * pol_prefactor * Pi_arr[:, it]
+        else:
+            S_E = g_snap[it] * pol_prefactor * Theta2_arr[:, it]
 
         if use_gpu_bessel:
             x_arr = k_arr * chi
@@ -555,6 +597,8 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
         'Phi_N': Phi_N,
         'Psi_N': Psi_N,
         'Theta2_arr': Theta2_arr,
+        'Pi_arr': Pi_arr,
+        'l_pol_max': l_pol_max,
         'timing': {
             'background': t_bg,
             'perturbations': t_pert,
@@ -571,9 +615,16 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
 
 def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
                     lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
+                    l_pol_max=0,
                     rtol=1e-6, atol=1e-9, verbose=True):
     """
     Full synchronous gauge pipeline: background -> perturbations -> C_l.
+
+    Parameters
+    ----------
+    l_pol_max : int
+        E-mode polarization hierarchy truncation. 0 = no polarization (default,
+        backward compatible). 8 = recommended for full polarization feedback.
     """
     t_total = time.time()
 
@@ -602,6 +653,10 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
         bg, N_vis=60, N_early_isw=30, N_late_isw=20)
     N_snap = len(tau_all)
 
+    _has_pol = l_pol_max > 0
+    if _has_pol:
+        _e_s = idx_e_start(lg_max)
+
     if verbose:
         print(f"\n--- Step 2: Perturbations ({N_k} k-modes, {method}) ---")
         print(f"k range: [{k_min:.1e}, {k_max:.2f}] Mpc^-1")
@@ -611,16 +666,18 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
         if hasattr(bg, 'z_reio') and bg.tau_reio > 0:
             print(f"  Reionization: z_reio={bg.z_reio:.2f}, "
                   f"tau_reio={bg.tau_reio:.4f}")
-        print(f"Hierarchy: lg_max={lg_max}, ln_max={ln_max}, "
-              f"nvar={n_var_sync(lg_max, ln_max)}")
+        print(f"Hierarchy: lg_max={lg_max}, ln_max={ln_max}, l_pol_max={l_pol_max}, "
+              f"nvar={n_var_sync(lg_max, ln_max, l_pol_max)}")
+        if l_pol_max > 0:
+            print(f"  Polarization feedback: ENABLED (E-mode hierarchy with {l_pol_max+1} multipoles)")
         sys.stdout.flush()
 
     # ================================================================
     # Step 3: Solve all k-modes and extract Newtonian gauge quantities
     # ================================================================
     t0 = time.time()
-    nvar = n_var_sync(lg_max, ln_max)
-    fn_s = idx_fn_start(lg_max)
+    nvar = n_var_sync(lg_max, ln_max, l_pol_max)
+    fn_s = idx_fn_start(lg_max, l_pol_max)
 
     # Storage: Newtonian gauge quantities at each (k, tau) snapshot
     Phi_N = np.zeros((N_k, N_snap))
@@ -628,6 +685,7 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
     Theta0_N = np.zeros((N_k, N_snap))   # delta_gamma_N / 4
     vb_N = np.zeros((N_k, N_snap))       # theta_b_N / k
     Theta2_arr = np.zeros((N_k, N_snap)) # photon quadrupole (gauge-invariant for l>=2)
+    Pi_arr = np.zeros((N_k, N_snap))     # Pi/4 = (F_gamma,2 + E_0 + E_2) / 4
 
     a_snap = bg.a_at_tau(tau_all)
     calH_snap = bg.calH_at_tau(tau_all)
@@ -636,7 +694,7 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
     for ik, k in enumerate(k_arr):
         # Solve ODE with dense output
         sol = solve_single_k(k, bg, tau_all[-1] + 1.0,
-                             lg_max, ln_max, method, rtol, atol)
+                             lg_max, ln_max, l_pol_max, method, rtol, atol)
         if not sol.success:
             n_failed += 1
             if verbose and n_failed <= 3:
@@ -650,8 +708,10 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
             calH = calH_snap[it]
             a = a_snap[it]
 
-            h_prime, eta_prime = diagnose_metric(y, k, calH, a, lg_max, ln_max)
-            gt = gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime, eta_prime)
+            h_prime, eta_prime = diagnose_metric(y, k, calH, a, lg_max, ln_max,
+                                                 l_pol_max)
+            gt = gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime,
+                                 eta_prime, l_pol_max)
 
             Phi_N[ik, it] = gt['Phi_N']
             Psi_N[ik, it] = gt['Psi_N']
@@ -669,7 +729,15 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
             # convention (F_gamma,0 = delta_gamma = 4*Theta_0).
             # Divide by 4 to get the standard CMB Theta_2.
             # Theta_2 is gauge-invariant for l >= 2.
-            Theta2_arr[ik, it] = y[IDX_FG_START + 2] / 4.0
+            Theta2 = y[IDX_FG_START + 2] / 4.0
+            Theta2_arr[ik, it] = Theta2
+            # Polarization source Pi/4 = (F_gamma,2 + E_0 + E_2) / 4
+            if _has_pol:
+                E0 = y[_e_s]
+                E2 = y[_e_s + 2] if l_pol_max >= 2 else 0.0
+                Pi_arr[ik, it] = (y[IDX_FG_START + 2] + E0 + E2) / 4.0
+            else:
+                Pi_arr[ik, it] = Theta2  # Pi = F_gamma,2 when no polarization
 
         if verbose and (ik + 1) % 20 == 0:
             elapsed = time.time() - t0
@@ -739,18 +807,22 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
     Delta_l = np.zeros((N_ell, N_k), dtype=np.float64)
     Delta_l_E = np.zeros((N_ell, N_k), dtype=np.float64)
 
-    # Polarization source: S_E = (3/4) * alpha_P * g(tau) * Theta_2
-    # In the full treatment, the E-mode source involves Pi = Theta_2 + Theta_P0 + Theta_P2.
-    # Without evolving the polarization hierarchy, we approximate Pi ~ alpha_P * Theta_2.
-    #
-    # The sync gauge solver resolves the full photon Boltzmann hierarchy (lg_max=25),
-    # so Theta_2 here is more accurate than TCA estimates. The polarization hierarchy
-    # adds Theta_P0 ~ (5/4)*Theta_2 and Theta_P2 ~ (1/4)*Theta_2 during recombination
-    # (Hu & White 1997), giving Pi/Theta_2 ~ 5/2 = 2.5 in the tight-coupling limit.
-    # However, the finite visibility width and damping reduce this ratio.
-    # Calibrated against CLASS EE to give best overall fit.
-    alpha_P = 1.7
-    pol_prefactor = 0.75 * alpha_P  # = 1.275
+    # EE source prefactor:
+    # When l_pol_max > 0: Pi/4 is already computed from the full polarization
+    #   hierarchy, so S_E = (3/4) * g * Pi_arr (Pi_arr already stores Pi/4).
+    # When l_pol_max = 0: approximate Pi ~ alpha_P * Theta_2 (no polarization
+    #   hierarchy), so S_E = (3/4) * alpha_P * g * Theta2_arr.
+    if l_pol_max > 0:
+        pol_prefactor = 0.75  # exact: (3/4) * Pi/4, Pi_arr already has Pi/4
+        _use_pi_arr = True
+    else:
+        # Polarization source: S_E = (3/4) * alpha_P * g(tau) * Theta_2
+        # In the full treatment, the E-mode source involves Pi = Theta_2 + Theta_P0 + Theta_P2.
+        # Without evolving the polarization hierarchy, we approximate Pi ~ alpha_P * Theta_2.
+        # Calibrated against CLASS EE to give best overall fit.
+        alpha_P = 1.7
+        pol_prefactor = 0.75 * alpha_P  # = 1.275
+        _use_pi_arr = False
 
     # Precompute spin-2 epsilon_l prefactors for each ell:
     # epsilon_l(x) = sqrt((l-1)*l*(l+1)*(l+2)) / x^2 * j_l(x)
@@ -762,6 +834,10 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
 
     if verbose:
         print(f"Computing LOS transfer functions (TT + EE)...")
+        if _use_pi_arr:
+            print(f"  EE source: full Pi = F_gamma,2 + E_0 + E_2 (from polarization hierarchy)")
+        else:
+            print(f"  EE source: approximate Pi ~ {alpha_P:.1f} * Theta_2 (no polarization hierarchy)")
         sys.stdout.flush()
 
     # The LOS formula for TT:
@@ -771,8 +847,9 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
     # where x = k * (tau_0 - tau) = k * chi
     #
     # The LOS formula for EE (spin-2):
-    # Delta_l^E(k) = int dtau g(tau) * (3/4) * alpha_P * Theta_2(k,tau) * epsilon_l(x)
+    # Delta_l^E(k) = int dtau g(tau) * (3/4) * Pi(k,tau) * epsilon_l(x)
     # where epsilon_l(x) = sqrt((l-1)*l*(l+1)*(l+2)) / x^2 * j_l(x)
+    # and Pi = F_gamma,2 + E_0 + E_2 (or ~ alpha_P * F_gamma,2 when no pol hierarchy)
 
     # Trapezoidal integration
     for it in range(N_snap):
@@ -793,8 +870,11 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
         S_Dop = g_snap[it] * vb_N[:, it]  # (N_k,)
         S_ISW = exp_neg_kappa[it] * PhiPsi_prime[:, it]  # (N_k,)
 
-        # EE source: g(tau) * pol_prefactor * Theta_2
-        S_E = g_snap[it] * pol_prefactor * Theta2_arr[:, it]  # (N_k,)
+        # EE source: use Pi_arr when polarization hierarchy is available
+        if _use_pi_arr:
+            S_E = g_snap[it] * pol_prefactor * Pi_arr[:, it]  # (N_k,)
+        else:
+            S_E = g_snap[it] * pol_prefactor * Theta2_arr[:, it]  # (N_k,)
 
         if use_gpu_bessel:
             x_arr = k_arr * chi
@@ -899,6 +979,8 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
         'Phi_N': Phi_N,
         'Psi_N': Psi_N,
         'Theta2_arr': Theta2_arr,
+        'Pi_arr': Pi_arr,
+        'l_pol_max': l_pol_max,
         'timing': {
             'background': t_bg,
             'perturbations': t_pert,
@@ -922,6 +1004,8 @@ def main():
     parser.add_argument('--atol', type=float, default=1e-9)
     parser.add_argument('--lg_max', type=int, default=L_GAMMA_MAX)
     parser.add_argument('--ln_max', type=int, default=L_NU_MAX_SYNC)
+    parser.add_argument('--l_pol_max', type=int, default=0,
+                        help='E-mode polarization hierarchy truncation (0=off, 8=recommended)')
     parser.add_argument('--parallel', action='store_true', default=True,
                         help='Use multiprocessing (default: True)')
     parser.add_argument('--sequential', action='store_true',
@@ -934,12 +1018,14 @@ def main():
         result = run_sync_solver(
             N_k=args.N_k, method=args.method,
             lg_max=args.lg_max, ln_max=args.ln_max,
+            l_pol_max=args.l_pol_max,
             rtol=args.rtol, atol=args.atol,
             verbose=True)
     else:
         result = run_sync_solver_parallel(
             N_k=args.N_k, method=args.method,
             lg_max=args.lg_max, ln_max=args.ln_max,
+            l_pol_max=args.l_pol_max,
             rtol=args.rtol, atol=args.atol,
             n_workers=args.n_workers,
             verbose=True)
