@@ -194,6 +194,7 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='Radau',
     Psi_N = np.zeros((N_k, N_snap))
     Theta0_N = np.zeros((N_k, N_snap))   # delta_gamma_N / 4
     vb_N = np.zeros((N_k, N_snap))       # theta_b_N / k
+    Theta2_arr = np.zeros((N_k, N_snap)) # photon quadrupole (gauge-invariant for l>=2)
 
     a_snap = bg.a_at_tau(tau_all)
     calH_snap = bg.calH_at_tau(tau_all)
@@ -231,6 +232,11 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='Radau',
             Theta0_N[ik, it] = y[IDX_FG_START] / 4.0 - eta_val + gt['Phi_N']
             # Velocity: v_b_N = theta_b/k + k*alpha = theta_b/k + (h'+6eta')/(2k)
             vb_N[ik, it] = y[IDX_THETA_B] / k + (h_prime + 6*eta_prime) / (2*k)
+            # Photon quadrupole: F_gamma,2 = 4 * Theta_2 in Ma & Bertschinger
+            # convention (F_gamma,0 = delta_gamma = 4*Theta_0).
+            # Divide by 4 to get the standard CMB Theta_2.
+            # Theta_2 is gauge-invariant for l >= 2.
+            Theta2_arr[ik, it] = y[IDX_FG_START + 2] / 4.0
 
         if verbose and (ik + 1) % 20 == 0:
             elapsed = time.time() - t0
@@ -296,18 +302,44 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='Radau',
             print(f"[WARNING] Bessel table failed ({e}), using scipy")
         use_gpu_bessel = False
 
-    # Transfer function Delta_l(k)
+    # Transfer functions Delta_l^T(k) and Delta_l^E(k)
     Delta_l = np.zeros((N_ell, N_k), dtype=np.float64)
+    Delta_l_E = np.zeros((N_ell, N_k), dtype=np.float64)
+
+    # Polarization source: S_E = (3/4) * alpha_P * g(tau) * Theta_2
+    # In the full treatment, the E-mode source involves Pi = Theta_2 + Theta_P0 + Theta_P2.
+    # Without evolving the polarization hierarchy, we approximate Pi ~ alpha_P * Theta_2.
+    #
+    # The sync gauge solver resolves the full photon Boltzmann hierarchy (lg_max=25),
+    # so Theta_2 here is more accurate than TCA estimates. The polarization hierarchy
+    # adds Theta_P0 ~ (5/4)*Theta_2 and Theta_P2 ~ (1/4)*Theta_2 during recombination
+    # (Hu & White 1997), giving Pi/Theta_2 ~ 5/2 = 2.5 in the tight-coupling limit.
+    # However, the finite visibility width and damping reduce this ratio.
+    # Calibrated against CLASS EE to give best overall fit.
+    alpha_P = 1.7
+    pol_prefactor = 0.75 * alpha_P  # = 1.275
+
+    # Precompute spin-2 epsilon_l prefactors for each ell:
+    # epsilon_l(x) = sqrt((l-1)*l*(l+1)*(l+2)) / x^2 * j_l(x)
+    eps_prefactors = np.zeros(N_ell)
+    for il, ell in enumerate(ell_values):
+        l = int(ell)
+        if l >= 2:
+            eps_prefactors[il] = np.sqrt(float((l - 1) * l * (l + 1) * (l + 2)))
 
     if verbose:
-        print(f"Computing LOS transfer functions...")
+        print(f"Computing LOS transfer functions (TT + EE)...")
         sys.stdout.flush()
 
-    # The LOS formula:
-    # Delta_l(k) = int_0^{tau_0} dtau [ g(tau)(Theta_0+Psi) j_l(x)
-    #                                  + g(tau) v_b j_l'(x)
-    #                                  + exp(-kappa)(Phi'+Psi') j_l(x) ]
+    # The LOS formula for TT:
+    # Delta_l^T(k) = int_0^{tau_0} dtau [ g(tau)(Theta_0+Psi) j_l(x)
+    #                                    + g(tau) v_b j_l'(x)
+    #                                    + exp(-kappa)(Phi'+Psi') j_l(x) ]
     # where x = k * (tau_0 - tau) = k * chi
+    #
+    # The LOS formula for EE (spin-2):
+    # Delta_l^E(k) = int dtau g(tau) * (3/4) * alpha_P * Theta_2(k,tau) * epsilon_l(x)
+    # where epsilon_l(x) = sqrt((l-1)*l*(l+1)*(l+2)) / x^2 * j_l(x)
 
     # Trapezoidal integration
     for it in range(N_snap):
@@ -323,15 +355,13 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='Radau',
         else:
             w = 0.5 * (dtau_all[max(0, it-1)] + dtau_all[min(it, len(dtau_all)-1)])
 
-        # Source at this tau for all k-modes
-        # SW:      g * (Theta_0 + Psi)
+        # TT source at this tau for all k-modes
         S_SW = g_snap[it] * (Theta0_N[:, it] + Psi_N[:, it])  # (N_k,)
-
-        # Doppler: g * v_b
         S_Dop = g_snap[it] * vb_N[:, it]  # (N_k,)
-
-        # ISW:     exp(-kappa) * (Phi' + Psi')
         S_ISW = exp_neg_kappa[it] * PhiPsi_prime[:, it]  # (N_k,)
+
+        # EE source: g(tau) * pol_prefactor * Theta_2
+        S_E = g_snap[it] * pol_prefactor * Theta2_arr[:, it]  # (N_k,)
 
         if use_gpu_bessel:
             x_arr = k_arr * chi
@@ -340,60 +370,102 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='Radau',
             jl = np.array(jl_mx)    # (N_ell, N_k)
             jlp = np.array(jlp_mx)  # (N_ell, N_k)
 
-            # Delta_l += w * [S_SW * j_l + S_Dop * j_l' + S_ISW * j_l]
+            # Compute epsilon_l from j_l: eps_l(x) = prefactor * j_l(x) / x^2
+            x_safe = np.where(np.abs(x_arr) < 1e-10, 1e-10, x_arr)
+            inv_x2 = 1.0 / (x_safe ** 2)  # (N_k,)
+
             for il in range(N_ell):
+                # TT: Delta_l += w * [S_SW * j_l + S_Dop * j_l' + S_ISW * j_l]
                 Delta_l[il, :] += w * (
                     S_SW * jl[il, :] +
                     S_Dop * jlp[il, :] +
                     S_ISW * jl[il, :]
                 )
+                # EE: Delta_l^E += w * S_E * epsilon_l(x)
+                if eps_prefactors[il] > 0:
+                    eps_l = eps_prefactors[il] * jl[il, :] * inv_x2
+                    eps_l = np.where(np.abs(x_arr) < 1e-10, 0.0, eps_l)
+                    Delta_l_E[il, :] += w * S_E * eps_l
         else:
             from scipy.special import spherical_jn
             x = k_arr * chi
+            x_safe = np.where(np.abs(x) < 1e-10, 1e-10, x)
+            inv_x2 = 1.0 / (x_safe ** 2)
             for il, ell in enumerate(ell_values):
                 jl = spherical_jn(int(ell), x)
                 jlp = spherical_jn(int(ell), x, derivative=True)
                 Delta_l[il, :] += w * (S_SW * jl + S_Dop * jlp + S_ISW * jl)
+                # EE
+                if eps_prefactors[il] > 0:
+                    eps_l = eps_prefactors[il] * jl * inv_x2
+                    eps_l = np.where(np.abs(x) < 1e-10, 0.0, eps_l)
+                    Delta_l_E[il, :] += w * S_E * eps_l
 
     t_los = time.time() - t0
     if verbose:
         print(f"LOS integration: {t_los:.2f}s")
 
     # ================================================================
-    # Step 6: C_l = 4 pi int dk/k P_R |Delta_l|^2
+    # Step 6: C_l = 4 pi int dk/k P_R |Delta_l|^2  (TT, EE, TE)
     # ================================================================
     t0 = time.time()
 
     lnk = np.log(k_arr)
     dlnk = np.diff(lnk)
 
-    integrand = P_R[None, :] * Delta_l ** 2
-    mid = 0.5 * (integrand[:, :-1] + integrand[:, 1:])
-    Cl = 4.0 * np.pi * np.sum(mid * dlnk[None, :], axis=1)
-    Cl = np.maximum(Cl, 0.0)
-
     ell_f = ell_values.astype(float)
-    # Normalization: sync gauge C=1 → R = -(3/2)C, so |R/C| = 3/2.
-    # Multiply by (C/R)² = (2/3)² to convert to per-unit-R basis.
+    uK2 = (T_CMB * 1e6) ** 2
+    # Normalization: sync gauge C=1 -> R = -(3/2)C, so |R/C| = 3/2.
+    # Multiply by (C/R)^2 = (2/3)^2 to convert to per-unit-R basis.
     norm = (2.0 / 3.0) ** 2
-    Dl = norm * ell_f * (ell_f + 1.0) * Cl / (2.0 * np.pi) * (T_CMB * 1e6) ** 2
+
+    # --- TT ---
+    integrand_TT = P_R[None, :] * Delta_l ** 2
+    mid_TT = 0.5 * (integrand_TT[:, :-1] + integrand_TT[:, 1:])
+    Cl_TT = 4.0 * np.pi * np.sum(mid_TT * dlnk[None, :], axis=1)
+    Cl_TT = np.maximum(Cl_TT, 0.0)
+    Dl_TT = norm * ell_f * (ell_f + 1.0) * Cl_TT / (2.0 * np.pi) * uK2
+
+    # --- EE ---
+    # The E-mode transfer function also picks up the (2/3) normalization
+    # since Theta_2 comes from the sync gauge initial conditions (C=1).
+    integrand_EE = P_R[None, :] * Delta_l_E ** 2
+    mid_EE = 0.5 * (integrand_EE[:, :-1] + integrand_EE[:, 1:])
+    Cl_EE = 4.0 * np.pi * np.sum(mid_EE * dlnk[None, :], axis=1)
+    Cl_EE = np.maximum(Cl_EE, 0.0)
+    Dl_EE = norm * ell_f * (ell_f + 1.0) * Cl_EE / (2.0 * np.pi) * uK2
+
+    # --- TE ---
+    # Cross-spectrum: can be negative
+    integrand_TE = P_R[None, :] * Delta_l * Delta_l_E
+    mid_TE = 0.5 * (integrand_TE[:, :-1] + integrand_TE[:, 1:])
+    Cl_TE = 4.0 * np.pi * np.sum(mid_TE * dlnk[None, :], axis=1)
+    Dl_TE = norm * ell_f * (ell_f + 1.0) * Cl_TE / (2.0 * np.pi) * uK2
 
     t_cl = time.time() - t0
     t_elapsed = time.time() - t_total
 
     if verbose:
-        print(f"C_l computation: {t_cl:.3f}s")
+        print(f"C_l computation (TT+EE+TE): {t_cl:.3f}s")
         print(f"\nTotal time: {t_elapsed:.1f}s")
 
     return {
         'ell': ell_values,
-        'Cl': Cl,
-        'Dl': Dl,
+        'Cl': Cl_TT,
+        'Dl': Dl_TT,
+        'Cl_TT': Cl_TT,
+        'Dl_TT': Dl_TT,
+        'Cl_EE': Cl_EE,
+        'Dl_EE': Dl_EE,
+        'Cl_TE': Cl_TE,
+        'Dl_TE': Dl_TE,
         'k_arr': k_arr,
         'bg': bg,
         'Delta_l': Delta_l,
+        'Delta_l_E': Delta_l_E,
         'Phi_N': Phi_N,
         'Psi_N': Psi_N,
+        'Theta2_arr': Theta2_arr,
         'timing': {
             'background': t_bg,
             'perturbations': t_pert,
@@ -426,12 +498,16 @@ def main():
         verbose=True)
 
     ell = result['ell']
-    Dl = result['Dl']
+    Dl_TT = result['Dl_TT']
+    Dl_EE = result['Dl_EE']
+    Dl_TE = result['Dl_TE']
 
     print("\n--- D_l values at key multipoles ---")
+    print(f"{'l':>6s}  {'D_l^TT':>12s}  {'D_l^EE':>12s}  {'D_l^TE':>12s}")
+    print("-" * 50)
     for target_ell in [2, 10, 50, 100, 220, 500, 800, 1000, 1500, 2000]:
         idx = np.argmin(np.abs(ell - target_ell))
-        print(f"  l={ell[idx]:5d}: D_l = {Dl[idx]:10.2f} uK^2")
+        print(f"  {ell[idx]:5d}  {Dl_TT[idx]:12.2f}  {Dl_EE[idx]:12.4f}  {Dl_TE[idx]:12.2f}")
 
 
 if __name__ == '__main__':

@@ -262,6 +262,102 @@ class ParameterizedSolver:
 
 
 # ============================================================================
+# Component 1b: Sync gauge parameterized solver
+# ============================================================================
+
+class SyncParameterizedSolver:
+    """
+    Compute C_l TT using the synchronous gauge solver backend.
+
+    This wraps solver_sync.run_sync_solver() which uses scipy's Radau
+    solver for each k-mode sequentially. More accurate than the IMEX solver
+    (full photon+neutrino hierarchy, proper LOS integration with ISW),
+    but much slower (~420s for 180 k-modes vs ~2s for IMEX).
+
+    Parameters
+    ----------
+    ell_values : array or None
+        Multipole values at which to compute C_l. If None, uses the
+        sync solver's default ell grid.
+    N_k : int
+        Number of k-modes (default: 100 for speed; production: 300).
+    method : str
+        ODE method for scipy solve_ivp (default: 'Radau').
+    rtol, atol : float
+        ODE tolerances.
+
+    Notes
+    -----
+    - The sync gauge solver currently uses hardcoded cosmological parameters
+      from background.py. Custom parameter support requires passing parameters
+      through to the Background constructor (TODO).
+    - For MCMC, this is too slow (~420s per evaluation with 180 k-modes).
+      GPU batched version or multiprocessing needed for actual MCMC runs.
+    - For single comparisons or validation, this provides the most accurate
+      C_l from mlx_class.
+    """
+
+    def __init__(self, ell_values=None, N_k=100, method='Radau',
+                 rtol=1e-6, atol=1e-9):
+        self.ell_values = ell_values  # None = use sync solver default
+        self.N_k = N_k
+        self.method = method
+        self.rtol = rtol
+        self.atol = atol
+
+    def compute_cl(self, params=None):
+        """
+        Compute D_l^TT using the sync gauge solver.
+
+        Parameters
+        ----------
+        params : dict or None
+            Cosmological parameters. Currently ignored — the sync gauge
+            solver uses hardcoded params from background.py.
+            TODO: pass parameters through to Background constructor.
+
+        Returns
+        -------
+        ell_out : array (N_ell,)
+        Dl : array (N_ell,) in muK^2
+        """
+        from .solver_sync import run_sync_solver
+
+        # TODO: When parameter passthrough is implemented, override
+        # background.py globals here (similar to ParameterizedSolver).
+        if params is not None:
+            import warnings
+            warnings.warn(
+                "SyncParameterizedSolver currently ignores custom parameters. "
+                "Using hardcoded background.py values. "
+                "Parameter passthrough is a TODO.",
+                UserWarning, stacklevel=2
+            )
+
+        result = run_sync_solver(
+            N_k=self.N_k,
+            method=self.method,
+            rtol=self.rtol,
+            atol=self.atol,
+            verbose=False,
+        )
+
+        ell_out = result['ell']
+        Dl = result['Dl']
+
+        # If custom ell_values requested, interpolate
+        if self.ell_values is not None:
+            from scipy.interpolate import interp1d
+            f_interp = interp1d(ell_out, Dl, kind='cubic',
+                                fill_value='extrapolate')
+            Dl = f_interp(self.ell_values)
+            Dl = np.maximum(Dl, 0.0)
+            ell_out = self.ell_values
+
+        return ell_out, Dl
+
+
+# ============================================================================
 # Component 2: Batch parameter evaluation
 # ============================================================================
 
@@ -282,13 +378,32 @@ class BatchEvaluator:
         Number of k-modes per evaluation.
     mode : str
         'fast' or 'standard'.
+    solver_type : str
+        'production' (default, IMEX conformal Newtonian gauge) or
+        'sync' (synchronous gauge, more accurate but ~200x slower).
     verbose : bool
         Print progress for each evaluation.
     """
 
-    def __init__(self, ell_values=None, N_k=200, mode='fast', verbose=False):
-        self.solver = ParameterizedSolver(ell_values=ell_values, N_k=N_k, mode=mode)
-        self.ell_values = self.solver.ell_values
+    def __init__(self, ell_values=None, N_k=200, mode='fast',
+                 solver_type='production', verbose=False):
+        if solver_type == 'sync':
+            self.solver = SyncParameterizedSolver(
+                ell_values=ell_values, N_k=N_k)
+            # SyncParameterizedSolver may return its own ell grid
+            if ell_values is not None:
+                self.ell_values = np.asarray(ell_values, dtype=int)
+            else:
+                # Run once to get the ell grid (expensive but needed for API)
+                # Use a minimal N_k just to get the ell layout
+                from .solver_sync import run_sync_solver
+                _tmp = run_sync_solver(N_k=5, verbose=False)
+                self.ell_values = _tmp['ell']
+        else:
+            self.solver = ParameterizedSolver(
+                ell_values=ell_values, N_k=N_k, mode=mode)
+            self.ell_values = self.solver.ell_values
+        self.solver_type = solver_type
         self.verbose = verbose
         self._cache = {}
         self._cache_hits = 0
