@@ -139,8 +139,11 @@ class QuantumInspireBackend:
 
     @property
     def num_qubits(self) -> int:
-        config = self._backend.configuration()
-        return config.n_qubits
+        try:
+            config = self._backend.configuration()
+            return config.n_qubits
+        except AttributeError:
+            return getattr(self._backend, 'num_qubits', 0)
 
     @property
     def raw_backend(self):
@@ -149,14 +152,21 @@ class QuantumInspireBackend:
 
     def info(self) -> BackendInfo:
         """Return backend metadata."""
-        config = self._backend.configuration()
-        is_sim = getattr(config, "simulator", False)
-        basis_gates = getattr(config, "basis_gates", [])
-        max_shots = getattr(config, "max_shots", 100_000)
+        try:
+            config = self._backend.configuration()
+            is_sim = getattr(config, "simulator", False)
+            basis_gates = getattr(config, "basis_gates", [])
+            max_shots = getattr(config, "max_shots", 100_000)
+            n_qubits = config.n_qubits
+        except AttributeError:
+            is_sim = False
+            basis_gates = []
+            max_shots = 100_000
+            n_qubits = self.num_qubits
 
         return BackendInfo(
             name=self._backend.name,
-            num_qubits=config.n_qubits,
+            num_qubits=n_qubits,
             provider="Quantum Inspire",
             is_simulator=is_sim,
             max_shots=max_shots,
