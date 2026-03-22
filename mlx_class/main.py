@@ -372,7 +372,7 @@ def main():
     if args.ee and (args.implicit or args.ode):
         print("\n--- Step 5: E-mode Polarization C_l^EE ---")
         t0 = time.time()
-        from .polarization import compute_cl_ee, plot_cl_ee
+        from .deprecated.polarization import compute_cl_ee, plot_cl_ee
 
         ee_solver_type = 'implicit' if args.implicit else 'explicit'
         ell_ee, Cl_EE, Dl_EE = compute_cl_ee(

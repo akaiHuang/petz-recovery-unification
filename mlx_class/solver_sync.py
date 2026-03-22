@@ -77,7 +77,7 @@ def solve_single_k(k, bg, tau_end, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
 # Build snapshot tau grid
 # ============================================================================
 
-def build_snapshot_grid(bg, N_vis=60, N_early_isw=30, N_late_isw=20,
+def build_snapshot_grid(bg, N_vis=60, N_early_isw=30, N_late_isw=40,
                         N_reion=20):
     """
     Build a tau grid for LOS integration snapshots.
@@ -91,7 +91,11 @@ def build_snapshot_grid(bg, N_vis=60, N_early_isw=30, N_late_isw=20,
     3. Reionization region: secondary visibility bump at z ~ 7-10 (tau ~ 5000-6000 Mpc).
        This creates the EE reionization bump at l < 20 and suppresses TT by exp(-2*tau_reio).
     4. Late ISW region: from end of visibility to tau_0.
-       This captures the potential decay from dark energy.
+       This captures the potential decay from dark energy (Omega_Lambda).
+       The late ISW effect is strongest at z ~ 0.5-2 (tau ~ 5000-12000 Mpc)
+       where dark energy causes gravitational potential decay. We use geomspace
+       to concentrate points in this region rather than uniform spacing, which
+       was under-resolving the peak potential decay and causing a low-l deficit.
     """
     # Visibility region (recombination)
     peak_idx = np.argmax(bg.visibility_grid)
@@ -145,9 +149,12 @@ def build_snapshot_grid(bg, N_vis=60, N_early_isw=30, N_late_isw=20,
             tau_reion = np.linspace(tau_reion_lo, tau_reion_hi, N_reion)
 
     # Late ISW: from end of visibility to tau_0
+    # Use geomspace to concentrate sampling where potential decay is fastest
+    # (z ~ 0.5-2, tau ~ 5000-12000 Mpc). This is essential for capturing the
+    # late ISW contribution to low-l multipoles (D_l at l ~ 2-20).
     tau_late_lo = tau_vis_hi
     tau_late_hi = bg.tau_0 * 0.98
-    tau_late = np.linspace(tau_late_lo, tau_late_hi, N_late_isw)
+    tau_late = np.geomspace(tau_late_lo, tau_late_hi, N_late_isw)
 
     tau_all = np.sort(np.unique(np.concatenate([
         tau_early, tau_vis, tau_reion, tau_late])))
@@ -290,7 +297,7 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='Radau',
     k_arr = np.geomspace(k_min, k_max, N_k)
 
     tau_vis, tau_late, tau_all = build_snapshot_grid(
-        bg, N_vis=60, N_early_isw=30, N_late_isw=20)
+        bg, N_vis=60, N_early_isw=30, N_late_isw=40)
     N_snap = len(tau_all)
 
     if verbose:
@@ -599,7 +606,7 @@ def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='Radau',
     k_arr = np.geomspace(k_min, k_max, N_k)
 
     tau_vis, tau_late, tau_all = build_snapshot_grid(
-        bg, N_vis=60, N_early_isw=30, N_late_isw=20)
+        bg, N_vis=60, N_early_isw=30, N_late_isw=40)
     N_snap = len(tau_all)
 
     if verbose:
