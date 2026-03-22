@@ -179,11 +179,13 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
         F2g = Fg[2] if lg_max >= 2 else 0.0
         dFg[1] = (k / 3.0) * (Fg[0] - 2.0 * F2g) + abs_kd * (-Fg[1] + 4.0 * theta_b / (3.0 * k))
 
-        # l=2: F_2' = (2k/5)F_1 - (3k/5)F_3 + (4/15)h' + (8/15)eta' - (9/10)|kd|F_2
+        # l=2: F_2' = (2k/5)F_1 - (3k/5)F_3 + (4/15)h' + (8/5)eta' - (9/10)|kd|F_2
+        # eta' coeff = 8/5 (not 8/15): from (8/15)*k²*sigma where sigma=(h'+6eta')/(2k²)
+        # Confirmed by CLASS perturbations.c line 8982 and first-principles derivation
         if lg_max >= 2:
             F3g = Fg[3] if lg_max >= 3 else 0.0
             dFg[2] = ((k / 5.0) * (2.0 * Fg[1] - 3.0 * F3g)
-                      + (4.0 / 15.0) * h_prime + (8.0 / 15.0) * eta_prime
+                      + (4.0 / 15.0) * h_prime + (8.0 / 5.0) * eta_prime
                       - (9.0 / 10.0) * abs_kd * Fg[2])
 
         # l=3..lg_max-1: streaming + Thomson damping
@@ -208,10 +210,11 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC):
         dFn[1] = (k / 3.0) * (Fn[0] - 2.0 * F2n)
 
         # l=2 (no Thomson damping for neutrinos)
+        # eta' coeff = 8/5 (not 8/15): same fix as photons
         if ln_max >= 2:
             F3n = Fn[3] if ln_max >= 3 else 0.0
             dFn[2] = ((k / 5.0) * (2.0 * Fn[1] - 3.0 * F3n)
-                      + (4.0 / 15.0) * h_prime + (8.0 / 15.0) * eta_prime)
+                      + (4.0 / 15.0) * h_prime + (8.0 / 5.0) * eta_prime)
 
         # l=3..ln_max-1: free streaming
         for ell in range(3, ln_max):
@@ -359,7 +362,10 @@ def gauge_transform(y, k, calH, a, lg_max, ln_max, h_prime, eta_prime):
 
     sigma_g = 0.5 * Fg[2] if lg_max >= 2 else 0.0
     sigma_n = 0.5 * Fn[2] if ln_max >= 2 else 0.0
-    aniso = 12.0 * H02 / (a * a * k2) * (Og * sigma_g + On * sigma_n)
+    # Aniso = 6*H0^2/(a^2*k^2) * (Og*sigma_g + On*sigma_n)
+    # Factor 6 from: 12*pi*G*a^2*(4/3)*rho_g = 6*H0^2*Omega_g/a^2
+    # Confirmed by CLASS perturbations.c line 6491
+    aniso = 6.0 * H02 / (a * a * k2) * (Og * sigma_g + On * sigma_n)
     Psi_N = Phi_N - aniso
 
     # Density gauge transformation.
