@@ -41,7 +41,7 @@ from .perturbations_neutrino import (
 )
 from .perturbations_sync_v2 import (
     make_sync_rhs_v2, adiabatic_ic_sync_v2, gauge_transform_v2,
-    diagnose_metric_v2, seed_tca_shear,
+    diagnose_metric_v2,
     n_var_sync_v2, idx_fn_start, idx_fg, idx_epol_start,
     IDX_ETA, IDX_DELTA_C, IDX_DELTA_B, IDX_THETA_B, IDX_FG_START,
     L_GAMMA_MAX, L_POL_MAX, L_NU_MAX_SYNC,
@@ -60,14 +60,17 @@ def solve_single_k_v2(k, bg, tau_end, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
                       atol=1e-9, tca_switch_kd=30.0):
     """
     Solve the synchronous gauge Boltzmann equations for a single k-mode
-    WITH polarization hierarchy and TCA shear seeding.
+    WITH polarization hierarchy.
 
-    Two-phase integration:
-      Phase 1: tau_init -> tau_switch (TCA: F_gamma,2 = E_l = 0, evolving normally)
-      Phase 2: tau_switch -> tau_end  (full hierarchy with seeded shear)
+    Single-shot integration from tau_init to tau_end. The full hierarchy
+    (including polarization) is evolved from the start, so no TCA seeding
+    is needed -- the polarization multipoles build up naturally from the
+    Thomson collision terms.
 
-    The switch happens when |kappa_dot| / k drops below tca_switch_kd,
-    i.e., when the Thomson scattering rate is only ~30x the mode frequency.
+    NOTE: TCA seeding (overwriting F_gamma,2, E_0, E_2 at a switch point)
+    is WRONG when the full hierarchy is evolved from the start, because it
+    creates discontinuities in already-evolved quantities. It was removed
+    after finding it caused ~6% errors in transfer functions at k ~ 0.05.
 
     Parameters
     ----------
@@ -77,7 +80,7 @@ def solve_single_k_v2(k, bg, tau_end, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
     lg_max, lp_max, ln_max : hierarchy truncations
     method : str, ODE method
     rtol, atol : tolerances
-    tca_switch_kd : float, |kd|/k threshold for switching
+    tca_switch_kd : float, unused (kept for API compatibility)
 
     Returns
     -------
@@ -85,73 +88,13 @@ def solve_single_k_v2(k, bg, tau_end, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
     """
     tau_init = bg.tau_grid[1]
 
-    # Find TCA switch time: when |kappa_dot| / k < tca_switch_kd
-    kd_grid = np.abs(bg.kappa_dot_grid)
-    ratio_grid = kd_grid / k
-    # Find the first time ratio drops below threshold
-    below = np.where(ratio_grid < tca_switch_kd)[0]
-    if len(below) > 0 and bg.tau_grid[below[0]] > tau_init * 2:
-        tau_switch = float(bg.tau_grid[below[0]])
-        # Clamp: don't switch too early or too late
-        tau_switch = max(tau_switch, tau_init * 5)
-        tau_switch = min(tau_switch, tau_end * 0.5)
-    else:
-        # Mode is always in the perturbative regime; no TCA phase
-        tau_switch = tau_init
-
     rhs_fn, nvar = make_sync_rhs_v2(k, bg, lg_max, lp_max, ln_max)
     y0 = adiabatic_ic_sync_v2(k, tau_init, lg_max, lp_max, ln_max)
 
-    if tau_switch > tau_init * 3:
-        # Phase 1: evolve to switch point
-        sol1 = solve_ivp(rhs_fn, [tau_init, tau_switch], y0,
-                         method=method, dense_output=True,
-                         rtol=rtol, atol=atol)
-        if not sol1.success:
-            # Fall back to no TCA seeding
-            sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
-                            method=method, dense_output=True,
-                            rtol=rtol, atol=atol)
-            return sol
-
-        # Get state at switch point
-        y_switch = sol1.sol(tau_switch)
-
-        # Seed TCA shear values
-        abs_kd_switch = float(np.interp(tau_switch, bg.tau_grid,
-                                         np.abs(bg.kappa_dot_grid)))
-        seed_tca_shear(y_switch, k, abs_kd_switch, lg_max, lp_max)
-
-        # Phase 2: evolve from switch to end
-        sol2 = solve_ivp(rhs_fn, [tau_switch, tau_end], y_switch,
-                         method=method, dense_output=True,
-                         rtol=rtol, atol=atol)
-
-        # Combine the two solutions into a single dense_output wrapper
-        class CombinedSolution:
-            """Wraps two OdeSolution objects into one with dense_output."""
-            def __init__(self, sol_a, sol_b, t_switch):
-                self.success = sol_b.success
-                self.message = sol_b.message
-                self.t_switch = t_switch
-                self.sol_a = sol_a
-                self.sol_b = sol_b
-
-            def sol(self, t):
-                if t <= self.t_switch:
-                    return self.sol_a.sol(t)
-                else:
-                    return self.sol_b.sol(t)
-
-        combined = CombinedSolution(sol1, sol2, tau_switch)
-        combined.success = sol2.success
-        return combined
-    else:
-        # No TCA phase needed; solve in one shot
-        sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
-                        method=method, dense_output=True,
-                        rtol=rtol, atol=atol)
-        return sol
+    sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
+                    method=method, dense_output=True,
+                    rtol=rtol, atol=atol)
+    return sol
 
 
 # ============================================================================
@@ -189,71 +132,23 @@ def _solve_single_k_v2_worker(args):
 
     from mlx_class.perturbations_sync_v2 import (
         make_sync_rhs_v2, adiabatic_ic_sync_v2, gauge_transform_v2,
-        diagnose_metric_v2, seed_tca_shear,
+        diagnose_metric_v2,
         n_var_sync_v2, idx_fn_start, idx_fg, idx_epol_start,
         IDX_ETA, IDX_THETA_B, IDX_FG_START,
     )
 
     tau_init = bg_lite.tau_grid[1]
 
-    # Find TCA switch time
-    kd_grid = np.abs(bg_lite.kappa_dot_grid)
-    ratio_grid = kd_grid / k
-    below = np.where(ratio_grid < tca_switch_kd)[0]
-    if len(below) > 0 and bg_lite.tau_grid[below[0]] > tau_init * 2:
-        tau_switch = float(bg_lite.tau_grid[below[0]])
-        tau_switch = max(tau_switch, tau_init * 5)
-        tau_switch = min(tau_switch, tau_end * 0.5)
-    else:
-        tau_switch = tau_init
-
     rhs_fn, nvar = make_sync_rhs_v2(k, bg_lite, lg_max, lp_max, ln_max)
     y0 = adiabatic_ic_sync_v2(k, tau_init, lg_max, lp_max, ln_max)
 
-    # Two-phase integration with TCA seeding
-    if tau_switch > tau_init * 3:
-        sol1 = solve_ivp(rhs_fn, [tau_init, tau_switch], y0,
-                         method=method, dense_output=True,
-                         rtol=rtol, atol=atol)
-        if not sol1.success:
-            sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
-                            method=method, dense_output=True,
-                            rtol=rtol, atol=atol)
-            if not sol.success:
-                return None
-            sol_combined = sol
-        else:
-            y_switch = sol1.sol(tau_switch)
-            abs_kd_switch = float(np.interp(
-                tau_switch, bg_lite.tau_grid, np.abs(bg_lite.kappa_dot_grid)))
-            seed_tca_shear(y_switch, k, abs_kd_switch, lg_max, lp_max)
-
-            sol2 = solve_ivp(rhs_fn, [tau_switch, tau_end], y_switch,
-                             method=method, dense_output=True,
-                             rtol=rtol, atol=atol)
-            if not sol2.success:
-                return None
-
-            class _Combined:
-                def __init__(self, s1, s2, ts):
-                    self.success = s2.success
-                    self.t_switch = ts
-                    self._s1 = s1
-                    self._s2 = s2
-                def sol(self, t):
-                    if t <= self.t_switch:
-                        return self._s1.sol(t)
-                    else:
-                        return self._s2.sol(t)
-
-            sol_combined = _Combined(sol1, sol2, tau_switch)
-    else:
-        sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
-                        method=method, dense_output=True,
-                        rtol=rtol, atol=atol)
-        if not sol.success:
-            return None
-        sol_combined = sol
+    # Single-shot integration: the full hierarchy (including polarization)
+    # is evolved from the start, so no TCA seeding is needed.
+    sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
+                    method=method, dense_output=True,
+                    rtol=rtol, atol=atol)
+    if not sol.success:
+        return None
 
     # Evaluate at snapshots and gauge transform
     N_snap = len(tau_all)
@@ -261,7 +156,7 @@ def _solve_single_k_v2_worker(args):
 
     for it in range(N_snap):
         tau = tau_all[it]
-        y = sol_combined.sol(tau)
+        y = sol.sol(tau)
         a = a_snap[it]
         calH = calH_snap[it]
 
@@ -324,7 +219,7 @@ def run_sync_solver_v2_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='Radau',
     k_arr = np.geomspace(k_min, k_max, N_k)
 
     tau_vis, tau_late, tau_all = build_snapshot_grid(
-        bg, N_vis=60, N_early_isw=30, N_late_isw=20)
+        bg, N_vis=60, N_early_isw=30, N_late_isw=40)
     N_snap = len(tau_all)
 
     nvar = n_var_sync_v2(lg_max, lp_max, ln_max)
@@ -654,7 +549,7 @@ def run_sync_solver_v2(N_k=300, k_min=3e-4, k_max=0.35, method='Radau',
     k_arr = np.geomspace(k_min, k_max, N_k)
 
     tau_vis, tau_late, tau_all = build_snapshot_grid(
-        bg, N_vis=60, N_early_isw=30, N_late_isw=20)
+        bg, N_vis=60, N_early_isw=30, N_late_isw=40)
     N_snap = len(tau_all)
 
     nvar = n_var_sync_v2(lg_max, lp_max, ln_max)
