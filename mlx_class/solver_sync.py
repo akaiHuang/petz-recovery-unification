@@ -1,7 +1,7 @@
 """
 solver_sync.py -- Synchronous gauge Boltzmann solver using scipy solve_ivp.
 
-Solves each k-mode with scipy's Radau solver (implicit, A-stable).
+Solves each k-mode with scipy's BDF solver (implicit, A-stable).
 This handles the stiffness from Thomson scattering without special treatment.
 
 Two pipelines available:
@@ -10,12 +10,12 @@ Two pipelines available:
 
 Pipeline:
   1. Background: Friedmann + recombination (numpy, ~10ms)
-  2. Perturbations: sync gauge ODE for each k-mode (scipy Radau)
+  2. Perturbations: sync gauge ODE for each k-mode (scipy BDF)
   3. Gauge transform: sync -> Newtonian gauge potentials at tau snapshots
   4. LOS integration: SW + Doppler + ISW -> C_l using Bessel functions
 
 Usage:
-  python -m mlx_class.solver_sync [--N_k 500] [--method Radau] [--parallel]
+  python -m mlx_class.solver_sync [--N_k 500] [--method BDF] [--parallel]
 
 Author: Sheng-Kai Huang, 2026
 """
@@ -54,7 +54,7 @@ from .perturbations_sync import (
 # ============================================================================
 
 def solve_single_k(k, bg, tau_end, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
-                   method='Radau', rtol=1e-6, atol=1e-9):
+                   method='BDF', rtol=1e-6, atol=1e-9):
     """
     Solve the synchronous gauge Boltzmann equations for a single k-mode.
 
@@ -244,7 +244,7 @@ def _solve_single_k_worker(args):
 # Full pipeline (parallel version)
 # ============================================================================
 
-def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='Radau',
+def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='BDF',
                              lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
                              rtol=1e-6, atol=1e-9, n_workers=None,
                              verbose=True):
@@ -569,7 +569,7 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='Radau',
 # Full pipeline (sequential, original)
 # ============================================================================
 
-def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='Radau',
+def run_sync_solver(N_k=300, k_min=3e-4, k_max=0.35, method='BDF',
                     lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
                     rtol=1e-6, atol=1e-9, verbose=True):
     """
@@ -917,7 +917,7 @@ def main():
 
     parser = argparse.ArgumentParser(description='Synchronous gauge Boltzmann solver')
     parser.add_argument('--N_k', type=int, default=500)
-    parser.add_argument('--method', type=str, default='Radau')
+    parser.add_argument('--method', type=str, default='BDF')
     parser.add_argument('--rtol', type=float, default=1e-6)
     parser.add_argument('--atol', type=float, default=1e-9)
     parser.add_argument('--lg_max', type=int, default=L_GAMMA_MAX)

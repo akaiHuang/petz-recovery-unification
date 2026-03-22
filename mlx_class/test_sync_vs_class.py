@@ -128,7 +128,7 @@ def main():
     # Use default lg_max and ln_max from perturbations_sync.py
     result = run_sync_solver_parallel(
         N_k=500, k_min=3e-4, k_max=0.35,
-        method='Radau',
+        method='BDF',
         rtol=1e-6, atol=1e-9,
         verbose=True)
 
