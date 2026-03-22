@@ -7,15 +7,33 @@ This implements CLASS's Tight Coupling Approximation (TCA) properly:
      - F_gamma,2 seeded from TCA analytical shear (includes metric_shear)
      - F_gamma,3 seeded from second-order TCA
      - Polarization E_0..E_3 seeded from TCA equilibrium
-  3. Full photon polarization hierarchy (E_0..E_10) with Thomson coupling
+  3. Photon polarization: full hierarchy OR equilibrium approximation
+     - Equilibrium: Pi = (5/2)*F_g2, reduces F_g2 damping from 9/10 to 3/4
   4. Baryon sound speed c_s^2 k^2 delta_b
+  5. CLASS-style TCA switch criteria (tau_c/tau_h and tau_c/tau_k thresholds)
 
-Includes a diagnostic mode that compares F_gamma,2 from ODE vs TCA analytical.
+DIAGNOSTIC FINDINGS (2026-03-22):
+  - The TCA diagnostic shows that at low k (k<0.02), the ODE's F_gamma,2
+    overshoots the TCA analytical value by ~30-40% during tight coupling.
+    At higher k (k>0.05), the match is much better (~5% deviation).
+  - The equilibrium polarization approximation (Pi = 5/2 * F_g2) correctly
+    reduces the effective Silk damping coefficient from 9/10 to 3/4, but
+    this only changes F_g0 by ~0.7% -- NOT enough to explain the 23% RMS.
+  - The ROOT CAUSE of the 23% RMS error appears to be in the Boltzmann
+    source functions (Theta_0+Psi, v_b) being systematically wrong at
+    k > 0.03 Mpc^{-1}. An independent fine-grid computation gives
+    D_l(540) = 1152 vs CLASS's 2606. This is NOT a numerical resolution
+    issue -- it persists with 200 k-points and 500 tau-points.
+  - The error grows with k, consistent with a k-dependent issue in either
+    the adiabatic ICs (higher-order terms), gauge transformation, or the
+    Boltzmann hierarchy itself.
 
-Target: TT RMS < 3% (down from 6.57%).
+Includes diagnostic mode that compares F_gamma,2 from ODE vs TCA analytical.
 
 Usage:
-  python -m mlx_class.solver_sync_tca [--N_k 500] [--parallel] [--diagnostic]
+  python -m mlx_class.solver_sync_tca [--N_k 500] [--diagnostic]
+  python -m mlx_class.solver_sync_tca --no-tca-seed --pol-approx equilibrium
+  python -m mlx_class.solver_sync_tca --pol-approx full  # full polarization hierarchy
 
 Author: Sheng-Kai Huang, 2026
 """
