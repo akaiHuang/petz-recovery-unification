@@ -266,7 +266,7 @@ def run_sync_solver_parallel(N_k=500, k_min=3e-4, k_max=0.35, method='Radau',
     t_total = time.time()
 
     if n_workers is None:
-        n_workers = min(os.cpu_count() or 4, 8)
+        n_workers = os.cpu_count() or 4  # use all cores (M1 Max: 10)
 
     # ================================================================
     # Step 1: Background (single process)
