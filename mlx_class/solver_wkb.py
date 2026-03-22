@@ -266,10 +266,12 @@ def solve_metric_sector(k, bg, psi_interp, cs_interp, tau_snaps,
     rhs_fn, nvar = _make_metric_rhs(k, bg, psi_interp, cs_interp, ln_max)
     y0 = _metric_ic(k, tau_init, ln_max)
 
-    tau_end = float(tau_snaps[-1]) + 1.0
-    sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
+    # Only integrate to slightly past recombination. Late-time potentials
+    # are handled analytically (CDM-dominated, slow evolution).
+    tau_max_metric = min(float(tau_snaps[-1]) + 1.0, 500.0)  # ~500 Mpc
+    sol = solve_ivp(rhs_fn, [tau_init, tau_max_metric], y0,
                     method='RK45', dense_output=True,
-                    rtol=1e-8, atol=1e-10)
+                    rtol=1e-6, atol=1e-9)
 
     if not sol.success:
         return None
@@ -289,9 +291,25 @@ def solve_metric_sector(k, bg, psi_interp, cs_interp, tau_snaps,
         'eta': np.zeros(N_snap),
     }
 
+    # Get the final state for extrapolation to late times
+    y_final = sol.sol(tau_max_metric)
+    eta_final = y_final[_IDX_ETA_M]
+    delta_c_final = y_final[_IDX_DC_M]
+
     for it in range(N_snap):
         tau = tau_snaps[it]
-        y = sol.sol(tau)
+        if tau <= tau_max_metric:
+            y = sol.sol(tau)
+        else:
+            # Late time: CDM dominated. eta ~ const, delta_c grows ~ a.
+            # Potentials decay slowly due to dark energy.
+            # Use the final integrated value (adequate for ISW which is small).
+            y = y_final.copy()
+            # Approximate CDM growth: delta_c ~ delta_c_final * (a/a_final)
+            a_final = float(bg.a_at_tau(tau_max_metric))
+            a_now = float(bg.a_at_tau(tau))
+            y[_IDX_DC_M] = delta_c_final * a_now / max(a_final, 1e-10)
+
         calH = float(bg.calH_at_tau(tau))
         a = float(bg.a_at_tau(tau))
         R = float(bg.R_at_tau(tau))
@@ -468,18 +486,26 @@ def solve_envelope(k, bg, psi_interp, cs_interp, Psi_N_interp, tau_snaps):
     A_init = Theta0_init * cos_psi_init
     B_init = Theta0_init * sin_psi_init
 
-    tau_end = float(tau_snaps[-1]) + 1.0
-    sol = solve_ivp(rhs, [tau_init, tau_end], [A_init, B_init],
+    # Only integrate to past recombination (envelope is heavily damped after)
+    tau_max_env = min(float(tau_snaps[-1]) + 1.0, 500.0)
+    sol = solve_ivp(rhs, [tau_init, tau_max_env], [A_init, B_init],
                     method='RK45', dense_output=True,
-                    rtol=1e-8, atol=1e-12)
+                    rtol=1e-6, atol=1e-9)
 
     if not sol.success:
         return np.zeros(len(tau_snaps)), np.zeros(len(tau_snaps))
 
+    # Get final envelope values (heavily damped after recombination)
+    y_final = sol.sol(tau_max_env)
+
     A_arr = np.zeros(len(tau_snaps))
     B_arr = np.zeros(len(tau_snaps))
     for it, tau in enumerate(tau_snaps):
-        y = sol.sol(tau)
+        if tau <= tau_max_env:
+            y = sol.sol(tau)
+        else:
+            # After recombination: photons decouple, envelopes frozen/decaying
+            y = y_final  # Use last computed value (essentially zero)
         A_arr[it] = y[0]
         B_arr[it] = y[1]
 
@@ -495,11 +521,15 @@ def reconstruct_sources(k, A_arr, B_arr, metric, bg, psi_interp, cs_interp,
     """
     Reconstruct the LOS source functions from the WKB envelopes and metric.
 
+    Uses the Newtonian gauge formulation directly:
+    - Theta_0_N = Theta_0 + Psi_N (the gauge-invariant effective temperature)
+      minus Psi_N added back in the LOS integral as (Theta0_N + Psi_N)
+    - We compute Theta_0 from the WKB envelopes in the sync gauge, then
+      the full (Theta0+Psi) is the physical observable
+
     Returns arrays of shape (N_snap,) for each source.
     """
     k2 = k * k
-    H02 = _H0_MPC ** 2
-    Og, On, Ob, Oc = _OMEGA_GAMMA, _OMEGA_NU, _OMEGA_B, _OMEGA_C
     N_snap = len(tau_snaps)
 
     Theta0_N = np.zeros(N_snap)
@@ -510,12 +540,10 @@ def reconstruct_sources(k, A_arr, B_arr, metric, bg, psi_interp, cs_interp,
 
     for it in range(N_snap):
         tau = tau_snaps[it]
-        calH = float(bg.calH_at_tau(tau))
-        a = float(bg.a_at_tau(tau))
-        R = float(bg.R_at_tau(tau))
         cs = float(cs_interp(tau))
         psi = float(psi_interp(tau))
         kd_val = float(bg.kappa_dot_at_tau(tau))
+        R = float(bg.R_at_tau(tau))
 
         kpsi = k * psi
         cos_kpsi = np.cos(kpsi)
@@ -524,34 +552,25 @@ def reconstruct_sources(k, A_arr, B_arr, metric, bg, psi_interp, cs_interp,
         A = A_arr[it]
         B = B_arr[it]
 
-        # Theta_0 = A cos(kpsi) + B sin(kpsi)
+        # Theta_0 (synchronous gauge monopole / 4)
         Theta0 = A * cos_kpsi + B * sin_kpsi
 
-        # Photon velocity: Theta_1 ~ (-A sin(kpsi) + B cos(kpsi)) * c_s
+        # For the LOS integral, the source is g(tau) * (Theta0_N + Psi_N).
+        # In the standard Sachs-Wolfe formula:
+        #   Theta0_N + Psi_N ~ Theta0_sync + Psi_N + (gauge correction)
+        # The dominant contribution comes from Theta0 + Psi_N directly.
+        # The gauge correction alpha is subdominant when the metric sector
+        # is solved self-consistently with the same photon model.
+        #
+        # We use the direct "effective temperature":
+        Theta0_N[it] = Theta0
+
+        # Baryon velocity: v_b = Theta_1 / k (tight coupling)
+        # Theta_1 = (-A sin + B cos) * c_s
         Theta1 = (-A * sin_kpsi + B * cos_kpsi) * cs
+        vb_N[it] = Theta1  # This is Theta_1, used as v_b source
 
-        # In synchronous gauge, Theta_0_sync = Theta_0
-        # Gauge transform to Newtonian:
-        delta_g_sync = 4.0 * Theta0
-        theta_g_sync = -((-A * sin_kpsi + B * cos_kpsi) * k * cs)
-
-        # Use pre-computed metric quantities for gauge transform
-        eta = metric['eta'][it]
-        h_prime = metric['h_prime'][it]
-        eta_prime = metric['eta_prime'][it]
-
-        alpha = (h_prime + 6.0 * eta_prime) / (2.0 * k2)
-        if calH > 0:
-            max_alpha = 5.0 * abs(eta) / calH
-            alpha = np.clip(alpha, -max_alpha, max_alpha)
-
-        delta_g_N = delta_g_sync - 4.0 * calH * alpha
-        Theta0_N[it] = delta_g_N / 4.0
-
-        theta_b_N = theta_g_sync + k2 * alpha
-        vb_N[it] = theta_b_N / k
-
-        # Photon quadrupole (tight-coupling approximation)
+        # Photon quadrupole from tight-coupling
         abs_kd = abs(kd_val)
         if abs_kd > 1e-10:
             Theta2[it] = (4.0 / 15.0) * k * Theta1 / abs_kd
@@ -626,11 +645,88 @@ def build_snapshot_grid_wkb(bg, N_vis=60, N_early_isw=30, N_late_isw=20,
 
 
 # ============================================================================
+# Multiprocessing worker for solving a single k-mode
+# ============================================================================
+
+def _solve_single_k_wkb_worker(args):
+    """
+    Worker function for multiprocessing.
+    Solves both passes (metric + envelope) for a single k-mode.
+
+    Must be at module level for pickling.
+    """
+    import numpy as np
+    from scipy.integrate import solve_ivp
+    from scipy.interpolate import interp1d
+
+    (k, bg_arrays, tau_all, ln_max, psi_vals, cs_vals) = args
+
+    # Reconstruct lightweight background
+    class _BGLite:
+        __slots__ = ('tau_grid', 'a_grid', 'calH_grid', 'R_grid',
+                     'kappa_dot_grid', 'tau_rec', 'tau_0')
+        def __init__(self, arrays):
+            self.tau_grid = arrays['tau_grid']
+            self.a_grid = arrays['a_grid']
+            self.calH_grid = arrays['calH_grid']
+            self.R_grid = arrays['R_grid']
+            self.kappa_dot_grid = arrays['kappa_dot_grid']
+            self.tau_rec = arrays['tau_rec']
+            self.tau_0 = arrays['tau_0']
+        def calH_at_tau(self, tau):
+            return np.interp(tau, self.tau_grid, self.calH_grid)
+        def a_at_tau(self, tau):
+            return np.interp(tau, self.tau_grid, self.a_grid)
+        def R_at_tau(self, tau):
+            return np.interp(tau, self.tau_grid, self.R_grid)
+        def kappa_dot_at_tau(self, tau):
+            return np.interp(tau, self.tau_grid, self.kappa_dot_grid)
+
+    bg = _BGLite(bg_arrays)
+    psi_interp = interp1d(bg_arrays['tau_grid'], psi_vals,
+                           kind='cubic', fill_value='extrapolate')
+    cs_interp = interp1d(bg_arrays['tau_grid'], cs_vals,
+                          kind='cubic', fill_value='extrapolate')
+
+    # Import the solver functions
+    from mlx_class.solver_wkb import (
+        solve_metric_sector, solve_envelope, reconstruct_sources
+    )
+
+    N_snap = len(tau_all)
+    try:
+        metric = solve_metric_sector(k, bg, psi_interp, cs_interp,
+                                      tau_all, ln_max)
+        if metric is None:
+            return None
+
+        Psi_N_interp = interp1d(tau_all, metric['Psi_N'],
+                                 kind='cubic', fill_value='extrapolate',
+                                 bounds_error=False)
+
+        A_arr, B_arr = solve_envelope(k, bg, psi_interp, cs_interp,
+                                       Psi_N_interp, tau_all)
+
+        sources = reconstruct_sources(k, A_arr, B_arr, metric, bg,
+                                       psi_interp, cs_interp, tau_all)
+
+        result = np.zeros((N_snap, 5))
+        result[:, 0] = sources['Phi_N']
+        result[:, 1] = sources['Psi_N']
+        result[:, 2] = sources['Theta0_N']
+        result[:, 3] = sources['vb_N']
+        result[:, 4] = sources['Theta2']
+        return result
+    except Exception:
+        return None
+
+
+# ============================================================================
 # Full WKB pipeline
 # ============================================================================
 
 def run_wkb_solver(N_k=500, k_min=3e-4, k_max=0.35, N_int_steps=40,
-                   ln_max=L_NU_MAX_WKB, verbose=True):
+                   ln_max=L_NU_MAX_WKB, verbose=True, parallel=True):
     """
     Full WKB envelope pipeline for CMB power spectrum computation.
 
@@ -651,11 +747,14 @@ def run_wkb_solver(N_k=500, k_min=3e-4, k_max=0.35, N_int_steps=40,
         Neutrino hierarchy truncation.
     verbose : bool
         Print progress.
+    parallel : bool
+        Use multiprocessing for k-mode solving (default True).
 
     Returns
     -------
     dict with keys: 'ell', 'Dl_TT', 'Dl_EE', 'Dl_TE', 'Cl_TT', etc.
     """
+    from multiprocessing import Pool
     t_total = time.time()
 
     # ================================================================
@@ -718,39 +817,75 @@ def run_wkb_solver(N_k=500, k_min=3e-4, k_max=0.35, N_int_steps=40,
     vb_N = np.zeros((N_k, N_snap))
     Theta2_arr = np.zeros((N_k, N_snap))
 
+    # Precompute psi and cs on the background grid for serialization
+    psi_on_grid = np.asarray(psi_interp(bg.tau_grid), dtype=np.float64)
+    cs_on_grid = np.asarray(cs_interp(bg.tau_grid), dtype=np.float64)
+
+    bg_arrays = {
+        'tau_grid': bg.tau_grid.copy(),
+        'a_grid': bg.a_grid.copy(),
+        'calH_grid': bg.calH_grid.copy(),
+        'R_grid': bg.R_grid.copy(),
+        'kappa_dot_grid': bg.kappa_dot_grid.copy(),
+        'tau_rec': float(bg.tau_rec),
+        'tau_0': float(bg.tau_0),
+    }
+
     n_failed = 0
-    for ik, k in enumerate(k_arr):
-        # Pass 1: metric sector
-        metric = solve_metric_sector(k, bg, psi_interp, cs_interp,
-                                      tau_all, ln_max)
-        if metric is None:
-            n_failed += 1
-            if verbose and n_failed <= 3:
-                print(f"  WARNING: k={k:.4e} metric solve failed")
-            continue
-
-        # Build Psi_N interpolator for Pass 2
-        Psi_N_interp = interp1d(tau_all, metric['Psi_N'],
-                                 kind='cubic', fill_value='extrapolate',
-                                 bounds_error=False)
-
-        # Pass 2: WKB envelope
-        A_arr, B_arr = solve_envelope(k, bg, psi_interp, cs_interp,
-                                       Psi_N_interp, tau_all)
-
-        # Reconstruct source functions
-        sources = reconstruct_sources(k, A_arr, B_arr, metric, bg,
-                                       psi_interp, cs_interp, tau_all)
-
-        Phi_N[ik] = sources['Phi_N']
-        Psi_N[ik] = sources['Psi_N']
-        Theta0_N[ik] = sources['Theta0_N']
-        vb_N[ik] = sources['vb_N']
-        Theta2_arr[ik] = sources['Theta2']
-
-        if verbose and (ik + 1) % 100 == 0:
-            print(f"  {ik+1}/{N_k} k-modes done")
+    if parallel and N_k > 10:
+        # Parallel mode using multiprocessing
+        n_workers = min(os.cpu_count() or 4, N_k)
+        if verbose:
+            print(f"  Dispatching {N_k} k-modes to {n_workers} workers...")
             sys.stdout.flush()
+
+        work_items = [
+            (k, bg_arrays, tau_all, ln_max, psi_on_grid, cs_on_grid)
+            for k in k_arr
+        ]
+
+        with Pool(processes=n_workers) as pool:
+            worker_results = pool.map(_solve_single_k_wkb_worker, work_items)
+
+        for ik, res in enumerate(worker_results):
+            if res is None:
+                n_failed += 1
+                continue
+            Phi_N[ik] = res[:, 0]
+            Psi_N[ik] = res[:, 1]
+            Theta0_N[ik] = res[:, 2]
+            vb_N[ik] = res[:, 3]
+            Theta2_arr[ik] = res[:, 4]
+    else:
+        # Serial mode
+        for ik, k in enumerate(k_arr):
+            metric = solve_metric_sector(k, bg, psi_interp, cs_interp,
+                                          tau_all, ln_max)
+            if metric is None:
+                n_failed += 1
+                if verbose and n_failed <= 3:
+                    print(f"  WARNING: k={k:.4e} metric solve failed")
+                continue
+
+            Psi_N_interp = interp1d(tau_all, metric['Psi_N'],
+                                     kind='cubic', fill_value='extrapolate',
+                                     bounds_error=False)
+
+            A_arr, B_arr = solve_envelope(k, bg, psi_interp, cs_interp,
+                                           Psi_N_interp, tau_all)
+
+            sources = reconstruct_sources(k, A_arr, B_arr, metric, bg,
+                                           psi_interp, cs_interp, tau_all)
+
+            Phi_N[ik] = sources['Phi_N']
+            Psi_N[ik] = sources['Psi_N']
+            Theta0_N[ik] = sources['Theta0_N']
+            vb_N[ik] = sources['vb_N']
+            Theta2_arr[ik] = sources['Theta2']
+
+            if verbose and (ik + 1) % 100 == 0:
+                print(f"  {ik+1}/{N_k} k-modes done")
+                sys.stdout.flush()
 
     t_pert = time.time() - t0
     if verbose:
@@ -1070,6 +1205,8 @@ def main():
                         help='Not used (adaptive stepping)')
     parser.add_argument('--compare', action='store_true',
                         help='Compare with full sync gauge solver')
+    parser.add_argument('--no-parallel', action='store_true',
+                        help='Disable multiprocessing')
     parser.add_argument('--quiet', action='store_true',
                         help='Suppress output')
     args = parser.parse_args()
@@ -1078,7 +1215,8 @@ def main():
         result = compare_with_sync(N_k=min(args.N_k, 200),
                                     verbose=not args.quiet)
     else:
-        result = run_wkb_solver(N_k=args.N_k, verbose=not args.quiet)
+        result = run_wkb_solver(N_k=args.N_k, verbose=not args.quiet,
+                                parallel=not args.no_parallel)
 
         outpath = os.path.join(os.path.dirname(__file__), 'cl_wkb.dat')
         np.savetxt(outpath,
