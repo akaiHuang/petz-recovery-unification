@@ -18,7 +18,7 @@ import time
 import sys
 
 from .background import T_CMB
-from .solver_sync import run_sync_solver
+from .solver_sync import run_sync_solver, run_sync_solver_parallel
 
 
 # ============================================================================
@@ -124,10 +124,10 @@ def main():
         print(f"  WARNING: Polarization reference not found: {CLASS_FILE_POL}")
     print()
 
-    # Run synchronous gauge solver
+    # Run synchronous gauge solver (parallel, 500 k-modes for better C_l resolution)
     # Use default lg_max and ln_max from perturbations_sync.py
-    result = run_sync_solver(
-        N_k=180, k_min=3e-4, k_max=0.35,
+    result = run_sync_solver_parallel(
+        N_k=500, k_min=3e-4, k_max=0.35,
         method='Radau',
         rtol=1e-6, atol=1e-9,
         verbose=True)
@@ -262,6 +262,8 @@ def main():
     t = result['timing']
     print(f"  Background:    {t['background']:.2f}s")
     print(f"  Perturbations: {t['perturbations']:.1f}s")
+    if 'n_workers' in t:
+        print(f"  Workers:       {t['n_workers']}")
     if 'gauge' in t:
         print(f"  Gauge xform:   {t['gauge']:.2f}s")
     print(f"  LOS integral:  {t['los']:.2f}s")
