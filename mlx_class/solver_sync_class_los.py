@@ -37,6 +37,18 @@ KEY FEATURES:
   - Full polarization support via l_pol_max parameter
   - S_t2 quadrupole/polarization via specialized radial function
 
+ACCURACY STATUS:
+  The efficient source formulation is mathematically equivalent to the simple
+  form (proven by integration by parts). Current accuracy is limited by:
+  1. Phi_N' precision: computed from eta' - calH'*alpha - calH*alpha', which
+     involves large cancellations for superhorizon modes. Spline smoothing helps.
+  2. theta_b_N_dot: relies on accurate alpha' from the 4th Einstein equation.
+  3. g'(tau) resolution: the visibility derivative is a sharp sign-changing
+     function requiring dense tau sampling (~500+ points).
+  4. ODE accuracy: the underlying Boltzmann ODE limits achievable precision.
+  To reach <0.1% RMS, additionally needs tight-coupling approximation (TCA),
+  radiation streaming approximation (RSA), and adaptive tau stepping.
+
 Usage:
   python -m mlx_class.solver_sync_class_los [--N_k 500] [--parallel]
 
