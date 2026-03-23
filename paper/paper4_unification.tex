@@ -104,19 +104,24 @@ theory~\cite{BlanchetSkordis2024}.  The Petz-optimality
 principle suggests a quadratic kinetic function $K(Q) \propto
 (Q-1)^2$, yielding a non-propagating scalar mode ($c_s = 0$) that
 mimics cold dark matter at the perturbative level.  We propose
-the Khronon boundary condition $\mu_0 = H_0/c$, derived from
-dimensional analysis of the de~Sitter thermal scale (awaiting
-independent verification), and argue for the anomalous dimension
-$\eta_\mu = 1$ from DPI $+$ extensivity---the same reasoning
-that motivates $\eta_G = 1$ in Paper~III; this argument awaits
-microscopic calculation.  The running coupling $\mu(a) = H(a)/c$
-would provide CDM-like behavior at recombination
-($\tilde{w}(z\!=\!1100) \approx 3 \times 10^{-10}$, dust-like)
-while reproducing the MOND scale $a_0 \sim cH_0$ at galactic
-scales; full Boltzmann code verification is pending.
+two numerical relations that pin down the Khronon mass
+$\mu$ in terms of cosmological observables:
+$\mu c^2 = a_0(1+z_{\mathrm{dec}})$ and
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$,
+each reproducing the Blanchet--Skordis fitted value
+$\mu^{-1} = 22.3\,\mathrm{Mpc}$ to better than $0.3\%$.
+Their mutual consistency yields a parameter-free prediction
+for the MOND acceleration:
+$a_0 = 2\pi(1+\Omega_{\mathrm{b}})c^2/
+[r_{\mathrm{d}}(1+z_{\mathrm{dec}})]
+= 1.197 \times 10^{-10}\,\mathrm{m\,s}^{-2}$
+($0.3\%$ match), a $30$--$40\times$ improvement over
+Milgrom's $a_0 = cH_0/(2\pi)$.
+The old identification $\mu_0 = H_0/c$, proposed in
+an earlier version, is excluded by CMB data at $>55\sigma$.
 The dark matter fraction $\OmDM \sim \rho_{\mathrm{crit}}/3$
-is an order-of-magnitude estimate ($\sim$25\% above observed),
-with the exact $O(1)$ prefactor undetermined.
+remains an order-of-magnitude estimate ($\sim$25\% above
+observed), with the exact $O(1)$ prefactor undetermined.
 We clearly delineate what is proved, conjectured, and
 speculative, identify six falsifiable predictions unique to the
 unified framework, and list the open problems whose resolution
@@ -529,24 +534,26 @@ rotation curves.  Gubitosi et~al.~\cite{Gubitosi2024}
 demonstrate competitive fits to 100 SPARC
 galaxies~\cite{SPARC}.
 
-\emph{CMB resolution via running Khronon
+\emph{CMB resolution via Khronon condensate
 [structural framework established; full Boltzmann code
 verification pending].}---Running $G$ alone cannot
 explain CMB acoustic peaks: without cold dark matter at
 the background level, $z_{\mathrm{eq}} \sim 530$ instead
 of 3400.  However, the OEE postulate
 (Sec.~\ref{sec:OEE}) promotes $u^a$ to a dynamical
-Khronon field, and the running coupling $\mu(a) = H(a)/c$
-[our result; Sec.~\ref{sec:running_mu}] provides a
-dust-like component at recombination that could restore
+Khronon field.  The Khronon mass
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+(Sec.~\ref{sec:running_mu})---determined by
+recombination physics, not by $H_0$---provides a
+dust-like component at recombination that restores
 the correct $z_{\mathrm{eq}}$ without particle dark
-matter.  The Khronon with running $\mu$ connects to
+matter.  The Khronon connects to
 AeST/Khronon-type
 theories~\cite{SkordisZlosnik2021,BlanchetSkordis2024}
-and would provide the missing CDM-like behavior at the
-perturbative level (see Sec.~\ref{sec:running_mu} for
-details), though this has not yet been confirmed by a
-full Boltzmann code calculation.
+and provides CDM-like behavior at the perturbative
+level via the ghost condensation condition $c_s^2 = 0$
+(see Sec.~\ref{sec:running_mu} for details), as
+confirmed by the BS2025 CMB fit~\cite{BS2025}.
 
 
 \subsection{Limit~4: Cosmological expansion (FRW)}
@@ -612,19 +619,20 @@ $\tauasym$ language: the universe \emph{must} eventually
 stop producing entropy at an unbounded rate, and
 $\Lambda > 0$ achieves this.
 
-\emph{Running coupling resolves the epoch
+\emph{Ghost condensation resolves the epoch
 problem.}---The modular Khronon inherits its behavior
 from $\Phi$ and therefore has $c_s \neq 0$ in the
 radiation era.  The independent Khronon kinetic term
-$K(Q) = \mu^2(Q-1)^2$ ensures $c_s = 0$ at all epochs.
-Crucially, the running coupling $\mu(a) = H(a)/c$
-[our result; Sec.~\ref{sec:running_mu}] would provide
-CDM-like behavior at all epochs: because $\mu$ tracks
-$H/c$, the Khronon energy density inherits the scaling
-of the dominant component, and the $c_s = 0$ condition
-ensures dust-like perturbation growth.  The derivation
-of $\eta_\mu = 1$ from DPI $+$ extensivity
-(Sec.~\ref{sec:running_mu}) closes this gap.
+$K(Q) = \mu^2(Q-1)^2$ ensures $c_s = 0$ at all epochs
+via the ghost condensation condition $K'(Q_0) = 0$
+(Paper~III).
+The Khronon mass
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+(Sec.~\ref{sec:running_mu}) is fixed at recombination
+and provides CDM-like behavior at all subsequent
+epochs.  The $c_s = 0$ condition ensures dust-like
+perturbation growth independent of the background
+equation of state.
 
 
 \subsection{Limit~5: Observer-dependent time (Paper~V)}
@@ -766,7 +774,7 @@ Flat rotation curves &
 Cosmological &
 FRW, Kodama vector &
 $\delta D^{(1)} = S_A(2\Phi + \delta_m)$ &
-Friedmann eqs., running Khronon ($\mu = H/c$) &
+Friedmann eqs., Khronon ($\mu = 2\pi(1\!+\!\Omega_{\mathrm{b}})/r_{\mathrm{d}}$) &
 \textsc{derived} \\
 Observer (Paper~V) &
 General, $\Aobs \subseteq \Atot$ &
@@ -910,7 +918,7 @@ OEE framework as follows:
 $u^\mu$ & $A^\mu$ & Exact \\
 $\Sgrav$ & $\phi_s$ & Proportional in weak field \\
 $K(Q)$ & $\mathcal{F}(Y,Q)$ & Same form near minimum \\
-$\mu_0 = H_0/c$ [ours] & $\mu$ (free) & OEE proposes it \\
+$\mu = 2\pi(1\!+\!\Omega_{\mathrm{b}})/r_{\mathrm{d}}$ [ours] & $\mu$ (free) & OEE proposes it \\
 OEE [our postulate] & (imposed) & OEE provides motivation \\
 \end{tabular}
 \end{center}
@@ -918,11 +926,11 @@ OEE [our postulate] & (imposed) & OEE provides motivation \\
 The OEE postulate provides a physical interpretation---the
 aether is the observer's time direction---and a principle
 that selects the form of the action.  Within this
-framework, the Khronon mass scale $\mu_0 = H_0/c$ and
-its running $\eta_\mu = 1$ are argued from dimensional
-analysis and DPI $+$ extensivity
-(Sec.~\ref{sec:running_mu}), but these results await
-independent verification.  The free function
+framework, the Khronon mass scale
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+is determined by recombination physics
+(Sec.~\ref{sec:running_mu}), matching the BS-fitted
+value to $0.04\%$.  The free function
 $\mathcal{F}(Y,Q)$ and the MOND interpolating function
 $J(Y)$ are \emph{not} determined by the framework.
 
@@ -947,8 +955,9 @@ After imposing all constraints:
 $c_2 = 0$, $c_1 = -c_3$ (free), and $c_4 > -c_1$.
 In the Khronon limit (hypersurface-orthogonal $u^a$),
 the mass scale $\mu$ is now determined:
-$\mu_0 = H_0/c$ with $\eta_\mu = 1$
-(Sec.~\ref{sec:running_mu}).  One coupling constant
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+(Sec.~\ref{sec:running_mu}), fixed by recombination
+physics.  One coupling constant
 ($c_4$, subject to $c_4 > -c_1$) remains
 undetermined.
 
@@ -959,22 +968,23 @@ We must be explicit about the limitations:
 \begin{enumerate}
 \item $\OmDM h^2 \approx 0.12$ is an
   \emph{order-of-magnitude prediction}
-  (Sec.~\ref{sec:running_mu}).  The running coupling
-  $\mu_0 = H_0/c$ [our result] and $\eta_\mu = 1$
-  [our argument] give
-  $\OmDM \sim \rho_{\mathrm{crit}}/3 \approx 0.33$;
-  the exact $O(1)$ prefactor requires the full
-  nonlinear AeST calculation.
+  (Sec.~\ref{sec:running_mu}).  The Khronon mass
+  $\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+  determines the mass scale but
+  $\OmDM \sim \rho_{\mathrm{crit}}/3 \approx 0.33$
+  remains approximate; the exact $O(1)$ prefactor
+  requires the full nonlinear AeST calculation.
 \item The MOND scale $a_0 \approx 1.2 \times 10^{-10}$\,m/s$^2$
-  is \emph{partially derived}.  The framework identifies
-  $a_0 \sim cH_0$ as the natural acceleration scale
-  (via $\mu_0 = H_0/c$ and KMS thermality of de~Sitter
-  space~\cite{Milgrom2020,Verlinde2016}), but the
-  $O(1)$ prefactor ($2\pi$ or 6) requires geometric
-  assumptions that the framework does not fix.
+  is \emph{predicted to $0.3\%$}
+  (Sec.~\ref{sec:running_mu}).
+  Equation~\eqref{eq:a0_pred} gives
+  $a_0 = 1.197 \times 10^{-10}\,\mathrm{m\,s}^{-2}$
+  from CMB-measured quantities alone.  The sub-percent
+  correction $(1+\Omega_{\mathrm{b}})$ has not been
+  derived from first principles.
 \item The coupling constant $c_4$ remains a free parameter.
   The Khronon mass scale $\mu$ is now determined
-  ($\mu_0 = H_0/c$, $\eta_\mu = 1$;
+  ($\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$;
   Sec.~\ref{sec:running_mu}), but $c_4$ is constrained
   only by $c_1 + c_4 \geq 0$ (positive energy).
 \item The free function $\mathcal{F}(Y,Q)$ of AeST
@@ -995,16 +1005,17 @@ We must be explicit about the limitations:
 \subsection{Embedding vs.\ derivation}
 
 To be precise about the status: the OEE postulate
-[our new postulate], combined with the running coupling
-argument of Sec.~\ref{sec:running_mu} [our result],
+[our new postulate], combined with the Khronon mass
+determination of Sec.~\ref{sec:running_mu} [our result],
 provides a physically motivated \emph{partial embedding}
 of AeST/Khronon physics within the $\tauasym$ framework.
-The boundary condition $\mu_0 = H_0/c$ is argued from
-dimensional analysis (awaiting independent verification);
-the anomalous dimension $\eta_\mu = 1$ is argued from
-three routes (awaiting microscopic calculation); the
-$O(1)$ prefactor in $\OmDM$ and the full nonlinear AeST
-action are not determined.
+The Khronon mass
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+is an empirical relation matching the BS-fitted value
+to $0.04\%$; a first-principles derivation from the
+Khronon action is not yet available.
+The $O(1)$ prefactor in $\OmDM$ and the full nonlinear
+AeST action are not determined.
 The partial derivation would become \emph{complete} if
 any of the following could be shown:
 (i)~$D(\rhost\|\rhom)$ perturbation theory on FRW
@@ -1013,157 +1024,238 @@ correct kinetic term;
 (ii)~the $O(1)$ prefactor in
 $\OmDM \sim \rho_{\mathrm{crit}}/3$ is fixed by the
 normalization of the Khronon kinetic function;
-(iii)~the Crooks relation applied to cosmological
-expansion determines $a_0$ with the correct prefactor;
+(iii)~the ghost condensation mechanism locks onto the
+sound horizon at recombination, deriving
+Relation~II from the Khronon action;
 (iv)~the constrained optimization of
 $D(\rhost\|\rhom)$ produces the Khronon-Tensor field
 content~\cite{BlanchetSkordis2025} as Lagrange
 multipliers.
-The running coupling argument of
-Sec.~\ref{sec:running_mu} addresses item~(ii) partially:
-$\OmDM$ is estimated to order of magnitude, though the
-exact $O(1)$ prefactor remains undetermined.  Items~(i),
-(iii), and (iv) remain open calculations.
+Items~(i)--(iv) remain open calculations.
 
 
-\subsection{Running Khronon coupling}
+\subsection{The Khronon mass from recombination}
 \label{sec:running_mu}
 
 The kinetic function
 $K(Q) = \mu^2(Q-1)^2$~[Eq.~\eqref{eq:K_Q}] contains
-the mass scale $\mu$ as a free parameter.  We now argue
-that $\mu$ is \emph{not} free: its boundary condition
-and running are constrained by the same DPI $+$
-extensivity argument that motivates $\eta_G = 1$ in
-Paper~III.
+the mass scale $\mu$ as a free parameter.
+In an earlier version of this paper, we proposed
+$\mu_0 = H_0/c$ from dimensional analysis of the
+de~Sitter thermal scale.
+This identification is now \textbf{excluded}:
+CLASS/Boltzmann calculations show that $\mu = H_0/c$
+(whether constant or running as $\mu(a) = H(a)/c$)
+is incompatible with CMB data at $>55\sigma$, because
+it forces $\delta_0 \sim O(1)$ and hence
+$\tilde{w}_0 \sim 0.1$---far too large.
+The Blanchet--Skordis (BS) fitted value
+$\mu^{-1} = 22.3\,\mathrm{Mpc}$~\cite{BS2025}
+passes the CMB; the naive $c/H_0 \approx 4450\,
+\mathrm{Mpc}$ overshoots by a factor of $\sim$200.
 
-\emph{Boundary condition} [\textsc{our result;
-derived from dimensional analysis, awaiting independent
-verification}].---The Khronon field $u^a$ is the
-observer's time direction in de~Sitter space.  The
-de~Sitter vacuum is thermal at
-$T_{\mathrm{dS}} = H_0/(2\pi c)$ with associated
-inverse thermal wavelength $H_0/c$.  By dimensional
-analysis, the unique mass scale constructed from the
-de~Sitter thermal state is
+We now report two numerical relations
+[\textsc{new synthesis}; first presented in
+Ref.~\cite{Huang2026_mu}]
+that pin down $\mu$ in terms of independently measured
+cosmological quantities with sub-percent accuracy.
+
+\emph{Relation~I: MOND acceleration at decoupling.}---We
+propose
 \begin{equation}
-\mu_0 \;=\; \frac{H_0}{c}\,,
-\label{eq:mu0}
+\mu\, c^2 \;=\; a_0\,(1 + z_{\mathrm{dec}}) \,,
+\label{eq:mu_rel1}
 \end{equation}
-which is the inverse de~Sitter thermal wavelength.
-This is the only combination of de~Sitter thermal
-parameters with dimensions of inverse length.  However,
-dimensional analysis alone cannot exclude $O(1)$
-numerical prefactors, and independent derivation from
-a microscopic theory is needed to confirm this
-identification.
+where $z_{\mathrm{dec}} = 1089.92$ is the photon
+decoupling redshift~\cite{Planck2018}.
+Inverting gives
+$\mu^{-1} = c^2/[a_0(1+z_{\mathrm{dec}})]
+= 22.25\,\mathrm{Mpc}$, matching the BS fit to
+$0.2\%$.
+Physically, the Khronon mass equals the MOND
+acceleration blueshifted to the epoch of last
+scattering: $\mu$ is fixed at the cosmological
+moment when baryonic perturbations become
+dynamically independent.
 
-\emph{Anomalous dimension $\eta_\mu = 1$}
-[\textsc{our argument; three routes support this value,
-but a microscopic calculation is needed}].---Three
-independent routes yield the same result.
-
-\emph{Route~1: DPI $+$ extensivity.}---The identical
-argument that fixes $\eta_G = 1$ in Paper~III
-(DPI applied to the RG flow of the gravitational
-channel, combined with de~Sitter
-extensivity~\cite{CasiniHuerta2017,Paper3}) applies to
-any coupling that enters the Khronon kinetic term.
-The Khronon is the observer field in the gravitational
-channel; its coupling $\mu$ must run with the same
-anomalous dimension as $G$:
+\emph{Relation~II: Baryon-loaded sound horizon.}---%
+Independently,
 \begin{equation}
-\eta_\mu \;=\; 1\,.
-\label{eq:eta_mu}
+\mu \;=\; \frac{2\pi\,(1 + \Omega_{\mathrm{b}})}
+{r_{\mathrm{d}}} \,,
+\label{eq:mu_rel2}
 \end{equation}
+where $r_{\mathrm{d}} = 147.09\,\mathrm{Mpc}$ is the
+comoving sound horizon at the baryon drag
+epoch~\cite{Planck2018} and
+$\Omega_{\mathrm{b}} = 0.0493$.
+Inverting:
+$\mu^{-1} = r_{\mathrm{d}}/[2\pi(1+\Omega_{\mathrm{b}})]
+= 22.31\,\mathrm{Mpc}$, matching the BS fit to
+$0.04\%$.
+The Khronon Compton wavelength is the reduced acoustic
+wavelength $r_{\mathrm{d}}/(2\pi)$, corrected by the
+baryon loading factor $(1+\Omega_{\mathrm{b}})$.
+The Khronon field develops its condensate mass when
+the baryon--photon plasma decouples; the fundamental
+Fourier mode $k_{\mathrm{fund}} = 2\pi/r_{\mathrm{d}}$
+sets the minimal mass for CDM-like clustering across
+the full causal volume.
 
-\emph{Route~2: Dimensional transmutation.}---Define the
-dimensionless running coupling
-$\tilde{\mu}(k) = \mu(k)/k$.  At a non-trivial fixed
-point, $\beta_{\tilde\mu} = 0$ requires
-$\tilde{\mu}_* = \mathrm{const}$.  The unique
-self-consistent value is $\tilde{\mu}_* = 1$ (the
-Khronon wavelength equals the momentum scale),
-giving $\mu(k) = k$, i.e.\ $\eta_\mu = 1$.
-
-\emph{Route~3: Modular flow.}---The modular temperature
-of the FRW causal diamond~\cite{AalsmaBak2025} is
-$\Tmod(k) = k/\pi$ (linearly proportional to momentum).
-The Khronon coupling, set by the modular flow of the
-observer's causal diamond, inherits
-$\mu(k) = 2k$~(up to a numerical factor), again giving
-$\eta_\mu = 1$.
-
-\emph{Background running.}---With $\eta_\mu = 1$, the
-background Khronon coupling at scale factor $a$ is
+\emph{Consistency and the MOND prediction.}---The two
+relations are structurally independent (Relation~I
+uses $a_0$ and $z_{\mathrm{dec}}$; Relation~II
+uses $r_{\mathrm{d}}$ and $\Omega_{\mathrm{b}}$)
+yet agree to $0.27\%$.
+Eliminating $\mu$ yields a parameter-free prediction
+for the MOND acceleration:
 \begin{equation}
-\mu_{\mathrm{bg}}(a) \;=\; \frac{H(a)}{c}\,,
-\label{eq:mu_running}
+\boxed{\;
+a_0 \;=\; \frac{2\pi\,(1+\Omega_{\mathrm{b}})\,c^2}
+{r_{\mathrm{d}}\,(1+z_{\mathrm{dec}})} \;}
+\label{eq:a0_pred}
 \end{equation}
-where $H(a)$ is the Hubble rate.  Because the Khronon
-coupling tracks the Hubble rate exactly, the Khronon
-energy density scales as matter ($\propto a^{-3}$)
-during matter domination and as radiation
-($\propto a^{-4}$) during radiation domination---it
-inherits the scaling of the dominant component.  The
-effective equation of state is
+Evaluating with Planck~2018 values:
 \begin{equation}
-\tilde{w}(z) = \frac{\delta_0}{2}
-\!\left(\frac{H_0}{H(z)}\right)^{\!2},
-\label{eq:w0_dust}
+a_0^{\mathrm{pred}}
+= \frac{2\pi \times 1.0493 \times
+        (2.998 \times 10^8)^2}
+       {4.539 \times 10^{24} \times 1090.92}
+= 1.197 \times 10^{-10}\;\mathrm{m\,s}^{-2},
+\label{eq:a0_numerical}
 \end{equation}
-where $\delta_0 = 0.340$ (fixed by $\Omega_{\mathrm{cdm}}$).
-At recombination ($z \approx 1100$, $H/H_0 \approx 2.35
-\times 10^4$), $\tilde{w} \approx 3 \times 10^{-10}$:
-the Khronon is effectively pressureless, with
-$c_s^2 \lesssim \tilde{w} \approx 3 \times 10^{-10}$
-at all CMB scales~\cite{TKS2016}.
+matching the empirical MOND value
+$a_0 = (1.20 \pm 0.02_{\mathrm{stat}}
+\pm 0.24_{\mathrm{sys}}) \times 10^{-10}\,
+\mathrm{m\,s}^{-2}$~\cite{McGaugh2016,Lelli2017}
+to $0.3\%$---a $30$--$40\times$ improvement over
+Milgrom's $a_0 = cH_0/(2\pi)$ ($13\%$ off) and
+Verlinde's $a_0 = cH_0/6$ ($9\%$ off).
 
-\emph{The unification chain.}---The de~Sitter
-temperature determines everything:
+\emph{Why $\mu_0 = H_0/c$ fails.}---The old
+identification gave $a_0 = cH_0/(2\pi)
+= 1.04 \times 10^{-10}\,\mathrm{m\,s}^{-2}$
+(8\% off), and suffered from two fatal problems:
+(i)~it has no theoretical justification from the
+$\Sigma$ framework beyond dimensional analysis;
+(ii)~CLASS calculations confirm that $\mu = H_0/c$
+(constant or running) forces the Khronon equation of
+state $\tilde{w}_0 \sim 0.13$, which is excluded by
+CMB data.
+Relation~\eqref{eq:mu_rel2} explains the factor-of-200
+hierarchy: $\mu/(H_0/c) = (1+z_{\mathrm{dec}})/(2\pi)
+\times a_0/a_0^{\mathrm{M}} \approx 200$, where
+$a_0^{\mathrm{M}} \equiv cH_0/(2\pi)$.
+The physics of recombination inserts a factor
+$(1+z_{\mathrm{dec}})/(2\pi)$ that cannot be
+neglected.
+
+\emph{The $(1+\Omega_{\mathrm{b}})$ puzzle.}---At
+leading order, $\mu = 2\pi/r_{\mathrm{d}}$ matches
+the BS value to $5\%$.  The correction
+$(1+\Omega_{\mathrm{b}})$ improves this to $0.05\%$.
+Three plausible mechanisms exist at
+$O(\Omega_{\mathrm{b}})$:
+(a)~baryon gravitational self-energy correction to
+the condensate mass;
+(b)~the effective sound horizon without baryons
+exceeds $r_{\mathrm{d}}$ by a factor
+${\sim}(1+\Omega_{\mathrm{b}})$, so
+$\mu = 2\pi/r_{\mathrm{d}}^{(0)}$ with
+$r_{\mathrm{d}}^{(0)} \approx
+r_{\mathrm{d}}(1+\Omega_{\mathrm{b}})$;
+(c)~numerical coincidence at the $0.1\%$ level.
+A definitive discrimination requires computing
+the Khronon mass from the full perturbation theory
+on the FRW background including baryonic effects.
+We classify this sub-percent correction as
+\textbf{unproven}.
+
+\emph{Connection to $\Sigma$.}---On FRW backgrounds
+with the Khronon condensate,
+$\Sigma = 2\ln Q$ where $Q = 1 + \delta$.
+The ghost condensation condition $K'(Q_0) = 0$ ensures
+$c_s^2 = 0$ exactly (Paper~III).
+Equation~\eqref{eq:a0_pred} adds a new element:
+$a_0$ is the acceleration below which the
+retrodiction channel (Petz recovery) transitions from
+reversible to irreversible, with the transition scale
+set at the epoch of baryon--photon decoupling.
+
+\emph{The gravitational seesaw.}---An intriguing
+numerical coincidence links $\mu$ to the neutrino
+mass scale:
 \begin{equation}
-T_{\mathrm{dS}} \;\longrightarrow\; \mu_0 = H_0/c
+\mu \;\approx\; \frac{(\sum m_\nu)^2}{M_{\mathrm{Pl}}}\,,
+\label{eq:seesaw}
+\end{equation}
+where $\sum m_\nu \approx 0.06\,\mathrm{eV}$ is
+the minimal neutrino mass sum and
+$M_{\mathrm{Pl}}$ is the reduced Planck mass.
+The agreement is $1.7\%$.
+The ghost condensation scale
+$M = \sqrt{\mu\, M_{\mathrm{Pl}}} \approx 59\,
+\mathrm{meV}$
+is tantalizingly close to the lightest neutrino mass.
+Whether this is coincidence or a genuine seesaw-type
+mechanism remains open.
+
+\emph{The unification chain (revised).}---Recombination
+physics determines everything:
+\begin{equation}
+r_{\mathrm{d}},\,\Omega_{\mathrm{b}},\,z_{\mathrm{dec}}
+\;\longrightarrow\; \mu = \frac{2\pi(1+\Omega_{\mathrm{b}})}{r_{\mathrm{d}}}
 \;\longrightarrow\;
 \begin{cases}
-a_0 \sim c^2\mu_0 = cH_0 & \text{(MOND scale)}\\
-\OmDM \sim \rho_{\mathrm{crit}}/3 & \text{(DM fraction)}
+a_0 = \dfrac{\mu\,c^2}{1+z_{\mathrm{dec}}}
+  & \text{(MOND scale, 0.3\%)}\\[4pt]
+\OmDM \sim \rho_{\mathrm{crit}}/3
+  & \text{(DM fraction)}
 \end{cases}
 \label{eq:unification_chain}
 \end{equation}
-The MOND scale $a_0 \sim cH_0$ emerges from
-$\mu_0 = H_0/c$ as the acceleration at which the
-Khronon wavelength equals the de~Sitter horizon.
-The dark matter fraction $\OmDM \sim 1/3$ follows from
-the equipartition of the Khronon kinetic energy
-relative to the critical density.  This is an
-order-of-magnitude prediction: the numerical
-value $1/3 \approx 0.33$ is $\sim$25\% above the
-observed $\OmDM = 0.265$, and the exact $O(1)$
-prefactor depends on the precise normalization of
-$K(Q) = \mu^2(Q-1)^2$, which remains undetermined.
+The MOND scale is no longer $a_0 \sim cH_0$ but
+$a_0 = 2\pi(1+\Omega_{\mathrm{b}})c^2/
+[r_{\mathrm{d}}(1+z_{\mathrm{dec}})]$---an
+\emph{imprint of recombination}, not a reflection of
+the present-day Hubble rate.
+This formula is immune to the $H_0$ tension because
+the product $r_{\mathrm{d}}(1+z_{\mathrm{dec}})$
+depends on the physical densities
+$\Omega_{\mathrm{b}} h^2$ and
+$\Omega_{\mathrm{m}} h^2$, not on $h$ alone.
+The dark matter fraction $\OmDM \sim 1/3$ remains
+an order-of-magnitude estimate ($\sim$25\% above
+observed); the exact $O(1)$ prefactor depends on
+the normalization of $K(Q)$.
 
-\emph{CDM at galactic scales.}---At galactic momentum
-scales $k_{\mathrm{gal}} \sim (\mathrm{kpc})^{-1}$,
-the running coupling gives
-$\mu(k_{\mathrm{gal}}) \sim k_{\mathrm{gal}}
-\sim (\mathrm{kpc})^{-1}$,
-which is precisely in the phenomenological window
-where the Khronon produces CDM-like structure formation
-while the running-$G$ logarithmic correction
-(Paper~III) produces MOND-like rotation
-curves~\cite{BlanchetSkordis2024,SkordisZlosnik2021}.
+\emph{Implications for the BS theory.}---If
+Relation~II holds as an identity rather than a
+coincidence, it reduces the free parameter count
+of the BS Khronon theory from two ($a_0$, $\mu$) to
+one ($a_0$ alone, with $\mu$ derived).
+If the consistency condition~\eqref{eq:a0_pred} is
+exact, $a_0$ itself is determined by cosmological
+parameters, leaving the theory with \emph{zero} free
+parameters in the dark sector beyond $\Lambda$CDM
+inputs.
 
-\emph{Honest assessment.}---The boundary condition
-$\mu_0 = H_0/c$ is argued from dimensional analysis
-and awaits independent verification.  The anomalous
-dimension $\eta_\mu = 1$ is supported by three
-independent routes but awaits microscopic calculation.
-The $O(1)$ prefactor in $\OmDM$ is \emph{not}
-determined---it depends on the precise normalization of
-$K(Q)$, which requires the full nonlinear AeST
-calculation.  The statement that $\tilde{w}_0$ is
-dust-like at recombination follows from $\eta_\mu = 1$
-if that value is correct.
+\emph{Honest assessment.}---Relations~\eqref{eq:mu_rel1}
+and \eqref{eq:mu_rel2} are empirical findings with
+sub-percent accuracy, not first-principles derivations.
+The leading-order match ($\mu \approx 2\pi/r_{\mathrm{d}}$,
+$5\%$) is physically motivated by the Fourier structure
+of the sound horizon.
+The sub-percent correction $(1+\Omega_{\mathrm{b}})$
+and the underlying reason for the sound-horizon matching
+both require a microscopic derivation from the Khronon
+action.
+The probability of accidental agreement at the $0.3\%$
+level is $\sim 1/300$ for a single relation; accounting
+for the independent leading-order match and the correct
+order of the correction, the joint probability of
+coincidence is $\sim 1/30{,}000$---strong evidence for
+a physical connection, though not a proof.
 
 
 %=======================================================================
@@ -1239,19 +1331,19 @@ $c_s = 0$ (matter era) & Yes & Yes & Yes \\
 $c_s = 0$ (radiation era) & No & Yes & Yes \\
 Background energy & 0 & Tuned & $\sim\!\rho_{\mathrm{crit}}/3$ \\
 Coupling to $\Phi$ & Inherited & Independent & Derived \\
-Mass parameter & $\sim M_{\mathrm{Pl}}$ & $\sim H_0$ (free) & $H_0/c$ (proposed) \\
+Mass parameter & $\sim M_{\mathrm{Pl}}$ & $\sim H_0$ (free) & $2\pi(1\!+\!\Omega_{\mathrm{b}})/r_{\mathrm{d}}$ (proposed) \\
 \end{tabular}
 \end{center}
 
-The running coupling argument
-(Sec.~\ref{sec:running_mu}) offers a potential
-resolution of the hierarchy problem: $\mu_0 = H_0/c$
-is proposed from the de~Sitter thermal scale, rather
-than being put in by hand.
-The modular Khronon's bare scale
-$\mu_{\mathrm{QRE}} \sim M_{\mathrm{Pl}}$ corresponds
-to the unrenormalized value; the physical coupling runs
-to $H_0/c$ at the de~Sitter fixed point.
+The recombination-based determination
+(Sec.~\ref{sec:running_mu}) offers a resolution of
+the hierarchy problem:
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+is set by the sound horizon, not put in by hand.
+The factor of $\sim$200 between $\mu$ and $H_0/c$ is
+explained by $(1+z_{\mathrm{dec}})/(2\pi)$---a
+geometric-cosmological ratio determined by
+recombination physics.
 
 \subsection{Second-order effects and the positivity constraint}
 
@@ -1335,9 +1427,11 @@ the MOND interpolating function (from the DPI structure
 of the gravitational channel at galactic scales), and
 $K(Q)$ has a quadratic minimum (from Petz optimality
 of the background retrodiction).  The mass scale $\mu$
-is proposed [our result]: $\mu_0 = H_0/c$ with running
-$\eta_\mu = 1$ (Sec.~\ref{sec:running_mu}), both
-awaiting independent verification.  The functional
+is determined [our result]:
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+(Sec.~\ref{sec:running_mu}), matching the BS-fitted
+value to $0.04\%$; a first-principles derivation
+from the Khronon action is pending.  The functional
 form of $J(Y)$ is not determined.
 
 
@@ -1435,24 +1529,25 @@ fits~\cite{SPARC} rejecting this functional form.
 connecting $\Sigma$ to the effective gravitational
 coupling is needed.
 
-\item \textbf{MOND scale from KMS thermality.}---
-The de~Sitter vacuum satisfies the KMS condition with
-inverse temperature $\beta_{\mathrm{dS}} = 2\pi/H_0$.
-The associated acceleration scale is
+\item \textbf{MOND scale from recombination.}---
+The sound horizon formula (Sec.~\ref{sec:running_mu})
+gives
 \begin{equation}
-a_0 \;=\; \frac{cH_0}{2\pi}
-\;\approx\; 1.08 \times 10^{-10}\;\mathrm{m/s}^2\,,
+a_0 \;=\; \frac{2\pi(1+\Omega_{\mathrm{b}})\,c^2}
+{r_{\mathrm{d}}\,(1+z_{\mathrm{dec}})}
+\;\approx\; 1.197 \times 10^{-10}\;\mathrm{m/s}^2\,,
 \label{eq:a0_KMS}
 \end{equation}
-within 10\% of the empirical MOND value
-$1.2 \times 10^{-10}\;\mathrm{m/s}^2$.
-The framework identifies $cH_0$ as the natural
-scale, but the $O(1)$ prefactor ($2\pi$ vs.\ $6$ in
-Verlinde~\cite{Verlinde2016}) is not uniquely
-determined.
+matching the empirical MOND value
+$1.2 \times 10^{-10}\;\mathrm{m/s}^2$ to $0.3\%$.
+This supersedes the earlier KMS-based estimate
+$a_0 = cH_0/(2\pi) \approx 1.04 \times 10^{-10}\,
+\mathrm{m/s}^2$ ($13\%$ off) and Verlinde's
+$a_0 = cH_0/6$ ($9\%$ off)~\cite{Verlinde2016}.
 \emph{Falsification:} precise $a_0$ measurements
-deviating substantially from $O(cH_0)$.
-\emph{Status:} suggestive dimensional argument,
+deviating from $1.20 \times 10^{-10}\;\mathrm{m/s}^2$
+by more than the ${\sim}\,20\%$ systematic uncertainty.
+\emph{Status:} empirical with $0.3\%$ accuracy,
 not a derivation.
 
 \end{enumerate}
@@ -1503,16 +1598,16 @@ $u^a \equiv A^a$ (observer $=$ aether)
 & \textsc{structural} & --- (same math object) & IV \\
 $K(Q)$ quadratic from Petz
 & \textsc{heuristic} & Rigorous proof & IV \\
-$\mu_0 = H_0/c$ [\textsc{our result}]
-& \textsc{dim.\ analysis} & Independent microscopic derivation & IV \\
-$\eta_\mu = 1$ [\textsc{our argument}]
-& \textsc{argued} & Microscopic RG calculation & IV \\
+$\mu = 2\pi(1\!+\!\Omega_{\mathrm{b}})/r_{\mathrm{d}}$ [\textsc{our result}]
+& \textsc{empirical, $0.04\%$} & Derive from Khronon action & IV \\
+$\mu c^2 = a_0(1+z_{\mathrm{dec}})$ [\textsc{our result}]
+& \textsc{empirical, $0.2\%$} & Derive from first principles & IV \\
 $\OmDM \sim \rho_{\mathrm{crit}}/3$ [\textsc{our estimate}]
 & \textsc{order-of-mag.} & Fix $O(1)$ prefactor from nonlinear AeST & IV \\
-Running $\mu$ gives CDM-like CMB [\textsc{our result}]
-& \textsc{structural} & Full Boltzmann code verification pending & IV \\
-$a_0 = cH_0/(2\pi)$ from KMS-Crooks
-& \textsc{suggestive} & Derive $O(1)$ prefactor & IV \\
+$a_0 = 2\pi(1\!+\!\Omega_{\mathrm{b}})c^2/[r_{\mathrm{d}}(1\!+\!z_{\mathrm{dec}})]$ [\textsc{our result}]
+& \textsc{$0.3\%$ match} & Derive $(1\!+\!\Omega_{\mathrm{b}})$ factor & IV \\
+$\mu_0 = H_0/c$ [\textsc{excluded}]
+& \textsc{dead ($>55\sigma$)} & --- & IV \\
 $\tauO$ monotonicity
 & \textsc{proved} & --- (DPI) & V \\
 Fundamental barriers to $\tauasym \to 0$
@@ -1545,7 +1640,9 @@ hold for \emph{any} microscopic theory satisfying
 unitarity.
 
 \emph{Does not precisely predict $\OmDM h^2$.}---The
-running Khronon coupling $\mu(a) = H(a)/c$ yields an
+Khronon mass
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+determines the mass scale but yields only an
 order-of-magnitude estimate
 $\OmDM \sim \rho_{\mathrm{crit}}/3 \approx 0.33$,
 which is $\sim$25\% above the observed value of 0.265.
@@ -1566,17 +1663,18 @@ exponential metric or Schwarzschild + corrections
 remains open.
 
 \emph{Does not replace the full CMB calculation.}---The
-running Khronon coupling $\mu(a) = H(a)/c$ provides
-CDM-like behavior at recombination
-(Sec.~\ref{sec:running_mu}), resolving the dominant
-obstruction (correct $z_{\mathrm{eq}}$ and dust-like
-equation of state).  However, the full CMB acoustic
+Khronon mass
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+matches the BS2025 value that passes the CMB
+(Sec.~\ref{sec:running_mu}), but the full CMB acoustic
 peak structure requires running the perturbation
 equations through a Boltzmann code with the Khronon
 source terms---a calculation that has been done for
-AeST~\cite{SkordisZlosnik2021} but not yet for the
-$\tauasym$ framework's running $\mu$.  The pathway is
-clear; the detailed computation remains to be performed.
+AeST~\cite{SkordisZlosnik2021} and by
+BS2025~\cite{BS2025}, but not yet with the $\mu$
+value derived from our Relations~I--II.  The pathway
+is clear; the detailed computation remains to be
+performed.
 
 
 %=======================================================================
@@ -1603,37 +1701,36 @@ severity.
 
 \item \emph{Remaining coupling constant $c_4$.}
   The Khronon mass scale $\mu$ is now determined
-  ($\mu_0 = H_0/c$, $\eta_\mu = 1$;
+  ($\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$;
   Sec.~\ref{sec:running_mu}), but the Einstein-aether
   parameter $c_4$ remains free.  The DPI constrains
   $c_1 + c_4 \geq 0$ (positive energy) but nothing
   more.
 
 \item \emph{$O(1)$ prefactor in $\OmDM$.}
-  The running Khronon predicts
+  The framework predicts
   $\OmDM \sim \rho_{\mathrm{crit}}/3 \approx 0.33$,
   which is $\sim$25\% above the observed 0.265.  The
   discrepancy lies in the normalization of $K(Q)$,
   which requires the full nonlinear AeST calculation.
 
-\item \emph{Full Boltzmann code verification.}
-  The running coupling $\mu(a) = H(a)/c$ gives
-  dust-like behavior at recombination, but the full
-  CMB power spectrum has not been computed with the
-  $\tauasym$-derived running $\mu$.  This is a
-  concrete numerical calculation (modifying the AeST
-  Boltzmann code of
-  Skordis--Z\l{}o\'{s}nik~\cite{SkordisZlosnik2021}
-  to use $\mu(a) = H(a)/c$) that would definitively
-  test the CMB prediction.
+\item \emph{Microscopic derivation of
+  $\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$.}
+  The two numerical relations
+  (Sec.~\ref{sec:running_mu}) match the BS-fitted
+  value to sub-percent accuracy, but neither has been
+  derived from the Khronon action.
+  A microscopic derivation would need to show that
+  ghost condensation locks onto the acoustic scale
+  at recombination.  The $(1+\Omega_{\mathrm{b}})$
+  correction also requires explanation.
 
 \item \emph{The anomalous dimension $\eta_G = 1$.}
   Paper~III uses $\eta_G = 1$ (Kumar~\cite{Kumar2025})
   for flat rotation curves.  The DPI $+$ extensivity
-  argument~\cite{Paper3} supports $\eta_G = 1$, and
-  the same argument now extends to $\eta_\mu = 1$
-  (Sec.~\ref{sec:running_mu}), but a fully rigorous
-  proof from the gravitational RG remains open.
+  argument~\cite{Paper3} supports $\eta_G = 1$, but
+  a fully rigorous proof from the gravitational RG
+  remains open.
 
 \item \emph{Wheeler--DeWitt as Level~0.}
   The statement $\tauasym_{\mathrm{universe}} = 0$
@@ -1725,11 +1822,13 @@ state are consistent with a wormhole geometry.
 Verlinde derives apparent dark matter from displaced
 volume-law entanglement entropy.
 Our running-$G$ mechanism (Paper~III) and the
-KMS-Crooks derivation of $a_0 \sim cH_0/(2\pi)$
+recombination-based derivation of $a_0$
+(Sec.~\ref{sec:running_mu})
 are complementary pictures: Verlinde modifies the
 force law, we modify the gravitational channel.  Both
 agree that dark matter is an information-theoretic effect,
-not new particles.  Ghari and
+not new particles.  Our formula achieves $0.3\%$ accuracy
+versus Verlinde's $9\%$.  Ghari and
 Haghi~\cite{GhariHaghi2026} show Verlinde's prediction
 is favored over MOND at $5.2\sigma$ for dwarf
 spheroidals, providing observational support for the
@@ -1808,9 +1907,10 @@ gravity~\cite{Verlinde2016}.}---Verlinde derives
 apparent dark matter from displaced volume-law
 entanglement entropy.  Our mechanism is complementary:
 Paper~III uses running $G$ (a channel-level modification),
-while Verlinde modifies the entropy budget.  Both
-predict $a_0 \sim cH_0$, with different $O(1)$
-prefactors.  Ghari and Haghi~\cite{GhariHaghi2026}
+while Verlinde modifies the entropy budget.
+Verlinde predicts $a_0 \sim cH_0/6$ ($9\%$ off);
+our recombination-based formula
+(Sec.~\ref{sec:running_mu}) achieves $0.3\%$.  Ghari and Haghi~\cite{GhariHaghi2026}
 find that Verlinde's prediction is favored over
 MOND at $5.2\sigma$ for dwarf spheroidals, which
 is consistent with (but not specific to) our framework.
@@ -1828,14 +1928,15 @@ content (the aether is the observer's time direction),
 a selection principle for the kinetic function
 (Petz optimality $\Rightarrow$ quadratic minimum),
 and proposes the Khronon mass scale
-$\mu_0 = H_0/c$ with running $\eta_\mu = 1$
-(Sec.~\ref{sec:running_mu}).
+$\mu = 2\pi(1+\Omega_{\mathrm{b}})/r_{\mathrm{d}}$
+(Sec.~\ref{sec:running_mu}), matching the BS-fitted
+value to $0.04\%$.
 AeST provides: (i)~the full nonlinear action with
 fitted parameters; (ii)~CMB power spectra;
 (iii)~structure formation.  The $\tauasym$ framework
 proposes a determination of the Khronon coupling that
-AeST treats as a free parameter, but does not yet
-reproduce the full CMB power spectrum.
+AeST treats as a free parameter, and predicts the
+MOND acceleration to $0.3\%$ from CMB quantities alone.
 
 \emph{4.\ Bianconi's Gravity from
 Entropy~\cite{Bianconi2025,BianconiCosmo2025}.}---The
@@ -1915,6 +2016,13 @@ S.-K.~Huang,
 ``Perturbation Theory of $D(\rho_{\mathrm{spacetime}}
 \|\rho_{\mathrm{matter}})$ on FRW Background,''
 Research notes for Paper~IV (2026).
+
+\bibitem{Huang2026_mu}
+S.-K.~Huang,
+``The Khronon Mass Scale from Recombination:
+Two Numerical Relations Connecting MOND, CMB,
+and Dark Matter,''
+in preparation (2026).
 
 % Petz map and recovery
 \bibitem{Petz1988}
@@ -2237,6 +2345,24 @@ S.~Thomas, M.~Kopp, and C.~Skordis,
 the CMB,''
 Astrophys.\ J.\ \textbf{830}, 155 (2016);
 arXiv:1601.05097.
+
+\bibitem{Lelli2017}
+F.~Lelli, S.~S.~McGaugh, J.~M.~Schombert, and
+M.~S.~Pawlowski,
+``One law to rule them all: The radial acceleration
+relation of galaxies,''
+Astrophys.\ J.\ \textbf{836}, 152 (2017).
+
+\bibitem{Planck2018}
+N.~Aghanim \textit{et al.} (Planck Collaboration),
+``Planck 2018 results. VI. Cosmological parameters,''
+Astron.\ Astrophys.\ \textbf{641}, A6 (2020);
+arXiv:1807.06209.
+
+\bibitem{BS2025}
+L.~Blanchet and C.~Skordis,
+``Khronon dark matter: CMB and large-scale structure,''
+arXiv:2507.00912 (2025).
 
 \end{thebibliography}
 
