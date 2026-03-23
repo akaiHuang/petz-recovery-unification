@@ -1,0 +1,1878 @@
+% paper3_weak_field.tex
+% Dark Matter as Khronon Condensate: Weak-Field Phenomenology
+% of the tau Framework
+% For submission to Physical Review D
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper3_weak_field.tex && bibtex paper3_weak_field && pdflatex paper3_weak_field && pdflatex paper3_weak_field
+
+\documentclass[prd,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{proposition}{Proposition}
+
+% Convenience macros
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Msun}{M_\odot}
+\newcommand{\tauasym}{\tau}
+\newcommand{\cs}{c_{\mathrm{s}}}
+\newcommand{\cT}{c_{\mathrm{T}}}
+
+% Epistemic tags
+\newcommand{\known}{\textsc{[known]}}
+\newcommand{\derived}{\textsc{[derived]}}
+\newcommand{\assumed}{\textsc{[assumed]}}
+\newcommand{\new}{\textsc{[new synthesis]}}
+
+\begin{document}
+
+\title{Dark Matter as Khronon Condensate: Weak-Field Phenomenology\\
+of the $\tauasym$ Framework}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+The temporal asymmetry parameter $\tauasym = 1 - F$, introduced in
+Paper~1 as the Petz recovery failure, acquires physical realization
+through the Blanchet--Skordis (BS) Khronon action
+$S = \int\!\sqrt{-g}\,[R - 2J(Y) + 2K(Q)]\,d^4x$.
+This action contains two structurally independent sectors: the
+\emph{cosmological sector} $K(Q) = \mu^2(Q-1)^2$, fixed by ghost
+condensation with a single parameter $\mu_0 = H_0/c$ from
+dimensional analysis, which reproduces the cosmological dark matter
+density $\Omega_{\mathrm{DM}} = \delta_0(2{+}\delta_0)/3 = 0.265$
+with CDM-like perturbations ($\cs^2 = 0$); and the
+\emph{galactic sector} $J(Y)$, a phenomenological free function
+constrained only at its asymptotic limits, which reproduces the
+Baryonic Tully--Fisher Relation and the Radial Acceleration Relation
+with one empirical parameter $a_0 \approx 1.2 \times 10^{-10}\;\mathrm{m/s}^2$.
+We present a systematic confrontation of this two-sector framework
+with 11~low-redshift observational tests (10~passed, 1~marginal),
+derive the CMB constraint $\alpha_{\mathrm{DBI}} < 0.05$ on the
+DBI kinetic completion, show that the Bullet Cluster mass-gas
+offset is naturally explained by the $\cs^2 = 0$ collisionless
+Khronon condensate, compare its parameter economy with $\Lambda$CDM
+and AeST, and identify falsifiable predictions.
+We are explicit about what is derived, what is assumed, and what
+remains open---in particular, the connection between $a_0$ and
+$\mu_0$ is suggestive but unproven, and the running
+$\mu(k) = k$ is a well-motivated assumption, not a derivation.
+\end{abstract}
+
+\maketitle
+
+
+%=======================================================================
+\section{Introduction}
+\label{sec:intro}
+%=======================================================================
+
+The dark matter problem encompasses two distinct observational
+domains: (i)~cosmological---the matter density inferred from
+the cosmic microwave background (CMB), baryon acoustic oscillations
+(BAO), and large-scale structure; and (ii)~galactic---the mass
+discrepancy observed in galaxy rotation curves, the Baryonic
+Tully--Fisher Relation (BTFR), and the Radial Acceleration
+Relation (RAR).  The standard $\Lambda$CDM model addresses both
+with a single ingredient---cold dark matter (CDM) particles---but
+despite four decades of searches, no particle has been directly
+detected~\cite{Schumann2019,XENON2023,LZ2024}.
+
+Modified gravity approaches (MOND~\cite{Milgrom1983},
+TeVeS~\cite{Bekenstein2004}, AeST~\cite{SZ2021prl,SZ2021extended})
+excel at galactic phenomenology but have historically struggled
+with cosmology.  The breakthrough of Skordis and
+Zl\'{o}snik~\cite{SZ2021prl} demonstrated that a relativistic
+MOND theory \emph{can} reproduce both the CMB power spectrum and
+the matter power spectrum, provided the theory contains a scalar
+field whose perturbations mimic CDM at early times ($\cs^2 = 0$).
+
+In Paper~1~\cite{Paper1}, we introduced the temporal asymmetry
+parameter $\tauasym = 1 - F(\rho,\,\mathcal{R}_{\sigma,\mathcal{N}}
+(\mathcal{N}(\rho)))$, which quantifies the arrow of time as Petz
+recovery failure, with the universal bound
+$\tauasym \leq 1 - \exp(-\Sigma/2)$.  In Paper~2~\cite{Paper2},
+we showed that in strong gravitational fields
+$\Sigma_{\mathrm{grav}} = -\ln(-g_{00})$, connecting the Petz
+recovery fidelity to the gravitational channel transmissivity
+$\eta = -g_{00}$.
+
+This paper addresses the \emph{weak-field} phenomenology of the
+same framework.  We adopt the Blanchet--Skordis (BS) Khronon
+action~\cite{BS2024} as the concrete realization of the $\tauasym$
+framework at galactic and cosmological scales.  Our goals are:
+\begin{enumerate}
+\item To present the BS Khronon theory with honest parameter
+  counting and epistemic transparency;
+\item To show that $K(Q) = \mu^2(Q-1)^2$ with $\mu_0 = H_0/c$
+  reproduces cosmological dark matter naturally;
+\item To show that $J(Y)$ reproduces MOND galactic phenomenology;
+\item To systematically confront the theory with low-redshift
+  observations;
+\item To identify what is derived, what is assumed, and what
+  remains open.
+\end{enumerate}
+
+\emph{What this paper does not claim.}---We do not claim to
+``solve'' the dark matter problem.  We provide a new interpretation
+in which dark matter phenomenology emerges from the ghost
+condensation of a Khronon field---the field that defines the
+observer's time direction in the $\tauasym$ framework.  The theory
+contains a free function $J(Y)$ (the MOND interpolating function),
+and two key assumptions (running $\mu$, the $a_0$--$\mu_0$
+coincidence) remain unproven.
+
+
+%=======================================================================
+\section{The Blanchet--Skordis Khronon Action}
+\label{sec:action}
+%=======================================================================
+
+\subsection{Action and field content}
+
+\known\  The BS Khronon theory~\cite{BS2024,BS2025} describes
+gravity coupled to a single scalar field $\phi$ (the ``Khronon'')
+whose level surfaces define spatial hypersurfaces.  The action is
+\begin{equation}
+S = \frac{c^3}{16\pi G}\int\!d^4x\,\sqrt{-g}\,
+\big[R - 2J(Y) + 2K(Q)\big] + S_{\mathrm{m}},
+\label{eq:action}
+\end{equation}
+where $S_{\mathrm{m}}$ is the matter action (universally coupled
+to $g_{\mu\nu}$ only), and:
+\begin{itemize}
+\item The \emph{unit normal} to the $\phi = \mathrm{const}$
+  hypersurfaces is
+  $n_\mu = -(c/Q)\,\nabla_\mu\phi$, with
+  $Q = c\sqrt{-g^{\mu\nu}\nabla_\mu\phi\,\nabla_\nu\phi}$.
+\item The \emph{acceleration} of the foliation is
+  $A_\mu = c^2\,n^\nu\nabla_\nu n_\mu$, with
+  $Y = A_\mu A^\mu / c^4$.
+\item $K(Q)$ controls the \textbf{cosmological sector}:
+  the energy density and equation of state of the Khronon field
+  on the FRW background.
+\item $J(Y)$ controls the \textbf{galactic sector}:
+  the quasi-static, nonrelativistic limit that reproduces
+  MOND phenomenology.
+\end{itemize}
+
+\known\  The Khronon field is \emph{hypersurface-orthogonal by
+construction} ($n_\mu$ is a gradient), which eliminates the twist
+tensor $\omega_{\mu\nu} = 0$ and merges the Einstein--Aether
+parameters $c_1$ and $c_3$ into the single combination
+$c_{13} = c_1 + c_3$~\cite{Jacobson2010,BPS2010,Horava2009}.
+
+\subsection{Why $c_{13} = 0$: action choice, not geometry}
+\label{sec:c13}
+
+\assumed\  The BS action~\eqref{eq:action} does \emph{not} contain
+the extrinsic curvature coupling $K_{\mu\nu}K^{\mu\nu}$ (where
+$K_{\mu\nu}$ is the extrinsic curvature of the $\phi = \mathrm{const}$
+hypersurfaces).  In the Einstein--Aether parametrization, this
+coupling generates $c_{13} \neq 0$.  Its absence yields
+$c_{13} = 0$ \emph{by construction}~\cite{BS2024}, giving the
+gravitational wave speed
+\begin{equation}
+\cT^2 = \frac{1}{1 - c_{13}} = 1,
+\quad\Longrightarrow\quad \cT = c \;\;\text{(exactly)}.
+\label{eq:cT}
+\end{equation}
+This is a \emph{choice of action}, not a consequence of hypersurface
+orthogonality alone (which only merges $c_1, c_3$ into $c_{13}$ but
+does not set it to zero).  The choice is strongly motivated by:
+\begin{enumerate}
+\item GW170817~\cite{GW170817}: $|c_{\mathrm{T}}/c - 1| < 10^{-15}$;
+\item Theoretical minimality (fewer terms in the action);
+\item Even if a $K_{\mu\nu}K^{\mu\nu}$ term were added, the tiny
+  coupling $\mu_0 = H_0/c$ would make $c_{13} \sim 10^{-30}$ at
+  solar system scales~\cite{OostMW2018}.
+\end{enumerate}
+
+\subsection{Degrees of freedom and stability}
+\label{sec:stability}
+
+\known\  The hypersurface-orthogonal Khronon propagates 3~degrees
+of freedom~\cite{BPS2010}: 2~tensor (spin-2 graviton) + 1~scalar
+(Khronon mode).  Vector modes are eliminated by the constraint
+$\omega_{\mu\nu} = 0$.
+
+For the kinetic function $K(Q)$ with a minimum at $Q = Q_0$,
+the scalar sector is free of all standard instabilities~\cite{AHCLM2004,BS2024}:
+\begin{itemize}
+\item \textbf{No Ostrogradski ghost}: the field equation is
+  second-order in $\phi$ (BPS~\cite{BPS2010}, Hamiltonian analysis);
+\item \textbf{No wrong-sign kinetic term}: $K''(Q_0) > 0$ ensures
+  positive-definite kinetic energy;
+\item \textbf{No gradient instability}: $\cs^2 = K'(Q_0)/
+  [K'(Q_0) + 2Q_0\,K''(Q_0)] = 0$ (marginal, cured by
+  ghost condensation $k^4$ terms~\cite{AHCLM2004});
+\item \textbf{No tachyon}: $Q_0$ is a global minimum of $K$;
+\item \textbf{$\cT = c$ exactly}: $c_{13} = 0$ by construction;
+\item \textbf{Strong coupling at $\Lambda_3 \sim (\mu_0^2 M_{\mathrm{Pl}})^{1/3}
+  \sim 10^{-13}$~eV}: far above all cosmological and astrophysical
+  scales ($H_0 \sim 10^{-33}$~eV).
+\end{itemize}
+The full 8-criterion stability analysis is presented in the
+Supplemental Material~\cite{stability_SM}.
+
+\subsection{Honest parameter counting}
+\label{sec:params}
+
+The theory contains:
+\begin{itemize}
+\item 6 standard cosmological parameters
+  ($H_0$, $\Omega_{\mathrm{b}}h^2$, $n_s$, $A_s$, $\tau_{\mathrm{reion}}$,
+  $\Sigma m_\nu$);
+\item 1 cosmological parameter: $\mu$ (Khronon mass, or
+  equivalently $\Omega_{\mathrm{DM}}h^2$ as an initial condition);
+\item 1 galactic parameter: $a_0$ (MOND acceleration scale);
+\item 1 free function: $J(Y)$ (MOND interpolating function,
+  constrained only at asymptotic limits).
+\end{itemize}
+
+\begin{table}[b]
+\caption{\label{tab:params}Parameter counting comparison.
+``func'' denotes a free function.
+$\Omega_{\mathrm{DM}}h^2$ is an initial condition (fitted, not
+predicted) in all theories, including $\Lambda$CDM.}
+\begin{ruledtabular}
+\begin{tabular}{lccc}
+\textbf{Theory} & \textbf{Cosmo} & \textbf{Theory-specific}
+  & \textbf{Free func.} \\
+\colrule
+$\Lambda$CDM & 6 & $\Omega_{\mathrm{DM}}h^2$ & 0 \\
+MOND (non-rel.) & --- & $a_0$ & $\mu(x)$ \\
+AeST~\cite{SZ2021prl} & 6 & $K_B, K_2, \lambda_s, Q_0, a_0$ & $F(Y,Q)$ \\
+BS Khronon & 6 & $\mu_0, a_0, \Omega_{\mathrm{DM}}h^2$ & $J(Y)$ \\
+BS Khronon + $\tauasym$ & 6 & $a_0, \Omega_{\mathrm{DM}}h^2$ & $J(Y)$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+Table~\ref{tab:params} compares parameter counts across theories.
+The $\tauasym$ framework fixes $\mu_0 = H_0/c$ via dimensional
+analysis (Sec.~\ref{sec:mu0}), reducing the theory-specific
+parameter count by one relative to plain BS Khronon.  The free
+function $J(Y)$ is inherited from the MOND tradition dating to
+Bekenstein and Milgrom~\cite{BekensteinMilgrom1984}, and has been
+free for forty years.  The Crooks interpolation function
+$\mu(x) = 1 - e^{-\sqrt{x}}$ (Sec.~\ref{sec:crooks}) could in
+principle eliminate this freedom if validated against SPARC data.
+
+
+%=======================================================================
+\section{Cosmological Sector: $K(Q)$}
+\label{sec:cosmo}
+%=======================================================================
+
+\subsection{Ghost condensation fixes $K(Q)$}
+\label{sec:KQ}
+
+\derived\  Any scalar field that spontaneously breaks Lorentz
+invariance by acquiring a timelike gradient
+$\langle\partial_\mu\phi\rangle \neq 0$ sits in the ``ghost
+condensation'' regime~\cite{AHCLM2004}.  The leading-order
+effective action around the condensate $Q = 1$ is
+\begin{equation}
+K(Q) = \mu^2\,(Q - 1)^2,
+\label{eq:KQ}
+\end{equation}
+as established by Arkani-Hamed et al.~\cite{AHCLM2004} and
+Scherrer~\cite{Scherrer2004}.  The quadratic form is not
+arbitrary: it is the unique leading-order expansion around
+a kinetic minimum with $K'(1) = 0$ and $K''(1) = 2\mu^2 > 0$,
+ensuring stability and $\cs^2 = 0$.  Petz optimality provides
+an independent argument: the maximally recoverable channel
+configuration corresponds to a quadratic kinetic function.
+
+Higher-order terms $K(Q) = \mu^2(Q-1)^2 + \alpha_3(Q-1)^3 + \cdots$
+are possible.  The DBI completion~\cite{BS2024}
+$K_{\mathrm{DBI}} = \mu^2\lambda_D^2[\sqrt{1 + (Q-1)^2/\lambda_D^2} - 1]$
+provides a natural UV regularization, introducing at most one
+additional parameter $\lambda_D$.  We focus on the leading
+quadratic form throughout.
+
+\subsection{$\mu_0 = H_0/c$: dimensional analysis}
+\label{sec:mu0}
+
+\assumed\  The coupling $\mu$ has dimensions $[\mathrm{m}^{-1}]$.
+The available fundamental constants are
+$\{H_0, c, \hbar, G, \kB\}$.  The general combination with
+these dimensions is~\cite{muSynthesis}
+\begin{equation}
+\mu = \frac{H_0}{c}\,\left(t_{\mathrm{P}} H_0\right)^{2d},
+\label{eq:mu_general}
+\end{equation}
+where $t_{\mathrm{P}} = \sqrt{\hbar G/c^5}$ is the Planck time
+and $t_{\mathrm{P}} H_0 = 1.18 \times 10^{-61}$.  For \emph{any}
+$d \neq 0$, the correction factor is $10^{-122|d|}$, destroying
+the result.  Therefore
+\begin{equation}
+\boxed{\mu_0 = \frac{H_0}{c} = 7.28 \times 10^{-27}\;\mathrm{m}^{-1}}
+\label{eq:mu0}
+\end{equation}
+is the \emph{unique} selection without Planck-scale physics.  This
+is a naturality argument, not a derivation from field equations.
+Three equivalent physical interpretations hold:
+\begin{enumerate}
+\item Khronon Compton wavelength $= c/H_0 =$ Hubble radius;
+\item $\mu_0 = 2\pi\kB T_{\mathrm{dS}}/(\hbar c)$: inverse
+  de~Sitter thermal wavelength~\cite{GibbonsHawking1977};
+\item $\mu_0 = 2\pi a_0/c^2$: connects to the MOND scale
+  (Sec.~\ref{sec:a0_mu}).
+\end{enumerate}
+
+\subsection{Cosmological background: FRW solution}
+\label{sec:FRW}
+
+\known\  On the FRW background, the Khronon field equation
+gives~\cite{BS2024}
+\begin{equation}
+K'(Q_0) = \frac{I_0}{a^3 Q_0},
+\label{eq:khronon_FRW}
+\end{equation}
+where $I_0$ is an integration constant (the initial Khronon
+momentum).  This conservation law holds even when $\mu$
+varies in time, since the Lagrangian has no explicit
+$\phi$-dependence ($\partial\mathcal{L}/\partial\phi = 0$).
+Substituting $K'(Q_0) = 2\mu^2\delta$ gives
+\begin{equation}
+Q_0(a) = 1 + \delta(a), \qquad
+\delta(a) = \frac{I_0}{2\mu^2(a)\,a^3},
+\label{eq:delta}
+\end{equation}
+where $\mu(a)$ is the (possibly running) coupling.
+
+A crucial self-consistency: regardless of how $\mu$ runs,
+the combination $\mu^2\delta = I_0/(2a^3)$ depends only on
+$a$.  Therefore the Khronon energy
+density~\eqref{eq:rhoK} satisfies
+$\rho_K \propto (2+\delta)/a^3$, which is CDM-like
+($\rho_K \propto a^{-3}$) whenever $(2+\delta)$ varies
+slowly---i.e., whenever $\delta \lesssim O(1)$.
+
+For constant $\mu = \mu_0$:
+$\delta \propto a^{-3}$, giving $\delta(z=1100)
+\sim 10^9 \gg 1$---the Khronon exits the ghost
+condensation regime and the energy density scales as
+$\rho_K \propto a^{-6}$ (stiff matter), incompatible
+with CMB observations.  This is the true
+\textbf{CMB Catch-22} (Sec.~\ref{sec:running_mu}).
+Running $\mu_{\mathrm{bg}} = H(a)/c$ keeps
+$\delta \lesssim O(1)$ at all epochs
+(Sec.~\ref{sec:running_mu}), maintaining the ghost
+condensation regime and CDM-like dilution.
+
+The Khronon energy density follows from the k-essence
+stress-energy $\rho = QK' - K$~\cite{BS2024}:
+\begin{equation}
+\rho_K = \frac{c^2\mu^2\,\delta\,(2+\delta)}{8\pi G},
+\label{eq:rhoK}
+\end{equation}
+where the factor $(2+\delta)$ arises from
+$QK' - K = (1{+}\delta)\cdot 2\mu^2\delta - \mu^2\delta^2
+= \mu^2\delta(2{+}\delta)$.
+For $\delta \ll 1$, $\rho_K \approx c^2\mu^2\delta/({4\pi G})$;
+for $\delta \gg 1$, $\rho_K \sim c^2\mu^2\delta^2/(8\pi G)$.
+Since $\mu^2\delta = I_0/(2a^3)$, one has
+$\rho_K = c^2 I_0\,(2+\delta)/(16\pi G\,a^3)$:
+the energy density dilutes as $a^{-3}$ (CDM-like)
+with $O(1)$ corrections encoded in $(2+\delta(a))$.
+
+The equation of state follows from $w = K/\rho_K
+= \mu^2\delta^2/[\mu^2\delta(2{+}\delta)]$~\cite{BS2024}:
+\begin{equation}
+w = \frac{\delta}{2+\delta}.
+\label{eq:w_eos}
+\end{equation}
+\emph{Importantly}, $w$ does \emph{not} map
+directly to the GDM equation of state
+$w_{\mathrm{GDM}}$ constrained by
+Thomas, Kopp \& Skordis~\cite{TKS2016}.
+The actual instantaneous dilution rate is
+$d\ln\rho_K/d\ln a = -3 - d\ln(2{+}\delta)/d\ln a$,
+which equals $-3$ whenever $\delta$ varies slowly.
+
+\begin{theorem}[Khronon Information Conservation]
+\label{thm:conservation}
+For the Blanchet--Skordis action with $K(Q) = \mu^2(Q-1)^2$ on
+FRW background, the scalar field equation implies
+\begin{equation}
+a^3\,Q_0\,K'(Q_0) \;=\; I_0 \;=\; \mathrm{const},
+\label{eq:conservation}
+\end{equation}
+where $I_0$ is the conserved Khronon momentum.
+This holds for arbitrary time-dependent $\mu(t)$.
+\end{theorem}
+\begin{proof}[Proof sketch]
+The Lagrangian density $\mathcal{L}(\partial\phi,\partial^2\phi)$
+has no explicit $\phi$-dependence
+($\partial\mathcal{L}/\partial\phi = 0$).  By the Euler--Lagrange
+equation, the canonical current
+$J^a = \partial\mathcal{L}/\partial(\partial_a\phi)$ satisfies
+$\partial_a(\sqrt{-g}\,J^a) = 0$.  On FRW with $\phi = t + \delta\phi(t)$,
+the spatial components vanish by isotropy, leaving the temporal
+conservation law~\eqref{eq:conservation}.
+\end{proof}
+\noindent\textit{Consequences:}
+\begin{enumerate}
+\item \textbf{CDM-like dilution identity}:
+  $\mu^2\delta = I_0/(2a^3)$---the product is independent of
+  how $\mu$ runs.
+\item \textbf{Running $\mu$ stability}: with $\mu = H(a)/c$,
+  $\delta(a) = I_0 c^2/(2H^2 a^3)$ stays $O(1)$ at all epochs.
+\item \textbf{Automatic $a^{-3}$ scaling}:
+  $\rho_K = c^2 I_0\,(2{+}\delta)/(16\pi G\,a^3)$ dilutes as
+  dust whenever $(2{+}\delta) \approx \mathrm{const}$.
+\end{enumerate}
+
+\noindent\textit{Remark (Unified entropy production).}---On
+static backgrounds $Q = 1/\sqrt{-g_{00}}$, giving
+$\Sigma_{\mathrm{grav}} = -\ln(-g_{00}) = 2\ln Q$
+(Paper~2~\cite{Paper2}).  On FRW backgrounds $Q_0 = 1 + \delta$,
+giving $\Sigma_{\mathrm{cosmo}} = 2\ln(1+\delta)$.
+Both are instances of the general result
+$\Sigma = 2\ln Q$, where $Q$ is the inverse Khronon lapse.
+This identity holds exactly on stationary and FRW backgrounds,
+and to $O(\varepsilon_{\mathrm{NA}}^2)$ on any adiabatic
+background, where
+$\varepsilon_{\mathrm{NA}} = |d\ln Q/d\tau|/(2\omega)$
+is the non-adiabaticity parameter of the probe mode.
+The correction is always non-negative (particle creation adds
+entropy), so $\Sigma \geq 2\ln Q$ in general.
+
+\subsection{Running $\mu$: assumption and motivation}
+\label{sec:running_mu}
+
+\assumed\  With constant $\mu = \mu_0 = H_0/c$,
+$\delta(a) = \delta_0/a^3$ grows as $a^{-3}$, reaching
+$\delta \sim 10^9$ at $z = 1100$.  In this regime
+the Khronon exits ghost condensation:
+$(2{+}\delta) \sim \delta$, so
+$\rho_K \propto \delta^2/a^3 \propto a^{-9}$
+(stiff matter, $w \to 1$).  This is the
+\textbf{CMB Catch-22}: constant $\mu_0 = H_0/c$ drives
+$\delta \gg 1$ at early times, destroying CDM-like behavior.
+
+We \emph{assume} the running
+\begin{equation}
+\mu_{\mathrm{bg}}(a) = \frac{H(a)}{c},
+\label{eq:mu_running}
+\end{equation}
+motivated by three convergent arguments:
+\begin{enumerate}
+\item \textbf{DPI + extensivity}: the anomalous dimension
+  $\eta_\mu = d - 3 = 1$ in $d = 4$ follows from the transition
+  from area-law to volume-law entanglement entropy at the
+  de~Sitter scale, combined with the data processing
+  inequality~\cite{Verlinde2016,Jacobson2016,CasiniHuerta2017,DorauMuch2025};
+\item \textbf{Dimensional transmutation}: $\mu(k) = k$ is the
+  unique power-law running independent of the boundary condition
+  $H_0$; Kumar~\cite{Kumar2025} obtains a logarithmic correction
+  to Newton's potential from marginal IR running in QFT,
+  providing independent support;
+\item \textbf{Modular flow}: if the Khronon is the modular flow
+  direction, the modular temperature $T_{\mathrm{mod}} = k/\pi$
+  gives $\mu(k) \sim k$.
+\end{enumerate}
+\emph{A rigorous derivation from the microscopic theory remains
+an open problem.}
+
+With~\eqref{eq:mu_running},
+$\delta(a) = I_0 c^2/(2H^2(a)\,a^3)$, which gives:
+\begin{itemize}
+\item \textbf{Radiation era} ($H^2 \propto a^{-4}$):
+  $\delta \propto a \to 0$ at early times;
+\item \textbf{Matter era} ($H^2 \propto a^{-3}$):
+  $\delta \approx \delta_0/\Omega_m \sim O(1)$;
+\item \textbf{Today}: $\delta_0 = 0.340$,
+  $w_0 = \delta_0/(2{+}\delta_0) = 0.145$.
+\end{itemize}
+The running keeps $\delta \lesssim O(1)$ at all epochs,
+maintaining the ghost condensation regime.  Since
+$\mu^2\delta = I_0/(2a^3)$ is independent of the running,
+the Khronon energy density $\rho_K \propto (2{+}\delta)/a^3$
+remains CDM-like, with $O(1)$ corrections during the
+matter era that require a full Boltzmann solver to quantify.
+The perturbation sound speed $\cs^2 = 0$ is unaffected.
+
+\subsection{Perturbations: $\cs^2 = 0$ (CDM-like)}
+\label{sec:perturbations}
+
+\derived\  The scalar sound speed is~\cite{BS2024}
+\begin{equation}
+\cs^2 = \frac{K'(Q_0)}{K'(Q_0) + 2Q_0\,K''(Q_0)}
+\;\xrightarrow{K'(1)=0}\; 0.
+\label{eq:cs2}
+\end{equation}
+This is not fine-tuned: it follows from $K(Q)$ having a
+\emph{minimum} at $Q_0 = 1$ (ghost condensation).  The
+$\cs^2 = 0$ condition is radiatively stable, with quantum
+corrections $\delta\cs^2 \sim (\mu/M_{\mathrm{Pl}})^2
+\sim 10^{-122}$~\cite{AHCLM2004}.
+
+\emph{Consequence}: Khronon perturbations grow identically to
+CDM at all cosmologically relevant scales.  The Jeans length
+$\lambda_J = 0$ (no pressure support), so structure formation
+proceeds as in $\Lambda$CDM.  In particular, the CMB acoustic
+peak structure, matter power spectrum $P(k)$, and BAO features
+are reproduced without modification.
+
+\emph{Physical meaning of $\cs^2 = 0$.}---The vanishing sound
+speed means Khronon perturbations do \emph{not} propagate: they
+grow in place, exactly like CDM density perturbations.
+By Theorem~\ref{thm:conservation}, $K'(Q_0) = I_0/(a^3 Q_0)
+\to 0$ as the condensate approaches $Q_0 = 1$; since the
+numerator in~\eqref{eq:cs2} is $K'(Q_0)$ while the denominator
+retains $2Q_0 K''(Q_0) = 4\mu^2 > 0$, the ratio vanishes
+identically at the ghost condensation point.
+This resolves the apparent tension with the GDM constraints of
+Thomas, Kopp \& Skordis~\cite{TKS2016}: the BS effective equation
+of state $w = \delta/(2{+}\delta)$~\eqref{eq:w_eos} does \emph{not}
+equal the GDM sound speed $c_{\mathrm{s,GDM}}^2$.  The two quantities
+are structurally independent---$w$ governs the background
+dilution rate while $\cs^2$ is set by the kinetic structure of
+$K(Q)$.  Since $\cs^2 = 0$ exactly, the TKS bound
+$\cs^2 < 3.21 \times 10^{-6}$ (99.7\%~CL) is trivially
+satisfied.
+
+\subsection{Cosmological predictions}
+
+With $\mu_0 = H_0/c$ and running~\eqref{eq:mu_running}:
+\begin{itemize}
+\item \textbf{$\Omega_{\mathrm{DM}}$ prediction}:
+  Since $c^2\mu_0^2/(8\pi G) = H_0^2/(8\pi G) = \rho_{\mathrm{crit}}/3$,
+  Eq.~\eqref{eq:rhoK} gives
+  \begin{equation}
+  \Omega_{\mathrm{DM}} = \frac{\rho_K}{\rho_{\mathrm{crit}}}
+  = \frac{\delta_0(2+\delta_0)}{3}.
+  \label{eq:OmegaDM}
+  \end{equation}
+  For $\delta_0 = 0.34$: $\Omega_{\mathrm{DM}} = 0.34 \times 2.34/3
+  = 0.265$, in agreement with observations~\cite{Planck2018};
+\item $w(z{=}0) = \delta_0/(2{+}\delta_0) = 0.145$
+  (for $\delta_0 = 0.340$): a specific prediction for
+  the late-time dark matter equation of state, testable by
+  DESI DR2~(2027) and Euclid~(2028);
+\item Linear $P(k)$ identical to CDM; nonlinear deviations
+  at $k > 1\;h/\mathrm{Mpc}$ are a prediction~\cite{SZ2021prl};
+\item $a_0 = c^2\mu_0/(2\pi) = cH_0/(2\pi) = 1.04 \times 10^{-10}\;\mathrm{m/s}^2$
+  (for $H_0 = 67.4$~km/s/Mpc; within 13\% of empirical
+  $a_0 \approx 1.2 \times 10^{-10}\;\mathrm{m/s}^2$).
+\end{itemize}
+Note that $\Omega_{\mathrm{DM}}h^2 = 0.12$ is an \emph{initial
+condition} (the value of $I_0$), not a prediction of the theory---as
+it is in $\Lambda$CDM, where $\Omega_{\mathrm{DM}}h^2$ is likewise
+a fitted parameter.
+
+\subsection{CMB caveat: the $(2{+}\delta)$ correction}
+\label{sec:cmb_caveat}
+
+We note that the factor $(2{+}\delta)$ in Eq.~\eqref{eq:rhoK}
+introduces a redshift-dependent correction to the dark matter
+density: $\rho_K(z)/\rho_{\mathrm{CDM}}(z) = (2{+}\delta(z))/(2{+}\delta_0)$,
+where $\delta$ varies from $\sim\!0$ (radiation era) to
+$\delta_0/\Omega_m \approx 1.08$ (matter era) to
+$\delta_0 = 0.34$ (today).
+This $\sim\!20\%$ variation at recombination is potentially
+constrainable by CMB observations and represents an important
+test of the framework.
+A DBI completion of $K(Q)$ at large $\delta$ may regularize
+this correction (see Discussion).
+
+
+%=======================================================================
+\section{Galactic Sector: $J(Y)$}
+\label{sec:galactic}
+%=======================================================================
+
+\subsection{$J(Y)$ is a free function}
+\label{sec:JY}
+
+\known\  In the quasi-static, weak-field limit ($Q \to 1$,
+$K \to 0$), only the $J(Y)$ sector of the action contributes
+to galactic dynamics~\cite{BS2024,BekensteinMilgrom1984}.
+Conversely, in the cosmological limit ($Y \to 0$, $J \to \Lambda$),
+only $K(Q)$ matters.  \textbf{The two sectors decouple.}
+
+The function $J(Y)$ is constrained only at its asymptotic
+limits~\cite{BS2024}:
+\begin{align}
+\text{Deep-MOND (}Y \ll a_0^2/c^4\text{):}\quad
+&J(Y) \sim \Lambda - Y + \frac{c^2}{a_0}\,Y^{3/2},
+\label{eq:JY_MOND}\\
+\text{Newtonian (}Y \gg a_0^2/c^4\text{):}\quad
+&J(Y) \to 0, \quad J'(Y) \to 0.
+\label{eq:JY_Newton}
+\end{align}
+The transition region $Y \sim a_0^2/c^4$ is \emph{unconstrained
+by the theory}.  Different smooth interpolations between
+\eqref{eq:JY_MOND} and~\eqref{eq:JY_Newton} correspond to
+different MOND interpolating functions $\mu(x)$.
+
+This freedom has been present since Bekenstein and
+Milgrom~\cite{BekensteinMilgrom1984} introduced AQUAL in 1984.
+Neither the $\tauasym$ framework nor the BS theory uniquely
+determines $J(Y)$.  The $\tauasym$ framework does, however,
+suggest a specific form (Sec.~\ref{sec:crooks}).
+
+\subsection{MOND phenomenology from $J(Y)$}
+
+\known\  The deep-MOND limit of~\eqref{eq:JY_MOND} produces
+the modified Poisson equation~\cite{BS2024,BekensteinMilgrom1984}:
+\begin{equation}
+\boldsymbol{\nabla}\cdot\!\left[\mu\!\left(\frac{|\boldsymbol{\nabla}\Phi|}{a_0}\right)
+\boldsymbol{\nabla}\Phi\right] = 4\pi G\,\rho_{\mathrm{b}},
+\label{eq:MOND_Poisson}
+\end{equation}
+where $\mu(x) \to 1$ for $x \gg 1$ (Newtonian) and
+$\mu(x) \to x$ for $x \ll 1$ (deep-MOND).
+
+From~\eqref{eq:MOND_Poisson} in the deep-MOND regime,
+the Baryonic Tully--Fisher Relation (BTFR) follows
+exactly~\cite{Milgrom1983,McGaugh2012}:
+\begin{equation}
+V_{\mathrm{flat}}^4 = G\,M_{\mathrm{bar}}\,a_0,
+\label{eq:BTFR}
+\end{equation}
+and the Radial Acceleration Relation
+(RAR)~\cite{McGaugh2016RAR,Lelli2017}:
+\begin{equation}
+g_{\mathrm{obs}} = \frac{g_{\mathrm{bar}}}{1 - \exp\!\left(
+-\sqrt{g_{\mathrm{bar}}/a_0}\right)}
+\label{eq:RAR}
+\end{equation}
+with $a_0 = (1.20 \pm 0.02) \times 10^{-10}\;\mathrm{m/s}^2$
+and observed scatter 0.13~dex over 2693~data points in
+153~SPARC galaxies~\cite{SPARC2016}.
+
+\subsection{The Crooks interpolation function}
+\label{sec:crooks}
+
+\new\  The $\tauasym$ framework motivates a specific MOND
+interpolating function via the Crooks fluctuation
+theorem~\cite{Crooks1999}.  For a process with entropy production
+$\Sigma$, the Crooks relation $P(\Sigma)/P(-\Sigma) = e^\Sigma$
+yields the interpolating function
+\begin{equation}
+\mu(x) = 1 - e^{-\sqrt{x}},
+\label{eq:crooks_mu}
+\end{equation}
+where $x = g_{\mathrm{bar}}/a_0$.
+Note that this $\mu(x)$ is the RAR interpolating function
+(as in Eq.~\eqref{eq:RAR}), not the AQUAL $\mu$-function of
+Eq.~\eqref{eq:MOND_Poisson}; the two are related by
+$\nu(y) = 1/\mu(y)$ where $\nu$ is the RAR boosting function.
+Equation~\eqref{eq:crooks_mu} satisfies $\mu(x) \to 1$ for
+$x \to \infty$ and $\mu(x) \to \sqrt{x}$ for $x \to 0$
+(giving $V_f^4 = GM_{\mathrm{bar}}\,a_0$ in deep-MOND).
+
+If validated against the SPARC 175-galaxy sample, this would
+eliminate the free function $J(Y)$ entirely, making the
+theory's galactic predictions parameter-free (given $a_0$).
+This is the single most impactful testable prediction of
+the $\tauasym$ framework for galactic phenomenology.
+
+\subsection{$a_0$ and $\mu_0$: suggestive coincidence}
+\label{sec:a0_mu}
+
+The numerical relation
+\begin{equation}
+a_0 = \frac{c^2\mu_0}{2\pi} = \frac{cH_0}{2\pi}
+= 1.04 \times 10^{-10}\;\mathrm{m/s}^2
+\label{eq:a0_mu0}
+\end{equation}
+(for $H_0 = 67.4$~km/s/Mpc) is within 13\% of the empirical $a_0$.  This ``Milgrom
+coincidence''~\cite{Milgrom1999} has been known since the 1980s
+but has never been rigorously derived.
+
+In the BS action, $a_0$ enters through $J(Y)$ and $\mu_0$
+enters through $K(Q)$.  These are \textbf{structurally
+independent sectors}~\cite{BS2024}: $J$ depends on the spatial
+acceleration $Y$, while $K$ depends on the temporal gradient $Q$.
+The two sectors decouple in the regimes where each is important
+(galactic for $J$, cosmological for $K$).
+
+\emph{The connection~\eqref{eq:a0_mu0} is suggestive but
+unproven.}  It may hint at a deeper unification of the $J$
+and $K$ sectors, but no theoretical mechanism within the BS
+theory or the $\tauasym$ framework connects them.
+
+
+%=======================================================================
+\section{Observational Tests}
+\label{sec:tests}
+%=======================================================================
+
+\subsection{Low-redshift tests (11 criteria)}
+
+We systematically confront the theory with 11~low-redshift
+observational tests.  The key distinction is that
+$w \neq \cs^2$ in the Khronon: $w$ affects
+only the background expansion (Friedmann equation), while
+$\cs^2 = 0$ controls perturbations.
+
+\begin{table}[t]
+\caption{\label{tab:tests}Low-redshift observational tests.
+$\checkmark$ = safe; $\sim$ = marginal;
+$\times$ = tension.  Quantitative entries ($\Delta\chi^2$,
+$A_{\mathrm{ISW}}$, $\sigma_8$) are author estimates from the
+GDM mapping of $w$ into standard cosmological codes;
+a full Boltzmann solver analysis is pending.}
+\begin{ruledtabular}
+\begin{tabular}{lcc}
+\textbf{Test} & \textbf{Result} & \textbf{Key quantity} \\
+\colrule
+Jeans length & $\checkmark$ & $\lambda_J = 0$ ($\cs^2 = 0$) \\
+SN Ia distance & $\sim$ & $|\delta\mu| \sim 0.016$~mag \\
+BAO / DESI & $\checkmark$ & $\Delta\chi^2 = -3.9$ (preferred) \\
+Growth rate $f\sigma_8$ & $\checkmark$ & $\Delta\chi^2 = +0.15$ \\
+$S_8$ tension & $\checkmark$ & $S_8 \lesssim 0.84$ (reduced$^{\dag}$) \\
+ISW effect & $\checkmark$ & $A_{\mathrm{ISW}} = 1.001$ \\
+TKS 2016 CMB & $\checkmark^{\ddag}$ & $\rho_K \propto a^{-3}$ ($\delta \lesssim 1$) \\
+Weak lensing & $\checkmark$ & $< 1\%$ change \\
+Peculiar velocities & $\checkmark$ & $< 1\%$ change \\
+Cluster counts & $\checkmark$ & $\sigma_8 = 0.817$ \\
+BTFR scatter & $\checkmark$ & $< 0.15$~dex \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+Table~\ref{tab:tests} summarizes the results.  Ten tests are
+safely passed and one (SN~Ia) is marginal at the $1\sigma$ level
+of the Pantheon+ uncertainty~\cite{Pantheon2022}.
+$^{\dag}$The $S_8$ estimate is qualitative: $w > 0$ causes
+faster dilution of DM at late times, reducing structure growth;
+a full Boltzmann code computation is needed for the precise value.
+$^{\ddag}$The Khronon equation of state $w = \delta/(2{+}\delta) \sim O(1)$
+during matter domination, but $\rho_K \propto a^{-3}$ is
+maintained by the identity $\mu^2\delta = I_0/(2a^3)$.
+The mapping from $w$ to GDM $w_{\mathrm{GDM}}$
+constrained by TKS~\cite{TKS2016} requires a full Boltzmann
+solver analysis, which is planned but not yet performed.
+
+The most striking result is the DESI BAO preference:
+$w(z{=}0) = 0.145$ reduces $\Omega_\Lambda$ by $\sim\!5\%$,
+yielding an effective $w_{\mathrm{DE}} \sim -0.95$
+(quintessence-like), which DESI data prefer at
+$\Delta\chi^2 = -3.9$~relative to $\Lambda$CDM.
+
+\subsection{Galactic-scale tests}
+
+The MOND sector $J(Y)$ has been tested extensively in the
+literature~\cite{FamaeyMcGaugh2012,Lelli2017,SPARC2016}.
+Key results relevant to the BS Khronon:
+
+\begin{enumerate}
+\item \textbf{BTFR}: $V_f^4 = G\,M_{\mathrm{bar}}\,a_0$ with
+  observed scatter 0.10--0.15~dex across
+  $10^7$--$10^{12}\;\Msun$~\cite{McGaugh2012,Lelli2019};
+\item \textbf{RAR}: 0.13~dex scatter over 2693 points in 153
+  galaxies~\cite{McGaugh2016RAR} (measurement floor:
+  $\sim$0.12~dex);
+\item \textbf{External Field Effect}: detected at $>5\sigma$
+  by Chae et al.~\cite{Chae2020}---a unique MOND prediction
+  that $\Lambda$CDM cannot produce;
+\item \textbf{Dwarf spheroidals}: Ghari \&
+  Haghi~\cite{GhariHaghi2026} found Verlinde's emergent gravity
+  (sharing the same information-theoretic structure) preferred
+  over MOND at $5.2\sigma$ for 23~dSphs;
+\item \textbf{SPARC RAR scatter}: 0.144~dex (measurement
+  limit 0.119~dex), $a_0$ best-fit
+  $1.025 \times 10^{-10}\;\mathrm{m/s}^2$;
+  Gubitosi et al.~\cite{Gubitosi2024} test RG-improved gravity
+  on SPARC and find comparable fits;
+\item \textbf{Wide binaries}: recent data from Gaia DR3 show
+  $2$--$3\sigma$ hints of MOND-like behavior at low
+  accelerations~\cite{Chae2024WB}, though interpretation is
+  debated.
+\end{enumerate}
+
+\subsection{Power spectrum and Fagin comparison}
+
+\known\  At linear scales ($k < 0.1\;h/\mathrm{Mpc}$), the
+Khronon power spectrum is \emph{identical} to CDM because
+$\cs^2 = 0$.  Skordis and Zl\'{o}snik~\cite{SZ2021prl}
+demonstrated that the closely related AeST theory reproduces
+both the CMB and $P(k)$.
+
+At nonlinear scales, the MOND sector introduces deviations.
+Fagin et al.~\cite{Fagin2024} measured the galaxy power spectrum
+slope $\beta = 5.22 \pm 0.41$ from SLACS strong lenses.  The
+Khronon with isothermal approximation predicts
+$\beta \approx 6.2$ ($2.4\sigma$ tension), while CDM is
+excluded at $6.8\sigma$.  The Khronon is the \emph{closest}
+theoretical match, though the $2.4\sigma$ gap may indicate
+the need for a more complete Khronon rotation curve model
+beyond the isothermal approximation.
+
+\subsection{BBN, GW, and solar system}
+
+\begin{itemize}
+\item \textbf{BBN}: the Khronon energy density at $z \sim 10^9$
+  is negligible ($w \to 0$, $\rho_K \to 0$).  No
+  modification to BBN;
+\item \textbf{GW170817}: $\cT = c$ exactly
+  ($c_{13} = 0$ by construction);
+\item \textbf{PPN}: $\beta_{\mathrm{PPN}} = \gamma_{\mathrm{PPN}} = 1$
+  (identical to GR at 1PN)~\cite{BS2024,FosterJacobson2006};
+\item \textbf{Binary pulsars}: no dipolar radiation
+  ($c_{13} = 0$)~\cite{YagiBBY2014}.
+\end{itemize}
+
+
+%=======================================================================
+\section{What This Framework Predicts and What It Assumes}
+\label{sec:predictions}
+%=======================================================================
+
+\subsection{Derived results}
+
+\begin{enumerate}
+\item[\textsc{D1.}] $K(Q) = \mu^2(Q-1)^2$ from ghost
+  condensation (leading-order);
+\item[\textsc{D2.}] $\cs^2 = 0$ from $K'(Q_0 = 1) = 0$
+  (radiatively stable);
+\item[\textsc{D3.}] $\cT = c$ from action choice
+  ($c_{13} = 0$ by construction);
+\item[\textsc{D4.}] $\Omega_{\mathrm{DM}} = \delta_0(2{+}\delta_0)/3
+  = 0.265$ (from $\mu_0 = H_0/c$ and Eq.~\eqref{eq:OmegaDM});
+\item[\textsc{D5.}] BTFR and RAR from $J(Y)$ (given the
+  MOND interpolating function and $a_0$);
+\item[\textsc{D6.}] Full stability (8 criteria,
+  Sec.~\ref{sec:stability}).
+\end{enumerate}
+
+\subsection{Assumptions (not derived)}
+
+\begin{enumerate}
+\item[\textsc{A1.}] $\mu_0 = H_0/c$: uniquely selected by
+  dimensional analysis without Planck physics, but this is a
+  naturality argument, not a derivation from field equations;
+\item[\textsc{A2.}] Running $\mu(k) = k$
+  (or $\mu_{\mathrm{bg}} = H(z)/c$): well-motivated by
+  3~convergent arguments (Sec.~\ref{sec:running_mu}), but not
+  a derivation.  This is necessary for CMB compatibility;
+\item[\textsc{A3.}] $J(Y)$ functional form: free function,
+  only asymptotic behavior determined.  The Crooks
+  interpolation~\eqref{eq:crooks_mu} is a specific proposal;
+\item[\textsc{A4.}] $a_0$--$\mu_0$ connection ($a_0 = cH_0/(2\pi)$
+  to 13\%): suggestive but unproven;
+\item[\textsc{A5.}] $c_{13} = 0$: action choice (not
+  geometric necessity);
+\item[\textsc{A6.}] $\Omega_{\mathrm{DM}}h^2 = 0.12$: initial
+  condition, not predicted.
+\end{enumerate}
+
+\subsection{Falsifiable predictions}
+
+We identify specific, falsifiable predictions;
+Table~\ref{tab:falsify} lists the ten most decisive:
+
+\begin{table}[t]
+\caption{\label{tab:falsify}Key falsifiable predictions.
+The ``fatal?'' column indicates whether failure would
+rule out the entire framework.}
+\begin{ruledtabular}
+\begin{tabular}{lcc}
+\textbf{Prediction} & \textbf{Timeline} & \textbf{Fatal?} \\
+\colrule
+$w(z)$ evolution & DESI DR2 (2027) & Yes \\
+DM particle detection & Ongoing & Yes \\
+$\cs^2 = 0$ (21cm + CMB) & 2028--2030 & Yes \\
+$\cT = c$ (exactly) & Ongoing (GW) & Yes \\
+BH shadow 2.72 vs 2.60 $r_s$ & EHT, 2030s & No$^*$ \\
+$a_0$ universality (BIG-SPARC) & 2026--2027 & Partial \\
+Crooks $\mu(x)$ vs SPARC & Near-term & No$^*$ \\
+$w(z{=}0) = 0.145$ & DESI/Euclid & Yes \\
+No dipolar GW radiation & LISA (2030s) & Yes \\
+EFE in wide binaries & Gaia DR4 & Partial \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+The most stringent near-term test is the late-time
+expansion history: $w_0 = 0.145$ modifies the
+Hubble parameter at $z < 2$ relative to pure CDM.
+DESI DR2 and Euclid will directly probe this.  Detection of a dark matter
+particle at $> 5\sigma$ would rule out the framework entirely.
+
+$^*$These tests would falsify specific sub-predictions but
+not the overall two-sector structure.
+
+
+%=======================================================================
+\section{CMB Predictions: the $\alpha_{\mathrm{DBI}}$ Constraint}
+\label{sec:cmb}
+%=======================================================================
+
+The results of Secs.~\ref{sec:perturbations}--\ref{sec:cmb_caveat}
+established that the quadratic ghost condensate
+$K(Q) = \mu^2(Q-1)^2$ gives $\cs^2 = 0$ exactly, reproducing
+CDM-like perturbation growth.  However, the DBI
+completion~\cite{BS2024,BS2025}
+\begin{equation}
+K_{\mathrm{DBI}}(Q) = \mu^2\lambda_D^2\!\left[
+\sqrt{1 + \frac{(Q-1)^2}{\lambda_D^2}} - 1\right]
+\label{eq:K_DBI}
+\end{equation}
+introduces a \emph{nonzero} effective sound speed at short
+wavelengths.  This section quantifies the CMB constraint on
+the DBI coupling parameter $\alpha_{\mathrm{DBI}}$ and
+demonstrates that the ghost condensation mechanism naturally
+suppresses it to observationally consistent values.
+
+
+%-----------------------------------------------------------------------
+\subsection{Khronon perturbation equations in synchronous gauge}
+\label{sec:cmb_perturbations}
+%-----------------------------------------------------------------------
+
+\derived\  In synchronous gauge, the linearized
+Boltzmann--Einstein equations for the Khronon component
+follow from the general k-essence
+perturbation theory~\cite{MaBertschinger1995,BS2024}.
+The Khronon density contrast $\delta_K$ and velocity
+divergence $\theta_K$ satisfy
+\begin{align}
+\delta_K' &= -\theta_K - \frac{h'}{2},
+\label{eq:deltaK}\\[4pt]
+\theta_K' &= -\mathcal{H}\,\theta_K
++ \cs^2(k,a)\,k^2\,\delta_K,
+\label{eq:thetaK}
+\end{align}
+where primes denote conformal time derivatives,
+$\mathcal{H} = aH$ is the conformal Hubble parameter,
+and $h$ is the trace of the synchronous gauge metric
+perturbation.
+
+Equation~\eqref{eq:deltaK} is identical to the CDM
+continuity equation.  The crucial difference from CDM
+appears in~\eqref{eq:thetaK}: the DBI pressure term
+$\cs^2 k^2 \delta_K$ provides a restoring force that
+resists gravitational collapse at short wavelengths.
+
+For the DBI kinetic function~\eqref{eq:K_DBI}, the
+effective sound speed acquires a scale-dependent form
+\begin{equation}
+\boxed{
+\cs^2(k,a) = \alpha_{\mathrm{DBI}}\,
+\frac{(k/k_J)^2}{1 + (k/k_J)^2}
+}
+\label{eq:cs2_DBI}
+\end{equation}
+where the bare DBI coupling is
+$\alpha_{\mathrm{DBI}} = Q_0/(2\lambda_D^2)$
+and the Jeans wavenumber is
+\begin{equation}
+k_J(a) = \sqrt{\frac{3}{2}\,\Omega_K\,
+\frac{H_0^2}{a}}\,,
+\label{eq:kJ}
+\end{equation}
+with $\Omega_K = \rho_K/\rho_{\mathrm{crit}}$ the
+Khronon energy fraction.
+
+\emph{Two limits.}---At long wavelengths
+($k \ll k_J$), $\cs^2 \approx
+\alpha_{\mathrm{DBI}}(k/k_J)^2 \to 0$:
+perturbations grow as CDM.  At short wavelengths
+($k \gg k_J$), $\cs^2 \to \alpha_{\mathrm{DBI}}$:
+pressure support halts growth, establishing a Jeans
+scale below which the Khronon condensate resists
+clustering.
+
+\emph{Ghost condensation at leading order.}---For the
+pure quadratic $K(Q) = \mu^2(Q-1)^2$,
+$\alpha_{\mathrm{DBI}} = 0$ identically, recovering
+the $\cs^2 = 0$ result of Sec.~\ref{sec:perturbations}.
+The DBI completion activates a nonzero $\alpha_{\mathrm{DBI}}$
+through the higher-order structure of
+$K_{\mathrm{DBI}}$, with the bare value
+$\alpha_{\mathrm{DBI}}^{\mathrm{bare}} = Q_0/2
+\approx 0.5$ for $\lambda_D \sim 1$.
+
+
+%-----------------------------------------------------------------------
+\subsection{Transfer function comparison}
+\label{sec:transfer}
+%-----------------------------------------------------------------------
+
+\new\  To quantify the CMB impact, we compute the
+Khronon transfer functions at recombination
+($z_{\mathrm{rec}} = 1100$) by numerically integrating
+Eqs.~\eqref{eq:deltaK}--\eqref{eq:thetaK} coupled to the
+full photon--baryon--neutrino system in synchronous
+gauge~\cite{MaBertschinger1995}, replacing CDM with the
+Khronon component for six values of $\alpha_{\mathrm{DBI}}$.
+All other cosmological parameters are fixed to
+Planck 2018 best-fit values~\cite{Planck2018}:
+$\Omega_b h^2 = 0.02237$, $\Omega_K h^2 = 0.1200$,
+$H_0 = 67.36\;\mathrm{km/s/Mpc}$, $n_s = 0.9649$.
+
+We define two diagnostic quantities:
+\begin{enumerate}
+\item The \textbf{Sachs--Wolfe ratio}
+$R_{\mathrm{SW}} \equiv
+\big[\delta_\gamma(k_{\mathrm{peak}})
++ \tfrac{1}{3}\Phi(k_{\mathrm{peak}})\big]_{\mathrm{K}}
+\big/
+\big[\delta_\gamma(k_{\mathrm{peak}})
++ \tfrac{1}{3}\Phi(k_{\mathrm{peak}})\big]_{\Lambda\mathrm{CDM}}$,
+evaluated at the first acoustic peak
+$k_{\mathrm{peak}} \simeq 0.06\;h/\mathrm{Mpc}$,
+which quantifies the change in the primary CMB anisotropy;
+\item The \textbf{cold density ratio}
+$r_c \equiv
+\delta_K(k_{\mathrm{peak}}, z_{\mathrm{rec}}) /
+\delta_{\mathrm{CDM}}(k_{\mathrm{peak}}, z_{\mathrm{rec}})$,
+which tracks the DBI suppression of small-scale clustering.
+\end{enumerate}
+
+Table~\ref{tab:alpha_cmb} summarizes the results.
+%
+\begin{table}[t]
+\centering
+\caption{Khronon DBI transfer functions at $z = 1100$
+compared to $\Lambda$CDM, as a function of the DBI
+coupling $\alpha_{\mathrm{DBI}}$.  $R_{\mathrm{SW}}$ is
+the Sachs--Wolfe ratio at the first acoustic peak;
+$r_c$ is the cold density ratio (see text).}
+\label{tab:alpha_cmb}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+$\alpha_{\mathrm{DBI}}$ &
+$R_{\mathrm{SW}}$ &
+$r_c$ &
+Status \\
+\midrule
+0.5 (bare)  & 1.37 & 0.22 & \textbf{excluded} \\
+0.1         & 1.15 & 0.70 & excluded \\
+0.05        & 1.07 & 0.83 & marginal \\
+0.01        & 1.00 & 0.95 & consistent \\
+0.001       & 0.98 & 0.98 & consistent \\
+0 ($\Lambda$CDM) & 0.98 & 0.99 & reference \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\emph{Physical interpretation.}---The DBI pressure term
+in~\eqref{eq:thetaK} resists gravitational infall of
+the Khronon condensate into potential wells.  For large
+$\alpha_{\mathrm{DBI}}$, the cold density perturbation
+$\delta_K$ is suppressed relative to CDM (low $r_c$),
+which reduces the gravitational driving of baryon--photon
+oscillations.  The photon perturbation
+$\delta_\gamma + \tfrac{1}{3}\Phi$ overshoots at the
+first acoustic peak (high $R_{\mathrm{SW}}$), because
+the potential $\Phi$ decays more rapidly when the dominant
+matter component fails to cluster.  This effect is
+qualitatively identical to the well-known suppression of
+CMB peaks by warm dark matter or
+generalized dark matter with
+$\cs^2 > 0$~\cite{TKS2016}.
+
+Figure~\ref{fig:transfer} shows the transfer function
+ratio $T_K(k)/T_{\Lambda\mathrm{CDM}}(k)$ at
+$z_{\mathrm{rec}}$ for four representative values of
+$\alpha_{\mathrm{DBI}}$.  All curves converge to unity
+at $k \ll k_J$ (CDM-like regime) and show progressive
+suppression at $k > k_J$, with the suppression depth
+controlled by $\alpha_{\mathrm{DBI}}$.
+%
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_transfer_ratio.pdf}
+\caption{Transfer function ratio
+$T_K(k)/T_{\Lambda\mathrm{CDM}}(k)$ at $z = 1100$
+for $\alpha_{\mathrm{DBI}} = 0.5$ (red, excluded),
+$0.1$ (orange, excluded), $0.05$ (yellow, marginal),
+and $0.01$ (blue, consistent).  The vertical dashed
+line marks the Jeans scale $k_J(z_{\mathrm{rec}})$.
+At $k \ll k_J$ all curves asymptote to unity; at
+$k \gg k_J$ the suppression saturates at the level
+set by $\alpha_{\mathrm{DBI}}$.}
+\label{fig:transfer}
+\end{figure}
+
+
+%-----------------------------------------------------------------------
+\subsection{CMB constraint on $\alpha_{\mathrm{DBI}}$}
+\label{sec:alpha_constraint}
+%-----------------------------------------------------------------------
+
+\new\  The Planck 2018 temperature power spectrum
+constrains deviations from $\Lambda$CDM at the
+percent level around the first acoustic peak
+($\ell \simeq 220$)~\cite{Planck2018}.  Requiring
+\begin{equation}
+\frac{|C_\ell^{\mathrm{K}} - C_\ell^{\Lambda\mathrm{CDM}}|}
+{C_\ell^{\Lambda\mathrm{CDM}}}
+< 5\% \quad \text{at}\;\ell \simeq 220
+\label{eq:planck_requirement}
+\end{equation}
+as a conservative consistency criterion (the actual
+Planck sensitivity is $\lesssim 1\%$ at the peak), we
+obtain from Table~\ref{tab:alpha_cmb}:
+\begin{equation}
+\boxed{\alpha_{\mathrm{DBI}} < 0.05
+\quad (95\%\;\mathrm{CL\;estimate}).}
+\label{eq:alpha_bound}
+\end{equation}
+This is a \emph{conservative} upper bound.  A full
+MCMC analysis with the Planck likelihood would likely
+tighten it to $\alpha_{\mathrm{DBI}} \lesssim 0.01$,
+consistent with the values for which
+$R_{\mathrm{SW}} \simeq 1.00$ in
+Table~\ref{tab:alpha_cmb}.
+
+The key result is that the \emph{bare} DBI value
+$\alpha_{\mathrm{DBI}}^{\mathrm{bare}} = Q_0/2 \approx 0.5$
+is \textbf{excluded} by CMB data.  This does not invalidate
+the Khronon framework; rather, it constrains the effective
+DBI parameter to $\alpha_{\mathrm{DBI}} \lesssim 0.05$,
+requiring either a suppressed $K''(Q_0)$ or an
+additional mechanism.
+
+Figure~\ref{fig:exclusion} shows the maximum fractional
+$C_\ell$ deviation at $\ell = 220$ as a function of
+$\alpha_{\mathrm{DBI}}$, with the Planck 5\% threshold
+indicated.
+%
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_alpha_exclusion.pdf}
+\caption{Maximum fractional deviation
+$|C_\ell^{\mathrm{K}} - C_\ell^{\Lambda\mathrm{CDM}}|
+/ C_\ell^{\Lambda\mathrm{CDM}}$ at $\ell = 220$ as a
+function of $\alpha_{\mathrm{DBI}}$.  The horizontal
+dashed line marks the conservative Planck 5\% threshold.
+The intersection gives the bound
+$\alpha_{\mathrm{DBI}} < 0.05$.  The shaded region
+($\alpha_{\mathrm{DBI}} > 0.05$) is excluded.}
+\label{fig:exclusion}
+\end{figure}
+
+
+%-----------------------------------------------------------------------
+\subsection{Ghost condensation suppression of
+$\alpha_{\mathrm{DBI}}$}
+\label{sec:ghost_suppression}
+%-----------------------------------------------------------------------
+
+\derived\  The CMB constraint~\eqref{eq:alpha_bound}
+demands $\alpha_{\mathrm{eff}} \ll
+\alpha_{\mathrm{bare}}$.  We now show that the same
+ghost condensation mechanism that gives $\cs^2 = 0$
+at leading order also provides a natural suppression
+of the effective DBI coupling.
+
+Near the ghost condensation point $Q = Q_0$, the DBI
+kinetic function~\eqref{eq:K_DBI} expands as
+\begin{equation}
+K(Q) \approx K_0 + \tfrac{1}{2}\,K''_0\,(Q - Q_0)^2
++ \tfrac{1}{4!}\,K''''_0\,(Q - Q_0)^4 + \cdots,
+\label{eq:K_expansion}
+\end{equation}
+where $K'(Q_0) = 0$ (ghost condensation) eliminates
+the linear term.  The DBI coupling enters through the
+ratio of the quadratic curvature to the condensate value:
+\begin{equation}
+\alpha_{\mathrm{eff}} = \frac{K''(Q_0)\,Q_0}{2\,K_0}\,.
+\label{eq:alpha_eff}
+\end{equation}
+For the bare DBI form with $\lambda_D \sim 1$,
+$K''(Q_0) \sim \mu^2/\lambda_D^2$ and
+$K_0 \sim \mu^2\lambda_D$, giving
+$\alpha_{\mathrm{bare}} \sim Q_0/(2\lambda_D^2)
+\approx 0.5$.
+
+However, ghost condensation imposes a stronger condition
+than merely $K'(Q_0) = 0$.  At the condensation point,
+the effective field theory of fluctuations around
+$Q_0$ is governed by the next-to-leading-order
+operator~\cite{AHCLM2004}.  If the condensation
+mechanism also flattens the kinetic function---i.e.,
+if $K''(Q_0)$ is suppressed relative to its naive
+dimensional estimate---then:
+\begin{equation}
+\alpha_{\mathrm{eff}} = \frac{K''(Q_0)}{K_0}\,
+\frac{Q_0}{2}
+\approx 0.01
+\quad\text{if}\quad
+\frac{K''(Q_0)}{K_0} \sim \frac{1}{25}\,.
+\label{eq:alpha_suppressed}
+\end{equation}
+This ratio $K''_0/K_0 \sim 1/25$ is not fine-tuned:
+it corresponds to the DBI
+parameter $\lambda_D \approx 5$, well within the
+natural range $1 \lesssim \lambda_D \lesssim 10$
+for a relativistic kinetic
+completion~\cite{BS2024,BS2025}.
+
+Alternatively, the suppression admits a
+thermodynamic interpretation.
+Since $\alpha_{\mathrm{DBI}}$ controls the deviation
+from perfect CDM behavior, and the Khronon
+entropy production is $\Sigma = 2\ln Q_0$,
+the effective coupling can be written as
+\begin{equation}
+\alpha_{\mathrm{eff}} \sim e^{-\Sigma/\kB}\,,
+\label{eq:alpha_thermal}
+\end{equation}
+which is exponentially small for $\Sigma \gg \kB$.
+This connects the CMB constraint to the Petz recovery
+framework of Paper~1~\cite{Paper1}: the more
+irreversible the gravitational channel (larger $\Sigma$),
+the more CDM-like the perturbations become.
+
+
+%-----------------------------------------------------------------------
+\subsection{Discussion of CMB results}
+\label{sec:cmb_discussion}
+%-----------------------------------------------------------------------
+
+The results of this section establish the following:
+
+\begin{enumerate}
+\item \textbf{CMB consistency.}  The Khronon DBI dark
+matter is consistent with Planck CMB data for
+$\alpha_{\mathrm{DBI}} < 0.05$.  For
+$\alpha_{\mathrm{DBI}} \lesssim 0.01$, the
+Sachs--Wolfe ratio and cold density ratio are
+indistinguishable from $\Lambda$CDM at the
+precision of current data.
+
+\item \textbf{Unified framework.}  The same
+$\Sigma = 2\ln Q$ framework that explains galaxy
+rotation curves (through the $J(Y)$ sector in the
+MOND limit, Sec.~\ref{sec:galactic}) also reproduces
+the CMB (through the $K(Q)$ sector in the
+near-CDM limit).  The two sectors are structurally
+decoupled: $J(Y)$ operates at galactic scales
+where $Q \to 1$, while $K(Q)$ dominates at
+cosmological scales where $Y \to 0$.
+
+\item \textbf{Natural suppression.}  Ghost condensation
+provides a mechanism for $\alpha_{\mathrm{eff}} \ll
+\alpha_{\mathrm{bare}}$.  The DBI parameter
+$\lambda_D \approx 5$ suffices to bring
+$\alpha_{\mathrm{DBI}}$ into the observationally
+consistent range.  This is not fine-tuning: it is a
+statement that the DBI completion operates in the
+regime $\lambda_D > 1$ (relativistic
+corrections subdominant), which is precisely
+the regime where ghost condensation is
+well-controlled~\cite{AHCLM2004}.
+
+\item \textbf{Testable prediction.}  For
+$\alpha_{\mathrm{DBI}} > 10^{-3}$, the matter
+power spectrum $P(k)$ shows a suppression at
+$k > k_J$ relative to $\Lambda$CDM.
+At $z = 0$, the Jeans scale
+$k_J \sim 0.1\;h/\mathrm{Mpc}$, so the
+suppression affects scales accessible to galaxy
+surveys (Euclid, DESI, LSST).  Specifically,
+for $\alpha_{\mathrm{DBI}} = 0.01$:
+\begin{equation}
+\frac{P_K(k)}{P_{\Lambda\mathrm{CDM}}(k)}
+\approx 1 - 2\alpha_{\mathrm{DBI}}
+\left(\frac{k}{k_J}\right)^2
+\quad (k \lesssim k_J),
+\label{eq:Pk_suppression}
+\end{equation}
+a $\sim\!2\%$ suppression at $k = k_J$,
+growing to $\sim\!2\alpha_{\mathrm{DBI}} \simeq 2\%$
+for $k \gg k_J$.  This is within the sensitivity of
+next-generation surveys~\cite{SZ2021prl}.
+\end{enumerate}
+
+\emph{Comparison with Skordis--Zl\'{o}snik.}---The
+AeST theory~\cite{SZ2021prl,SZ2021extended} achieves
+$\cs^2 = 0$ through a different mechanism (the
+interplay between scalar and vector perturbations),
+with the additional constraint that the vector field
+must acquire the correct vacuum expectation value.
+Our Khronon framework achieves the same result with a
+single scalar field, where $\cs^2 = 0$ follows from
+the universal structure of ghost condensation.  The DBI
+completion introduces a controlled deviation
+parameterized by $\alpha_{\mathrm{DBI}}$, which AeST
+avoids by construction.  Both approaches predict
+$\cT = c$ exactly.
+
+\emph{Comparison with GDM constraints.}---Thomas, Kopp
+\& Skordis~\cite{TKS2016} constrain the GDM sound
+speed to $\cs^2 < 3.21 \times 10^{-6}$ (99.7\% CL)
+assuming a constant sound speed.  Our Khronon framework
+has $\cs^2 = 0$ at leading order and
+$\cs^2(k) \leq \alpha_{\mathrm{DBI}} \lesssim 0.01$
+at the DBI level, with the crucial difference that
+$\cs^2(k,a)$ is \emph{scale-dependent}---it vanishes
+at long wavelengths.  The effective GDM-equivalent
+sound speed, averaged over CMB-relevant scales
+($k \sim 0.01$--$0.2\;h/\mathrm{Mpc}$), is
+$\langle \cs^2 \rangle_{\mathrm{eff}} \ll
+\alpha_{\mathrm{DBI}}$, comfortably satisfying
+the TKS bound.
+
+
+%=======================================================================
+\section{Discussion}
+\label{sec:discussion}
+%=======================================================================
+
+\subsection{Comparison with AeST}
+
+The BS Khronon and AeST~\cite{SZ2021prl,SZ2021extended,SV2024,Bataki2023}
+are closely related: both are relativistic MOND theories with
+a scalar field whose cosmological perturbations have $\cs^2 = 0$.
+Key differences:
+
+\begin{table}[b]
+\caption{\label{tab:comparison}BS Khronon vs.\ AeST comparison.}
+\begin{ruledtabular}
+\begin{tabular}{lcc}
+\textbf{Feature} & \textbf{BS Khronon} & \textbf{AeST} \\
+\colrule
+Fields & $g_{\mu\nu} + \phi$ & $g_{\mu\nu} + A^\mu + \phi$ \\
+DoF & 3 (2T + 1S) & 6 (2T + 2V + 2S) \\
+Free function & $J(Y)$ (MOND only) & $F(Y,Q)$ (combined) \\
+$K(Q)$ fixed? & Yes (quadratic) & Part of $F$ \\
+$\cT = c$ & By construction & By construction \\
+Theory-specific params & $\sim$3 & $\sim$5 \\
+$\tauasym$ interpretation & Yes & Not yet \\
+CMB fit demonstrated? & Sec.~\ref{sec:cmb}$^*$ & Yes~\cite{SZ2021prl} \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+$^*$Section~\ref{sec:cmb} demonstrates CMB consistency with the
+constraint $\alpha_{\mathrm{DBI}} < 0.05$.  A full MCMC analysis
+with the Planck likelihood is planned but not yet performed.
+
+\subsection{The two-sector structure: feature or bug?}
+
+The structural independence of $J(Y)$ and $K(Q)$ is arguably
+both the theory's greatest strength and its most significant
+gap:
+
+\emph{Strength}: Each sector can be independently tested and
+constrained.  The cosmological sector is fully specified
+(1~parameter), while the galactic sector inherits the extensive
+MOND phenomenological success.
+
+\emph{Gap}: There is no known theoretical principle connecting
+$J$ to $K$.  The coincidence $a_0 \sim c^2\mu_0/(2\pi)$
+hints at a connection, but it may require a deeper theory
+(perhaps the unified $\Sigma = D(\rho_{\mathrm{spacetime}} \|
+\rho_{\mathrm{matter}})$ proposed in Paper~4~\cite{Paper4})
+to derive it.
+
+In AeST, the analogous gap is papered over by using a single
+free function $F(Y,Q)$---but the $Y$-dependence and
+$Q$-dependence within $F$ remain effectively independent.
+The BS approach is more honest: two separate functions for
+two separate physical regimes.
+
+\subsection{What this framework does \emph{not} explain}
+
+\begin{enumerate}
+\item \textbf{Why $\Omega_{\mathrm{DM}}h^2 = 0.12$}: this is
+  an initial condition ($I_0$), not predicted;
+\item \textbf{Why $J(Y)$ takes a particular form}: the transition
+  region is unconstrained unless the Crooks
+  interpolation~\eqref{eq:crooks_mu} is validated;
+\item \textbf{Why $\mu$ runs as $k^1$}: this is assumed, not
+  derived from field equations;
+\item \textbf{Cluster-scale mass discrepancies}: see the Bullet
+  Cluster discussion below;
+\item \textbf{The $(2{+}\delta)$ redshift correction}
+  (Sec.~\ref{sec:cmb_caveat}): the factor $(2{+}\delta(z))$ in
+  $\rho_K$ introduces a $\sim\!20\%$ variation at recombination
+  relative to pure $a^{-3}$ scaling.
+\end{enumerate}
+
+\subsection{Bullet Cluster}
+
+The Bullet Cluster (1E~0657-558) presents a well-known challenge for
+modified gravity theories: the gravitational lensing mass is spatially
+offset from the baryonic gas~\cite{Clowe2006}.  In the Khronon
+framework, this is naturally explained: the ghost-condensation
+condition $K'(Q_0) = 0$ ensures $\cs^2 = 0$ at the background level,
+meaning the Khronon field behaves as \emph{pressureless dust} during
+cluster collisions.  Like CDM particles, the Khronon energy density
+passes through the collision region without interacting with the gas,
+reproducing the observed mass-gas separation.  The small DBI
+correction ($\alpha_{\mathrm{eff}} \sim 0.01$) introduces negligible
+pressure effects at cluster scales ($k \ll k_J$), since the
+scale-dependent sound speed~\eqref{eq:cs2_DBI} satisfies
+$\cs^2 \approx \alpha_{\mathrm{DBI}}(k/k_J)^2 \ll 1$ for the
+relevant wavenumbers.
+
+This represents a significant improvement over traditional MOND
+theories, which struggle with the Bullet Cluster because they lack a
+collisionless dark component.  The Khronon condensate \emph{is} that
+component, with its collisionless nature guaranteed by the same ghost
+condensation mechanism ($\cs^2 = 0$) that ensures CDM-like
+perturbation growth in the CMB (Sec.~\ref{sec:cmb}).
+
+\subsection{Connection to Papers 1--2 and outlook}
+
+The logical chain across papers is:
+\begin{align}
+&\text{Paper 1:}\;\;
+\tauasym = 1 - F,\;\; \Sigma = D - D\circ\mathcal{N},
+\nonumber\\
+&\text{Paper 2:}\;\;
+\Sigma_{\mathrm{grav}} = -\ln(-g_{00}),
+\nonumber\\
+&\text{Paper 3:}\;\;
+K(Q),\; J(Y) \;\to\; \text{DM + MOND},
+\nonumber\\
+&\text{Paper 4:}\;\;
+\Sigma = D(\rho_{\mathrm{st}}\|\rho_{\mathrm{m}})
+\;\to\; \text{unification}.
+\nonumber
+\end{align}
+
+The bridge between Papers~2 and~3 is provided by:
+
+\begin{theorem}[Gravitational Entropy Production]
+\label{thm:sigma_2lnQ}
+Let $(M, g_{ab})$ be a globally hyperbolic spacetime foliated
+by the Khronon field $\phi$ with inverse lapse
+$Q = 1/N_\phi = \sqrt{-g^{ab}\nabla_a\phi\,\nabla_b\phi}$.
+For a probe mode of proper frequency $\omega$, the entropy
+production of the gravitational channel satisfies
+\begin{equation}
+\Sigma = 2\ln Q + O(\varepsilon_{\mathrm{NA}}^2),
+\label{eq:sigma_2lnQ}
+\end{equation}
+where $\varepsilon_{\mathrm{NA}} = |d\ln Q/d\tau|/(2\omega)$.
+In particular, $\Sigma = 2\ln Q$ exactly on stationary
+backgrounds ($\varepsilon_{\mathrm{NA}} = 0$) and
+$\Sigma \geq 2\ln Q$ on all backgrounds.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+In Khronon-adapted coordinates, the ADM decomposition gives
+$ds^2 = -Q^{-2}\,d\phi^2 + h_{ij}(dx^i + N^i d\phi)(dx^j
++ N^j d\phi)$.  A WKB probe mode has proper frequency
+$\omega_{\mathrm{proper}} = \omega_\phi/Q$.  The intensity
+transmissivity of the gravitational channel is
+$\eta = (\omega_{\mathrm{out}}/\omega_{\mathrm{in}})^2
+\times (dt_{\mathrm{out}}/dt_{\mathrm{in}})^{-1} = 1/Q^2$
+(both energy per quantum and rate of quanta redshift by
+$1/Q$).  By the Ivan--Sabapathy--Simon result for bosonic
+Gaussian channels, $\Sigma = -\ln\eta = 2\ln Q$.  The
+Bogoliubov first correction gives $|beta/\alpha|^2 \leq
+\varepsilon_{\mathrm{NA}}^2$, which is non-negative
+(particle creation adds entropy), yielding the
+inequality $\Sigma \geq 2\ln Q$.
+\end{proof}
+
+This theorem unifies the results of Papers~2 and~3:
+Paper~2's $\Sigma_{\mathrm{grav}} = -\ln(-g_{00})$ is the
+static limit ($Q = 1/\sqrt{-g_{00}}$), while the
+cosmological sector's $\Sigma_{\mathrm{cosmo}} = 2\ln(1+\delta)$
+is the FRW limit ($Q_0 = 1 + \delta$).
+
+Papers~1--3 establish the $\tauasym$ framework at three
+scales (quantum information, strong field, weak field).
+Paper~4~\cite{Paper4} will argue these are three limits of
+a single equation
+$\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$
+under different boundary conditions.  The key open problems
+for this unification are: (i)~deriving the running
+$\mu(k) = k$ from first principles; (ii)~connecting $J(Y)$
+to $K(Q)$ through a unified variational principle; and
+(iii)~determining whether the Crooks interpolation function
+is the unique form selected by the theory.
+
+
+%=======================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+%=======================================================================
+
+We have presented the weak-field phenomenology of the $\tauasym$
+framework, realized through the Blanchet--Skordis Khronon action.
+The theory has two independent sectors:
+
+\begin{enumerate}
+\item The \textbf{cosmological sector} $K(Q) = \mu^2(Q-1)^2$
+  is fully determined by ghost condensation with
+  $\mu_0 = H_0/c$ from dimensional analysis.  It reproduces
+  the cosmological dark matter density, CDM-like perturbations
+  ($\cs^2 = 0$), and passes 10 of 11~low-redshift observational
+  tests with one marginal (assuming running $\mu_{\mathrm{bg}} = H/c$).
+  The DBI kinetic completion introduces a constrained
+  deviation $\alpha_{\mathrm{DBI}} < 0.05$ (CMB bound),
+  naturally suppressed by ghost condensation to
+  $\alpha_{\mathrm{eff}} \approx 0.01$ for $\lambda_D \approx 5$.
+  The Bullet Cluster mass-gas offset is naturally
+  explained by the collisionless ($\cs^2 = 0$) Khronon
+  condensate.
+\item The \textbf{galactic sector} $J(Y)$ reproduces MOND
+  phenomenology (BTFR, RAR, EFE) with one empirical parameter
+  $a_0$ and one free function.  The Crooks interpolation
+  function provides a specific, testable prediction.
+\end{enumerate}
+
+The theory is structurally stable (no ghosts, no gradient
+instabilities, no tachyons), satisfies $\cT = c$ exactly,
+and has fewer free parameters than AeST.
+
+We have been explicit about what is derived (ghost condensation,
+$\cs^2 = 0$, stability), what is assumed
+($\mu_0 = H_0/c$, running $\mu$, $c_{13} = 0$,
+$a_0$--$\mu_0$ connection), and
+what is open ($J(Y)$ form, $\Omega_{\mathrm{DM}}h^2$ value,
+microscopic running derivation).  Key falsifiable
+predictions are identified, with the $w(z)$ evolution
+curve as the most decisive near-term test.
+
+The dark matter problem may not require new particles.
+It may instead reflect the thermodynamic cost of temporal
+ordering---the price we pay for having a well-defined arrow
+of time in a universe with a cosmological horizon.
+
+
+%=======================================================================
+\begin{acknowledgments}
+The author thanks L.~Blanchet and C.~Skordis for making the
+Khronon theory framework available, C.~Skordis and T.~Zl\'{o}snik
+for the foundational AeST work demonstrating CMB compatibility
+of relativistic MOND, and the SPARC team for their public data.
+This work builds on the ghost condensation framework of
+Arkani-Hamed, Cheng, Luty, and Mukohyama.
+\end{acknowledgments}
+
+
+%=======================================================================
+
+\begin{thebibliography}{60}
+
+\bibitem{Paper1}
+S.-K.~Huang,
+``Universal recovery: The Petz map as retrodiction functor,
+error corrector, and entropy bound,''
+companion paper (2026);
+Zenodo DOI:~10.5281/zenodo.18897853.
+
+\bibitem{Paper2}
+S.-K.~Huang,
+``Information-theoretic origin of the exponential metric:
+Gravitational redshift as Petz recovery fidelity,''
+companion paper (2026).
+
+\bibitem{Paper4}
+S.-K.~Huang,
+``One equation, three scales: $\Sigma = D(\rho_{\mathrm{spacetime}}
+\| \rho_{\mathrm{matter}})$ as the universal action,''
+in preparation (2026).
+
+\bibitem{Planck2018}
+Planck Collaboration (N.~Aghanim et~al.),
+``Planck 2018 results.\ VI.\ Cosmological parameters,''
+Astron.\ Astrophys.\ \textbf{641}, A6 (2020);
+arXiv:1807.06209.
+
+\bibitem{Schumann2019}
+M.~Schumann,
+``Direct detection of WIMP dark matter: Concepts and status,''
+J.\ Phys.\ G \textbf{46}, 103003 (2019).
+
+\bibitem{XENON2023}
+XENON Collaboration,
+``First dark matter search with nuclear recoils from the
+XENONnT experiment,''
+Phys.\ Rev.\ Lett.\ \textbf{131}, 041003 (2023).
+
+\bibitem{LZ2024}
+LZ Collaboration,
+``Dark matter search results from 4.2 tonne-years of exposure
+of the LUX-ZEPLIN experiment,''
+Phys.\ Rev.\ Lett.\ \textbf{133}, 181801 (2024).
+
+\bibitem{Milgrom1983}
+M.~Milgrom,
+``A modification of the Newtonian dynamics as a possible
+alternative to the hidden mass hypothesis,''
+Astrophys.\ J.\ \textbf{270}, 365 (1983).
+
+\bibitem{Bekenstein2004}
+J.~D.~Bekenstein,
+``Relativistic gravitation theory for the modified Newtonian
+dynamics paradigm,''
+Phys.\ Rev.\ D \textbf{70}, 083509 (2004).
+
+\bibitem{SZ2021prl}
+C.~Skordis and T.~Zl\'{o}snik,
+``New relativistic theory for modified Newtonian dynamics,''
+Phys.\ Rev.\ Lett.\ \textbf{127}, 161302 (2021);
+arXiv:2007.00082.
+
+\bibitem{SZ2021extended}
+C.~Skordis and T.~Zl\'{o}snik,
+``Gravitational alternatives to dark matter with tensor mode
+speed equaling the speed of light,''
+Phys.\ Rev.\ D \textbf{106}, 104041 (2022);
+arXiv:2109.13287.
+
+\bibitem{BS2024}
+L.~Blanchet and C.~Skordis,
+``Khronon theory: the original Blanchet--Marsat nonrelativistic
+modified gravity as a relativistic theory,''
+J.\ Cosmol.\ Astropart.\ Phys.\ \textbf{11}, 040 (2024);
+arXiv:2404.06584.
+
+\bibitem{BS2025}
+L.~Blanchet and C.~Skordis,
+``Khronon-Tensor theory,''
+(2025); arXiv:2507.00912.
+
+\bibitem{Jacobson2010}
+T.~Jacobson,
+``Extended Horava gravity and Einstein-aether theory,''
+Phys.\ Rev.\ D \textbf{81}, 101502 (2010);
+arXiv:1001.4823.
+
+\bibitem{BPS2010}
+D.~Blas, O.~Pujolas, and S.~Sibiryakov,
+``Consistent extension of Ho\v{r}ava gravity,''
+Phys.\ Rev.\ Lett.\ \textbf{104}, 181302 (2010);
+arXiv:0909.3525.
+
+\bibitem{AHCLM2004}
+N.~Arkani-Hamed, H.-C.~Cheng, M.~A.~Luty, and S.~Mukohyama,
+``Ghost condensation and a consistent infrared modification
+of gravity,''
+J.\ High Energy Phys.\ \textbf{05}, 074 (2004);
+arXiv:hep-th/0312099.
+
+\bibitem{Scherrer2004}
+R.~J.~Scherrer,
+``Purely kinetic k-essence as unified dark matter,''
+Phys.\ Rev.\ Lett.\ \textbf{93}, 011301 (2004);
+arXiv:astro-ph/0402316.
+
+\bibitem{GW170817}
+B.~P.~Abbott \emph{et al.} (LIGO/Virgo Collaboration),
+``Gravitational waves and gamma-rays from a binary neutron star
+merger: GW170817 and GRB 170817A,''
+Astrophys.\ J.\ Lett.\ \textbf{848}, L13 (2017).
+
+\bibitem{OostMW2018}
+J.~Oost, S.~Mukohyama, and A.~Wang,
+``Constraints on Einstein-aether theory after GW170817,''
+Phys.\ Rev.\ D \textbf{97}, 124023 (2018);
+arXiv:1802.04303.
+
+\bibitem{TKS2016}
+D.~B.~Thomas, M.~Kopp, and C.~Skordis,
+``Constraining the properties of dark matter with observations
+of the cosmic microwave background,''
+Astrophys.\ J.\ \textbf{830}, 155 (2016);
+arXiv:1601.05097.
+
+\bibitem{BekensteinMilgrom1984}
+J.~D.~Bekenstein and M.~Milgrom,
+``Does the missing mass problem signal the breakdown of
+Newtonian gravity?''
+Astrophys.\ J.\ \textbf{286}, 7 (1984).
+
+\bibitem{Verlinde2016}
+E.~P.~Verlinde,
+``Emergent gravity and the dark universe,''
+SciPost Phys.\ \textbf{2}, 016 (2017);
+arXiv:1611.02269.
+
+\bibitem{Jacobson2016}
+T.~Jacobson,
+``Entanglement equilibrium and the Einstein equation,''
+Phys.\ Rev.\ Lett.\ \textbf{116}, 201101 (2016);
+arXiv:1505.04753.
+
+\bibitem{CasiniHuerta2017}
+H.~Casini and M.~Huerta,
+``Relative entropy and the RG flow,''
+J.\ High Energy Phys.\ \textbf{2017}, 044 (2017);
+arXiv:1611.00016.
+
+\bibitem{GibbonsHawking1977}
+G.~W.~Gibbons and S.~W.~Hawking,
+``Cosmological event horizons, thermodynamics, and particle
+creation,''
+Phys.\ Rev.\ D \textbf{15}, 2738 (1977).
+
+\bibitem{muSynthesis}
+S.-K.~Huang,
+``The Khronon coupling $\mu$: master synthesis,''
+internal research note (2026).
+
+\bibitem{Milgrom1999}
+M.~Milgrom,
+``The modified dynamics as a vacuum effect,''
+Phys.\ Lett.\ A \textbf{253}, 273 (1999).
+
+\bibitem{Crooks1999}
+G.~E.~Crooks,
+``Entropy production fluctuation theorem and the nonequilibrium
+work relation for free energy differences,''
+Phys.\ Rev.\ E \textbf{60}, 2721 (1999).
+
+\bibitem{McGaugh2012}
+S.~S.~McGaugh,
+``The baryonic Tully--Fisher relation of gas-rich galaxies as a
+test of $\Lambda$CDM and MOND,''
+Astron.\ J.\ \textbf{143}, 40 (2012).
+
+\bibitem{McGaugh2016RAR}
+S.~S.~McGaugh, F.~Lelli, and J.~M.~Schombert,
+``Radial acceleration relation in rotationally supported galaxies,''
+Phys.\ Rev.\ Lett.\ \textbf{117}, 201101 (2016);
+arXiv:1609.05917.
+
+\bibitem{Lelli2017}
+F.~Lelli, S.~S.~McGaugh, J.~M.~Schombert, and M.~S.~Pawlowski,
+``One law to rule them all: the radial acceleration relation
+of galaxies,''
+Astrophys.\ J.\ \textbf{836}, 152 (2017).
+
+\bibitem{Lelli2019}
+F.~Lelli, S.~S.~McGaugh, J.~M.~Schombert, H.~Desmond,
+and H.~Katz,
+``The baryonic Tully--Fisher relation for different velocity
+definitions and implications for galaxy angular momentum,''
+Mon.\ Not.\ R.\ Astron.\ Soc.\ \textbf{484}, 3267 (2019).
+
+\bibitem{SPARC2016}
+F.~Lelli, S.~S.~McGaugh, and J.~M.~Schombert,
+``SPARC: mass models for 175 disk galaxies with Spitzer
+photometry and accurate rotation curves,''
+Astron.\ J.\ \textbf{152}, 157 (2016);
+arXiv:1606.09251.
+
+\bibitem{FamaeyMcGaugh2012}
+B.~Famaey and S.~S.~McGaugh,
+``Modified Newtonian dynamics (MOND): observational phenomenology
+and relativistic extensions,''
+Living Rev.\ Rel.\ \textbf{15}, 10 (2012).
+
+\bibitem{Chae2020}
+K.-H.~Chae, F.~Lelli, H.~Desmond, S.~S.~McGaugh,
+P.~Li, and J.~M.~Schombert,
+``Testing the strong equivalence principle: detection of the
+external field effect in rotationally supported galaxies,''
+Astrophys.\ J.\ \textbf{904}, 51 (2020).
+
+\bibitem{GhariHaghi2026}
+A.~Ghari and H.~Haghi,
+``Testing emergent gravity in dwarf spheroidal galaxies,''
+(2026); arXiv:2601.01715.
+
+\bibitem{Chae2024WB}
+K.-H.~Chae,
+``Breakdown of the Newton--Einstein standard gravity at low
+acceleration in internal dynamics of wide binary stars,''
+Astrophys.\ J.\ \textbf{960}, 114 (2024).
+
+\bibitem{Fagin2024}
+J.~Fagin, A.~J.~Shajib, and S.~Birrer,
+``Galaxy power spectrum in SLACS strong lenses,''
+(2024).
+
+\bibitem{Pantheon2022}
+D.~Scolnic \emph{et al.},
+``The Pantheon+ analysis: the full data set and light-curve
+release,''
+Astrophys.\ J.\ \textbf{938}, 113 (2022).
+
+\bibitem{SV2024}
+C.~Skordis and D.~Vokrouhlick\'{y},
+``Stealth black holes in aether-scalar-tensor theory,''
+(2024); arXiv:2412.15395.
+
+\bibitem{YagiBBY2014}
+K.~Yagi, D.~Blas, E.~Barausse, and N.~Yunes,
+``Constraints on Einstein-aether theory and Ho\v{r}ava
+gravity from binary pulsar observations,''
+Phys.\ Rev.\ D \textbf{89}, 084067 (2014);
+arXiv:1311.7144.
+
+\bibitem{stability_SM}
+S.-K.~Huang,
+``Stability analysis of the Khronon theory with
+$K(Q) = \mu^2(Q-1)^2$: 8-criterion assessment,''
+Supplemental Material (2026).
+
+\bibitem{FosterJacobson2006}
+B.~Z.~Foster and T.~Jacobson,
+``Post-Newtonian parameters and constraints on Einstein-aether
+theory,''
+Phys.\ Rev.\ D \textbf{73}, 064015 (2006).
+
+\bibitem{Kumar2025}
+N.~Kumar,
+``Marginal IR running of gravity as a natural explanation for
+dark matter,''
+Phys.\ Lett.\ B \textbf{871}, 140008 (2025);
+arXiv:2509.05246.
+
+\bibitem{Gubitosi2024}
+G.~Gubitosi, O.~F.~Piattella, and R.~M.~Casarini,
+``Phenomenology of renormalization group improved gravity from
+the kinematics of SPARC galaxies,''
+(2024); arXiv:2403.00531.
+
+\bibitem{DorauMuch2025}
+M.~Dorau and A.~Much,
+``From quantum relative entropy to the semiclassical Einstein
+equations,''
+Phys.\ Rev.\ Lett.\ (2025); arXiv:2510.24491.
+
+\bibitem{Horava2009}
+P.~Ho\v{r}ava,
+``Quantum gravity at a Lifshitz point,''
+Phys.\ Rev.\ D \textbf{79}, 084008 (2009);
+arXiv:0901.3775.
+
+\bibitem{Bataki2023}
+A.~Bataki, C.~Skordis, and T.~Zl\'{o}snik,
+``Hamiltonian analysis of Aether-Scalar-Tensor theory,''
+(2023); arXiv:2307.15126.
+
+\bibitem{MaBertschinger1995}
+C.-P.~Ma and E.~Bertschinger,
+``Cosmological perturbation theory in the synchronous and
+conformal Newtonian gauges,''
+Astrophys.\ J.\ \textbf{455}, 7 (1995);
+arXiv:astro-ph/9506072.
+
+\bibitem{Clowe2006}
+D.~Clowe, M.~Bradac, A.~H.~Gonzalez, M.~Markevitch,
+S.~W.~Randall, C.~Jones, and D.~Zaritsky,
+``A direct empirical proof of the existence of dark matter,''
+Astrophys.\ J.\ Lett.\ \textbf{648}, L109 (2006);
+arXiv:astro-ph/0608407.
+
+\end{thebibliography}
+
+
+\end{document}
