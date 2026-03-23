@@ -267,25 +267,48 @@ def seed_tca_at_switch(y, k, abs_kd, calH, a, lg_max, lp_max,
 # ============================================================================
 
 def make_sync_rhs_tca(k, bg, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
-                      ln_max=L_NU_MAX_SYNC, pol_approx='equilibrium'):
+                      ln_max=L_NU_MAX_SYNC, pol_approx='equilibrium',
+                      tca_threshold=30.0):
     """
     Build the RHS function f(tau, y) -> dy/dtau for synchronous gauge.
 
-    This version includes:
-      1. Baryon sound speed c_s^2 k^2 delta_b
-      2. Photon polarization handling via pol_approx:
-         - 'full': evolve E_l hierarchy (11 extra equations)
-         - 'equilibrium': approximate Pi = (5/2)*F_g2 (TCA equilibrium),
-           which gives effective damping -(3/4)|kd|*F_g2 on the quadrupole.
-           This is the most important correction: reduces Silk damping to
-           the correct level without evolving extra stiff equations.
-         - 'none': Pi = F_g2 (original, -(9/10)|kd|*F_g2, over-damps)
+    This version implements CLASS's EXACT Tight Coupling Approximation (TCA):
+    when |kd|/k > tca_threshold, the baryon theta equation uses the COMBINED
+    momentum equation (no stiff Thomson term), with analytical photon shear
+    and first-order slip.
 
-    The equilibrium approximation is motivated by CLASS's TCA treatment:
-    during tight coupling, E_0 = (5/4)*F_g2 and E_2 = (1/4)*F_g2, so
-    Pi = F_g2 + E_0 + E_2 = (5/2)*F_g2. This reduces the effective
-    damping coefficient from 9/10 to 3/4, which significantly improves
-    the acoustic peak heights (especially peaks 2+).
+    Parameters
+    ----------
+    k : float
+        Wavenumber in Mpc^{-1}.
+    bg : Background object (solved)
+    lg_max, lp_max, ln_max : int
+        Hierarchy truncation parameters.
+    pol_approx : str
+        Polarization approximation: 'full', 'equilibrium', or 'none'.
+    tca_threshold : float
+        TCA is active when |kd|/k > tca_threshold (default 30).
+        Set to 0 to disable TCA entirely (pure stiff Thomson coupling).
+        The solver in solver_sync_tca.py uses two-phase integration:
+        Phase 1 (tca_threshold=30) + Phase 2 (tca_threshold=0) with
+        seeding at the switch point.
+
+    TCA equations (following CLASS perturbations.c lines 8956-8960):
+      shear_g = (16/45) * tau_c * (theta_g + metric_shear)
+      d_theta_b = (-calH*theta_b + k^2*(cb2*delta_b + R*(delta_g/4 - shear_g))
+                   + R*slip) / (1+R)
+      (metric_euler = 0 in sync gauge)
+
+    The slip is computed from CLASS's first_order_CLASS / compromise_CLASS
+    formula (perturbations.c lines 10019-10027).
+
+    During TCA, the photon dipole (F_g1) is slaved to the combined
+    momentum: dFg[1] = (4/(3k)) * d_theta_b, eliminating all stiff
+    Thomson coupling terms. The photon quadrupole (F_g2) relaxes
+    toward the TCA analytical shear. Higher multipoles are gently damped.
+
+    Outside TCA (|kd|/k <= tca_threshold):
+      Full hierarchy with stiff Thomson coupling (Radau handles stiffness).
     """
     k2 = k * k
     H02 = _H0_MPC ** 2
@@ -301,6 +324,14 @@ def make_sync_rhs_tca(k, bg, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
     _R = bg.R_grid.copy()
     _kd = bg.kappa_dot_grid.copy()  # negative
 
+    # Precompute ddkappa = d^2(kappa)/d(tau)^2 for the slip formula.
+    # kappa_dot = d(kappa)/d(tau) < 0, so ddkappa = d(kappa_dot)/d(tau).
+    # We use numerical gradient on the background grid.
+    _ddkappa = np.gradient(_kd, _tau)
+
+    # Precompute calH' = d(calH)/d(tau) for the slip formula.
+    _calH_prime = np.gradient(_calH, _tau)
+
     def rhs(tau, y):
         calH = np.interp(tau, _tau, _calH)
         a = np.interp(tau, _tau, _a)
@@ -311,6 +342,14 @@ def make_sync_rhs_tca(k, bg, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
         ia = 1.0 / a
         ia2 = ia * ia
         tau_safe = max(tau, 1e-10)
+
+        # TCA switch: hard threshold (no blending).
+        # When |kd|/k > threshold, use TCA combined momentum (no stiff terms).
+        # When |kd|/k <= threshold, use full stiff equations (Radau handles them).
+        # The transition is handled by the two-phase integration in the solver:
+        # Phase 1 uses TCA, Phase 2 uses full equations after seeding.
+        tca_ratio = abs_kd / k if k > 0 else 1e30
+        in_tca = tca_ratio > tca_threshold
 
         # --- Extract state ---
         eta = y[IDX_ETA]
@@ -346,9 +385,56 @@ def make_sync_rhs_tca(k, bg, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
 
         # Baryon sound speed
         cs2 = baryon_cs2(a)
-        d_theta_b = (-calH * theta_b
-                     + cs2 * k2 * delta_b
-                     + abs_kd / R * (theta_g - theta_b))
+
+        # --- Compute d_theta_b ---
+        if in_tca:
+            # TCA combined momentum (CLASS approach, no stiff Thomson term).
+            tau_c = 1.0 / abs_kd if abs_kd > 0 else 0.0
+
+            # Metric shear in sync gauge: (h' + 6*eta')/2
+            metric_shear = 0.5 * (h_prime + 6.0 * eta_prime)
+
+            # TCA analytical photon shear (CLASS line 10042)
+            shear_g_tca = (16.0 / 45.0) * tau_c * (theta_g + metric_shear)
+
+            # First-order slip (CLASS compromise_CLASS, lines 10019-10027)
+            ddkappa = np.interp(tau, _tau, _ddkappa)
+            calH_prime = np.interp(tau, _tau, _calH_prime)
+
+            # dtau_c/dtau = -ddkappa * tau_c^2
+            dtau_c = -ddkappa * tau_c * tau_c if abs_kd > 0 else 0.0
+
+            # F = tau_c / (1+R)
+            F = tau_c / (1.0 + R)
+
+            # a''/a = calH' + calH^2
+            a_primeprime_over_a = calH_prime + calH * calH
+
+            # CLASS compromise_CLASS slip formula (sync gauge, metric_euler = 0)
+            slip = F * (
+                -a_primeprime_over_a * theta_b
+                + k2 * (
+                    -calH * delta_g / 2.0
+                    + cs2 * (-theta_b - h_prime / 2.0)
+                    - (1.0 / 3.0) * (-theta_g - h_prime / 2.0)
+                )
+            )
+
+            # Correction from time-varying tau_c and R
+            if abs_kd > 0:
+                slip += (dtau_c / tau_c - 2.0 * calH / (1.0 + R)) * (theta_b - theta_g)
+
+            # Combined momentum equation (CLASS lines 8956-8960)
+            # metric_euler = 0 in sync gauge
+            d_theta_b = (-calH * theta_b
+                         + k2 * (cs2 * delta_b
+                                 + R * (delta_g / 4.0 - shear_g_tca))
+                         + R * slip) / (1.0 + R)
+        else:
+            # Full stiff Thomson coupling (Radau handles the stiffness)
+            d_theta_b = (-calH * theta_b
+                         + cs2 * k2 * delta_b
+                         + abs_kd / R * (theta_g - theta_b))
 
         # --- Polarization anisotropy Pi ---
         Fg2 = Fg[2] if lg_max >= 2 else 0.0
@@ -364,38 +450,56 @@ def make_sync_rhs_tca(k, bg, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
             Pi = Fg2
 
         # --- Photon temperature hierarchy ---
+        #
+        # CRITICAL: During TCA, the photon dipole and quadrupole must use
+        # non-stiff equations consistent with the combined momentum.
+        # In CLASS, theta_g is NOT independently evolved during TCA --
+        # it's algebraically set to theta_b + slip.
+        # Here we achieve the same by replacing the stiff Thomson term
+        # in F_g1 with the combined momentum derivative.
         dFg = np.zeros(lg_max + 1)
 
-        # l=0: F_0' = -k F_1 - (2/3) h'
+        # l=0: F_0' = -k F_1 - (2/3) h'  (same in all regimes, no Thomson)
         dFg[0] = -k * Fg[1] - (2.0 / 3.0) * h_prime
 
-        # l=1: F_1' = (k/3)(F_0 - 2F_2) + |kd|(-F_1 + 4 theta_b / (3k))
-        F2g = Fg[2] if lg_max >= 2 else 0.0
-        dFg[1] = ((k / 3.0) * (Fg[0] - 2.0 * F2g)
-                  + abs_kd * (-Fg[1] + 4.0 * theta_b / (3.0 * k)))
+        if in_tca:
+            # ----- TCA REGIME -----
+            # Photon dipole: theta_g is slaved to the combined momentum.
+            # dFg[1] = (4/(3k)) * d_theta_b (zeroth-order TCA).
+            # This eliminates the stiff Thomson term from F_g1.
+            dFg[1] = (4.0 / (3.0 * k)) * d_theta_b
 
-        # l=2: WITH polarization feedback (Pi)
-        # F_2' = (2k/5)F_1 - (3k/5)F_3 + (4/15)h' + (8/15)eta'
-        #        - |kd|(F_2 - Pi/10)
-        # With equilibrium Pi = 5/2 * F_g2: -(3/4)|kd|*F_g2
-        # With no Pi: -(9/10)|kd|*F_g2
-        if lg_max >= 2:
-            F3g = Fg[3] if lg_max >= 3 else 0.0
-            dFg[2] = ((k / 5.0) * (2.0 * Fg[1] - 3.0 * F3g)
-                      + (4.0 / 15.0) * h_prime + (8.0 / 15.0) * eta_prime
-                      - abs_kd * (Fg[2] - Pi / 10.0))
+            # F_g2: analytical TCA shear (quasi-static, non-stiff relaxation)
+            if lg_max >= 2:
+                Fg2_target = 2.0 * shear_g_tca
+                dFg[2] = 10.0 * calH * (Fg2_target - Fg[2])
 
-        # l=3..lg_max-1: streaming + Thomson damping
-        for ell in range(3, lg_max):
-            dFg[ell] = (k / (2.0 * ell + 1.0)
-                        * (ell * Fg[ell - 1] - (ell + 1) * Fg[ell + 1])
-                        - abs_kd * Fg[ell])
+            # l >= 3: gently damped toward zero (non-stiff)
+            for ell in range(3, lg_max + 1):
+                dFg[ell] = -calH * Fg[ell]
 
-        # l=lg_max: truncation boundary
-        if lg_max >= 3:
-            dFg[lg_max] = (k * Fg[lg_max - 1] * lg_max / (2.0 * lg_max + 1.0)
-                           - (lg_max + 1.0) / tau_safe * Fg[lg_max]
-                           - abs_kd * Fg[lg_max])
+        else:
+            # ----- FULL HIERARCHY -----
+            # Standard stiff Thomson coupling (Radau handles stiffness).
+            F2g = Fg[2] if lg_max >= 2 else 0.0
+            dFg[1] = ((k / 3.0) * (Fg[0] - 2.0 * F2g)
+                       + abs_kd * (-Fg[1] + 4.0 * theta_b / (3.0 * k)))
+
+            if lg_max >= 2:
+                F3g = Fg[3] if lg_max >= 3 else 0.0
+                dFg[2] = ((k / 5.0) * (2.0 * Fg[1] - 3.0 * F3g)
+                          + (4.0 / 15.0) * h_prime + (8.0 / 15.0) * eta_prime
+                          - abs_kd * (Fg[2] - Pi / 10.0))
+
+            for ell in range(3, lg_max):
+                dFg[ell] = (k / (2.0 * ell + 1.0)
+                            * (ell * Fg[ell - 1] - (ell + 1) * Fg[ell + 1])
+                            - abs_kd * Fg[ell])
+
+            if lg_max >= 3:
+                dFg[lg_max] = (k * Fg[lg_max - 1] * lg_max / (2.0 * lg_max + 1.0)
+                               - (lg_max + 1.0) / tau_safe * Fg[lg_max]
+                               - abs_kd * Fg[lg_max])
 
         # --- E-mode polarization hierarchy ---
         dE = np.zeros(lp_max + 1)

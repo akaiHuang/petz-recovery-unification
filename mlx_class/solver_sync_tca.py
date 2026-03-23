@@ -117,44 +117,56 @@ def find_tca_switch_time(bg, k, tau_c_over_tau_h_thr=0.015,
 
 def solve_single_k_tca(k, bg, tau_end, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
                        ln_max=L_NU_MAX_SYNC, method='Radau', rtol=1e-6,
-                       atol=1e-9, use_tca_seeding=True, pol_approx='equilibrium'):
+                       atol=1e-9, use_tca_seeding=True, pol_approx='equilibrium',
+                       tca_threshold=30.0):
     """
     Solve the synchronous gauge Boltzmann equations for a single k-mode
-    with CLASS-style TCA seeding at the switch point.
+    with CLASS-style TCA combined momentum + seeding at the switch point.
 
     Two-phase integration (when use_tca_seeding=True):
-      Phase 1: tau_init -> tau_switch (full hierarchy, F_gamma,2 ~ 0 early)
-      Phase 2: tau_switch -> tau_end  (full hierarchy with seeded F_gamma,2)
+      Phase 1: tau_init -> tau_switch
+        Uses TCA combined momentum equation (no stiff Thomson term).
+        The photon dipole tracks theta_b, and F_g2 is analytically determined.
+        This eliminates ALL stiffness from the early-time integration.
+      Phase 2: tau_switch -> tau_end
+        Uses full stiff Thomson coupling equations (tca_threshold=0).
+        Radau handles the stiffness efficiently.
+        At the switch, F_g2, F_g3, and polarization are seeded from TCA formulas.
 
-    When use_tca_seeding=False: single-shot integration, let Radau find the
-    stiff equilibrium naturally. The polarization hierarchy still provides
-    the correct Pi feedback to reduce effective Silk damping.
+    When use_tca_seeding=False: single-shot integration with full stiff equations.
     """
     tau_init = float(bg.tau_grid[1])
 
-    rhs_fn, nvar = make_sync_rhs_tca(k, bg, lg_max, lp_max, ln_max,
-                                     pol_approx=pol_approx)
+    # Full RHS (no TCA, stiff Thomson) -- used for Phase 2 and single-shot
+    rhs_fn_full, nvar = make_sync_rhs_tca(k, bg, lg_max, lp_max, ln_max,
+                                           pol_approx=pol_approx,
+                                           tca_threshold=0.0)
     y0 = adiabatic_ic_sync_tca(k, tau_init, lg_max, lp_max, ln_max)
 
     if not use_tca_seeding:
         # Single-shot: let Radau handle the stiff dynamics
-        sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
+        sol = solve_ivp(rhs_fn_full, [tau_init, tau_end], y0,
                         method=method, dense_output=True,
                         rtol=rtol, atol=atol)
         return sol
+
+    # TCA RHS (combined momentum, no stiff terms) -- used for Phase 1
+    rhs_fn_tca, _ = make_sync_rhs_tca(k, bg, lg_max, lp_max, ln_max,
+                                       pol_approx=pol_approx,
+                                       tca_threshold=tca_threshold)
 
     # Two-phase with TCA seeding
     tau_switch = find_tca_switch_time(bg, k)
     tau_switch = min(tau_switch, tau_end * 0.9)
 
     if tau_switch > tau_init * 3 and tau_switch < tau_end * 0.8:
-        # Phase 1: evolve to TCA switch point
-        sol1 = solve_ivp(rhs_fn, [tau_init, tau_switch], y0,
+        # Phase 1: evolve with TCA equations (non-stiff, fast)
+        sol1 = solve_ivp(rhs_fn_tca, [tau_init, tau_switch], y0,
                          method=method, dense_output=True,
                          rtol=rtol, atol=atol)
         if not sol1.success:
-            # Fallback: no TCA seeding
-            sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
+            # Fallback: no TCA seeding, use full equations throughout
+            sol = solve_ivp(rhs_fn_full, [tau_init, tau_end], y0,
                             method=method, dense_output=True,
                             rtol=rtol, atol=atol)
             return sol
@@ -178,8 +190,8 @@ def solve_single_k_tca(k, bg, tau_end, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
                            a_switch, lg_max, lp_max,
                            h_prime_sw, eta_prime_sw, R_switch)
 
-        # Phase 2: evolve from switch to end
-        sol2 = solve_ivp(rhs_fn, [tau_switch, tau_end], y_switch,
+        # Phase 2: evolve with full stiff equations (Radau handles stiffness)
+        sol2 = solve_ivp(rhs_fn_full, [tau_switch, tau_end], y_switch,
                          method=method, dense_output=True,
                          rtol=rtol, atol=atol)
 
@@ -201,8 +213,8 @@ def solve_single_k_tca(k, bg, tau_end, lg_max=L_GAMMA_MAX, lp_max=L_POL_MAX,
         combined = CombinedSolution(sol1, sol2, tau_switch)
         return combined
     else:
-        # No TCA phase or switch too late; solve in one shot
-        sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
+        # No TCA phase or switch too late; solve in one shot with full equations
+        sol = solve_ivp(rhs_fn_full, [tau_init, tau_end], y0,
                         method=method, dense_output=True,
                         rtol=rtol, atol=atol)
         return sol
@@ -248,25 +260,34 @@ def _solve_single_k_tca_worker(args):
     tau_switch = find_tca_switch_time(bg_lite, k)
     tau_switch = min(tau_switch, tau_end * 0.9)
 
-    rhs_fn, nvar = make_sync_rhs_tca(k, bg_lite, lg_max, lp_max, ln_max,
-                                     pol_approx=pol_approx)
+    # Build two RHS functions:
+    # Phase 1 (TCA): combined momentum, no stiff Thomson terms
+    # Phase 2 (full): standard stiff Thomson coupling
+    rhs_fn_full, nvar = make_sync_rhs_tca(k, bg_lite, lg_max, lp_max, ln_max,
+                                           pol_approx=pol_approx,
+                                           tca_threshold=0.0)
+    rhs_fn_tca, _ = make_sync_rhs_tca(k, bg_lite, lg_max, lp_max, ln_max,
+                                       pol_approx=pol_approx,
+                                       tca_threshold=30.0)
     y0 = adiabatic_ic_sync_tca(k, tau_init, lg_max, lp_max, ln_max)
 
     # Integration: either two-phase with TCA seeding or single-shot
     if not use_tca_seeding:
         # Single-shot: let Radau handle stiff equilibrium
-        sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
+        sol = solve_ivp(rhs_fn_full, [tau_init, tau_end], y0,
                         method=method, dense_output=True,
                         rtol=rtol, atol=atol)
         if not sol.success:
             return None
         sol_combined = sol
     elif tau_switch > tau_init * 3 and tau_switch < tau_end * 0.8:
-        sol1 = solve_ivp(rhs_fn, [tau_init, tau_switch], y0,
+        # Phase 1: TCA equations (non-stiff, fast)
+        sol1 = solve_ivp(rhs_fn_tca, [tau_init, tau_switch], y0,
                          method=method, dense_output=True,
                          rtol=rtol, atol=atol)
         if not sol1.success:
-            sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
+            # Fallback: full equations throughout
+            sol = solve_ivp(rhs_fn_full, [tau_init, tau_end], y0,
                             method=method, dense_output=True,
                             rtol=rtol, atol=atol)
             if not sol.success:
@@ -290,7 +311,8 @@ def _solve_single_k_tca_worker(args):
             seed_tca_at_switch(y_switch, k, abs_kd_sw, calH_sw, a_sw,
                                lg_max, lp_max, h_prime_sw, eta_prime_sw, R_sw)
 
-            sol2 = solve_ivp(rhs_fn, [tau_switch, tau_end], y_switch,
+            # Phase 2: full stiff equations (Radau handles stiffness)
+            sol2 = solve_ivp(rhs_fn_full, [tau_switch, tau_end], y_switch,
                              method=method, dense_output=True,
                              rtol=rtol, atol=atol)
             if not sol2.success:
@@ -307,7 +329,8 @@ def _solve_single_k_tca_worker(args):
 
             sol_combined = _Combined(sol1, sol2, tau_switch)
     else:
-        sol = solve_ivp(rhs_fn, [tau_init, tau_end], y0,
+        # No TCA phase or switch too late; solve with full equations
+        sol = solve_ivp(rhs_fn_full, [tau_init, tau_end], y0,
                         method=method, dense_output=True,
                         rtol=rtol, atol=atol)
         if not sol.success:
