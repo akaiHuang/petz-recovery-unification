@@ -1,0 +1,561 @@
+% paper9_AF_extension.tex
+% Extension to the Internal Space: Sigma on A_F
+% Author: Sheng-Kai Huang
+% This file is a self-contained section (~4 pages)
+% to be appended to paper9_spectral_fisher.tex
+% between the Discussion and Acknowledgments sections.
+%
+% Compile: standalone or paste into paper9_spectral_fisher.tex
+%
+% Requires: same preamble as paper9_spectral_fisher.tex
+%   \documentclass[prl,twocolumn,superscriptaddress,longbibliography]{revtex4-2}
+%   \usepackage{amsmath,amssymb,amsfonts,bm,hyperref}
+%   \newcommand{\kB}{k_{\mathrm{B}}}
+%   \newcommand{\Tr}{\mathrm{Tr}}
+%   \newcommand{\tr}{\mathrm{tr}}
+%   \newcommand{\SvN}{S_{\mathrm{vN}}}
+%   \newcommand{\nF}{n_{\mathrm{F}}}
+
+%=======================================================================
+\section{Extension to the internal space}
+\label{sec:AF}
+%=======================================================================
+
+The preceding sections establish $\Sigma = 2\ln Q$ as the
+Fisher information of the $a_2$ sector under
+\emph{outer} (conformal) deformation of the
+metric~[KNOWN, Paper~9 main body].
+The matter content of the Standard Model resides in
+$a_4$ and is invisible to this conformal probe
+($g_{QQ}^{(2)} = 0$).
+Here we show how \emph{inner} fluctuations of
+the Dirac operator on the finite spectral triple
+$(\mathcal{A}_F,\, \mathcal{H}_F,\, D_F)$
+give rise to a complementary measure
+$\Sigma_F$ that encodes the full gauge and
+Yukawa sectors~[NEW].
+
+
+%-----------------------------------------------------------------------
+\subsection{Inner fluctuations and the finite triple}
+\label{sec:inner}
+%-----------------------------------------------------------------------
+
+In the Chamseddine--Connes
+framework~\cite{CC1996,vS2024}, the Standard Model
+is encoded in the almost-commutative geometry
+$M^4 \times F$, where $F$ is a finite
+spectral triple with algebra~[KNOWN]
+\begin{equation}\label{eq:AF}
+  \mathcal{A}_F
+  = \mathbb{C} \oplus \mathbb{H}
+    \oplus M_3(\mathbb{C})\,.
+\end{equation}
+The Hilbert space $\mathcal{H}_F
+= \mathbb{C}^{96}$ carries three generations
+of fermion representations, and the finite Dirac
+operator $D_F$ encodes Yukawa couplings and
+the CKM matrix~\cite{vS2024}~[KNOWN].
+
+Gauge fields and the Higgs doublet arise as
+\emph{inner fluctuations}~\cite{CC1996,Connes2006}:
+\begin{equation}\label{eq:DA}
+  D \;\to\; D_A
+  = D + A + \varepsilon'\, J A J^{-1}\,,
+\end{equation}
+where $A = \sum_i a_i [D, b_i]$
+$(a_i, b_i \in C^\infty(M) \otimes \mathcal{A}_F)$
+and $J$ is the real structure operator of
+KO-dimension~$6$~[KNOWN].
+The decomposition of $A$ on $M^4 \times F$
+yields~\cite{vS2024}~[KNOWN]:
+\begin{itemize}
+\item a $\mathrm{U}(1)_Y \times \mathrm{SU}(2)_L
+\times \mathrm{SU}(3)_C$ gauge field
+$A_\mu$ from the manifold directions;
+\item a Higgs doublet $H \in (1,2,\tfrac{1}{2})$
+from the finite (off-diagonal) directions.
+\end{itemize}
+
+The spectral action
+$\Tr\, f(D_A^2/\Lambda^2)$, expanded via
+the heat kernel, gives the full bosonic
+Lagrangian of the Standard Model
+coupled to gravity~\cite{CC1996,CC2007,vS2024},
+with gauge coupling
+unification at $\Lambda$ and the
+tree-level prediction
+$\sin^2\theta_W = 3/8$~[KNOWN].
+
+
+%-----------------------------------------------------------------------
+\subsection{Definition of $\Sigma_F$}
+\label{sec:SigmaF}
+%-----------------------------------------------------------------------
+
+We define the internal QRE as
+the Umegaki relative entropy between the
+Gibbs state of the full (fluctuated) Dirac
+operator and the Gibbs state of the free
+(unfluctuated) Dirac operator~[NEW]:
+\begin{equation}\label{eq:SigmaF_def}
+  \boxed{\;
+  \Sigma_F
+  \;\equiv\;
+  D\!\left(\rho_A \,\big\|\, \rho_0\right)
+  \;}
+\end{equation}
+where
+\begin{align}
+  \rho_A &= e^{-\beta\, D_A^2}\big/\, Z_A\,,
+  \label{eq:rhoA}\\
+  \rho_0 &= e^{-\beta\, D^{\,2}}\big/\, Z_0\,,
+  \label{eq:rho0}
+\end{align}
+and $\beta = 1/\Lambda^2$ is the spectral
+inverse temperature.
+
+By the standard identity for the QRE between
+Gibbs states at the same $\beta$~[KNOWN],
+\begin{align}\label{eq:SigmaF_expand}
+  \Sigma_F
+  &= \beta\,\bigl(
+    \langle D^2 \rangle_{\!\rho_A}
+    - \langle D_A^2 \rangle_{\!\rho_A}
+  \bigr)
+  + \ln Z_A - \ln Z_0
+  \nonumber\\[4pt]
+  &= \beta\,\bigl\langle
+    D^2 - D_A^2
+  \bigr\rangle_{\!\rho_A}
+  - \beta\,(F_A - F_0)\,,
+\end{align}
+where $F = -\beta^{-1}\ln Z$ is the
+free energy~[KNOWN].
+
+Substituting
+$D_A^2 = D^2 + \{D,A_{\mathrm{in}}\}
++ A_{\mathrm{in}}^2$
+(with $A_{\mathrm{in}} \equiv A + JAJ^{-1}$):
+\begin{equation}\label{eq:SigmaF_inner}
+  \Sigma_F
+  = -\beta\,\bigl\langle
+    \{D,A_{\mathrm{in}}\}
+    + A_{\mathrm{in}}^2
+  \bigr\rangle_{\!\rho_A}
+  - \beta\,(F_A - F_0)\,.
+\end{equation}
+
+
+%-----------------------------------------------------------------------
+\subsection{Variation of $\Sigma_F$ yields
+the SM field equations}
+\label{sec:variation}
+%-----------------------------------------------------------------------
+
+We now show that
+$\delta_A \Sigma_F = 0$ reproduces the
+Euler--Lagrange equations of the
+spectral action~[NEW].
+
+\emph{Proof sketch.}---Consider a
+one-parameter family of inner fluctuations
+$A(\varepsilon) = \varepsilon\, A^{(1)}$.
+The QRE $\Sigma_F(\varepsilon) = D(\rho_\varepsilon \| \rho_0)$
+satisfies $\Sigma_F(0) = 0$, and
+its first derivative with respect to the
+fluctuation parameter is~[KNOWN, standard QIT]
+\begin{equation}\label{eq:first_var}
+  \frac{d}{d\varepsilon}\,
+  D(\rho_\varepsilon \| \rho_0)
+  = \Tr\!\left[
+    \frac{d\rho_\varepsilon}{d\varepsilon}
+    \bigl(\ln\rho_\varepsilon - \ln\rho_0\bigr)
+  \right].
+\end{equation}
+
+The physical field equations arise from varying
+$\Sigma_F$ with respect to the gauge and Higgs
+fields at a \emph{fixed} (physical) value
+of~$A$:
+\begin{equation}\label{eq:variation_principle}
+  \delta_A \Sigma_F = 0\,.
+\end{equation}
+
+Using Eq.~\eqref{eq:SigmaF_expand} and
+the CCSvS identification~\cite{CCSvS2018}
+$\SvN(\rho_\beta) = \Tr\, h(\beta D)
+= S_{\mathrm{spectral}}$~[KNOWN],
+the variation splits into~[NEW]
+\begin{align}\label{eq:var_split}
+  \delta_A \Sigma_F
+  &= \beta\,\delta_A
+    \bigl\langle D^2 \bigr\rangle_{\!\rho_A}
+  - \delta_A \SvN(\rho_A)
+  \nonumber\\
+  &= \beta\,\delta_A
+    \bigl\langle D^2 \bigr\rangle_{\!\rho_A}
+  - \delta_A S_{\mathrm{spectral}}\,.
+\end{align}
+
+The first term is a boundary contribution
+that vanishes for compact~$M$
+(integration by parts on the trace).
+Therefore,~[NEW]
+\begin{equation}\label{eq:equivalence}
+  \delta_A \Sigma_F = 0
+  \quad\Longleftrightarrow\quad
+  \delta_A S_{\mathrm{spectral}} = 0\,,
+\end{equation}
+and the SM field equations follow
+identically to the standard NCG
+derivation~\cite{CC1996,CC2007,vS2024}:
+\begin{align}
+  \delta_{A_\mu}\, S_{\mathrm{spectral}} = 0
+    &\implies \text{Yang--Mills equations}\,,
+    \label{eq:YM}\\
+  \delta_H\, S_{\mathrm{spectral}} = 0
+    &\implies \text{Higgs field equation}\,,
+    \label{eq:Higgs}\\
+  \delta_g\, S_{\mathrm{spectral}} = 0
+    &\implies \text{Einstein equation}\,.
+    \label{eq:Einstein}
+\end{align}
+
+
+%-----------------------------------------------------------------------
+\subsection{Fisher metric on the gauge parameter space}
+\label{sec:gauge_fisher}
+%-----------------------------------------------------------------------
+
+The second-order expansion of $\Sigma_F$ in the
+inner fluctuation defines the Fisher information
+metric on the space of gauge
+configurations~[NEW]:
+\begin{equation}\label{eq:FisherF}
+  \Sigma_F(\varepsilon)
+  = \frac{\varepsilon^2}{2}\,
+    g_{AA}^{\mathrm{Fisher}}
+  + \mathcal{O}(\varepsilon^3)\,,
+\end{equation}
+where
+\begin{equation}\label{eq:gAA}
+  g_{AA}^{\mathrm{Fisher}}
+  = \frac{d^2}{d\varepsilon^2}\,
+    D(\rho_\varepsilon \| \rho_0)
+    \Big|_{\varepsilon = 0}
+  = \beta^2\,
+    \mathrm{Var}(A_{\mathrm{in}}^{(1)})_{\rho_0}\,.
+\end{equation}
+
+By the CCSvS identification,
+$g_{AA}^{\mathrm{Fisher}}$ equals the
+second variation of the spectral
+action~[NEW]:
+\begin{equation}\label{eq:gAA_spectral}
+  g_{AA}^{\mathrm{Fisher}}
+  = -\frac{\delta^2\, \SvN}
+    {\delta A\, \delta A}
+    \bigg|_{A=0}
+  + \beta\,
+    \frac{\delta^2\,
+    \langle D^2 \rangle}
+    {\delta A\, \delta A}
+    \bigg|_{A=0}\,.
+\end{equation}
+
+For the gauge sector,
+the dominant contribution comes from the
+$a_4$ coefficient of the heat kernel.
+Since the spectral action evaluated at $a_4$
+contains the Yang--Mills
+term~\cite{CC1996,vS2024}~[KNOWN]
+\begin{equation}\label{eq:a4_gauge}
+  S^{(4)}_{\mathrm{gauge}}
+  = \frac{f_0}{2\pi^2}
+    \int\! d^4x\,\sqrt{g}\;
+    \sum_{i=1}^{3}\,
+    \frac{1}{g_i^2}\,
+    F_{\mu\nu}^{(i)}\, F^{(i)\mu\nu}\,,
+\end{equation}
+the Fisher metric decomposes along the
+gauge algebra $\mathfrak{g}
+= \mathfrak{u}(1) \oplus \mathfrak{su}(2)
+\oplus \mathfrak{su}(3)$
+as~[NEW]
+\begin{equation}\label{eq:gAA_decomp}
+  g_{AA}^{\mathrm{Fisher}}
+  = g^{\mathrm{U}(1)}
+  \oplus g^{\mathrm{SU}(2)}
+  \oplus g^{\mathrm{SU}(3)}\,,
+\end{equation}
+with relative normalizations determined by
+the quadratic Casimirs of the representations
+appearing in $\mathcal{H}_F$~[KNOWN]:
+\begin{equation}\label{eq:coupling_ratio}
+  g_3^2 = g_2^2
+  = \tfrac{5}{3}\, g_1^2
+  \qquad\text{at } \Lambda\,.
+\end{equation}
+
+
+%-----------------------------------------------------------------------
+\subsection{Weinberg angle as a Fisher metric ratio}
+\label{sec:Weinberg}
+%-----------------------------------------------------------------------
+
+The gauge coupling unification
+condition~\eqref{eq:coupling_ratio}
+has a direct information-geometric
+interpretation~[NEW].
+Define the electroweak Fisher information
+as the sum of the $\mathrm{U}(1)_Y$
+and $\mathrm{SU}(2)_L$ contributions:
+\begin{equation}\label{eq:g_EW}
+  g_{\mathrm{EW}}
+  = g^{\mathrm{U}(1)} + g^{\mathrm{SU}(2)}\,.
+\end{equation}
+The weak mixing angle at the unification
+scale is~[NEW interpretation of KNOWN result]
+\begin{equation}\label{eq:sin2theta}
+  \boxed{\;
+  \sin^2\theta_W
+  = \frac{g^{\mathrm{U}(1)}}{g_{\mathrm{EW}}}
+  = \frac{g_1^2}{g_1^2 + g_2^2}
+  = \frac{3/5}{3/5 + 1}
+  = \frac{3}{8}
+  \;}
+\end{equation}
+at the GUT scale $\Lambda$.
+The value $3/8$ is entirely determined by
+the algebra~$\mathcal{A}_F$;
+the $\Sigma$ framework does not modify it
+but identifies it as the \emph{fraction of
+electroweak Fisher information carried by the
+hypercharge sector}~[NEW].
+
+Below $\Lambda$, renormalization group running
+modifies this to
+$\sin^2\theta_W(M_Z) \approx 0.231$,
+in agreement with experiment~[KNOWN].
+
+
+%-----------------------------------------------------------------------
+\subsection{Orthogonality of outer and inner sectors}
+\label{sec:orthogonality}
+%-----------------------------------------------------------------------
+
+The total $\Sigma$ decomposes as~[NEW]
+\begin{equation}\label{eq:Sigma_total}
+  \Sigma_{\mathrm{total}}
+  = \Sigma_{\mathrm{grav}}
+  + \Sigma_F\,,
+\end{equation}
+where $\Sigma_{\mathrm{grav}} = 2\ln Q$
+(outer, $a_2$ sector) and
+$\Sigma_F = D(\rho_A \| \rho_0)$
+(inner, $a_4$ sector).
+
+\emph{Claim}~[NEW]:
+The cross-term of the Fisher metric
+vanishes,
+\begin{equation}\label{eq:cross}
+  g_{Q A}
+  \;\equiv\;
+  \frac{\partial^2\, \Sigma_{\mathrm{total}}}
+  {\partial Q\,\partial A}
+  \bigg|_{Q=1,\, A=0}
+  = 0\,.
+\end{equation}
+
+\emph{Proof.}---Under constant conformal
+rescaling $g \to Q^2 g$,
+the gauge field strength transforms
+as~\cite{Wald1984}~[KNOWN]
+\begin{equation}
+  \hat{F}_{\mu\nu}\, \hat{F}^{\mu\nu}
+  = F_{\mu\nu}\, F^{\mu\nu}
+\end{equation}
+(conformal invariance of Yang--Mills in
+$d=4$~[KNOWN]).
+Therefore $S_{\mathrm{spectral}}$ evaluated
+on the gauge sector is independent
+of~$Q$, and all mixed
+$Q$-$A$ derivatives vanish.
+\hfill$\square$
+
+\emph{Physical meaning.}---Gravity
+($\Sigma_{\mathrm{grav}}$) and the
+gauge sector ($\Sigma_F$) are
+\emph{independent channels of entropy
+production} at the Fisher-metric level.
+This decoupling is specific to $d=4$:
+in $d \neq 4$, the $a_4$ sector is
+\emph{not} conformally invariant,
+and the mixed Fisher metric would be
+nonzero~[NEW].
+
+
+%-----------------------------------------------------------------------
+\subsection{Summary and outlook}
+\label{sec:AF_summary}
+%-----------------------------------------------------------------------
+
+Table~\ref{tab:bridge} collects the
+results of the extension.
+
+\begin{table}[t]
+\centering
+\caption{Bridge from gravity to the Standard
+Model via $\Sigma$ on $M^4 \times F$.
+The spectral action serves as the entropy
+potential for both sectors.
+Outer fluctuations (conformal~$Q$) probe
+the $a_2$ sector and yield
+$\Sigma_{\mathrm{grav}} = 2\ln Q$;
+inner fluctuations (gauge $A$, Higgs $H$)
+probe the $a_4$ sector and yield
+$\Sigma_F$ whose variation reproduces the
+SM field equations.}
+\label{tab:bridge}
+\begin{ruledtabular}
+\begin{tabular}{lcc}
+ & \textbf{Outer} (gravity)
+ & \textbf{Inner} (SM) \\
+\colrule
+Deformation
+ & $g \to Q^2 g$
+ & $D \to D_A$ \\
+Parameter
+ & $Q$ (lapse)
+ & $A_\mu, H$ \\
+Heat kernel sector
+ & $a_2$
+ & $a_4$ \\
+Conformal scaling
+ & $Q^2$
+ & $Q^0$ (invariant) \\
+Fisher metric
+ & $2/Q^2$
+ & SM kinetic terms \\
+$\Sigma$
+ & $2\ln Q$
+ & $D(\rho_A \| \rho_0)$ \\
+Field equations
+ & Einstein
+ & YM + Higgs \\
+Cross-coupling
+ & \multicolumn{2}{c}{$g_{QA} = 0$ (orthogonal)} \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+The outer--inner decomposition yields a
+unified variational principle~[NEW]:
+\begin{equation}\label{eq:master}
+  \delta\Sigma_{\mathrm{total}}
+  = \delta\Sigma_{\mathrm{grav}}
+  + \delta\Sigma_F
+  = 0
+\end{equation}
+recovers the \emph{full} set of
+coupled Einstein--Yang-Mills--Higgs
+equations.
+The orthogonality~\eqref{eq:cross}
+ensures that the gravitational and
+matter sectors can be extremized
+independently at the Fisher (quadratic)
+level.
+
+Several questions remain open.
+
+\emph{(i) Lorentzian signature.}---The
+CCSvS entropy and the spectral action
+are formulated in Euclidean signature.
+A Lorentzian extension requires
+the Krein spectral triple
+framework~\cite{vandenDungen2016,Besnard2017},
+which is not yet fully developed
+for $M \times F$.
+
+\emph{(ii) The Khronon as dilaton.}---If
+the Khronon field $\phi$ is identified with
+the Chamseddine--Connes
+dilaton~\cite{CC2006}
+via $\phi = -\ln Q$, the ghost
+condensation mechanism~\cite{BS2024}
+would provide a natural scale-breaking
+mechanism within the spectral action.
+However, the Khronon mass
+$\mu_0 \sim H_0/c \sim 10^{-33}\,\mathrm{eV}$
+is $\sim 47$ orders of magnitude below
+the natural spectral action scale, and
+this hierarchy is not explained by the
+present framework.
+
+\emph{(iii) Fermion masses.}---The Dirac
+operator $D_F$ encodes Yukawa couplings
+as its off-diagonal entries, and the spectral
+action produces the correct Yukawa
+interaction terms~\cite{CC1996,vS2024}.
+Within the $\Sigma$ framework, the Yukawa
+couplings enter as components of the
+internal Fisher metric
+$g_{AA}^{\mathrm{Fisher}}$.
+Predicting their numerical values
+requires additional input beyond the
+algebra $\mathcal{A}_F$---potentially
+the exceptional Jordan algebra
+$J_3(\mathbb{O})$ of
+Refs.~\cite{Singh2025,FureyHughes2024},
+where the three-eigenvalue structure
+could arise from $\Sigma$
+extremization~[SPECULATIVE].
+
+\emph{(iv) Number of generations.}---The
+dimension selection $(d-2)(d-3) = 2
+\Rightarrow d = 4$ has no direct analog
+selecting $N_{\mathrm{gen}} = 3$.
+The number of generations is an input in
+the NCG framework (the rank of $D_F$).
+A derivation from $\Sigma$ principles
+would require the framework of $J_3(\mathbb{O})$
+(uniqueness of the exceptional Jordan
+algebra) or $\mathrm{SO}(8)$
+triality~\cite{BaezHuerta2010,FureyHughes2024},
+and remains an open problem.
+
+
+%=======================================================================
+% Additional references needed for the extension
+%=======================================================================
+
+% Add these to the bibliography of paper9_spectral_fisher.tex:
+%
+% \bibitem{Connes2006}
+% A.~Connes,
+% ``Noncommutative geometry and the Standard Model with neutrino mixing,''
+% J.\ High Energy Phys.\ \textbf{11}, 081 (2006).
+%
+% \bibitem{CC2007}
+% A.~H.~Chamseddine and A.~Connes,
+% ``Why the Standard Model,''
+% J.\ Geom.\ Phys.\ \textbf{58}, 38 (2008);
+% arXiv:0706.3688.
+%
+% \bibitem{Singh2025}
+% T.~P.~Singh,
+% ``Fermion mass ratios from the exceptional Jordan algebra,''
+% arXiv:2508.10131 (2025).
+%
+% \bibitem{FureyHughes2024}
+% C.~Furey and N.~Hughes,
+% ``Three generations and a trio of trialities,''
+% Phys.\ Lett.\ B (2025);
+% arXiv:2409.17948.
+%
+% \bibitem{FarnsworthEtAl2026}
+% S.~Farnsworth, F.~Finster, N.~Paganini, and T.~P.~Singh,
+% ``Causal fermion systems, non-commutative geometry
+% and generalized trace dynamics,''
+% arXiv:2603.05018 (2026).
