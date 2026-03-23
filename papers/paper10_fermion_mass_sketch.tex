@@ -1,0 +1,472 @@
+% paper10_fermion_mass_sketch.tex
+% Fermion Mass as Retrodiction Cost in Internal Space
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper10_fermion_mass_sketch.tex
+% Target: 3 pages sketch, PRL style
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+% Macros
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\SvN}{S_{\mathrm{vN}}}
+\newcommand{\AF}{A_{\mathrm{F}}}
+\newcommand{\DF}{D_{\mathrm{F}}}
+\newcommand{\HF}{H_{\mathrm{F}}}
+\newcommand{\Mref}{M_{\mathrm{ref}}}
+\newcommand{\JO}{J_3(\mathbb{O})}
+\newcommand{\Petz}{\mathcal{R}}
+
+\begin{document}
+
+\title{Fermion Mass as Retrodiction Cost:\\
+  $\Sigma$ on $J_3(\mathbb{O})$ and the Electroweak Angle}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+We propose that fermion mass is the cost of retrodiction
+failure in the internal (gauge) space of the Standard Model.
+In the $\Sigma = 2\ln Q$ framework, the temporal asymmetry
+$\tau_f = 1 - F_f$ of fermion~$f$ in the internal spectral
+triple $(\AF, \HF, \DF)$ determines its mass via
+$m_f = \Mref\,\tau_f$.
+We identify the internal quantum relative entropy
+$\Sigma_f = D(\rho_f \| \rho_0)$ with the eigenvalue spectrum
+of the exceptional Jordan algebra~$\JO$, connecting to Singh's
+parameter-free mass ratios~[CONJECTURED].
+A key observation: Singh's universal parameter $\delta^2 = 3/8$
+for $\JO$ eigenvalue spreading \emph{numerically equals}
+the Weinberg angle $\sin^2\theta_W = 3/8$ at GUT scale
+in the Chamseddine--Connes noncommutative geometry~[CONJECTURED].
+If these are algebraically identical---both arising from the
+maximal associative subalgebra $\AF \subset \JO$
+(Boyle~2020)---then fermion mass ratios and the electroweak
+mixing angle share a common information-theoretic origin.
+We outline the derivation program and state clearly which
+steps are proven, conjectured, or speculative.
+\end{abstract}
+
+\maketitle
+
+
+%=======================================================================
+\section{Motivation: Retrodiction cost in internal space}
+\label{sec:motivation}
+%=======================================================================
+
+In companion papers~\cite{PaperI,PaperII,Paper9}, we established
+that the quantum relative entropy (QRE)
+\begin{equation}\label{eq:Sigma}
+  \Sigma = D\bigl(\rho_{\mathrm{st}}
+  \,\big\|\, \rho_{\mathrm{mat}}\bigr) \geq 0
+\end{equation}
+governs the arrow of time ($\tau = 1 - F$, Paper~I~[PROVEN]),
+the gravitational metric ($\Sigma_{\mathrm{grav}} = 2\ln Q$,
+Paper~II~[PROVEN]), and the dimensionality of spacetime
+($d=4$ from the spectral Fisher metric,
+Paper~9~[PROVEN]).
+
+The Standard Model lives on the
+almost-commutative geometry $M \times F$ of
+Connes~\cite{CC1996}, where $F$ is the finite
+internal space with algebra
+$\AF = \mathbb{C} \oplus \mathbb{H}
+\oplus M_3(\mathbb{C})$.
+The finite Dirac operator~$\DF$ encodes Yukawa
+couplings, hence fermion masses~[KNOWN].
+
+We now extend $\Sigma$ to the internal space:
+\begin{equation}\label{eq:Sigma_f}
+  \Sigma_f \;=\; D\bigl(\rho_f \,\big\|\, \rho_0\bigr)_F\,,
+\end{equation}
+where $\rho_f$ is the state of fermion~$f$ in~$\HF$,
+$\rho_0 = I/\dim(\HF)$ is the vacuum reference, and
+the subscript~$F$ denotes restriction to the internal
+algebra~[CONJECTURED].
+
+The fermion mass is then the
+retrodiction cost:
+\begin{equation}\label{eq:mass_formula}
+  \boxed{\;
+  m_f \;=\; \Mref \times \tau_f
+  \;=\; \Mref \times
+  \bigl(1 - e^{-\Sigma_f/2}\bigr)
+  \;}
+\end{equation}
+with $\Mref$ a reference scale identified with the
+electroweak VEV $v = 246$\,GeV~[CONJECTURED].
+
+Eq.~\eqref{eq:mass_formula} has the correct limiting
+behavior:
+\begin{itemize}
+\item $\Sigma_f = 0$: massless (perfect retrodiction,
+  $F_f = 1$, e.g., unbroken gauge symmetry);
+\item $\Sigma_f \gg 1$: $m_f \to \Mref$ (saturation;
+  the top quark at $m_t/v \approx 0.70$ is near this
+  limit);
+\item $\Sigma_f \ll 1$: $m_f \approx \Mref\,\Sigma_f/2$
+  (linear regime for light fermions).
+\end{itemize}
+
+
+%=======================================================================
+\section{$\Sigma_f$ from the spectral action}
+\label{sec:spectral}
+%=======================================================================
+
+Chamseddine, Connes, and van
+Suijlekom~\cite{CCSvS2018} proved that the von~Neumann
+entropy of the fermionic second quantization of a
+spectral triple equals a spectral action:
+$\SvN(\rho_\beta) = \Tr(h(\beta D))$~[KNOWN].
+
+The spectral action on $F$ expands as
+\begin{equation}\label{eq:SF}
+  S_F = \Tr\bigl(f(\DF^2/\Lambda^2)\bigr)
+  \;\approx\; f_0\,\Tr(1)
+  + f_2\,\Lambda^{-2}\,\Tr(\DF^2) + \cdots
+\end{equation}
+The leading mass-dependent term is~[KNOWN]
+\begin{equation}\label{eq:TrDF2}
+  \Tr(\DF^2) = \sum_f N_f\, m_f^2
+  = v^2 \sum_f N_f\, y_f^2\,,
+\end{equation}
+where $N_f$ counts color and chirality
+multiplicities and $y_f$ is the Yukawa coupling.
+
+Identifying $\Sigma_f$ with the contribution of
+fermion~$f$ to the QRE of the internal state:
+\begin{equation}\label{eq:Sigma_Yukawa}
+  \Sigma_f \;\propto\; y_f^2
+  \;=\; \bigl(m_f/v\bigr)^2
+  \qquad\text{[CONJECTURED]}
+\end{equation}
+This is consistent with Eq.~\eqref{eq:mass_formula}
+in the light-fermion regime ($\Sigma_f \ll 1$):
+$m_f \approx v\,\Sigma_f/2 \propto v\, y_f^2/2$,
+which gives $m_f \propto y_f^2$---differing from
+the usual $m_f = y_f v/\sqrt{2}$.
+The resolution is that
+Eq.~\eqref{eq:mass_formula} determines $\tau_f$
+(the dimensionless asymmetry), not $m_f$ directly.
+The correct identification is:
+\begin{equation}\label{eq:tau_y}
+  \tau_f = y_f / \sqrt{2}
+  \quad\Longrightarrow\quad
+  \Sigma_f = -2\ln(1 - y_f/\sqrt{2})\,.
+\end{equation}
+For the top quark, $y_t/\sqrt{2} \approx 0.70$,
+giving $\Sigma_t \approx 2.41$---a large but finite
+retrodiction cost~[CONJECTURED].
+
+
+%=======================================================================
+\section{Connection to $J_3(\mathbb{O})$ mass ratios}
+\label{sec:J3O}
+%=======================================================================
+
+Singh~\cite{Singh2025} showed that the complexified
+exceptional Jordan algebra $J_3(\mathbb{O}_\mathbb{C})$
+provides parameter-free fermion mass ratios with a
+single universal parameter $\delta^2 = 3/8$.
+Three generations arise as three eigenvalues of a Jordan
+element $X \in \JO$; the mass hierarchy comes from a
+``minimal universal ladder'' in $\mathrm{Sym}^3(3)$
+of the flavor $\mathrm{SU}(3)$~[KNOWN].
+
+We observe that $\delta^2 = 3/8$ \emph{numerically
+equals} the Weinberg angle at GUT scale in the
+Chamseddine--Connes framework~\cite{CC1996}:
+\begin{equation}\label{eq:38}
+  \sin^2\theta_W\big|_{\mathrm{GUT}}
+  = \frac{\Tr(T_3^2)}{\Tr(T_3^2) + \Tr(Y^2)}
+  = \frac{3}{8}\,.
+\end{equation}
+
+Both arise from the algebraic structure of the
+Standard Model:
+\begin{itemize}
+\item $\sin^2\theta_W = 3/8$: from the fermion
+  hypercharge assignments dictated by
+  $\AF = \mathbb{C} \oplus \mathbb{H}
+  \oplus M_3(\mathbb{C})$~[KNOWN].
+\item $\delta^2 = 3/8$: from the
+  $\mathrm{Sym}^3(3)$ structure in
+  $J_3(\mathbb{O}_\mathbb{C})$~[KNOWN,
+  Singh~2025].
+\end{itemize}
+
+Boyle~\cite{Boyle2020} showed that
+$\AF$ is the maximal associative subalgebra of~$\JO$.
+This establishes that both $3/8$'s live in the
+\emph{same algebraic structure}~[KNOWN].
+
+\medskip
+\noindent\textbf{Conjecture.}\;
+\emph{The two instances of $3/8$ are algebraically
+identical: $\delta^2 = \sin^2\theta_W$ because both
+express the ratio of abelian to total gauge content
+within $\AF \subset \JO$.}
+~[CONJECTURED]
+
+If true, the electroweak mixing angle and the
+fermion mass hierarchy share a common origin in
+the exceptional Jordan algebra---unified by the
+retrodiction cost $\Sigma$ on the internal space.
+
+
+%=======================================================================
+\section{The Petz map on $J_3(\mathbb{O})$}
+\label{sec:petz_J3O}
+%=======================================================================
+
+The Petz recovery map $\Petz$ is the unique
+retrodiction functor satisfying the detailed balance
+condition~\cite{PaperI,Petz1986}.
+On $\JO$, we define~[SPECULATIVE]:
+\begin{equation}
+  \Petz_\sigma \;\colon\;
+  J_3(\mathbb{O}) \to J_3(\mathbb{O})\,,
+  \qquad
+  \Petz_\sigma(X) = \sigma^{1/2}\,X\,\sigma^{1/2}\,,
+\end{equation}
+where $\sigma$ is a reference state in the Jordan
+algebra (the product is the Jordan product
+$A \circ B = \tfrac{1}{2}(AB + BA)$).
+
+The recovery fidelity for generation~$i$:
+\begin{equation}
+  F_i = F\bigl(\rho_i,\, \Petz_\sigma(\rho_i)\bigr)
+  = e^{-\Sigma_i/2}\,.
+\end{equation}
+
+\noindent\textbf{Speculative identification.}\;
+Singh's ``minimal universal ladder'' = the Petz
+recovery channel $\Petz_\sigma$ on $\JO$ that
+maximizes the average fidelity
+$\bar{F} = \frac{1}{3}\sum_{i=1}^{3} F_i$
+subject to the Jordan algebra constraints.
+
+If this holds, the mass ratios follow from Petz
+optimality, and the CKM matrix elements are
+the fidelity overlaps between up-type and
+down-type Petz channels:
+\begin{equation}
+  |V_{ij}|^2 = F\bigl(\Petz_\sigma^{(u,i)},\,
+  \Petz_\sigma^{(d,j)}\bigr)
+  \qquad\text{[SPECULATIVE]}\,.
+\end{equation}
+
+
+%=======================================================================
+\section{Mass table and predictions}
+\label{sec:predictions}
+%=======================================================================
+
+Table~\ref{tab:masses} lists the retrodiction
+cost~$\Sigma_f$ for each SM fermion, computed from
+Eq.~\eqref{eq:tau_y} with $\tau_f = m_f/v$.
+
+\begin{table}[t]
+\centering
+\caption{Retrodiction cost $\Sigma_f$ and temporal
+  asymmetry $\tau_f$ for SM fermions, using
+  $\Mref = v = 246$\,GeV.
+  Values computed from $\tau_f = m_f/v$ and
+  $\Sigma_f = -2\ln(1 - \tau_f)$.}
+\label{tab:masses}
+\begin{ruledtabular}
+\begin{tabular}{lccc}
+Fermion & $m_f$ (GeV) & $\tau_f$ & $\Sigma_f$ \\
+\hline
+$\nu$ (lightest) & $\lesssim 10^{-11}$ & $\lesssim 4\times 10^{-14}$ & $\lesssim 10^{-13}$ \\
+$e$   & $5.11\times10^{-4}$ & $2.08\times10^{-6}$ & $4.15\times10^{-6}$ \\
+$u$   & $2.2\times10^{-3}$  & $8.9\times10^{-6}$  & $1.79\times10^{-5}$ \\
+$d$   & $4.7\times10^{-3}$  & $1.9\times10^{-5}$  & $3.83\times10^{-5}$ \\
+$\mu$ & $0.106$             & $4.31\times10^{-4}$  & $8.62\times10^{-4}$ \\
+$s$   & $0.093$             & $3.78\times10^{-4}$  & $7.57\times10^{-4}$ \\
+$c$   & $1.27$              & $5.16\times10^{-3}$  & $1.03\times10^{-2}$ \\
+$\tau$& $1.777$             & $7.22\times10^{-3}$  & $1.45\times10^{-2}$ \\
+$b$   & $4.18$              & $1.70\times10^{-2}$  & $3.43\times10^{-2}$ \\
+$t$   & $173$               & $0.703$              & $2.41$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\noindent The top quark has $\Sigma_t = 2.41$, making it
+the most ``internally irreversible'' fermion.
+The electron has $\Sigma_e = 4.15 \times 10^{-6}$: it
+is nearly perfectly retrodictable in the internal space.
+The neutrino has $\Sigma_\nu \lesssim 10^{-13}$: it
+is the closest to a ``zero-entropy'' internal state.
+
+\medskip
+\noindent\textbf{Testable prediction.}\;
+$m_f \leq v$ for all SM fermions (Petz bound saturation
+with $\Mref = v$). This is satisfied: $m_t = 173\,\mathrm{GeV}
+< 246\,\mathrm{GeV}$~[CONJECTURED, consistent with data].
+
+\medskip
+\noindent\textbf{Open prediction.}\;
+If the $\delta^2 = \sin^2\theta_W$ identification holds,
+and Singh's mass ratios are correct, then the $\Sigma$
+framework \emph{with no free parameters} predicts all
+fermion mass ratios from the algebraic structure of
+$\JO$.
+
+
+%=======================================================================
+\section{Discussion and status}
+\label{sec:discussion}
+%=======================================================================
+
+We summarize the logical status of each claim:
+
+\begin{description}
+\item[PROVEN:]
+  $\tau = 1-F$, $\Sigma_{\mathrm{grav}} = 2\ln Q$,
+  $g_{QQ} = 2/Q^2$ in $d=4$,
+  $\sin^2\theta_W = 3/8$ in NCG,
+  spectral action = $\SvN$,
+  Singh's mass ratios from $\JO$.
+
+\item[CONJECTURED:]
+  $\Sigma_f = D(\rho_f\|\rho_0)_F$ defines the
+  internal retrodiction cost;
+  $m_f = v\,\tau_f$;
+  $\delta^2 = \sin^2\theta_W$ is algebraically the same
+  $3/8$;
+  the Petz bound gives $m_f \leq v$.
+
+\item[SPECULATIVE:]
+  $\Sigma$ extremization on $\JO$ selects the physical
+  mass ratios;
+  Singh's ladder = Petz recovery on $\JO$;
+  CKM matrix = Petz fidelity between up/down channels.
+\end{description}
+
+The key testable step is the algebraic identification
+of the two $3/8$'s.
+If the Boyle embedding $\AF \subset \JO$
+maps Singh's $\delta^2$ to the NCG $\sin^2\theta_W$,
+this would unify the electroweak mixing angle and the
+fermion mass hierarchy within a single
+information-theoretic framework.
+
+Concretely, one must show that the
+$\mathrm{Sym}^3(3)$ eigenvalue spread parameter of
+$\JO$ reduces to $\Tr(T_3^2)/[\Tr(T_3^2)+\Tr(Y^2)]$
+when restricted to $\AF$.
+This is a finite-dimensional algebraic computation
+that we leave to a subsequent paper.
+
+\begin{acknowledgments}
+The author thanks the open-source community for the
+division algebra and NCG literature, and acknowledges
+the foundational work of Connes, Singh, Furey, Boyle,
+and Farnsworth.
+\end{acknowledgments}
+
+
+\begin{thebibliography}{20}
+
+\bibitem{PaperI}
+S.-K.~Huang, ``Temporal asymmetry as Petz recovery
+fidelity,'' (Paper~I).
+
+\bibitem{PaperII}
+S.-K.~Huang, ``The gravitational refractive index as
+Petz recovery fidelity,'' (Paper~II).
+
+\bibitem{Paper9}
+S.-K.~Huang, ``Temporal asymmetry as spectral Fisher
+information: Why four dimensions?'' (Paper~9).
+
+\bibitem{CC1996}
+A.~H.~Chamseddine and A.~Connes,
+``The spectral action principle,''
+Commun.\ Math.\ Phys.\  \textbf{186}, 731 (1997),
+\href{https://arxiv.org/abs/hep-th/9606001}{hep-th/9606001}.
+
+\bibitem{CCSvS2018}
+A.~H.~Chamseddine, A.~Connes, and
+W.~D.~van~Suijlekom,
+``Entropy and the spectral action,''
+Commun.\ Math.\ Phys.\  \textbf{373}, 689 (2020),
+\href{https://arxiv.org/abs/1809.02944}{arXiv:1809.02944}.
+
+\bibitem{Singh2025}
+T.~P.~Singh,
+``Fermion mass ratios from the exceptional Jordan
+algebra,''
+\href{https://arxiv.org/abs/2508.10131}{arXiv:2508.10131}
+(2025).
+
+\bibitem{Boyle2020}
+L.~Boyle,
+``The Standard Model, the exceptional Jordan algebra,
+and triality,''
+\href{https://arxiv.org/abs/2006.16265}{arXiv:2006.16265}
+(2020).
+
+\bibitem{Furey2024}
+C.~Furey and M.~J.~Hughes,
+``Three generations and a trio of trialities,''
+Phys.\ Lett.\ B (2025),
+\href{https://arxiv.org/abs/2409.17948}{arXiv:2409.17948}.
+
+\bibitem{Farnsworth2026}
+S.~Farnsworth, F.~Finster, C.~Paganini, and
+T.~P.~Singh,
+``Causal fermion systems, non-commutative geometry and
+generalized trace dynamics,''
+\href{https://arxiv.org/abs/2603.05018}{arXiv:2603.05018}
+(2026).
+
+\bibitem{DorauMuch2025}
+A.~Dorau and A.~Much,
+``From quantum relative entropy to the semiclassical
+Einstein equations,''
+Phys.\ Rev.\ Lett.\  (2025),
+\href{https://arxiv.org/abs/2510.24491}{arXiv:2510.24491}.
+
+\bibitem{Petz1986}
+D.~Petz,
+``Sufficient subalgebras and the relative entropy of
+states of a von Neumann algebra,''
+Commun.\ Math.\ Phys.\  \textbf{105}, 123 (1986).
+
+\bibitem{Szangolies2025}
+J.~Szangolies,
+``From qubits to the Standard Model,''
+\href{https://arxiv.org/abs/2512.17328}{arXiv:2512.17328}
+(2025).
+
+\bibitem{Kaplan1992}
+D.~B.~Kaplan,
+``A method for simulating chiral fermions on the
+lattice,''
+Phys.\ Lett.\ B \textbf{288}, 342 (1992).
+
+\bibitem{Furey2025super}
+C.~Furey,
+``A superalgebra within,''
+Annalen der Physik (2025),
+\href{https://arxiv.org/abs/2505.07923}{arXiv:2505.07923}.
+
+\end{thebibliography}
+
+\end{document}
