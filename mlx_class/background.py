@@ -95,9 +95,15 @@ class Background:
         a = np.logspace(np.log10(self.a_min), np.log10(self.a_max), self.N)
         E = np.sqrt(Omega_r / a**4 + self.Omega_m / a**3 + self.Omega_L)
 
-        # Conformal time: dtau = da / (a^2 H) = da / (a^2 E H0)
-        dtau = np.diff(a) / (a[:-1]**2 * E[:-1] * H0_Mpc)
-        tau = np.concatenate([[0.0], np.cumsum(dtau)])
+        # Conformal time: dtau/da = 1/(a^2 E H0)
+        # Use trapezoidal rule (2nd order) instead of left-endpoint rectangle
+        # rule (1st order). This eliminates the 0.1-0.2% tau(a) error that
+        # causes photon phase drift at intermediate redshifts.
+        dtau_da = 1.0 / (a**2 * E * H0_Mpc)
+        tau = np.concatenate([[0.0], cumulative_trapezoid(dtau_da, a)])
+
+        # Keep dtau for backward compatibility (now from trapezoidal tau)
+        dtau = np.diff(tau)
 
         self.a_grid = a
         self.E_grid = E
@@ -119,7 +125,8 @@ class Background:
         # Sound speed and sound horizon
         cs = 1.0 / np.sqrt(3.0 * (1.0 + self.R_grid))
         self.cs_grid = cs
-        self.r_s = np.sum(cs[:self.idx_rec - 1] * dtau[:self.idx_rec - 1])
+        # Use trapezoidal rule for r_s = integral_0^tau_rec cs(tau) dtau
+        self.r_s = np.trapezoid(cs[:self.idx_rec + 1], tau[:self.idx_rec + 1])
 
         # Conformal Hubble: calH = a * H = a * E * H0_Mpc
         self.calH_grid = a * E * H0_Mpc
