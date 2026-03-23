@@ -18,6 +18,7 @@ import time
 import sys
 
 from .background import T_CMB
+from .perturbations_sync import L_POL_MAX
 from .solver_sync import run_sync_solver, run_sync_solver_parallel
 
 
@@ -126,8 +127,11 @@ def main():
 
     # Run synchronous gauge solver (parallel, 500 k-modes for better C_l resolution)
     # Use default lg_max and ln_max from perturbations_sync.py
+    # Enable E-mode polarization hierarchy (l_pol_max=8) for correct Silk damping
+    # and polarization feedback on photon quadrupole.
     result = run_sync_solver_parallel(
         N_k=500, k_min=3e-4, k_max=0.35,
+        l_pol_max=L_POL_MAX,
         method='BDF',
         rtol=1e-6, atol=1e-9,
         verbose=True)

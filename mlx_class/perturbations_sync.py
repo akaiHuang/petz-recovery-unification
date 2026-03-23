@@ -58,10 +58,25 @@ from .background import (
     Omega_c as _OMEGA_C,
     Omega_m as _OMEGA_M,
     H0_Mpc as _H0_MPC,
+    T_CMB as _T_CMB,
+    Y_He as _Y_He,
+    m_H_SI as _m_H_SI,
+    c_SI as _c_SI,
 )
 from .perturbations_neutrino import (
     _f_nu, _OMEGA_GAMMA, _OMEGA_NU,
 )
+
+# Baryon sound speed: c_s^2 = k_B * T_b / (mu * m_H * c^2)
+# During tight coupling, T_b ~ T_CMB / a (adiabatic).
+_k_B_SI = 1.380649e-23   # J/K
+_mu_mol = 1.0 / (1.0 - 0.75 * _Y_He)  # mean molecular weight
+
+
+def _baryon_cs2(a):
+    """Baryon sound speed squared in natural units (c=1)."""
+    T_b = _T_CMB / a
+    return _k_B_SI * T_b / (_mu_mol * _m_H_SI * _c_SI ** 2)
 
 
 # ============================================================================
@@ -214,9 +229,10 @@ def make_sync_rhs(k, bg, lg_max=L_GAMMA_MAX, ln_max=L_NU_MAX_SYNC,
         # --- Baryons ---
         # M&B Eq. 26:
         d_delta_b = -theta_b - 0.5 * h_prime
-        # theta_b': Hubble drag + Thomson coupling to photons
-        # c_s^2 k^2 delta_b omitted (cold baryon approximation)
-        d_theta_b = -calH * theta_b + abs_kd / R * (theta_g - theta_b)
+        # theta_b': Hubble drag + baryon pressure + Thomson coupling to photons
+        cs2_b = _baryon_cs2(a)
+        d_theta_b = (-calH * theta_b + cs2_b * k2 * delta_b
+                     + abs_kd / R * (theta_g - theta_b))
 
         # --- Polarization source Pi ---
         # Pi = F_gamma,2 + E_0 + E_2 when polarization is evolved
