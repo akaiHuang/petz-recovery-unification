@@ -48,8 +48,8 @@ Blanchet--Skordis DBI kinetic function
 $K_{\mathrm{DBI}}(Q) = 2\mu^2\lambda_D^2
 [\sqrt{1 + (Q{-}1)^2/\lambda_D^2} - 1]$
 at the ghost condensation point.  The CMB-preferred value
-$\alpha_{\mathrm{eff}} \approx 0.01$ corresponds to
-$\lambda_D \approx 8$, a natural value requiring no fine-tuning.
+$\alpha_{\mathrm{eff}} < 0.005$ (CLASS precision) corresponds to
+$\lambda_D > 10$, a natural value requiring no fine-tuning.
 This supplements the CMB section of Paper~3.
 \end{abstract}
 
@@ -195,31 +195,37 @@ value $\alpha_{\mathrm{DBI}}^{\mathrm{bare}} \approx 0.5$.
 
 \new\ The Planck 2018 temperature power
 spectrum~\cite{Planck2018} constrains deviations from
-$\Lambda$CDM at the percent level.  Our Boltzmann
-code analysis (main text, Table~I) establishes
+$\Lambda$CDM at the percent level.  Our CLASS scan
+analysis (main text, Table~I) establishes the
+tightened constraint
 \begin{equation}
-\alpha_{\mathrm{DBI}} < 0.05
+\alpha_{\mathrm{DBI}} < 0.005
 \quad (95\%\;\mathrm{CL}),
 \label{eq:bound}
 \end{equation}
-with best-fit values $\alpha_{\mathrm{eff}} \lesssim 0.01$
+an order of magnitude stronger than the preliminary
+estimate $\alpha < 0.05$.  The best-fit values
+are $\alpha_{\mathrm{eff}} \lesssim 0.003$
 (Sachs--Wolfe ratio $R_{\mathrm{SW}} = 1.00$, cold
-density ratio $r_c = 0.95$).
+density ratio $r_c = 0.98$).
 
 \subsection{Natural value from $\lambda_D$}
 
-\derived\ The constraint~\eqref{eq:bound} translates
-directly to a lower bound on $\lambda_D$ via
+\derived\ The tightened constraint~\eqref{eq:bound}
+translates directly to a lower bound on $\lambda_D$ via
 Eq.~\eqref{eq:alpha_bare}:
 \begin{equation}
 \lambda_D > \sqrt{\frac{Q_0}{2\alpha_{\max}}}
-= \sqrt{\frac{1.34}{0.10}} \approx 3.7\,.
+= \sqrt{\frac{1.34}{0.010}} \approx 11.6\,.
 \label{eq:lambda_bound}
 \end{equation}
-For the best-fit value $\alpha_{\mathrm{eff}} = 0.01$:
+For $Q_0 \approx 1$ (neglecting the $\delta_0$
+correction), the round-number estimate is
+$\lambda_D > 10$.  For the best-fit value
+$\alpha_{\mathrm{eff}} = 0.003$:
 \begin{equation}
 \lambda_D = \sqrt{\frac{Q_0}{2\alpha_{\mathrm{eff}}}}
-= \sqrt{\frac{1.34}{0.02}} \approx 8.2\,.
+= \sqrt{\frac{1.34}{0.006}} \approx 14.9\,.
 \label{eq:lambda_bestfit}
 \end{equation}
 
@@ -230,22 +236,22 @@ as a function of $\lambda_D$.
 \caption{\label{tab:alpha}Effective DBI coupling
 $\alpha_{\mathrm{DBI}} = Q_0/(2\lambda_D^2)$ for
 $Q_0 = 1.34$ (corresponding to $\delta_0 = 0.34$,
-$\Omega_{\mathrm{DM}} = 0.265$).  The CMB bound
-is $\alpha_{\mathrm{DBI}} < 0.05$.}
+$\Omega_{\mathrm{DM}} = 0.265$).  The tightened CLASS
+bound is $\alpha_{\mathrm{DBI}} < 0.005$.}
 \begin{ruledtabular}
 \begin{tabular}{lccl}
 $\lambda_D$ & $\alpha_{\mathrm{DBI}}$ &
 $\cs^2(k \gg k_J)$ & Status \\
 \colrule
 1   & 0.670  & 0.670  & excluded \\
-2   & 0.168  & 0.168  & excluded \\
 3   & 0.074  & 0.074  & excluded \\
-4   & 0.042  & 0.042  & marginal \\
-5   & 0.027  & 0.027  & consistent \\
-7   & 0.014  & 0.014  & consistent \\
-\textbf{8}   & \textbf{0.010}  & \textbf{0.010}  & \textbf{best fit} \\
-10  & 0.0067 & 0.0067 & consistent \\
+5   & 0.027  & 0.027  & excluded \\
+8   & 0.010  & 0.010  & excluded \\
+10  & 0.0067 & 0.0067 & marginal \\
+12  & 0.0047 & 0.0047 & consistent \\
+\textbf{15} & \textbf{0.0030} & \textbf{0.0030} & \textbf{best fit} \\
 20  & 0.0017 & 0.0017 & CDM-like \\
+50  & 0.00027 & 0.00027 & CDM-like \\
 $\infty$ & 0 & 0 & $\Lambda$CDM \\
 \end{tabular}
 \end{ruledtabular}
@@ -253,7 +259,7 @@ $\infty$ & 0 & 0 & $\Lambda$CDM \\
 
 
 %=======================================================================
-\section{Why $\lambda_D \approx 8$ is not fine-tuned}
+\section{Why $\lambda_D \gtrsim 10$ is not fine-tuned}
 \label{sec:naturalness}
 %=======================================================================
 
@@ -282,29 +288,58 @@ consistent.
 
 \item \textbf{Log-uniform prior.}
 If $\lambda_D$ is drawn from a log-uniform distribution
-over $[1, 100]$, the probability of
-$\lambda_D \in [5, 15]$ (the observationally consistent
-range) is $\ln(15/5)/\ln(100) = 0.24$---a 24\%
-probability, indicating no fine-tuning.
+over $[1, 1000]$, the probability of
+$\lambda_D > 10$ is
+$\ln(1000/10)/\ln(1000) = 2/3 \approx 67\%$---the
+observationally required range occupies \emph{two-thirds}
+of the prior, indicating no fine-tuning whatsoever.
+Even on the tighter range $[1, 100]$:
+$P(\lambda_D > 10) = \ln(100/10)/\ln(100) = 1/2
+= 50\%$, still entirely natural.
 \end{enumerate}
+
+\subsection{Comparison with other ``natural'' parameters}
+
+The constraint $\lambda_D > 10$ means the Khronon
+field stays within $\sim\!10\%$ of the ghost condensation
+point ($\delta/\lambda_D < 0.1$) at all cosmological
+epochs.  This is a \emph{mild} requirement.
+For comparison with other dimensionless parameters in
+the Standard Model:
+\begin{itemize}
+\item Yukawa couplings span
+$y_e \approx 3 \times 10^{-6}$ to $y_t \approx 1$---a
+range of $10^6$;
+\item the QCD theta parameter satisfies
+$\bar{\theta} < 10^{-10}$---an eleven-order hierarchy
+requiring a Peccei--Quinn mechanism or equivalent;
+\item the cosmological constant
+$\Lambda/(M_{\mathrm{Pl}}^2 H_0^2) \sim 1$
+is $O(1)$ but its ``bare'' value requires
+$\sim\!120$ orders of cancellation.
+\end{itemize}
+Against this backdrop, $\lambda_D \sim 10$--$15$
+is comfortably $O(10)$---no fine-tuning, no hierarchy,
+no cancellation mechanism needed.
 
 \subsection{Comparison of scales}
 
-The best-fit $\lambda_D \approx 8$ satisfies
+The best-fit $\lambda_D \approx 15$ satisfies
 \begin{equation}
-\frac{\lambda_D}{\delta_0} \approx 24,
+\frac{\lambda_D}{\delta_0} \approx 44,
 \qquad
-\frac{\lambda_D}{\delta_{\max}} \approx 7.
+\frac{\lambda_D}{\delta_{\max}} \approx 13.
 \label{eq:ratios}
 \end{equation}
 Both are $O(10)$ ratios---no large hierarchy is
 present.  The physical meaning is transparent:
 the DBI nonlinearity activates when
-$\delta \sim \lambda_D \sim 8$, well beyond
+$\delta \sim \lambda_D \sim 15$, well beyond
 the cosmological range $\delta \lesssim 1$.
 The Khronon thus remains deep in the
 quadratic regime at all epochs, with DBI
-corrections at the $\sim\!1\%$ level.
+corrections at the $\sim\!0.3\%$ level---even
+more CDM-like than the previous estimate.
 
 \subsection{Connection to $\Sigma = 2\ln Q$}
 
@@ -315,9 +350,9 @@ The DBI coupling can be written as
 \alpha_{\mathrm{eff}} = \frac{e^{\Sigma/2}}{2\lambda_D^2}\,.
 \label{eq:alpha_Sigma}
 \end{equation}
-For $\Sigma_0 = 0.585$ and $\lambda_D = 8$:
-$\alpha_{\mathrm{eff}} = e^{0.293}/128 = 1.34/128
-= 0.0105$, confirming the best-fit value.
+For $\Sigma_0 = 0.585$ and $\lambda_D = 15$:
+$\alpha_{\mathrm{eff}} = e^{0.293}/450 = 1.34/450
+= 0.0030$, confirming the best-fit value.
 
 The exponential dependence on $\Sigma$ means that
 for \emph{fixed} $\lambda_D$, the DBI coupling
@@ -325,7 +360,7 @@ for \emph{fixed} $\lambda_D$, the DBI coupling
 physically sensible: stronger time asymmetry (larger
 $\Sigma$) implies a larger displacement from ghost
 condensation, which activates the DBI correction.
-The CMB bound $\alpha < 0.05$ then constrains the
+The tightened CMB bound $\alpha < 0.005$ constrains the
 \emph{combination} $e^{\Sigma/2}/\lambda_D^2$,
 linking the DBI completion scale to the cosmological
 arrow of time.
@@ -417,9 +452,9 @@ $\alpha_{\mathrm{DBI}}$ constraint becomes irrelevant.
 For the \emph{pure Khronon} theory (without the
 tensor field), the DBI completion is the minimal
 mechanism for controlling $\cs^2$.  The
-constraint $\lambda_D \gtrsim 4$ (equivalently
-$\alpha_{\mathrm{DBI}} \lesssim 0.05$) is the
-price of working without the tensor field.
+tightened constraint $\lambda_D \gtrsim 12$
+(equivalently $\alpha_{\mathrm{DBI}} \lesssim 0.005$)
+is the price of working without the tensor field.
 
 Both approaches predict $\cs^2 = 0$ at leading
 order.  The distinction lies in the
@@ -453,19 +488,23 @@ condensation point is
 \label{eq:final}
 \end{equation}
 where $\Sigma_0 = 2\ln Q_0$ is the cosmological
-entropy production.  The CMB constraint
-$\alpha_{\mathrm{eff}} < 0.05$ requires
-$\lambda_D > 3.7$; the best fit
-$\alpha_{\mathrm{eff}} \approx 0.01$ gives
-$\lambda_D \approx 8$.  This value:
+entropy production.  The tightened CLASS constraint
+$\alpha_{\mathrm{eff}} < 0.005$ requires
+$\lambda_D \gtrsim 12$ (or $\lambda_D > 10$ for
+$Q_0 \approx 1$); the best fit
+$\alpha_{\mathrm{eff}} \approx 0.003$ gives
+$\lambda_D \approx 15$.  This value:
 \begin{enumerate}
 \item lies in the natural range
-$1 < \lambda_D < 100$ (no fine-tuning);
+$1 < \lambda_D < 1000$: on a log-uniform prior
+over $[1, 1000]$, the probability of $\lambda_D > 10$
+is $67\%$---the observationally required range
+occupies \emph{two-thirds} of the parameter space;
 \item ensures the Khronon remains in the
 quadratic ghost condensation regime at all
 cosmological epochs ($\delta_{\max}/\lambda_D
-\sim 0.13$);
-\item produces a testable $\sim\!2\%$ suppression
+\sim 0.07$);
+\item produces a testable $\sim\!0.6\%$ suppression
 of $P(k)$ at $k \sim k_J$;
 \item connects the CMB constraint to the
 $\Sigma = 2\ln Q$ framework via
@@ -473,13 +512,16 @@ Eq.~\eqref{eq:final}.
 \end{enumerate}
 
 The key physical point is that
-$\alpha_{\mathrm{eff}} \approx 0.01$ is
+$\alpha_{\mathrm{eff}} \lesssim 0.005$ is
 \emph{not} fine-tuned.  It emerges from a
-single dimensionless parameter $\lambda_D \sim 8$
+single dimensionless parameter $\lambda_D \gtrsim 10$
 in the DBI kinetic function---a mild statement
 that the relativistic completion of the Khronon
 kinetic term operates well above the cosmological
-displacement scale.
+displacement scale.  Compared with the six-order
+hierarchy in SM Yukawa couplings or the
+ten-order tuning of $\bar{\theta}_{\mathrm{QCD}}$,
+the $\lambda_D$ constraint is entirely unremarkable.
 
 
 \begin{acknowledgments}
@@ -556,6 +598,13 @@ S.-K.~Huang,
 ``Dark matter as Khronon condensate: weak-field
 phenomenology of the $\tau$ framework,''
 (2026), in preparation.
+
+\bibitem{CLASS2011}
+D.~Blas, J.~Lesgourgues, and T.~Tram,
+``The Cosmic Linear Anisotropy Solving System (CLASS).
+Part~II: Approximation schemes,''
+JCAP \textbf{07}, 034 (2011);
+\href{https://arxiv.org/abs/1104.2933}{arXiv:1104.2933}.
 
 \end{thebibliography}
 
