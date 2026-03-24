@@ -425,6 +425,86 @@ $\langle \cs^2 \rangle_{\mathrm{eff}} \ll
 the TKS bound.
 
 
+%-----------------------------------------------------------------------
+\subsection{Matter power spectrum constraints}
+\label{sec:pk_constraints}
+%-----------------------------------------------------------------------
+
+\new\  The CMB constraint $\alpha_{\mathrm{DBI}} < 0.005$
+(Sec.~\ref{sec:alpha_constraint}) assumed a constant DBI coupling.
+The matter power spectrum $P(k)$ provides a much tighter constraint
+because the DBI pressure suppression accumulates over the full
+matter-dominated era.
+
+For constant $\alpha_{\mathrm{DBI}}$, the Jeans scale
+$k_J = \sqrt{1.5\,\Omega_K H_0^2/a} \approx 2 \times 10^{-4}\,h/$Mpc
+at $z = 0$ lies below all observable scales.  Consequently,
+$\cs^2 \approx \alpha_{\mathrm{DBI}}$ for all modes probed by
+galaxy surveys, and the suppression is exponential in the number
+of e-folds: $\Delta P/P \sim -\alpha_{\mathrm{DBI}} \times
+N_{\mathrm{efolds}}^2$.  A CLASS scan over ten orders of magnitude
+in $\alpha_{\mathrm{DBI}}$ (Table~\ref{tab:pk}) yields the bound
+\begin{equation}
+\alpha_{\mathrm{DBI}} < 1.1 \times 10^{-7}
+\quad (|\Delta P/P| < 5\%\;\text{at}\;k = 0.2\;h/\mathrm{Mpc}),
+\label{eq:alpha_pk_bound}
+\end{equation}
+which is four orders of magnitude tighter than the CMB
+constraint~\eqref{eq:alpha_bound}.
+
+%
+\begin{table}[t]
+\centering
+\caption{Matter power spectrum constraints on constant
+$\alpha_{\mathrm{DBI}}$ (CLASS precision).  $P(k)/P_{\Lambda\mathrm{CDM}}$
+is evaluated at $k = 0.2\;h/$Mpc.  Values of $\sigma_8$ are computed
+in a top-hat sphere of $8\;h^{-1}\,$Mpc.}
+\label{tab:pk}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+$\alpha_{\mathrm{DBI}}$ &
+$P(k{=}0.2)/P_{\Lambda\mathrm{CDM}}$ &
+$\sigma_8$ &
+Status \\
+\midrule
+$10^{-7}$ & 0.955 & 0.810 & consistent \\
+$10^{-6}$ & 0.74  & 0.678 & \textbf{excluded} \\
+$10^{-5}$ & 0.10  & ---   & excluded \\
+$10^{-3}$ & $\approx 0$ & --- & excluded \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Resolution: time-dependent $\cs^2(a)$.}
+The constant-$\alpha$ parametrization is unphysical: the ghost
+condensation mechanism predicts that $\cs^2$ \emph{decays} as the
+Khronon field approaches the condensation point $Q_0$.  From the
+field equation $\partial_\mu(a^3 K'(Q)/N) = 0$, the deviation
+$\delta Q = Q - Q_0$ decays as $a^{-3}$, giving
+\begin{equation}
+\cs^2(a) \propto (\delta Q / Q_0)^2 \propto a^{-6}.
+\label{eq:cs2_decay}
+\end{equation}
+At recombination ($a \sim 10^{-3}$), $\cs^2$ is $\sim 10^{18}$
+times its present value.  This means $\cs^2(a_{\mathrm{rec}})$
+can be $\sim 0.01$ (producing CMB effects) while
+$\cs^2(a_0) \sim 10^{-20}$ (completely negligible for $P(k)$).
+Both constraints are simultaneously satisfied without fine-tuning.
+
+\paragraph{Implications for the $S_8$ tension.}
+The $S_8$ tension ($\sigma_8$ from weak lensing $\sim 0.76$
+vs.\ Planck $\sim 0.81$) cannot be resolved by constant
+$\alpha_{\mathrm{DBI}}$: the DBI pressure suppresses all
+sub-horizon modes equally, so reducing $\sigma_8$ by $\sim 7\%$
+would require $\alpha_{\mathrm{DBI}} \sim 2 \times 10^{-7}$,
+which is excluded by $P(k)$ at $k = 0.2\;h/$Mpc
+(Table~\ref{tab:pk}).  However, the time-dependent model
+Eq.~\eqref{eq:cs2_decay} may produce a mild suppression at
+$z \sim 0.5$--$1$ (the weak lensing kernel peak) while preserving
+$P(k)$ at $z = 0$.  A dedicated analysis with the full
+time-dependent model is needed.
+
+
 %=======================================================================
 % New references to add to \begin{thebibliography} in the main paper:
 %
