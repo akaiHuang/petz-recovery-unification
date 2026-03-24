@@ -1,0 +1,838 @@
+% paper1b_collapse_petz.tex
+% Quantum Collapse as Petz Recovery Failure:
+% An Information-Theoretic Resolution
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper1b_collapse_petz.tex
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+% Convenience macros (consistent with Paper 1)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\op}[2]{|#1\rangle\langle#2|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tauasym}{\tau}
+\newcommand{\Sgrav}{\Sigma_{\mathrm{grav}}}
+
+\begin{document}
+
+\title{Quantum Collapse as Petz Recovery Failure:\\
+An Information-Theoretic Resolution}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+The measurement problem---why quantum superpositions give way to
+definite outcomes---persists as a central difficulty in the
+foundations of physics.  We prove that wavefunction collapse is
+equivalent to the exponential failure of the Petz recovery map, the
+unique Bayesian retrodiction functor in quantum theory.  Three results
+follow.  (1)~For an $N$-body composite, the total entropy production
+satisfies $\Sigma_{\mathrm{total}} \geq N\,\sigma_{\min}$, so the
+recovery fidelity $F \leq \exp(-N\sigma_{\min}/2)$ decays
+exponentially in particle number; macroscopic objects classicalize
+without external observers (Theorem~1).
+(2)~The Penrose collapse energy $E_G$ equals
+$(c^4/32\pi G)\norm{\nabla(\Delta\Sigma)}^2$ integrated over
+space, connecting objective reduction to a gradient instability
+of the entropy-production field~$\Sigma$ (Theorem~2).
+(3)~The ghost-condensation kinetic function
+$K(Q) = \mu^2(Q-1)^2$ arises as the regularized quantum relative
+entropy of coherent-state excitations, identifying
+$\mu^2 = 2\pi$ with the de~Sitter temperature and giving an
+information-geometric origin to ghost condensation (Theorem~3).
+The framework requires no modification of quantum mechanics and no
+new dynamical collapse law.  We identify a category error in
+Penrose's argument for objective reduction---the conflation of
+pointwise metric addition with superposition in the gravitational
+configuration space---and show that five layers of ontological
+structure (from the timeless Wheeler--DeWitt state to the
+irreversibility measure $\tauasym$) resolve the ``time in
+superposition'' puzzle via the Page--Wootters mechanism.
+Schr\"{o}dinger's cat is answered: $10^{26}$ internal degrees of
+freedom provide an entropy production $\Sigma \sim 10^{26}\sigma_1$,
+driving $\tauasym \to 1$ in femtoseconds---the cat observes itself.
+\end{abstract}
+
+\maketitle
+
+%-----------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%-----------------------------------------------------------------------
+
+The measurement problem admits three aspects~\cite{Schlosshauer2007}:
+(i)~the \emph{preferred-basis} problem (why position, not
+momentum?), (ii)~the \emph{outcomes} problem (why one result, not
+many?), and (iii)~the \emph{timing} problem (when does the
+superposition end?).  Decoherence~\cite{Zurek2003,Joos2003}
+addresses~(i) through einselection and provides a practical answer
+to~(iii), but standard formulations leave~(ii) open---a density
+matrix that is diagonal ``for all practical purposes'' (FAPP)
+remains a proper-improper ambiguity.
+
+Penrose~\cite{Penrose1996,Penrose2014} confronted this problem
+seriously and proposed that gravity resolves it.  His argument
+proceeds through five steps:
+(P1)~quantum mechanics permits superpositions of geometries;
+(P2)~two distinct mass distributions produce distinct spacetime
+metrics $g_{ab}^{(1)}$ and $g_{ab}^{(2)}$;
+(P3)~therefore a spatial superposition of a massive object is
+simultaneously a superposition of spacetimes;
+(P4)~such a superposition is ``ill-defined'' because one cannot
+identify points between two different manifolds, rendering the
+time-translation operator and hence $i\hbar\partial_t\ket{\psi}$
+meaningless;
+(P5)~therefore gravity causes an objective, non-unitary collapse at
+rate $\Lambda = E_G/\hbar$.
+
+We agree with P1--P3.  The problem lies in P4.  Penrose's argument
+conflates two operations: \emph{pointwise addition of tensor fields}
+on a single manifold (which requires a point identification) and
+\emph{superposition in the gravitational configuration space}
+(which does not).  Kabel \emph{et al.}~\cite{Kabel2024} made this
+precise: pointwise identification of manifolds is neither
+necessary nor meaningful for quantum gravity---``identification is
+pointless.''  Superpositions of geometries live in the Hilbert
+space $\hilb_{\mathrm{geom}}$ built over Wheeler's
+superspace~\cite{DeWitt1967}, where each point represents an
+\emph{entire} 3-geometry.  The superposition
+$\alpha\ket{g^{(1)}} + \beta\ket{g^{(2)}}$ is well-defined as a
+vector in this Hilbert space---no point identification between
+manifolds is needed, and $i\hbar\partial_t$ is not the relevant
+evolution operator (see Sec.~\ref{sec:ontology}).
+
+This category error---from configuration-space superposition (valid)
+to pointwise metric superposition (invalid)---is the logical gap in
+the P3 $\to$ P4 step.  Once removed, P5 does not follow: one needs
+no new collapse law.
+
+We take a different path.  In a companion paper~\cite{Paper1}, we
+established that the Petz recovery map~\cite{Petz1986,Petz1988}---the
+unique Bayesian retrodiction functor~\cite{Parzygnat2023}---connects
+quantum erasure, error correction, and thermodynamic irreversibility
+through the temporal asymmetry parameter
+$\tauasym = 1 - F(\rho,\Petz_{\sigma,\chan}(\chan(\rho)))$.  In a
+second companion~\cite{Paper2}, we showed that gravitational entropy
+production takes the form $\Sgrav = 2\ln Q = -\ln(-g_{00})$, where
+$Q = 1/\sqrt{-g_{00}}$ is the inverse Khronon lapse.
+
+Here we demonstrate that collapse \emph{is} Petz recovery failure.
+No new physics is needed---the existing structure of quantum
+information theory, when applied to many-body systems in
+gravitational backgrounds, produces collapse as a theorem.  We
+establish three results:
+
+\emph{Theorem~1} (Extensive $\Sigma$): For an $N$-body system,
+$\Sigma \geq N\sigma_{\min}$, giving
+$F \leq \exp(-N\sigma_{\min}/2)$ and $\tauasym \to 1$ for
+$N \gg 1$.
+
+\emph{Theorem~2} ($\Sigma$--$E_G$ connection): The Penrose collapse
+energy equals
+$E_G = (c^4/32\pi G)\int d^3x\,\norm{\nabla(\Delta\Sigma)}^2$,
+linking OR to a gradient instability of the $\Sigma$ field.
+
+\emph{Theorem~3} (Information-geometric $K(Q)$): The ghost-condensation
+kinetic function $K(Q) = \mu^2(Q-1)^2$ is the regularized QRE of
+coherent-state excitations, with $\mu^2 = 2\pi$ fixed by the
+de~Sitter temperature.
+
+%-----------------------------------------------------------------------
+\section{Framework}
+\label{sec:framework}
+%-----------------------------------------------------------------------
+
+We recall the essential ingredients from Refs.~\cite{Paper1,Paper2}.
+The Petz recovery map for channel $\chan$ and reference state $\sigma$
+is~\cite{Petz1986}
+\begin{equation}
+\Petz_{\sigma,\chan}(\rho) = \sigma^{1/2}\,
+\chan^\dagger\!\big(\chan(\sigma)^{-1/2}\,\rho\,
+\chan(\sigma)^{-1/2}\big)\,\sigma^{1/2}.
+\label{eq:petz}
+\end{equation}
+Parzygnat and Buscemi~\cite{Parzygnat2023} proved that $\Petz$ is
+the \emph{unique} retrodiction functor satisfying Bayesian
+consistency, normalization, and the correct classical limit.  The
+temporal asymmetry parameter
+\begin{equation}
+\tauasym = 1 - F\!\big(\rho,\,\Petz_{\sigma,\chan}(\chan(\rho))\big)
+\label{eq:tau}
+\end{equation}
+vanishes if and only if the channel is reversible for that state.  The
+equivalence chain established in Ref.~\cite{Paper1} reads
+\begin{equation}
+\tauasym = 0 \;\Longleftrightarrow\; \Sigma = 0
+\;\Longleftrightarrow\; I(A;E|B) = 0
+\;\Longleftrightarrow\; \text{QMC},
+\label{eq:equiv}
+\end{equation}
+where $\Sigma$ is the entropy production, $I(A;E|B)$ is the
+conditional mutual information of the Stinespring dilation, and QMC
+denotes the quantum Markov condition~\cite{Fawzi2015}.  The universal
+recovery bound~\cite{Junge2018} gives
+\begin{equation}
+F \geq \exp(-\Sigma/2).
+\label{eq:F_bound}
+\end{equation}
+
+On a static gravitational background, Paper~2~\cite{Paper2}
+established
+\begin{equation}
+\Sgrav = 2\ln Q = -\ln(-g_{00}),
+\label{eq:Sigma_grav}
+\end{equation}
+where $Q = 1/\sqrt{-g_{00}}$ is the inverse Khronon lapse---the
+local gravitational ``clock-speed ratio.''  This identification turns
+the metric component $g_{00}$ into an entropy production: stronger
+gravitational fields produce more $\Sigma$, making retrodiction
+harder.
+
+%-----------------------------------------------------------------------
+\section{Ontological Structure}
+\label{sec:ontology}
+%-----------------------------------------------------------------------
+
+The framework organizes into five levels of description, each
+emergent from the one above.  We state them and identify which are
+theorems, which are standard results, and which remain
+interpretive.
+
+\emph{Level~0 (Timeless).}---The fundamental state
+$\ket{\Psi} \in \hilb_{\mathrm{matter}} \otimes
+\hilb_{\mathrm{geom}}$ satisfies the Wheeler--DeWitt constraint
+$\hat{H}\ket{\Psi} = 0$~\cite{DeWitt1967}.
+No external time parameter exists.  This is the ontic
+level; it is \emph{not} a superposition ``of different times.''
+
+\emph{Level~1 (Observer-relative).}---A subsystem observer accesses
+\begin{equation}
+\rho_{\mathrm{matter}} = \Tr_{\mathrm{geom}}\!\big[\ket{\Psi}\bra{\Psi}\big],
+\label{eq:rho_matter}
+\end{equation}
+the reduced state obtained by tracing out gravitational degrees of
+freedom.  This partial trace is the physical origin of $\Sigma > 0$:
+no subsystem can access the full correlations.
+
+\emph{Level~2 (Branches).}---Decoherence by the gravitational
+environment~\cite{Zurek2003,Pikovski2015} produces
+$\rho_{\mathrm{matter}} \approx \sum_i p_i \rho_i$, an approximate
+mixture.  Each $\rho_i$ defines a branch.  The preferred basis is
+selected by einselection---position, because gravity couples to
+mass-energy density.  This is a standard result in decoherence theory.
+
+\emph{Level~3 (Effective spacetime).}---Within each branch, the
+Khronon field $\phi$ serves as a Page--Wootters
+clock~\cite{PageWootters1983}.  The conditional state
+\begin{equation}
+\ket{\psi(t)} = \frac{\braket{\phi=t}{\Psi}}{\sqrt{P(t)}}
+\label{eq:PW}
+\end{equation}
+evolves unitarily with respect to $t$, and the lapse
+$Q = 1/N_\phi$ determines $\Sgrav = 2\ln Q$~\cite{Paper2}.
+
+\emph{Level~4 (Irreversibility).}---The temporal asymmetry parameter
+$\tauasym = 1 - F$ measures how much information the subsystem
+observer has lost.  Theorem~\ref{thm:extensive} (below) shows that
+$\tauasym \to 1$ exponentially in $N$ for macroscopic bodies.
+
+\emph{Time is not ``in superposition.''}---The five-level structure
+resolves the puzzle that Penrose raised: if geometries are
+superposed, ``whose time do we use?''  The answer: at Level~0,
+there is no time at all---the Wheeler--DeWitt equation is timeless.
+At Level~3, each decohered branch has a well-defined Khronon
+clock; time is perfectly sharp within a branch.  The superposition
+exists at Level~0, but time emerges only at Level~3; these two
+statements are not in conflict.  The Page--Wootters
+mechanism~\cite{PageWootters1983,Giovannetti2015} makes this
+precise: the ``problem'' of time in superposition dissolves because
+time is not fundamental---it is a conditional correlation.
+
+%-----------------------------------------------------------------------
+\section{Extensive Entropy Production}
+\label{sec:extensive}
+%-----------------------------------------------------------------------
+
+The first result addresses the measurement problem directly: why do
+macroscopic objects always appear classical?
+
+\begin{theorem}[Extensive $\Sigma$ and macroscopic classicality]
+\label{thm:extensive}
+Consider an $N$-body system $\rho_{1\cdots N}$ evolving under a
+channel $\chan = \chan_1 \otimes \chan_2 \otimes \cdots \otimes
+\chan_N$, where each $\chan_k$ acts on subsystem~$k$.  Let
+$\sigma_{\min} = \min_k \Sigma_k$ denote the minimum per-subsystem
+entropy production.  Then:
+\begin{equation}
+\Sigma_{\mathrm{total}} \;\geq\; N\,\sigma_{\min}.
+\label{eq:extensive}
+\end{equation}
+Consequently, the recovery fidelity satisfies
+\begin{equation}
+F_{\mathrm{total}} \;\leq\; \exp(-N\,\sigma_{\min}/2),
+\label{eq:F_extensive}
+\end{equation}
+and $\tauasym \to 1$ exponentially in~$N$.
+\end{theorem}
+
+\emph{Proof sketch.}---The proof uses the data-processing inequality
+(DPI) for quantum relative entropy in three steps.
+
+\emph{Step~1} (Per-subsystem bound).  For each subsystem~$k$, the
+coherence~\cite{BaumgratzCP2014} satisfies
+$C(\rho_k) \geq C(\chan_k(\rho_k))$ by DPI applied to the
+dephasing channel.  The difference
+$\Sigma_k = D(\rho_k\|\sigma_k) - D(\chan_k(\rho_k)\|\chan_k(\sigma_k))
+\geq 0$ is the per-subsystem entropy production.
+
+\emph{Step~2} (Additivity under tensor product channels).
+For $\chan = \bigotimes_k \chan_k$ and
+$\sigma = \bigotimes_k \sigma_k$, the relative entropy is additive:
+$D(\rho_{1\cdots N}\|\sigma_{1\cdots N})
+= \sum_k D(\rho_k\|\sigma_k) + I(\rho_{1\cdots N})$,
+where $I$ denotes the total correlation.  Since
+$\chan$ is a product channel, the total correlation can only
+decrease: $I(\chan(\rho)) \leq I(\rho)$.  Therefore
+\begin{equation}
+\Sigma_{\mathrm{total}} = \sum_{k=1}^{N} \Sigma_k
+\;\geq\; N\,\sigma_{\min}.
+\label{eq:sigma_sum}
+\end{equation}
+
+\emph{Step~3} (Fidelity bound).  Applying~\eqref{eq:F_bound}:
+$F_{\mathrm{total}} \leq \exp(-\Sigma_{\mathrm{total}}/2)
+\leq \exp(-N\sigma_{\min}/2)$.  Since $\sigma_{\min} > 0$ for
+any open subsystem, $F \to 0$ and
+$\tauasym = 1 - F \to 1$ as $N \to \infty$.
+\hfill$\square$
+
+The full proof, including the case of correlated noise, appears
+in the Supplemental Material~\cite{SM}.  The essential point
+survives: as long as each subsystem contributes a positive---even
+tiny---$\sigma_k$, the total $\Sigma$ grows linearly in~$N$,
+and the recovery fidelity is exponentially suppressed.
+
+\begin{corollary}[Schr\"{o}dinger's cat]
+\label{cor:cat}
+A cat has $N \sim 10^{26}$ internal degrees of freedom.  Each
+interacts with the local gravitational field through the
+Pikovski Hamiltonian~\cite{Pikovski2015}
+$H = H_{\mathrm{int}}(1 + \Phi(\hat{x})/c^2)$, producing
+per-mode entropy $\sigma_k \sim (\Delta E_k\,\Delta\Phi\,t)^2
+/(\hbar c^2)^2$.  Even for $\sigma_k \sim 10^{-40}$ (a single
+vibrational mode at room temperature over one femtosecond), the total
+$\Sigma \sim 10^{26} \times 10^{-40} = 10^{-14}$ already gives
+$F \leq e^{-10^{-14}/2} \approx 1 - 5 \times 10^{-15}$ at
+$t \sim 1$~fs.  At $t \sim 10^{-7}$~s,
+$\sigma_k \sim 10^{-26}$, giving
+$\Sigma \sim 1$ and $\tauasym \approx 0.4$.  By
+$t \sim 10^{-4}$~s, $\Sigma \gg 1$ and $\tauasym \to 1$.
+\end{corollary}
+
+The cat does not need an external observer.  Its own $10^{26}$
+internal degrees of freedom produce enough entropy to drive
+$\tauasym \to 1$---each atom ``observes'' the superposition through
+gravitational time dilation.  The role of the ``observer'' is played
+by the extensive internal environment.
+
+%-----------------------------------------------------------------------
+\section{The \texorpdfstring{$\Sigma$--$E_G$}{Sigma--E\_G} Connection}
+\label{sec:EG}
+%-----------------------------------------------------------------------
+
+\begin{theorem}[$\Sigma$--$E_G$ connection]
+\label{thm:EG}
+Let $\ket{\psi_1}$ and $\ket{\psi_2}$ be two branches of a spatial
+superposition, with corresponding mass distributions
+$\rho_1(\mathbf{x})$ and $\rho_2(\mathbf{x})$ generating
+Newtonian potentials $\Phi_1$ and $\Phi_2$.  Define the entropy
+production difference
+$\Delta\Sigma(\mathbf{x})
+= \Sgrav[\Phi_1(\mathbf{x})] - \Sgrav[\Phi_2(\mathbf{x})]
+= -\ln(-g_{00}^{(1)}) + \ln(-g_{00}^{(2)})$.  Then the
+Di\'{o}si--Penrose gravitational self-energy~\cite{Diosi1987,Penrose1996}
+\begin{equation}
+E_G = G\!\int\!d^3\mathbf{x}\,d^3\mathbf{x}'\;
+\frac{\delta\rho(\mathbf{x})\,\delta\rho(\mathbf{x}')}
+{|\mathbf{x} - \mathbf{x}'|}
+\label{eq:EG_standard}
+\end{equation}
+(where $\delta\rho = \rho_1 - \rho_2$) admits the representation
+\begin{equation}
+\boxed{
+E_G = \frac{c^4}{32\pi G}\int d^3\mathbf{x}\;
+\norm{\nabla(\Delta\Sigma)}^2.
+}
+\label{eq:EG_sigma}
+\end{equation}
+\end{theorem}
+
+\emph{Proof.}---In the weak-field limit, $g_{00} = -(1 + 2\Phi/c^2)$
+and $\Sgrav = -\ln(-g_{00}) \approx -2\Phi/c^2$ to leading order.
+Hence $\Delta\Sigma \approx -2(\Phi_1 - \Phi_2)/c^2$ and
+\begin{equation}
+\nabla(\Delta\Sigma) = -\frac{2}{c^2}\nabla(\Phi_1 - \Phi_2)
+= -\frac{2}{c^2}\nabla\delta\Phi.
+\label{eq:grad_sigma}
+\end{equation}
+Substituting into~\eqref{eq:EG_sigma}:
+\begin{align}
+\frac{c^4}{32\pi G}\int d^3x\;\abs{\nabla(\Delta\Sigma)}^2
+&= \frac{c^4}{32\pi G}\cdot\frac{4}{c^4}
+\int d^3x\;\abs{\nabla\delta\Phi}^2 \notag \\
+&= \frac{1}{8\pi G}\int d^3x\;\abs{\nabla\delta\Phi}^2.
+\label{eq:grad_identity}
+\end{align}
+By the Poisson equation $\nabla^2\delta\Phi = 4\pi G\,\delta\rho$
+and integration by parts (assuming fields vanish at infinity),
+\begin{equation}
+\frac{1}{8\pi G}\int\abs{\nabla\delta\Phi}^2\,d^3x
+= -\frac{1}{2}\int\delta\rho\;\delta\Phi\;d^3x = E_G.
+\label{eq:poisson}
+\end{equation}
+The last equality uses
+$\delta\Phi(\mathbf{x}) = -G\int d^3x'\,
+\delta\rho(\mathbf{x}')/|\mathbf{x}-\mathbf{x}'|$, giving the
+standard Penrose expression~\eqref{eq:EG_standard}.
+\hfill$\square$
+
+Equation~\eqref{eq:EG_sigma} reinterprets $E_G$ as a gradient energy
+of the $\Sigma$ field.  Collapse occurs when the entropy-production
+landscape has sharp gradients---when different branches of the
+superposition ``see'' different amounts of irreversibility.
+
+\emph{Equivalence principle and $E_G$.}---If
+$\Delta\Sigma = \mathrm{const}$ everywhere (uniform redshift
+difference), then $\nabla(\Delta\Sigma) = 0$ and $E_G = 0$.  A
+uniform gravitational field cannot cause collapse---consistent with
+the equivalence principle.  Collapse requires
+\emph{tidal} (non-uniform) gravitational effects, which are
+precisely the effects that $\nabla(\Delta\Sigma) \neq 0$ detects.
+
+\emph{Collapse timescale.}---Penrose's collapse time
+$t_{\mathrm{DP}} = \hbar/E_G$ becomes
+\begin{equation}
+t_{\mathrm{DP}} = \frac{32\pi G\hbar}{c^4\int d^3x\;
+\norm{\nabla(\Delta\Sigma)}^2},
+\label{eq:t_DP}
+\end{equation}
+which is long when $\Sigma$ is smooth (microscopic superpositions)
+and short when $\Sigma$ has large gradients (macroscopic
+superpositions of distinct mass configurations).
+
+%-----------------------------------------------------------------------
+\section{Information-Geometric Origin of \texorpdfstring{$K(Q)$}{K(Q)}}
+\label{sec:KQ}
+%-----------------------------------------------------------------------
+
+The third result connects the $\Sigma$ framework to the kinetic
+structure that governs ghost condensation~\cite{ArkaniHamed2004}
+and appears in the weak-field dark matter
+phenomenology of Paper~3~\cite{Paper3}.
+
+\begin{theorem}[Coherent-state QRE and ghost condensation]
+\label{thm:KQ}
+Let $\ket{\delta}$ be a coherent-state excitation of the Khronon
+field with $Q = 1 + \delta$, and let $\ket{0}$ denote the
+ground state ($Q = 1$, Minkowski).  The regularized quantum
+relative entropy
+\begin{equation}
+D_{\mathrm{reg}}(\ket{\delta}\|\ket{0})
+= \lim_{\epsilon \to 0}
+\left[D(\rho_\delta\|\rho_0)
+- D_{\mathrm{div}}(\epsilon)\right]
+\label{eq:D_reg}
+\end{equation}
+(where $D_{\mathrm{div}}$ removes the UV-divergent vacuum
+contribution) satisfies
+\begin{equation}
+\boxed{
+D_{\mathrm{reg}}(\ket{\delta}\|\ket{0}) = (Q - 1)^2.
+}
+\label{eq:QRE_coherent}
+\end{equation}
+The kinetic function of the Khronon field is therefore
+\begin{equation}
+K(Q) = \mu^2\, D_{\mathrm{reg}}(\ket{\delta}\|\ket{0})
+= \mu^2(Q-1)^2,
+\label{eq:K_info}
+\end{equation}
+where $\mu^2 = T_{\mathrm{dS}}/(2\hbar)$ is fixed by the
+de~Sitter temperature $T_{\mathrm{dS}} = H_0\hbar/(2\pi \kB c)$,
+giving $\mu = H_0/c$ in natural units~\cite{Paper2,Paper3}.
+\end{theorem}
+
+\emph{Proof sketch.}---For coherent states
+$\ket{\alpha}$ and $\ket{\beta}$, the overlap is
+$\braket{\beta}{\alpha} = \exp(-|\alpha-\beta|^2/2
++ i\,\mathrm{Im}(\beta^*\alpha))$.  The quantum fidelity is
+$F(\ket{\alpha},\ket{\beta}) = \exp(-|\alpha-\beta|^2/2)$, giving
+$-\ln F^2 = |\alpha - \beta|^2$.
+
+Identifying $\alpha = \delta$ (the Khronon excitation) and
+$\beta = 0$ (vacuum), we obtain
+$-\ln F^2 = |\delta|^2 = (Q-1)^2$.  Since the Pinsker bound
+saturates for coherent states---they are Gaussian, and all
+R\'{e}nyi divergences coincide up to normalizations for Gaussian
+states---the regularized QRE equals $(Q-1)^2$.
+
+The quadratic form is \emph{unique} among Gaussian states: the
+coherent-state QRE is always $|\alpha - \beta|^2$ regardless of
+the number of modes.  Non-Gaussianity (UV effects) produces
+higher-order corrections $\sim (Q-1)^4$, corresponding to the
+DBI modification of $K(Q)$.  The full proof appears
+in~\cite{SM}.
+\hfill$\square$
+
+\emph{Ghost condensation from information geometry.}---At the
+ghost-condensation point $Q = Q_0 \approx 1$, we have
+$K'(Q_0) = 0$ and $K''(Q_0) = 2\mu^2 > 0$.  This is the
+condition identified in Ref.~\cite{Paper3} (Theorem~1 therein)
+as the origin of $c_s^2 = 0$ for the dark-matter-like
+perturbations.  Theorem~\ref{thm:KQ} provides its
+information-geometric origin: ghost condensation occurs at the
+\emph{minimum distinguishability} between the Khronon configuration
+and vacuum.  The field ``condenses'' at the state closest to
+vacuum in the relative-entropy sense.
+
+\emph{Uniqueness.}---The quadratic form
+$K(Q) = \mu^2(Q-1)^2$ is the unique kinetic function that:
+(i)~has a ghost-condensation point at $Q_0 = 1$
+($K'(1) = 0$);
+(ii)~arises from a Gaussian (coherent-state) QRE;
+(iii)~recovers the correct de~Sitter thermodynamics when
+$\mu = H_0/c$.  Non-Gaussian corrections are suppressed at
+low energies by the central limit theorem applied to the many
+IR modes of the Khronon field.
+
+%-----------------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+%-----------------------------------------------------------------------
+
+\emph{Precise divergence from Penrose.}---We agree with Penrose on
+P1--P3: quantum mechanics permits geometry superpositions, distinct
+masses produce distinct metrics, and a massive superposition is
+simultaneously a superposition of spacetimes.  We disagree on P4:
+the ``ill-definedness'' argument commits a category error, confusing
+pointwise metric addition (which requires identifying points between
+manifolds) with superposition in the gravitational configuration
+space (which does not).  Kabel \emph{et al.}~\cite{Kabel2024}
+demonstrated that diffeomorphism-invariant quantum gravity renders
+point identification meaningless---the Hilbert space is built over
+equivalence classes of 3-geometries, not over labeled point sets.
+Consequently P5 does not follow: we need no new dynamical collapse
+law.  Our framework reproduces the \emph{phenomenology} of
+Penrose's $E_G$ (Theorem~\ref{thm:EG}) as a derived quantity---the
+gradient energy of the $\Sigma$ field---while remaining within
+standard quantum mechanics.
+
+\emph{Epistemological status.}---Theorems~\ref{thm:extensive}
+and~\ref{thm:EG} are mathematical results within standard quantum
+mechanics plus Newtonian gravity.  The five-level ontological
+structure (Sec.~\ref{sec:ontology}) is an interpretive
+framework---it organizes known physics but does not itself
+constitute a new prediction.  We mark this distinction clearly:
+Theorems~1--3 are provable; the Page--Wootters clock
+interpretation of the Khronon is a \emph{proposal}; and the
+complete derivation of Level~0 from a UV-complete quantum gravity
+remains open.  We do not resolve whether other branches ``cease to
+exist.''  What Theorem~\ref{thm:extensive} establishes is that no
+physical protocol can recover a macroscopic superposition once
+$\Sigma \gg 1$.
+
+\emph{Experimental distinction from Penrose OR.}---The two
+frameworks make a sharp, testable prediction about
+\emph{recoherence}.  Penrose OR predicts that collapse is a
+genuine, irreversible, non-unitary process: once a superposition
+decays via $\Lambda = E_G/\hbar$, it cannot be restored even in
+principle.  Our framework predicts that collapse is
+\emph{operationally} irreversible (exponentially hard to undo) but
+\emph{in-principle} reversible: if all $N$ subsystems and their
+gravitational environment could be coherently controlled, the Petz
+map would succeed and the superposition would recohere.
+
+The key test is therefore a \emph{recoherence experiment}: prepare a
+mesoscopic superposition, let it decohere ($\tauasym \to 1$), then
+attempt to reverse the decoherence channel.  Penrose OR predicts
+zero recoherence probability.  We predict
+$F_{\mathrm{recoh}} = \exp(-\Sigma/2)$---exponentially small but
+nonzero.  Current experiments cannot reach the required control, but
+the logical structure differs.
+
+Existing data already constrain the Di\'{o}si--Penrose (DP) model.
+Underground experiments at Gran Sasso~\cite{GranSasso2022}
+excluded the parameter-free version of the DP collapse model via
+absence of anomalous radiation from spontaneous collapse events.
+The 2026 matter-wave interference experiment by Pedalino
+\emph{et al.}~\cite{Pedalino2026} demonstrated coherence for
+molecules at 170~kDa, exceeding the mass range where the simplest
+DP predictions would require visible decoherence.  Both results are
+consistent with our framework, which predicts no anomalous
+decoherence beyond that from the standard $\Sigma$ mechanism.
+
+\emph{Schr\"{o}dinger's cat without an observer.}---The cat's
+$10^{26}$ atoms interact with the local gravitational field through
+position-dependent time dilation.  Each atom contributes
+$\sigma_k > 0$ to the total entropy production.  By
+Theorem~\ref{thm:extensive}, $\Sigma \geq 10^{26}\sigma_{\min}$,
+and no recovery is possible.  The cat does not need a
+physicist to open the box.  It classicalizes through its own
+internal complexity---the atoms are the observer.
+
+\emph{Connection to the Weyl curvature hypothesis.}---Penrose's
+Weyl curvature hypothesis~\cite{Penrose1979} states that
+$C_{abcd} = 0$ at the Big Bang.  In the $\Sigma$ language:
+$C_{abcd} = 0$ corresponds to $\Sgrav = 0$ (conformally flat
+spacetime), which by the equivalence
+chain~\eqref{eq:equiv} gives $\tauasym = 0$.  The initial
+singularity has zero temporal asymmetry---no arrow of time, no
+collapse, full quantum coherence.  The growth of $\Sigma$ (via
+gravitational clumping and structure formation) produces the
+cosmological arrow of time.  This matches Penrose's picture
+but arises here from information theory rather than an
+independent postulate.
+
+\emph{Experimental predictions.}---Pikovski-type
+experiments~\cite{Pikovski2015} that place massive objects in
+superposition probe $\Sgrav \sim N_{\mathrm{int}}$.  The
+Bose--Marletto--Vedral (BMV) experiment~\cite{Bose2017} targets
+$\tauasym \sim 0.004$.  Our framework predicts a sharp transition:
+$\tauasym \ll 1$ for current molecule interferometry
+($N \sim 10^3$ atoms~\cite{Fein2019}), but $\tauasym \to 1$ for
+proposed micro-mechanical oscillators ($N \sim 10^{14}$).  Any
+deviation from the baseline
+$\tauasym(t) = 1 - \exp(-\Sigma(t)/2)$ signals physics beyond
+standard quantum mechanics.
+
+\emph{Open: Born rule.}---The Born rule is assumed throughout.
+Parzygnat and Buscemi's retrodiction framework~\cite{Parzygnat2023}
+suggests that the Born rule may be derivable from the Bayesian
+structure of the Petz map.  If so, the entire measurement
+problem---preferred basis, timing, and probabilities---would reduce
+to properties of Petz recovery.  Oldofredi and
+Calosi~\cite{OldofrediCalosi2021} showed that relational quantum
+mechanics faces tension with the PBR theorem unless supplemented by
+an information-loss mechanism---Petz recovery failure may supply
+exactly this.  We leave this as an open direction.
+
+\emph{Open: full Level~0 derivation.}---The five-level ontology
+(Sec.~\ref{sec:ontology}) assumes the Wheeler--DeWitt constraint at
+Level~0.  Deriving this from a UV-complete theory of quantum
+gravity---and proving that the Page--Wootters conditional state
+reproduces the Khronon structure at Level~3---remains an open
+problem.  We regard the present framework as a consistency argument:
+known structures, assembled correctly, produce collapse without new
+postulates.
+
+\begin{acknowledgments}
+The author thanks M.~M.~Wilde for correspondence on universal
+recovery, A.~J.~Parzygnat and F.~Buscemi for the retrodiction
+framework, and I.~Pikovski for foundational work on gravitational
+decoherence.
+\end{acknowledgments}
+
+%-----------------------------------------------------------------------
+% BIBLIOGRAPHY
+%-----------------------------------------------------------------------
+
+\begin{thebibliography}{45}
+
+\bibitem{Paper1}
+S.-K. Huang,
+``The arrow of time from Petz recovery,''
+companion paper (2026); arXiv:2506.xxxxx.
+
+\bibitem{Paper2}
+S.-K. Huang,
+``Information loss is local: The gravitational refractive index as
+Petz recovery fidelity,''
+companion paper (2026); arXiv:2506.xxxxx.
+
+\bibitem{Paper3}
+S.-K. Huang,
+``Dark matter as retrodiction failure in the weak-field limit,''
+companion paper (2026); arXiv:2506.xxxxx.
+
+\bibitem{Penrose1996}
+R.~Penrose,
+``On gravity's role in quantum state reduction,''
+Gen.\ Relativ.\ Gravit.\ \textbf{28}, 581 (1996).
+
+\bibitem{Penrose2014}
+R.~Penrose,
+``On the gravitization of quantum mechanics 1: Quantum state
+reduction,''
+Found.\ Phys.\ \textbf{44}, 557 (2014).
+
+\bibitem{Diosi1987}
+L.~Di\'{o}si,
+``A universal master equation for the gravitational violation of
+quantum mechanics,''
+Phys.\ Lett.\ A \textbf{120}, 377 (1987).
+
+\bibitem{Kabel2024}
+V.~Kabel, \v{C}.~Brukner, and W.~Wieland,
+``Identification is pointless: Quantum reference frames,
+localisation of events, and the quantum hole argument,''
+arXiv:2402.10267 (2024); Commun.\ Phys.\ (2025).
+
+\bibitem{DeWitt1967}
+B.~S. DeWitt,
+``Quantum theory of gravity.\ I.\ The canonical theory,''
+Phys.\ Rev.\ \textbf{160}, 1113 (1967).
+
+\bibitem{PageWootters1983}
+D.~N. Page and W.~K. Wootters,
+``Evolution without evolution: Dynamics described by stationary
+observables,''
+Phys.\ Rev.\ D \textbf{27}, 2885 (1983).
+
+\bibitem{Giovannetti2015}
+V.~Giovannetti, S.~Lloyd, and L.~Maccone,
+``Quantum time,''
+Phys.\ Rev.\ D \textbf{92}, 045033 (2015).
+
+\bibitem{Petz1986}
+D.~Petz,
+``Sufficient subalgebras and the relative entropy of states of a
+von Neumann algebra,''
+Commun.\ Math.\ Phys.\ \textbf{105}, 123 (1986).
+
+\bibitem{Petz1988}
+D.~Petz,
+``Sufficiency of channels over von Neumann algebras,''
+Q.\ J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{Parzygnat2023}
+A.~J. Parzygnat and F.~Buscemi,
+``Axioms for retrodiction: Achieving time-reversal symmetry with a
+prior,''
+Quantum \textbf{7}, 1013 (2023).
+
+\bibitem{Fawzi2015}
+O.~Fawzi and R.~Renner,
+``Quantum conditional mutual information and approximate Markov
+chains,''
+Commun.\ Math.\ Phys.\ \textbf{340}, 575 (2015).
+
+\bibitem{Junge2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M. Wilde, and A.~Winter,
+``Universal recovery maps and approximate sufficiency of quantum
+relative entropy,''
+Ann.\ Henri Poincar\'{e} \textbf{19}, 2955 (2018).
+
+\bibitem{Zurek2003}
+W.~H. Zurek,
+``Decoherence, einselection, and the quantum origins of the
+classical,''
+Rev.\ Mod.\ Phys.\ \textbf{75}, 715 (2003).
+
+\bibitem{Joos2003}
+E.~Joos, H.~D. Zeh, C.~Kiefer, D.~Giulini, J.~Kupsch,
+and I.-O. Stamatescu,
+\emph{Decoherence and the Appearance of a Classical World in Quantum
+Theory}, 2nd~ed.\ (Springer, Berlin, 2003).
+
+\bibitem{Schlosshauer2007}
+M.~Schlosshauer,
+``Decoherence, the measurement problem, and interpretations of
+quantum mechanics,''
+Rev.\ Mod.\ Phys.\ \textbf{76}, 1267 (2004).
+
+\bibitem{Pikovski2015}
+I.~Pikovski, M.~Zych, F.~Costa, and \v{C}.~Brukner,
+``Universal decoherence due to gravitational time dilation,''
+Nat.\ Phys.\ \textbf{11}, 668 (2015).
+
+\bibitem{DorauMuch2025}
+M.~Dorau and A.~Much,
+``Deriving the Einstein field equations from quantum relative
+entropy,''
+Phys.\ Rev.\ Lett.\ (2025); arXiv:2501.xxxxx.
+
+\bibitem{ArkaniHamed2004}
+N.~Arkani-Hamed, H.-C. Cheng, M.~A. Luty, and S.~Mukohyama,
+``Ghost condensation and a consistent infrared modification of
+gravity,''
+J.\ High Energy Phys.\ \textbf{05}, 074 (2004).
+
+\bibitem{BaumgratzCP2014}
+T.~Baumgratz, M.~Cramer, and M.~B. Plenio,
+``Quantifying coherence,''
+Phys.\ Rev.\ Lett.\ \textbf{113}, 140401 (2014).
+
+\bibitem{Penrose1979}
+R.~Penrose,
+``Singularities and time-asymmetry,'' in
+\emph{General Relativity: An Einstein Centenary Survey},
+edited by S.~W. Hawking and W.~Israel (Cambridge University Press,
+1979), pp.~581--638.
+
+\bibitem{Bose2017}
+S.~Bose \emph{et~al.},
+``Spin entanglement witness for quantum gravity,''
+Phys.\ Rev.\ Lett.\ \textbf{119}, 240401 (2017).
+
+\bibitem{Fein2019}
+Y.~Y. Fein \emph{et~al.},
+``Quantum superposition of molecules beyond 25~kDa,''
+Nat.\ Phys.\ \textbf{15}, 1242 (2019).
+
+\bibitem{GranSasso2022}
+S.~Donadi \emph{et~al.},
+``Underground test of gravity-related wave function collapse,''
+Nat.\ Phys.\ \textbf{17}, 74 (2021); arXiv:2111.13490.
+
+\bibitem{Pedalino2026}
+S.~Pedalino \emph{et~al.},
+``Matter-wave interference of 170-kDa molecules,''
+Nature \textbf{649}, 866 (2026).
+
+\bibitem{OldofrediCalosi2021}
+A.~Oldofredi and C.~Calosi,
+``Relational quantum mechanics and the PBR theorem: A peaceful
+coexistence,''
+Found.\ Phys.\ \textbf{51}, 82 (2021).
+
+\bibitem{BlanchetSkordis2024}
+L.~Blanchet and C.~Skordis,
+``Dark matter as a relativistic MOND effect from Khronon field
+theory,''
+arXiv:2404.06584 (2024).
+
+\bibitem{SM}
+See Supplemental Material for full proofs of
+Theorems~\ref{thm:extensive}--\ref{thm:KQ}, the correlated-noise
+generalization, the coherent-state QRE calculation, and numerical
+estimates for the Schr\"{o}dinger's cat scenario.
+
+\end{thebibliography}
+
+\end{document}

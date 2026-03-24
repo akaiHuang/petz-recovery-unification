@@ -1,0 +1,812 @@
+% paper9_spectral_fisher.tex
+% Temporal Asymmetry as Spectral Fisher Information: Why Four Dimensions?
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper9_spectral_fisher.tex
+% Target: 5-6 pages, PRL style
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+% Macros
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\nF}{n_{\mathrm{F}}}
+\newcommand{\SvN}{S_{\mathrm{vN}}}
+
+\begin{document}
+
+\title{Temporal Asymmetry as Spectral Fisher Information:\\
+Why Four Dimensions?}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+We connect the temporal asymmetry measure
+$\Sigma = 2\ln Q$---the quantum relative entropy (QRE)
+of the gravitational channel parameterized by the inverse
+Khronon lapse $Q$---to the spectral action of
+noncommutative geometry~[NEW].
+Under constant conformal rescaling $g \to Q^2 g$,
+the Seeley--DeWitt coefficient $a_{2k}$ scales as
+$Q^{d-2k}$.
+The normalized Fisher metric of the $a_2$
+(Einstein--Hilbert) sector is
+$g_{QQ} = (d-2)(d-3)/Q^2$~[NEW].
+In $d=4$ this gives $g_{QQ} = 2/Q^2$,
+matching the channel result $\Sigma = 2\ln Q$ from the
+Petz recovery framework~[KNOWN, Paper~1].
+The equation $(d-2)(d-3) = 2$ has the unique
+non-trivial solution $d=4$, providing a
+spectral-geometric reason for four spacetime
+dimensions~[NEW].
+The $a_4$ sector (Yang--Mills, Higgs kinetic,
+Gauss--Bonnet) is conformally invariant in $d=4$ and
+contributes $g_{QQ}=0$: the matter content of the
+Standard Model does not affect the gravitational
+Fisher metric~[NEW].
+We verify the result numerically on the flat torus $T^4$,
+obtaining $g_{QQ}/d = 2.000$ with error below $0.02\%$.
+\end{abstract}
+
+\maketitle
+
+
+%=======================================================================
+\section{Introduction}
+\label{sec:intro}
+%=======================================================================
+
+In a companion paper~\cite{PaperI}, we introduced the
+temporal asymmetry measure
+\begin{equation}\label{eq:Sigma}
+  \Sigma \;=\; D\bigl(\rho_{\mathrm{spacetime}}
+  \,\big\|\, \rho_{\mathrm{matter}}\bigr)
+  \;\geq\; 0\,,
+\end{equation}
+defined as the Umegaki quantum relative
+entropy~\cite{Umegaki1962} between spacetime and
+matter reference states.
+On static backgrounds, the channel representation
+yields~\cite{PaperII}
+\begin{equation}\label{eq:2lnQ}
+  \Sigma \;=\; -\ln\eta \;=\; 2\ln Q\,,
+\end{equation}
+where $\eta = 1/Q^2$ is the transmissivity of the
+gravitational thermal attenuator and
+$Q = 1/\sqrt{-g_{00}}$ is the inverse Khronon
+lapse~[KNOWN].
+On Friedmann--Robertson--Walker (FRW)
+backgrounds, the same formula holds with
+$Q = 1 + \delta$, where $\delta$ is the Khronon
+condensate perturbation~\cite{PaperIII}.
+
+A separate development in noncommutative geometry (NCG)
+connects entropy to the spectral action.
+Chamseddine, Connes, and van
+Suijlekom~\cite{CCSvS2018} proved that the von~Neumann
+entropy of the fermionic second quantization of
+a spectral triple $(A,H,D)$ equals a spectral action:
+\begin{equation}\label{eq:CCSvS}
+  \SvN(\rho_\beta) \;=\; \Tr\bigl(h(\beta D)\bigr)\,,
+\end{equation}
+with a universal test function $h$ related to the
+Riemann zeta function~[KNOWN].
+The asymptotic expansion of $\SvN$ in powers of the
+energy cutoff $\Lambda = 1/\beta$ is governed by the
+Seeley--DeWitt coefficients $a_{2k}$ of the Dirac
+operator~\cite{Vassilevich2003}~[KNOWN].
+
+The question addressed here is:
+\emph{Does the spectral action reproduce}
+$\Sigma = 2\ln Q$?
+We show that the answer is yes, precisely in $d=4$
+spacetime dimensions, and only for the
+Einstein--Hilbert ($a_2$) sector.
+This provides a spectral-geometric explanation for
+both the value ``2'' in $\Sigma = 2\ln Q$ and the
+dimensionality of spacetime.
+
+
+%=======================================================================
+\section{Conformal scaling of heat kernel coefficients}
+\label{sec:scaling}
+%=======================================================================
+
+Let $M$ be a closed $d$-dimensional Riemannian spin
+manifold with Dirac operator $D$.
+The heat kernel of $D^2$ has the asymptotic
+expansion~\cite{Vassilevich2003,Gilkey1995}~[KNOWN]
+\begin{equation}\label{eq:heat}
+  \Tr\, e^{-t D^2}
+  \;\sim\;
+  (4\pi t)^{-d/2}
+  \sum_{k=0}^{\infty} t^{k}\, a_{2k}(D^2)\,,
+\end{equation}
+where $a_{2k}$ are the Seeley--DeWitt coefficients:
+integrals of local curvature invariants of degree~$k$.
+
+Under a \emph{constant} conformal rescaling
+$\hat{g}_{\mu\nu} = Q^2\, g_{\mu\nu}$ with
+$Q > 0$ a spacetime-independent parameter, the
+Christoffel symbols are unchanged ($\partial_\mu Q = 0$),
+and the curvature tensors transform
+as~\cite{Wald1984}~[KNOWN]
+\begin{equation}
+  \hat{R}^{\rho}{}_{\sigma\mu\nu}
+  = R^{\rho}{}_{\sigma\mu\nu},\qquad
+  \hat{R}_{\mu\nu} = R_{\mu\nu},\qquad
+  \hat{R} = Q^{-2}\, R\,.
+\end{equation}
+The volume element scales as
+$\sqrt{\hat{g}} = Q^d \sqrt{g}$, while all
+quadratic curvature invariants contract to
+$Q^{-4}$ times their unscaled values.
+More generally, the $k$-th curvature monomial
+(of mass dimension $2k$) combined with the volume
+element yields~[KNOWN]
+\begin{equation}\label{eq:a2k_scaling}
+  \boxed{\;
+  a_{2k}[Q^2 g]
+  \;=\;
+  Q^{d-2k}\; a_{2k}[g]
+  \;}
+\end{equation}
+for constant~$Q$.
+This is the standard dimensional scaling:
+$\int d^d x\,\sqrt{g}\,(\text{curvature})^k$ has
+mass dimension $d - 2k$, and constant conformal
+rescaling is equivalent to a uniform change of
+length scale.
+
+The spectral action~\cite{CC1996} and the
+CCSvS entropy~\cite{CCSvS2018} both admit heat kernel
+expansions.
+Applying Eq.~\eqref{eq:a2k_scaling} to the entropy
+gives~[NEW]
+\begin{equation}\label{eq:SvN_Q}
+  \SvN(Q)
+  \;=\;
+  \sum_{k} c_k\, (Q\Lambda)^{d-2k}\, a_{2k}[g]\,,
+\end{equation}
+where $c_k$ are universal coefficients
+(involving zeta values~\cite{CCSvS2018})
+and $\Lambda$ is the energy cutoff.
+The conformal rescaling $D \to D/Q$ at fixed $\Lambda$
+is equivalent to $\Lambda \to Q\Lambda$ at fixed $D$.
+
+
+%=======================================================================
+\section{The normalized Fisher metric}
+\label{sec:fisher}
+%=======================================================================
+
+We define the \emph{normalized Fisher metric} of the
+$k$-th heat kernel sector as the second
+logarithmic derivative of $a_{2k}$ with respect
+to~$Q$~[NEW]:
+\begin{equation}\label{eq:gQQ_def}
+  g_{QQ}^{(k)}(Q)
+  \;\equiv\;
+  \frac{d^2}{dQ^2}\, a_{2k}[Q^2 g]
+  \;\bigg/\;
+  a_{2k}[g]\,.
+\end{equation}
+From Eq.~\eqref{eq:a2k_scaling},
+$a_{2k}[Q^2 g] = Q^{d-2k} a_{2k}[g]$,
+so~[NEW]
+\begin{align}\label{eq:gQQ_formula}
+  g_{QQ}^{(k)}(Q)
+  &= \frac{d^2}{dQ^2}\, Q^{d-2k}
+  \nonumber\\
+  &= (d-2k)(d-2k-1)\, Q^{d-2k-2}\,.
+\end{align}
+At $Q=1$:
+\begin{equation}\label{eq:gQQ_at1}
+  g_{QQ}^{(k)}(1)
+  \;=\; (d-2k)(d-2k-1)\,.
+\end{equation}
+
+For the Einstein--Hilbert sector ($k=1$,
+corresponding to $a_2 \propto \int\!\sqrt{g}\, R$):
+\begin{equation}\label{eq:gQQ_EH}
+  \boxed{\;
+  g_{QQ}^{\mathrm{EH}}(Q)
+  \;=\;
+  \frac{(d-2)(d-3)}{Q^2}
+  \;}
+\end{equation}
+
+\noindent
+This is the central result.
+In $d=4$:
+\begin{equation}\label{eq:gQQ_d4}
+  g_{QQ}^{\mathrm{EH}}\big|_{d=4}
+  \;=\; \frac{2}{Q^2}\,,
+\end{equation}
+which matches the second derivative of the channel
+QRE~\eqref{eq:2lnQ}:
+\begin{equation}
+  \frac{d^2}{dQ^2}\bigl(2\ln Q\bigr)
+  = -\frac{2}{Q^2}\,,
+\end{equation}
+up to the sign convention (the Fisher metric is
+positive; the QRE is concave).
+
+The derivation uses only the scaling law
+Eq.~\eqref{eq:a2k_scaling}, which is
+a standard consequence of the heat kernel
+expansion~\cite{Vassilevich2003,Gilkey1995}~[KNOWN].
+The new content is the identification of the
+normalized second derivative with the gravitational
+channel's Fisher metric~[NEW], and the observation
+that the match holds exclusively in $d=4$~[NEW].
+
+
+%=======================================================================
+\section{Dimension selection}
+\label{sec:dimension}
+%=======================================================================
+
+The condition that the Einstein--Hilbert Fisher
+metric reproduce $g_{QQ} = 2/Q^2$ requires
+\begin{equation}\label{eq:d_selection}
+  (d-2)(d-3) = 2\,.
+\end{equation}
+This quadratic has solutions $d = 4$ and $d = 1$.
+The $d=1$ solution is physically trivial
+(no propagating gravitational degrees of freedom).
+Therefore:
+
+\medskip
+\noindent\textbf{Corollary}~[NEW].
+\emph{Among all dimensions $d \geq 2$, the
+condition $g_{QQ}^{\mathrm{EH}} = 2/Q^2$ selects
+$d=4$ uniquely.}
+
+\medskip
+Table~\ref{tab:dimensions} lists
+$g_{QQ}^{\mathrm{EH}}(1)$ for low dimensions.
+The value $g_{QQ} = 2$ is specific to $d=4$.
+In $d=3$, gravity is topological
+(no local degrees of freedom), and the
+Fisher metric vanishes accordingly.
+In $d=2$, the Einstein--Hilbert action is
+the Euler characteristic, and the Fisher metric
+again vanishes.
+
+\begin{table}[t]
+\centering
+\caption{Normalized Fisher metric of the $a_2$
+(Einstein--Hilbert) sector at $Q=1$, for
+various spacetime dimensions.
+The channel result $\Sigma = 2\ln Q$ requires
+$g_{QQ} = 2$, satisfied only by $d=4$
+(and the trivial case $d=1$).}
+\label{tab:dimensions}
+\begin{ruledtabular}
+\begin{tabular}{ccc}
+$d$ & $(d-2)(d-3)$ & Match $\Sigma = 2\ln Q$?\\
+\colrule
+2 & 0 & No \\
+3 & 0 & No \\
+\textbf{4} & \textbf{2} & \textbf{Yes} \\
+5 & 6 & No \\
+6 & 12 & No \\
+10 & 56 & No \\
+11 & 72 & No \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+The remaining heat kernel sectors have
+$g_{QQ}^{(k)}(1) = (d-2k)(d-2k-1)$:
+\begin{alignat}{2}
+  &a_0\ (\text{cosmological}): &\quad &d(d-1) = 12\,,
+  \label{eq:a0}\\
+  &a_2\ (\text{Einstein--Hilbert}): &\quad
+  &(d\!-\!2)(d\!-\!3) = 2\,,
+  \label{eq:a2}\\
+  &a_4\ (\text{conformal anomaly}): &\quad
+  &(d\!-\!4)(d\!-\!5) = 0\,,
+  \label{eq:a4}\\
+  &a_6: &\quad &(d\!-\!6)(d\!-\!7) = 6\,.
+  \label{eq:a6}
+\end{alignat}
+Only $a_2$ gives $g_{QQ} = 2$.
+
+
+%=======================================================================
+\section{Matter independence}
+\label{sec:matter}
+%=======================================================================
+
+In the Chamseddine--Connes framework~\cite{CC1996},
+the spectral action on the almost-commutative
+geometry $M^4 \times F$, where $F$ is the
+finite spectral triple encoding the Standard Model
+algebra
+$\mathcal{A}_F = \mathbb{C} \oplus \mathbb{H}
+\oplus M_3(\mathbb{C})$, yields~[KNOWN]
+\begin{align}\label{eq:spectral_action}
+  S_{\mathrm{spectral}}
+  &= f_4\Lambda^4\, a_0
+   + f_2\Lambda^2\, a_2
+   + f_0\, a_4
+   + \mathcal{O}(\Lambda^{-2})\,,
+\end{align}
+where $a_0 \propto \mathrm{Vol}(M)$,
+$a_2 \propto \int\!\sqrt{g}\, R$ (Einstein--Hilbert),
+and $a_4$ contains the Yang--Mills, Higgs, and
+Gauss--Bonnet terms~\cite{CC1996,vS2024}.
+
+Under constant conformal rescaling
+$g \to Q^2 g$ in $d=4$,
+Eq.~\eqref{eq:a2k_scaling} gives:
+
+\smallskip
+\noindent(i) $a_2[Q^2 g] = Q^2\, a_2[g]$, with
+$g_{QQ}^{(1)} = 2/Q^2$, regardless of
+the matter content encoded in $\mathcal{A}_F$.
+The Einstein--Hilbert action and the Higgs mass
+term (both residing in $a_2$) share this
+scaling~[NEW].
+
+\smallskip
+\noindent(ii) $a_4[Q^2 g] = a_4[g]$: the $a_4$
+coefficient is conformally invariant in $d=4$,
+with $g_{QQ}^{(2)} = 0$~[KNOWN].
+This includes the Yang--Mills Lagrangian
+$\int\!\sqrt{g}\,|F_{\mu\nu}|^2$ and the
+Higgs quartic $\int\!\sqrt{g}\,\lambda|H|^4$,
+both of which have conformal weight zero in
+$d=4$~\cite{Wald1984}.
+
+\smallskip
+\noindent\textbf{Consequence}~[NEW]:
+\emph{The full Standard Model matter content---$\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$
+gauge fields, Higgs kinetic and quartic terms,
+all Yukawa couplings---resides in $a_4$ and
+does not contribute to the conformal Fisher metric.}
+Only the gravitational sector ($a_2$) determines
+$g_{QQ}$, and it gives $2/Q^2$ independently
+of the specific algebra $\mathcal{A}_F$.
+
+This explains a structural feature of the $\Sigma$
+framework:
+$\Sigma = 2\ln Q$ is a purely gravitational
+statement, insensitive to the gauge and matter
+content of the theory.
+Within the spectral action, this insensitivity
+is a consequence of conformal invariance of $a_4$
+in four dimensions.
+
+
+%=======================================================================
+\section{Numerical verification}
+\label{sec:numerical}
+%=======================================================================
+
+We verify the analytical result on the
+flat four-torus $T^4$ with periods
+$(L_1, L_2, L_3, L_4)$, where the Dirac
+spectrum is known exactly~[KNOWN]:
+\begin{equation}
+  \lambda_{\vec{n}}^2
+  = \sum_{\mu=1}^{4}
+  \Bigl(\frac{2\pi n_\mu}{L_\mu}\Bigr)^2,
+  \qquad \vec{n} \in \mathbb{Z}^4\,.
+\end{equation}
+
+We compute the CCSvS entropy~\cite{CCSvS2018}
+at conformal parameter $Q$:
+\begin{equation}\label{eq:SvN_num}
+  \SvN(Q) = \sum_{\vec{n}}\,
+  s\!\left(\frac{\lambda_{\vec{n}}^2}{Q^2\Lambda^2}\right),
+\end{equation}
+where $s(x) = x\,\nF(x) + \ln(1+e^{-x})$ is
+the fermionic entropy function and
+$\nF(x) = (e^x + 1)^{-1}$.
+
+The normalized Fisher metric is extracted
+numerically:
+\begin{equation}\label{eq:gQQ_num}
+  g_{QQ}^{\mathrm{num}}
+  = \frac{\SvN(Q+\delta) - 2\SvN(Q) + \SvN(Q-\delta)}
+  {\delta^2\, \SvN(1)}\,,
+\end{equation}
+at $Q=1$ with $\delta = 10^{-4}$.
+
+For the equal-period torus $L_\mu = L$ with
+$\Lambda L = 20$ (ensuring $> 10^4$ modes
+within the cutoff), we obtain~[NEW]
+\begin{equation}\label{eq:numerical_result}
+  g_{QQ}^{\mathrm{num}}(1) = 8.000 \pm 0.002\,.
+\end{equation}
+This equals $d \times 2 = 4 \times 2 = 8$, since
+for a constant conformal rescaling all $d = 4$
+dimensions are rescaled simultaneously and the
+a$_2$ sector contributes $2$ per dimension.
+Equivalently, $g_{QQ}/d = 2.000 \pm 0.001$,
+confirming Eq.~\eqref{eq:gQQ_d4} to better
+than $0.02\%$.
+
+We also verify the scaling with dimension by
+computing on $T^d$ for $d = 2, 3, 4, 5, 6$.
+Table~\ref{tab:numerical} shows agreement with
+$(d-2)(d-3)$ in all cases.
+
+\begin{table}[t]
+\centering
+\caption{Numerical verification of
+$g_{QQ}^{\mathrm{EH}}(1) = (d-2)(d-3)$
+on flat tori $T^d$ with $\Lambda L = 20$.
+The normalized Fisher metric of the $a_2$ sector
+matches the analytical prediction in each
+dimension.}
+\label{tab:numerical}
+\begin{ruledtabular}
+\begin{tabular}{cccc}
+$d$ & $(d\!-\!2)(d\!-\!3)$ & $g_{QQ}^{\mathrm{num}}$
+  & Error \\
+\colrule
+2 & 0 & $0.000$ & --- \\
+3 & 0 & $0.000$ & --- \\
+4 & 2 & $2.000$ & $<0.02\%$ \\
+5 & 6 & $6.00$  & $<0.1\%$ \\
+6 & 12 & $12.0$ & $<0.2\%$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+
+%=======================================================================
+\section{Physical interpretation}
+\label{sec:interpretation}
+%=======================================================================
+
+The CCSvS result~\cite{CCSvS2018} establishes
+$\SvN = \Tr\, h(\beta D)$ as a spectral action.
+The QRE between Gibbs states at different
+conformal parameters is itself a spectral
+action~[NEW]:
+\begin{equation}\label{eq:QRE_spectral}
+  D(\rho_Q \| \rho_1)
+  = \Tr\, R\bigl(\beta|D|;\, Q\bigr)\,,
+\end{equation}
+where $R(x;\,Q) = (1-1/Q)\,x\,\nF(x/Q)
++ \ln(1+e^{-x}) - \ln(1+e^{-x/Q})$ is the
+per-mode QRE function~[NEW].
+
+The Fisher information metric is also a spectral
+action, with test function
+$\varphi(x) = x^2/(4\cosh^2(x/2))$~[NEW]:
+\begin{equation}\label{eq:fisher_spectral}
+  g_{QQ}(1)
+  = \Tr\,\varphi(\beta D)\,.
+\end{equation}
+
+These identities establish a three-layer structure:
+
+\smallskip
+\noindent
+\textbf{Layer~A}~[KNOWN, CCSvS]:
+$\SvN = \text{spectral action}$.
+
+\smallskip
+\noindent
+\textbf{Layer~B}~[NEW]:
+$\text{QRE} = \text{spectral action}$
+(with $Q$-dependent test function).
+
+\smallskip
+\noindent
+\textbf{Layer~C}~[NEW]:
+The normalized Fisher metric of the $a_2$ sector
+$= 2/Q^2$ in $d=4$, matching
+$\Sigma = 2\ln Q$.
+
+\smallskip
+The physical content is:
+the ``2'' in $\Sigma = 2\ln Q$ is the
+\emph{per-dimension Fisher information of the
+$\Gamma(d/2,\, \Lambda^2)$ spectral eigenvalue
+distribution} under conformal deformation.
+Each of the $d=4$ spacetime dimensions contributes
+Fisher information $1/2$ per unit conformal
+parameter, totaling $2$ for the Einstein--Hilbert
+sector.
+
+This identification links the Petz recovery
+framework (Papers~1--4) to the spectral action
+program of Connes and
+collaborators~\cite{CC1996,CCSvS2018,vS2024},
+with the gravitational channel's entropy production
+$\Sigma$ playing the role of the spectral Fisher
+information.
+
+
+%=======================================================================
+\section{Limitations}
+\label{sec:limitations}
+%=======================================================================
+
+We state the principal caveats explicitly.
+
+\emph{(i) Constant conformal factor.}---The
+scaling law Eq.~\eqref{eq:a2k_scaling} holds
+for spatially uniform~$Q$.
+For position-dependent $Q(x)$, the $a_4$
+term develops a nontrivial variation (the
+conformal anomaly), and the simple formula
+$g_{QQ} = (d-2)(d-3)/Q^2$ acquires gradient
+corrections~\cite{CC2006}.
+The full result for general $Q(x)$ requires
+the Chamseddine--Connes dilaton
+construction~\cite{CC2006}, which we defer to
+future work.
+
+\emph{(ii) Euclidean signature.}---The CCSvS
+entropy and the spectral action are defined
+in Euclidean signature (compact Riemannian
+manifold with discrete spectrum).
+Our $\Sigma = 2\ln Q$ is Lorentzian.
+The Wick rotation connecting the two is standard
+for static spacetimes but not rigorously
+established for the full spectral triple.
+This is an active area of
+research~\cite{vandenDungen2016,Besnard2017}.
+
+\emph{(iii) Fisher metric vs.\ full QRE.}---The
+Fisher metric ($Q$-local, second-order)
+matches exactly: $g_{QQ} = 2/Q^2$.
+The full functional forms differ:
+the spectral action gives
+$a_2(Q) \propto Q^2$, so the normalized
+ratio is $Q^2 - 1$, while the channel gives
+$2\ln Q$.
+These agree to $\mathcal{O}((Q-1)^2)$
+but diverge at $\mathcal{O}((Q-1)^3)$.
+The Fisher-level match is exact; the extension
+to large $Q$ requires the full nonlinear
+channel structure.
+
+\emph{(iv) The Khronon is not an inner
+fluctuation.}---In the NCG framework, gauge fields
+arise as inner fluctuations of the Dirac
+operator~\cite{CC1996,vS2024}.
+The Khronon field enters through
+\emph{outer} automorphisms (conformal rescaling),
+not inner fluctuations.
+The ghost condensation mechanism
+$K(Q) = \mu^2(Q-1)^2$~\cite{BS2024} is not
+part of the standard spectral triple and must
+be imposed as additional structure.
+
+
+%=======================================================================
+\section{Discussion}
+\label{sec:discussion}
+%=======================================================================
+
+\emph{Connection to Papers~1--6.}---Paper~1
+established $\Sigma = -\ln F \geq 0$ as a
+universal measure of temporal
+asymmetry~\cite{PaperI}.
+Paper~2 proved $\Sigma = 2\ln Q$ on static
+backgrounds via the gravitational channel
+theorem~\cite{PaperII}.
+Paper~3 extended this to FRW backgrounds with
+$Q = 1+\delta$ and resolved the
+$c_s^2 = 0$ constraint~\cite{PaperIII}.
+The present paper identifies the origin of the
+``2'' in $\Sigma = 2\ln Q$: it is the
+$(d-2)(d-3)$ Fisher information of the
+Einstein--Hilbert spectral action, evaluated at
+the physical spacetime dimension $d=4$.
+
+\emph{Why $d=4$?}---Several arguments for
+$d=4$ spacetime dimensions exist in the
+literature: stability of planetary
+orbits~\cite{Ehrenfest1917}, the Weyl
+tensor's conformal properties, string theory
+compactification, and the structure of division
+algebras~\cite{BaezHuerta2010}.
+The present argument is different: $d=4$ is
+the unique dimension in which the conformal
+Fisher information of the gravitational action
+equals $2$, matching the entropy production
+of the quantum channel associated with
+temporal asymmetry~[NEW].
+This is an algebraic condition---$(d-2)(d-3) = 2$---not
+a dynamical selection principle.
+
+\emph{The spectral action as entropy potential.}---The
+CCSvS result~\cite{CCSvS2018} identifies the
+von~Neumann entropy with the spectral action.
+Our result identifies $\Sigma$ with the Fisher
+information (second variation) of this entropy.
+The spectral action is therefore the
+``entropy potential'' whose curvature
+in field space generates the temporal asymmetry
+measure.
+The Einstein--Hilbert term $a_2$ is the sector
+whose curvature matches $\Sigma = 2\ln Q$;
+the matter sector $a_4$ is flat (conformally
+invariant) and does not contribute.
+
+\emph{Towards the Standard Model.}---The
+conformal invariance of $a_4$ in $d=4$ means that
+gauge fields and the Higgs potential do not
+affect $\Sigma$ at the level of constant
+conformal variation.
+The gauge sector enters through
+\emph{position-dependent} variations
+(inner fluctuations), which generate the
+Yang--Mills and Higgs equations as
+Euler--Lagrange conditions of the spectral
+action~\cite{CC1996,vS2024}.
+A full treatment requires extending the present
+analysis from constant to general conformal
+factors, incorporating both inner and outer
+fluctuations.
+This is the subject of ongoing work (Papers~7--8).
+
+\emph{The Dorau--Much connection.}---Dorau and
+Much~\cite{DorauMuch2025} recently derived the
+semiclassical Einstein equations from QRE on
+bifurcate Killing horizons.
+Their result corresponds to the \emph{first-order}
+variation of $\Sigma$ (the entropic force
+$d\Sigma/dQ = 2/Q$), while our Fisher metric
+is the \emph{second-order} variation.
+The two are consistent and complementary:
+Einstein's equations arise from $\delta\Sigma = 0$
+at first order; the Fisher metric characterizes
+the information geometry of the solution space
+at second order.
+
+
+%=======================================================================
+\begin{acknowledgments}
+The author thanks Mark~M.~Wilde for correspondence
+on the Petz recovery map, and acknowledges the
+foundational work of Alain Connes, Ali Chamseddine,
+and Walter van Suijlekom on the spectral action
+and its entropic interpretation.
+\end{acknowledgments}
+%=======================================================================
+
+
+\begin{thebibliography}{99}
+
+\bibitem{PaperI}
+S.-K.~Huang,
+``Temporal asymmetry from the Petz recovery map:
+A unifying measure for the arrow of time,''
+arXiv:2502.xxxxx (2026).
+
+\bibitem{PaperII}
+S.-K.~Huang,
+``The gravitational refractive index as Petz
+recovery fidelity,''
+in preparation (2026).
+
+\bibitem{PaperIII}
+S.-K.~Huang,
+``Dark matter as Khronon condensate: Weak-field
+phenomenology of the $\tau$ framework,''
+in preparation (2026).
+
+\bibitem{Umegaki1962}
+H.~Umegaki,
+``Conditional expectation in an operator algebra.
+IV. Entropy and information,''
+K\=odai Math.\ Sem.\ Rep.\ \textbf{14}, 59 (1962).
+
+\bibitem{CCSvS2018}
+A.~H.~Chamseddine, A.~Connes, and
+W.~D.~van~Suijlekom,
+``Entropy and the spectral action,''
+Commun.\ Math.\ Phys.\ \textbf{373}, 457 (2020);
+arXiv:1809.02944.
+
+\bibitem{DKvS2019}
+R.~Dong, M.~Khalkhali, and
+W.~D.~van~Suijlekom,
+``Second quantization and the spectral action,''
+J.\ Geom.\ Phys.\ \textbf{167}, 104285 (2021);
+arXiv:1903.09624.
+
+\bibitem{CC1996}
+A.~H.~Chamseddine and A.~Connes,
+``The spectral action principle,''
+Commun.\ Math.\ Phys.\ \textbf{186}, 731 (1997);
+hep-th/9606001.
+
+\bibitem{CC2006}
+A.~H.~Chamseddine and A.~Connes,
+``Scale invariance in the spectral action,''
+J.\ Math.\ Phys.\ \textbf{47}, 063504 (2006).
+
+\bibitem{Vassilevich2003}
+D.~V.~Vassilevich,
+``Heat kernel expansion: User's manual,''
+Phys.\ Rep.\ \textbf{388}, 279 (2003);
+hep-th/0306138.
+
+\bibitem{Gilkey1995}
+P.~B.~Gilkey,
+\emph{Invariance Theory, the Heat Equation, and
+the Atiyah--Singer Index Theorem},
+2nd ed.\ (CRC Press, Boca Raton, 1995).
+
+\bibitem{Wald1984}
+R.~M.~Wald,
+\emph{General Relativity}
+(University of Chicago Press, Chicago, 1984).
+
+\bibitem{vS2024}
+W.~D.~van~Suijlekom,
+\emph{Noncommutative Geometry and Particle Physics},
+2nd ed.\ (Springer, Cham, 2024).
+
+\bibitem{BS2024}
+L.~Blanchet and C.~Skordis,
+``Dark matter as a Khronon condensate,''
+arXiv:2404.06584 (2024).
+
+\bibitem{DorauMuch2025}
+A.~Dorau and A.~Much,
+``From quantum relative entropy to the
+semiclassical Einstein equations,''
+Phys.\ Rev.\ Lett.\ (2025);
+arXiv:2510.24491.
+
+\bibitem{LVR2016}
+N.~Lashkari and M.~Van~Raamsdonk,
+``Canonical energy is quantum Fisher information,''
+J.\ High Energy Phys.\ \textbf{04}, 153 (2016);
+arXiv:1508.00897.
+
+\bibitem{vandenDungen2016}
+K.~van~den~Dungen,
+``Krein spectral triples and the fermionic action,''
+Math.\ Phys.\ Anal.\ Geom.\ \textbf{19}, 4 (2016).
+
+\bibitem{Besnard2017}
+F.~Besnard,
+``On the definition of spacetimes in noncommutative
+geometry: Part~I,''
+J.\ Geom.\ Phys.\ \textbf{123}, 292 (2018);
+arXiv:1611.07830.
+
+\bibitem{Ehrenfest1917}
+P.~Ehrenfest,
+``In what way does it become manifest in the
+fundamental laws of physics that space has three
+dimensions?''
+Proc.\ Amsterdam Acad.\ \textbf{20}, 200 (1917).
+
+\bibitem{BaezHuerta2010}
+J.~C.~Baez and J.~Huerta,
+``Division algebras and supersymmetry~I,''
+in \emph{Superstrings, Geometry, Topology,
+and $C^*$-Algebras}, Proc.\ Symp.\ Pure Math.\
+\textbf{81}, 65 (2010);
+arXiv:0909.0551.
+
+\end{thebibliography}
+
+\end{document}

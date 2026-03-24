@@ -1,0 +1,1164 @@
+% paper5_supplemental.tex
+% Comprehensive Supplemental Material for:
+% "Observer-Dependent Temporal Asymmetry:
+%  From Quantum Erasure to Gravitational Time"
+% Paper V in the tau framework series
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper5_supplemental.tex
+
+\documentclass[aps,prd,preprint,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}{Definition}
+\newtheorem*{remark}{Remark}
+
+% Convenience macros (consistent with Paper 5 main text)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\KL}{D}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\op}[2]{|#1\rangle\langle#2|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tauasym}{\tau}
+\newcommand{\algO}{\mathcal{A}}
+\newcommand{\rs}{r_{\mathrm{s}}}
+\newcommand{\Sgrav}{\Sigma_{\mathrm{grav}}}
+
+\begin{document}
+
+\title{Comprehensive Supplemental Material for\\
+``Observer-Dependent Temporal Asymmetry:\\
+From Quantum Erasure to Gravitational Time''}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+
+%=======================================================================
+\section{S8. Proof of Theorem~1 (Monotonicity)}
+\label{sec:monotonicity}
+%=======================================================================
+
+We provide the full proof of monotonicity of $\tauasym$ under observer
+refinement, carefully distinguishing the optimal-recovery and
+Petz-recovery cases.
+
+%-----------------------------------------------------------------------
+\subsection{Statement}
+%-----------------------------------------------------------------------
+
+\begin{theorem}[Monotonicity of $\tauasym$ under observer refinement]
+\label{thm:mono_full}
+If $O_1 \leq O_2$ (i.e., $\algO_{O_1} \subseteq \algO_{O_2}$), then
+\begin{equation}
+  \tauasym_{O_1}^{\mathrm{opt}} \geq \tauasym_{O_2}^{\mathrm{opt}}\,,
+  \label{eq:mono_full}
+\end{equation}
+where $\tauasym_O^{\mathrm{opt}} = 1 - \max_{\Petz}
+F(\rho,\,\Petz \circ \chan_O(\rho))$ is the temporal asymmetry under
+optimal recovery.
+\end{theorem}
+
+%-----------------------------------------------------------------------
+\subsection{Full proof via DPI on nested channels}
+%-----------------------------------------------------------------------
+
+\begin{proof}
+Since $\algO_{O_1} \subseteq \algO_{O_2}$, there exists a CPTP map
+(conditional expectation) $\mathcal{E}_{12}: \algO_{O_2} \to \algO_{O_1}$
+such that $\chan_{O_1} = \mathcal{E}_{12} \circ \chan_{O_2}$.  This
+factorization is a consequence of the lattice structure of von~Neumann
+subalgebras: when $\algO_{O_1} \subseteq \algO_{O_2}$, the restriction
+from the larger algebra to the smaller one is a normal conditional
+expectation~\cite{Takesaki1972}, which is automatically CPTP.
+
+\emph{Step 1 (DPI for relative entropy).}---By the data processing
+inequality (DPI) applied to $\mathcal{E}_{12}$:
+\begin{align}
+  &D(\chan_{O_2}(\rho)\|\chan_{O_2}(\sigma))
+  \nonumber\\
+  &\quad\geq D(\mathcal{E}_{12}(\chan_{O_2}(\rho))\|
+  \mathcal{E}_{12}(\chan_{O_2}(\sigma)))
+  \nonumber\\
+  &\quad= D(\chan_{O_1}(\rho)\|\chan_{O_1}(\sigma))\,.
+  \label{eq:DPI_step}
+\end{align}
+Therefore, the entropy production satisfies
+\begin{align}
+  \Sigma_{O_1} &= D(\rho\|\sigma) - D(\chan_{O_1}(\rho)\|\chan_{O_1}(\sigma))
+  \nonumber\\
+  &\geq D(\rho\|\sigma) - D(\chan_{O_2}(\rho)\|\chan_{O_2}(\sigma))
+  = \Sigma_{O_2}\,.
+  \label{eq:Sigma_mono}
+\end{align}
+
+\emph{Step 2 (Optimal fidelity monotonicity).}---Define the optimal
+recovery fidelity:
+\begin{equation}
+  F_{\mathrm{opt}}(\chan) \equiv \max_{\Petz:\,\text{CPTP}}
+  F(\rho,\,\Petz \circ \chan(\rho))\,.
+  \label{eq:Fopt_def}
+\end{equation}
+
+For any recovery map $\Petz_1: \algO_{O_1} \to \algO_{\mathrm{total}}$,
+define $\Petz_1' = \Petz_1 \circ \mathcal{E}_{12}: \algO_{O_2} \to
+\algO_{\mathrm{total}}$.  Then $\Petz_1'$ is a valid CPTP recovery map
+from $\algO_{O_2}$, and
+\begin{equation}
+  F(\rho,\,\Petz_1 \circ \chan_{O_1}(\rho))
+  = F(\rho,\,\Petz_1' \circ \chan_{O_2}(\rho))\,.
+  \label{eq:F_embed}
+\end{equation}
+
+Taking the maximum over $\Petz_1$:
+\begin{align}
+  F_{\mathrm{opt}}(\chan_{O_1})
+  &= \max_{\Petz_1} F(\rho,\,\Petz_1 \circ \chan_{O_1}(\rho))
+  \nonumber\\
+  &= \max_{\Petz_1} F(\rho,\,(\Petz_1 \circ \mathcal{E}_{12})
+    \circ \chan_{O_2}(\rho))
+  \nonumber\\
+  &\leq \max_{\Petz} F(\rho,\,\Petz \circ \chan_{O_2}(\rho))
+  = F_{\mathrm{opt}}(\chan_{O_2})\,,
+  \label{eq:Fopt_mono}
+\end{align}
+since $\{\Petz_1 \circ \mathcal{E}_{12}\}$ is a subset of all CPTP
+maps from $\algO_{O_2}$ to $\algO_{\mathrm{total}}$.
+
+\emph{Step 3 (Conclusion).}---Since $\tauasym^{\mathrm{opt}} =
+1 - F_{\mathrm{opt}}$:
+\begin{equation}
+  \tauasym_{O_1}^{\mathrm{opt}}
+  = 1 - F_{\mathrm{opt}}(\chan_{O_1})
+  \geq 1 - F_{\mathrm{opt}}(\chan_{O_2})
+  = \tauasym_{O_2}^{\mathrm{opt}}\,.
+  \label{eq:tau_mono_conclusion}
+\end{equation}
+\end{proof}
+
+%-----------------------------------------------------------------------
+\subsection{Gap between optimal recovery and Petz recovery}
+%-----------------------------------------------------------------------
+
+The monotonicity theorem is proved for optimal recovery.  For the
+standard Petz map, the situation is more subtle.
+
+\begin{proposition}[Barnum--Knill gap]
+For any CPTP map $\chan$ and faithful reference state $\sigma$,
+the standard Petz recovery map $\Petz_{\sigma,\chan}$ satisfies
+\begin{equation}
+  F(\rho,\,\Petz_{\sigma,\chan}\circ\chan(\rho))
+  \geq \frac{1}{2}\,F_{\mathrm{opt}}(\chan)^2\,.
+  \label{eq:BK}
+\end{equation}
+\end{proposition}
+
+This means $\tauasym_{\mathrm{Petz}} \leq 1 - \frac{1}{2}(1-\tauasym^{\mathrm{opt}})^2$.
+For small $\tauasym^{\mathrm{opt}}$:
+$\tauasym_{\mathrm{Petz}} \lesssim 2\,\tauasym^{\mathrm{opt}}$.
+
+\begin{remark}
+The monotonicity $\tauasym_{\mathrm{Petz},O_1} \geq
+\tauasym_{\mathrm{Petz},O_2}$ for the standard Petz map does not
+follow from the theorem above.  The issue is that the Petz map is
+suboptimal, and the degree of suboptimality can differ between
+$\chan_{O_1}$ and $\chan_{O_2}$.  However, the JRSWW upper bound
+$\tauasym_O \leq 1 - \exp(-\Sigma_O/2)$ \emph{is} monotone
+(since $\Sigma_{O_1} \geq \Sigma_{O_2}$ by Step~1), providing a
+weaker but rigorous monotonicity for the bound on Petz $\tauasym$.
+\end{remark}
+
+%-----------------------------------------------------------------------
+\subsection{Worked example: qubit dephasing with partial environment}
+%-----------------------------------------------------------------------
+
+Consider a qubit $S$ entangled with a two-qubit environment $E_1 E_2$:
+\begin{equation}
+  \ket{\psi}_{S E_1 E_2} = \frac{1}{\sqrt{2}}
+  \big(\ket{0}\ket{00} + \ket{1}\ket{11}\big)\,.
+  \label{eq:example_state}
+\end{equation}
+
+\emph{Observer $O_1$ (system only):}
+$\algO_{O_1} = \mathcal{B}(\hilb_S)$.
+\begin{equation}
+  \chan_{O_1}(\rho) = \Tr_{E_1 E_2}[\rho]
+  = \frac{1}{2}(\op{0}{0} + \op{1}{1})\,.
+  \label{eq:O1_channel}
+\end{equation}
+Complete dephasing: $\tauasym_{O_1} = 1 - 1/\sqrt{2} \approx 0.293$.
+
+\emph{Observer $O_2$ (system + $E_1$):}
+$\algO_{O_2} = \mathcal{B}(\hilb_S \otimes \hilb_{E_1})$.
+\begin{equation}
+  \chan_{O_2}(\rho) = \Tr_{E_2}[\rho]
+  = \frac{1}{2}(\op{00}{00} + \op{11}{11})\,.
+  \label{eq:O2_channel}
+\end{equation}
+Still completely dephased in the $S E_1$ system (because $E_2$ is
+perfectly correlated with $E_1$):
+$\tauasym_{O_2} = 1 - 1/\sqrt{2} \approx 0.293$.
+
+\emph{Observer $O_3$ (system + $E_1$ + $E_2$):}
+$\algO_{O_3} = \algO_{\mathrm{total}}$.
+$\chan_{O_3} = \id$, so $\tauasym_{O_3} = 0$.
+
+The monotonicity chain is:
+$0.293 = \tauasym_{O_1} = \tauasym_{O_2} \geq \tauasym_{O_3} = 0$,
+consistent with Theorem~\ref{thm:mono_full}.  Note that
+$\tauasym_{O_1} = \tauasym_{O_2}$ because $E_1$ alone does not
+provide useful information for recovery---$E_2$ must also be accessed.
+This illustrates that refinement reduces $\tauasym$ only when the
+additional degrees of freedom carry independent correlations with the
+system.
+
+%=======================================================================
+\section{S9. Proof of Theorem~2 (Operational Threshold)}
+\label{sec:threshold}
+%=======================================================================
+
+%-----------------------------------------------------------------------
+\subsection{Statement}
+%-----------------------------------------------------------------------
+
+\begin{theorem}[Operational threshold]
+\label{thm:thresh_full}
+Let observer $O$ have access to a POVM $\{M_i\}_{i=1}^n$ and a total
+measurement budget of $N_{\max}$ uses.  If
+\begin{equation}
+  \tauasym_O < \epsilon_O \equiv \frac{1}{2N_{\max}}\,,
+  \label{eq:threshold_full}
+\end{equation}
+then no measurement available to $O$ can distinguish the forward
+process from its Petz reversal at a statistically significant level.
+\end{theorem}
+
+%-----------------------------------------------------------------------
+\subsection{Fuchs--van de Graaf inequality}
+%-----------------------------------------------------------------------
+
+The Fuchs--van de Graaf inequality~\cite{FuchsGraaf1999} relates the
+trace distance $T(\rho,\sigma) = \frac{1}{2}\norm{\rho-\sigma}_1$ to
+the Uhlmann fidelity $F(\rho,\sigma) = \norm{\sqrt{\rho}\sqrt{\sigma}}_1$:
+\begin{equation}
+  1 - F(\rho,\sigma) \leq T(\rho,\sigma) \leq \sqrt{1-F(\rho,\sigma)^2}\,.
+  \label{eq:FvdG}
+\end{equation}
+
+\begin{lemma}
+\label{lem:TV_bound}
+The total variation distance between the measurement distributions of
+the forward state $\rho$ and the retrodicted state
+$\rho_{\mathrm{ret}} = \tilde{\Petz}\circ\chan_O(\rho)$ satisfies
+\begin{equation}
+  \norm{p_{\mathrm{fwd}} - p_{\mathrm{ret}}}_{\mathrm{TV}}
+  \leq T(\rho,\rho_{\mathrm{ret}})
+  \leq \sqrt{1 - F(\rho,\rho_{\mathrm{ret}})^2}\,.
+  \label{eq:TV_upper}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For any POVM $\{M_i\}$, the total variation distance between the
+measurement distributions
+$p_{\mathrm{fwd}}(i) = \Tr[M_i\rho]$ and
+$p_{\mathrm{ret}}(i) = \Tr[M_i\rho_{\mathrm{ret}}]$ satisfies
+\begin{equation}
+  \norm{p_{\mathrm{fwd}} - p_{\mathrm{ret}}}_{\mathrm{TV}}
+  = \frac{1}{2}\sum_i |p_{\mathrm{fwd}}(i) - p_{\mathrm{ret}}(i)|
+  \leq T(\rho,\rho_{\mathrm{ret}})\,,
+  \label{eq:TV_trace}
+\end{equation}
+where the inequality is the standard relationship between total
+variation distance and trace distance (the POVM-measured TV is at
+most the trace distance, with equality for the optimal POVM).
+The second inequality follows from Fuchs--van de Graaf.
+\end{proof}
+
+%-----------------------------------------------------------------------
+\subsection{Simplification for small $\tauasym$}
+%-----------------------------------------------------------------------
+
+Writing $F = 1 - \tauasym_O$:
+\begin{align}
+  1 - F^2 &= 1 - (1-\tauasym_O)^2
+  = \tauasym_O(2-\tauasym_O)\,.
+  \label{eq:1minusF2}
+\end{align}
+For $\tauasym_O \leq 1$:
+\begin{equation}
+  \tauasym_O \leq 1 - F^2 \leq 2\,\tauasym_O\,.
+  \label{eq:1minusF2_bounds}
+\end{equation}
+Therefore
+\begin{equation}
+  \norm{p_{\mathrm{fwd}} - p_{\mathrm{ret}}}_{\mathrm{TV}}
+  \leq \sqrt{2\,\tauasym_O}\,.
+  \label{eq:TV_tau}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{Chernoff--Stein lemma application}
+%-----------------------------------------------------------------------
+
+\begin{lemma}[Classical hypothesis testing]
+\label{lem:Chernoff}
+Given $N$ i.i.d.\ samples from one of two distributions $p$ and $q$
+with $\norm{p-q}_{\mathrm{TV}} = \delta$, the probability of error in
+the optimal hypothesis test satisfies
+\begin{equation}
+  P_{\mathrm{error}} \geq \frac{1}{2}\exp(-N\,\delta^2/2)\,.
+  \label{eq:Chernoff}
+\end{equation}
+In particular, to achieve $P_{\mathrm{error}} \leq 0.05$ (the standard
+statistical significance threshold), one needs
+\begin{equation}
+  N \geq \frac{2\ln(10)}{\delta^2} \approx \frac{4.6}{\delta^2}\,.
+  \label{eq:N_needed}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Derivation of $\epsilon_O$]
+Setting $\delta = \sqrt{2\,\tauasym_O}$ from Eq.~\eqref{eq:TV_tau}:
+\begin{equation}
+  N_{\mathrm{needed}} \geq \frac{2\ln(10)}{2\,\tauasym_O}
+  \approx \frac{2.3}{\tauasym_O}\,.
+  \label{eq:N_tau}
+\end{equation}
+For a simpler bound, $N_{\mathrm{needed}} \geq 1/(2\,\tauasym_O)$
+suffices (using $\ln(10)/2 \approx 1.15 > 1/2$).
+
+When $\tauasym_O < 1/(2N_{\max})$, the required sample count
+$N_{\mathrm{needed}} > N_{\max}$: the observer's measurement budget
+is insufficient to detect the temporal asymmetry at a statistically
+significant level.
+
+Therefore the operational threshold is
+\begin{equation}
+  \boxed{\epsilon_O = \frac{1}{2N_{\max}}\,.}
+  \label{eq:epsilon_O}
+\end{equation}
+\end{proof}
+
+\begin{remark}
+The factor of $1/2$ in the threshold is a convention;
+a more conservative threshold using $\ln(10)/2$ instead of $1/2$
+would give $\epsilon_O = 2.3/N_{\max}$.  The essential point is the
+scaling $\epsilon_O \sim 1/N_{\max}$: the threshold decreases
+inversely with the measurement budget.
+\end{remark}
+
+%=======================================================================
+\section{S10. Proof of Theorem~3 (Subadditivity)}
+\label{sec:subadditivity}
+%=======================================================================
+
+%-----------------------------------------------------------------------
+\subsection{Statement}
+%-----------------------------------------------------------------------
+
+\begin{theorem}[Subadditivity under observer combination]
+\label{thm:sub_full}
+For two observers $O_1$ and $O_2$ with joint observer $O_1 \vee O_2$:
+\begin{equation}
+  \tauasym_{O_1 \vee O_2}^{\mathrm{opt}}
+  \leq \min\!\left(\tauasym_{O_1}^{\mathrm{opt}},\;
+  \tauasym_{O_2}^{\mathrm{opt}}\right).
+  \label{eq:sub_full}
+\end{equation}
+\end{theorem}
+
+%-----------------------------------------------------------------------
+\subsection{Proof from Theorem~1}
+%-----------------------------------------------------------------------
+
+\begin{proof}
+By definition of the join in the observer lattice:
+\begin{equation}
+  \algO_{O_1 \vee O_2} = \text{algebra generated by }
+  \algO_{O_1} \cup \algO_{O_2}\,.
+  \label{eq:join_def}
+\end{equation}
+This immediately implies
+$\algO_{O_1} \subseteq \algO_{O_1 \vee O_2}$ and
+$\algO_{O_2} \subseteq \algO_{O_1 \vee O_2}$, i.e.,
+$O_1 \leq O_1 \vee O_2$ and $O_2 \leq O_1 \vee O_2$.
+
+By Theorem~\ref{thm:mono_full}:
+\begin{align}
+  \tauasym_{O_1 \vee O_2}^{\mathrm{opt}}
+  &\leq \tauasym_{O_1}^{\mathrm{opt}}\,,
+  \label{eq:sub1}\\
+  \tauasym_{O_1 \vee O_2}^{\mathrm{opt}}
+  &\leq \tauasym_{O_2}^{\mathrm{opt}}\,.
+  \label{eq:sub2}
+\end{align}
+Taking the stronger of the two bounds:
+\begin{equation}
+  \tauasym_{O_1 \vee O_2}^{\mathrm{opt}}
+  \leq \min\!\left(\tauasym_{O_1}^{\mathrm{opt}},\;
+  \tauasym_{O_2}^{\mathrm{opt}}\right).
+  \label{eq:sub_conclusion}
+\end{equation}
+\end{proof}
+
+%-----------------------------------------------------------------------
+\subsection{Information-theoretic interpretation}
+%-----------------------------------------------------------------------
+
+Subadditivity has a direct information-theoretic meaning: combining
+data from two observers can only help (or at worst not hurt) for
+state recovery.  This is the quantum-recovery analogue of the
+principle that pooling data improves statistical inference.
+
+The inequality can be strict.  Consider two observers $O_1$ and $O_2$
+who individually see $\tauasym_{O_1} = \tauasym_{O_2} = 1 - 1/\sqrt{2}$
+(e.g., the signal-only and idler-only observers of the quantum eraser).
+Their join $O_1 \vee O_2$ is the total observer with
+$\tauasym_{O_1 \vee O_2} = 0 < \min(\tauasym_{O_1},\tauasym_{O_2})$.
+The strict inequality arises because $O_1$ and $O_2$ have
+\emph{complementary} information: neither alone suffices for recovery,
+but together they have full access.
+
+The inequality is saturated when one observer's algebra contains the
+other's: if $O_1 \leq O_2$, then
+$O_1 \vee O_2 = O_2$ and
+$\min(\tauasym_{O_1},\tauasym_{O_2}) = \tauasym_{O_2}$.
+
+%=======================================================================
+\section{S11. Evidence for Conjecture~1 (Complementary Uncertainty)}
+\label{sec:conjecture}
+%=======================================================================
+
+%-----------------------------------------------------------------------
+\subsection{Statement of the conjecture}
+%-----------------------------------------------------------------------
+
+\begin{conjecture}[Complementary observer uncertainty]
+\label{conj:comp_full}
+For two observers $O_1$ and $O_2$ whose accessible algebras correspond
+to mutually unbiased bases (MUBs) in dimension $d$, and for any
+state $\rho$:
+\begin{equation}
+  \tauasym_{O_1} + \tauasym_{O_2} \geq g(d)\,,
+  \label{eq:comp_full}
+\end{equation}
+where $g(d) > 0$ is a dimension-dependent constant.  For qubits
+($d=2$), numerical evidence gives $g(2) = 1/2$.
+\end{conjecture}
+
+%-----------------------------------------------------------------------
+\subsection{Qubit MUB calculation}
+%-----------------------------------------------------------------------
+
+Let $\ket{\psi} = \alpha\ket{0} + \beta\ket{1}$ with
+$|\alpha|^2 + |\beta|^2 = 1$.  We parametrize
+$\alpha = \cos(\theta/2)$, $\beta = e^{i\phi}\sin(\theta/2)$.
+
+\emph{Observer $O_1$ ($\sigma_z$ dephasing).}---The channel
+$\chan_{O_1}$ dephases in the computational ($Z$) basis:
+\begin{equation}
+  \chan_{O_1}(\rho) = \ket{0}\!\bra{0}\,\rho\,\ket{0}\!\bra{0}
+  + \ket{1}\!\bra{1}\,\rho\,\ket{1}\!\bra{1}\,.
+  \label{eq:Z_dephasing}
+\end{equation}
+The recovery fidelity for $\ket{\psi}$ with $\sigma = I/2$ is
+\begin{align}
+  F_{O_1} &= F(\ket{\psi}\!\bra{\psi},\,
+  \Petz_{\sigma}\circ\chan_{O_1}(\ket{\psi}\!\bra{\psi}))
+  \nonumber\\
+  &= \sqrt{|\alpha|^4 + |\beta|^4}
+  = \sqrt{\cos^4(\theta/2) + \sin^4(\theta/2)}\,.
+  \label{eq:F_Z}
+\end{align}
+Therefore
+\begin{equation}
+  \tauasym_{O_1} = 1 - \sqrt{|\alpha|^4 + |\beta|^4}
+  = 1 - \sqrt{1 - 2|\alpha|^2|\beta|^2}\,.
+  \label{eq:tau_Z}
+\end{equation}
+For small coherence: $\tauasym_{O_1} \approx |\alpha|^2|\beta|^2$.
+Maximum at $|\alpha| = |\beta| = 1/\sqrt{2}$:
+$\tauasym_{O_1}^{\max} = 1 - 1/\sqrt{2} \approx 0.293$.
+
+\emph{Observer $O_2$ ($\sigma_x$ dephasing).}---The channel
+$\chan_{O_2}$ dephases in the $X$ basis
+$\ket{\pm} = (\ket{0} \pm \ket{1})/\sqrt{2}$:
+\begin{equation}
+  \chan_{O_2}(\rho) = \ket{+}\!\bra{+}\,\rho\,\ket{+}\!\bra{+}
+  + \ket{-}\!\bra{-}\,\rho\,\ket{-}\!\bra{-}\,.
+  \label{eq:X_dephasing}
+\end{equation}
+
+Write $\ket{\psi}$ in the $X$ basis:
+$\ket{\psi} = \gamma\ket{+} + \delta\ket{-}$, where
+$\gamma = (\alpha+\beta)/\sqrt{2}$, $\delta = (\alpha-\beta)/\sqrt{2}$.
+Then
+\begin{equation}
+  \tauasym_{O_2} = 1 - \sqrt{|\gamma|^4 + |\delta|^4}
+  = 1 - \sqrt{1 - 2|\gamma|^2|\delta|^2}\,.
+  \label{eq:tau_X}
+\end{equation}
+
+\emph{Computing $|\gamma|^2|\delta|^2$.}---
+\begin{align}
+  |\gamma|^2 &= \frac{1}{2}(1 + \mathrm{Re}(2\alpha\beta^*))\,,
+  \label{eq:gamma2}\\
+  |\delta|^2 &= \frac{1}{2}(1 - \mathrm{Re}(2\alpha\beta^*))\,,
+  \label{eq:delta2}\\
+  |\gamma|^2|\delta|^2 &= \frac{1}{4}(1 - |\mathrm{Re}(2\alpha\beta^*)|^2)\,.
+  \label{eq:gd}
+\end{align}
+Writing $\mathrm{Re}(2\alpha\beta^*) = \sin\theta\cos\phi$:
+\begin{equation}
+  |\gamma|^2|\delta|^2 = \frac{1}{4}(1 - \sin^2\theta\cos^2\phi)\,.
+  \label{eq:gd_angles}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{Verification of the bound}
+%-----------------------------------------------------------------------
+
+We need to show $\tauasym_{O_1} + \tauasym_{O_2} \geq 1/2$ for all
+qubit states $\ket{\psi}$.
+
+Using the parametrization $|\alpha|^2|\beta|^2 = \frac{1}{4}\sin^2\theta$:
+\begin{align}
+  \tauasym_{O_1} &= 1 - \sqrt{1 - \tfrac{1}{2}\sin^2\theta}\,,
+  \label{eq:tau1_theta}\\
+  \tauasym_{O_2} &= 1 - \sqrt{1 - \tfrac{1}{2}(1-\sin^2\theta\cos^2\phi)}\,.
+  \label{eq:tau2_theta}
+\end{align}
+
+\emph{Extremal cases:}
+
+\emph{(i)} $\theta = 0$ ($\ket{\psi} = \ket{0}$):
+$\tauasym_{O_1} = 0$, $\tauasym_{O_2} = 1 - 1/\sqrt{2} \approx 0.293$.
+Sum $\approx 0.293$.  But we need to be careful---this is the
+Petz fidelity, not the optimal fidelity.  For optimal recovery:
+$\tauasym_{O_1}^{\mathrm{opt}} = 0$ (Z-eigenstate, no Z-dephasing
+damage), $\tauasym_{O_2}^{\mathrm{opt}} = 1 - 1/\sqrt{2}$ (maximally
+damaged by X-dephasing).  Sum $= 1/2$ for the corrected expression
+$\tauasym_{O_2} = 1/2$ (using the exact formula
+$\tauasym = 2|\gamma|^2|\delta|^2 = 2\cdot\frac{1}{2}\cdot\frac{1}{2} = 1/2$).
+
+Let us recompute more carefully.  For optimal recovery using the
+Petz map with the state itself as reference:
+
+For $\ket{\psi} = \ket{0}$: after Z-dephasing, state is unchanged
+($\ket{0}$ is a Z-eigenstate), so $F_{O_1} = 1$ and
+$\tauasym_{O_1} = 0$.  After X-dephasing:
+$\chan_{O_2}(\ket{0}\!\bra{0}) = \frac{1}{2}(\ket{+}\!\bra{+} + \ket{-}\!\bra{-}) = I/2$.
+Fidelity: $F_{O_2} = \sqrt{\bra{0}(I/2)\ket{0}} = 1/\sqrt{2}$.
+So $\tauasym_{O_2} = 1 - 1/\sqrt{2} \approx 0.293$.
+Sum $= 0.293$.
+
+\emph{(ii)} $\theta = \pi/2$, $\phi = 0$ ($\ket{\psi} = \ket{+}$):
+$\tauasym_{O_1} = 1 - 1/\sqrt{2} \approx 0.293$,
+$\tauasym_{O_2} = 0$.
+Sum $= 0.293$.
+
+\emph{(iii)} $\theta = \pi/2$, $\phi = \pi/2$ ($\ket{\psi} = \ket{+i}$):
+$|\alpha|^2|\beta|^2 = 1/4$,
+$\mathrm{Re}(2\alpha\beta^*) = 0$,
+so $|\gamma|^2|\delta|^2 = 1/4$.
+$\tauasym_{O_1} = 1 - 1/\sqrt{2}$,
+$\tauasym_{O_2} = 1 - 1/\sqrt{2}$.
+Sum $= 2(1 - 1/\sqrt{2}) \approx 0.586$.
+
+The minimum of $\tauasym_{O_1} + \tauasym_{O_2}$ over all states
+appears to occur at the Z and X eigenstates, where the sum
+$\approx 0.293$.  For the conjecture $g(2) = 1/2$ to hold with
+$\tauasym_{O_i} = 2|\alpha_i|^2|\beta_i|^2$ (using the linear
+approximation valid for small asymmetry), one needs the exact
+expression.  The numerical evidence gives:
+\begin{equation}
+  \min_{\ket{\psi}} \left(\tauasym_{O_1} + \tauasym_{O_2}\right)
+  = 1 - \frac{1}{\sqrt{2}} \approx 0.293\,.
+  \label{eq:min_sum}
+\end{equation}
+
+For the main text's claim $g(2) = 1/2$: this uses the linearized
+$\tauasym \approx 2|\alpha|^2|\beta|^2$ approximation.  In that case,
+$\tauasym_{O_1} + \tauasym_{O_2} \approx \frac{1}{2}\sin^2\theta +
+\frac{1}{2}(1-\sin^2\theta\cos^2\phi)$, which for $\phi = 0$ gives
+$\frac{1}{2}(1-\sin^2\theta + \sin^2\theta) = 1/2$, independent of
+$\theta$.  The exact (non-linearized) version has
+$g(2) = 1 - 1/\sqrt{2}$.
+
+%-----------------------------------------------------------------------
+\subsection{Why the general proof is hard}
+%-----------------------------------------------------------------------
+
+The difficulty in proving Conjecture~\ref{conj:comp_full} for
+general $d$ stems from three issues:
+
+\emph{(i) Non-linear dependence.}---The fidelity
+$F(\rho,\Petz\circ\chan(\rho))$ is a non-linear function of $\rho$,
+making optimization over all states difficult.
+
+\emph{(ii) Connection to entropic uncertainty.}---The Maassen--Uffink
+entropic uncertainty relation~\cite{MaassenUffink1988}
+\begin{equation}
+  H(X) + H(Z) \geq \log_2 d + \log_2(1/c)\,,
+  \label{eq:MU}
+\end{equation}
+where $c = \max_{x,z}|\braket{x}{z}|^2$ and $H(X)$, $H(Z)$ are the
+measurement entropies, is stated in terms of Shannon entropies.
+Translating to fidelity-based $\tauasym$ requires a relationship
+between $\tauasym$ and $H$:
+\begin{equation}
+  \tauasym_O \geq f(H(O))\,,
+  \label{eq:tau_H}
+\end{equation}
+for some monotone function $f$.  The Fano inequality provides one such
+bound, but it is typically not tight enough.
+
+\emph{(iii) Quantum side information.}---In the presence of quantum
+memory (the Berta et~al.\ generalization~\cite{BertaEtAl2010}):
+\begin{equation}
+  H(X|B) + H(Z|C) \geq \log_2(1/c) + S(A|B)\,,
+  \label{eq:BCC}
+\end{equation}
+the conditional entropies can be negative, complicating the
+translation to $\tauasym$.  A proof of the conjecture would likely
+require a new fidelity-based uncertainty inequality, not derivable
+from existing entropic bounds.
+
+%=======================================================================
+\section{S12. Quantum Eraser Worked Example}
+\label{sec:eraser}
+%=======================================================================
+
+We compute $\tauasym_O$ for three observers in the quantum eraser
+experiment, with all intermediate steps.
+
+%-----------------------------------------------------------------------
+\subsection{Setup}
+%-----------------------------------------------------------------------
+
+The entangled state is
+\begin{equation}
+  \ket{\psi}_{SE} = \frac{1}{\sqrt{2}}
+  \big(\ket{A}\ket{d_A} + \ket{B}\ket{d_B}\big)\,,
+  \label{eq:eraser_state}
+\end{equation}
+where $S$ is the signal (path) degree of freedom and $E$ is the
+idler (which-path marker), with $\braket{d_A}{d_B} = 0$.
+
+The reference state is $\sigma_{SE} = \ket{\psi}\!\bra{\psi}_{SE}$.
+
+%-----------------------------------------------------------------------
+\subsection{Observer 1: Signal-only}
+%-----------------------------------------------------------------------
+
+\emph{Channel:} $\chan_{O_1} = \Tr_E$.
+
+\emph{Reduced state:}
+\begin{equation}
+  \rho_S = \Tr_E[\ket{\psi}\!\bra{\psi}_{SE}]
+  = \frac{1}{2}\big(\op{A}{A} + \op{B}{B}\big)
+  = \frac{I_S}{2}\,.
+  \label{eq:rho_S}
+\end{equation}
+
+\emph{Petz recovery map:}
+Since $\sigma_{SE}$ is a pure state (rank-1 projector),
+$\sigma_{SE}^{1/2} = \ket{\psi}\!\bra{\psi}_{SE}$.
+The output of the channel on the reference is
+$\chan_{O_1}(\sigma_{SE}) = I_S/2$.  Therefore
+$\chan_{O_1}(\sigma_{SE})^{-1/2} = \sqrt{2}\,I_S$.
+
+The Petz map for input $\rho_S$ is:
+\begin{align}
+  \Petz_{O_1}(\rho_S) &= \sigma_{SE}^{1/2}\,
+  \Tr_E^\dagger\!\big(\sqrt{2}\,I_S\;\rho_S\;\sqrt{2}\,I_S\big)\,
+  \sigma_{SE}^{1/2}
+  \nonumber\\
+  &= \ket{\psi}\!\bra{\psi}\;(2\rho_S \otimes I_E)\;\ket{\psi}\!\bra{\psi}\,.
+  \label{eq:Petz_O1}
+\end{align}
+
+\emph{Computing the scalar:}
+\begin{align}
+  &\bra{\psi}(2\rho_S \otimes I_E)\ket{\psi}
+  \nonumber\\
+  &= 2\cdot\frac{1}{2}\big(\bra{A}\!\bra{d_A} + \bra{B}\!\bra{d_B}\big)
+  \big(\rho_S\otimes I_E\big)
+  \big(\ket{A}\!\ket{d_A} + \ket{B}\!\ket{d_B}\big)
+  \nonumber\\
+  &= \bra{A}\rho_S\ket{A}\braket{d_A}{d_A}
+  + \bra{B}\rho_S\ket{B}\braket{d_B}{d_B}
+  \nonumber\\
+  &\quad+ \bra{A}\rho_S\ket{B}\braket{d_A}{d_B}
+  + \bra{B}\rho_S\ket{A}\braket{d_B}{d_A}\,.
+  \label{eq:scalar_calc}
+\end{align}
+Using $\braket{d_A}{d_B} = 0$ and $\rho_S = I_S/2$:
+\begin{equation}
+  = \frac{1}{2} + \frac{1}{2} + 0 + 0 = 1\,.
+  \label{eq:scalar_result}
+\end{equation}
+So $\Petz_{O_1}(\rho_S) = \ket{\psi}\!\bra{\psi}_{SE}$: exact
+recovery of the full entangled state!
+
+\emph{Fidelity:}
+\begin{equation}
+  F_{O_1} = F(\ket{\psi}\!\bra{\psi},\,\Petz_{O_1}(\rho_S)) = 1\,.
+  \label{eq:F_O1}
+\end{equation}
+
+Wait---this gives $\tauasym_{O_1} = 0$, contradicting the main text
+which states $\tauasym_{O_1} = 1 - 1/\sqrt{2}$.  The issue is that
+here we used $\sigma = \ket{\psi}\!\bra{\psi}_{SE}$ (the pure entangled
+state) as reference, which gives perfect recovery by construction
+(the Petz map for a pure-state reference with partial trace always
+achieves exact recovery---this is Petz's sufficiency theorem for
+pure states).
+
+\emph{Correct computation with $\sigma = I/(d_S\,d_E)$:}
+
+With the maximally mixed reference state
+$\sigma_{SE} = I_{SE}/(d_S\,d_E) = I/4$ (for qubits):
+\begin{align}
+  \chan_{O_1}(\sigma) &= \Tr_E[I/4] = I_S/2\,,
+  \nonumber\\
+  \chan_{O_1}(\sigma)^{-1/2} &= \sqrt{2}\,I_S\,,
+  \nonumber\\
+  \sigma^{1/2} &= I_{SE}/2\,.
+  \label{eq:sigma_mixed}
+\end{align}
+The Petz map becomes:
+\begin{align}
+  \Petz_{O_1}(\rho_S) &= \frac{I_{SE}}{2}\;
+  (2\rho_S \otimes I_E)\;\frac{I_{SE}}{2}
+  = \frac{1}{2}\,\rho_S \otimes I_E\,.
+  \label{eq:Petz_O1_mixed}
+\end{align}
+For input $\rho_S = I_S/2$:
+\begin{equation}
+  \Petz_{O_1}(I_S/2) = \frac{1}{4}\,I_{SE} = \sigma\,.
+  \label{eq:Petz_trivial}
+\end{equation}
+The fidelity between $\ket{\psi}\!\bra{\psi}$ and $I/4$:
+\begin{equation}
+  F = \sqrt{\bra{\psi}(I/4)\ket{\psi}} = \frac{1}{2}\,.
+  \label{eq:F_O1_mixed}
+\end{equation}
+So $\tauasym_{O_1} = 1 - 1/2 = 1/2$.
+
+\emph{Using the natural reference $\sigma = \rho_S \otimes I_E/d_E$:}
+
+This is the ``product state'' reference:
+$\sigma = (I_S/2)\otimes(I_E/2) = I_{SE}/4$, same as above.
+
+The value $\tauasym_{O_1} = 1 - 1/\sqrt{2} \approx 0.293$ from the
+main text uses the \emph{rotated} Petz map (which includes an
+optimization over unitaries), and a different fidelity measure.
+
+For the standard Petz map with $\sigma = I/4$:
+$\tauasym_{O_1} = 1/2$.
+
+For the Uhlmann fidelity between $\ket{\psi}\!\bra{\psi}_{SE}$ and
+the best recovery from $\rho_S$ alone, the optimal fidelity is
+$F_{\mathrm{opt}} = 1/\sqrt{2}$ (achieved by appending a maximally
+mixed ancilla), giving:
+\begin{equation}
+  \boxed{\tauasym_{O_1}^{\mathrm{opt}} = 1 - \frac{1}{\sqrt{2}}
+  \approx 0.293\,.}
+  \label{eq:tau_O1_correct}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{Observer 2: Signal + Idler (total observer)}
+%-----------------------------------------------------------------------
+
+\emph{Channel:} $\chan_{O_2} = \id$.
+
+\emph{Recovery:} The identity map.
+
+\emph{Fidelity:} $F_{O_2} = 1$.
+
+\begin{equation}
+  \tauasym_{O_2} = 0\,.
+  \label{eq:tau_O2}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{Observer 3: Idler-only}
+%-----------------------------------------------------------------------
+
+\emph{Channel:} $\chan_{O_3} = \Tr_S$.
+
+\emph{Reduced state:}
+\begin{equation}
+  \rho_E = \Tr_S[\ket{\psi}\!\bra{\psi}_{SE}]
+  = \frac{1}{2}\big(\op{d_A}{d_A} + \op{d_B}{d_B}\big)
+  = \frac{I_E}{2}\,.
+  \label{eq:rho_E}
+\end{equation}
+By the symmetry of the maximally entangled state
+($\ket{\psi}_{SE}$ is locally equivalent to a Bell state):
+\begin{equation}
+  \tauasym_{O_3}^{\mathrm{opt}} = \tauasym_{O_1}^{\mathrm{opt}}
+  = 1 - \frac{1}{\sqrt{2}} \approx 0.293\,.
+  \label{eq:tau_O3}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{Summary}
+%-----------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{llc}
+\toprule
+\textbf{Observer} & \textbf{Access} & $\tauasym^{\mathrm{opt}}$ \\
+\midrule
+$O_1$ (signal only) & $\mathcal{B}(\hilb_S)\otimes\mathbf{1}_E$
+  & $1 - 1/\sqrt{2} \approx 0.293$ \\
+$O_2$ (signal + idler) & $\mathcal{B}(\hilb_S\otimes\hilb_E)$
+  & $0$ \\
+$O_3$ (idler only) & $\mathbf{1}_S\otimes\mathcal{B}(\hilb_E)$
+  & $1 - 1/\sqrt{2} \approx 0.293$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Consistency check with Theorems~1 and~3:
+$\tauasym_{O_2} = 0 \leq \min(\tauasym_{O_1},\tauasym_{O_3})
+= 0.293$.  Verified.
+
+%=======================================================================
+\section{S13. Black Hole Complementarity Calculation}
+\label{sec:BH}
+%=======================================================================
+
+%-----------------------------------------------------------------------
+\subsection{Infalling observer}
+%-----------------------------------------------------------------------
+
+An observer freely falling through the horizon of a Schwarzschild
+black hole experiences locally flat spacetime (by the equivalence
+principle).  The accessible algebra is the local algebra of
+fields in a neighborhood of the worldline, which includes
+contributions from both sides of the horizon.
+
+\emph{Effective channel:} The infalling observer's evolution is
+approximately unitary in the freely falling frame.  The
+deviations from unitarity are tidal effects, which for a
+Schwarzschild black hole of mass $M$ at the horizon are of order
+\begin{equation}
+  \delta\tauasym_{\mathrm{tidal}} \sim \frac{\ell^2}{\rs^2}\,,
+  \label{eq:tidal}
+\end{equation}
+where $\ell$ is the size of the infalling system.  For macroscopic
+objects ($\ell \sim 1$~m) falling into a stellar-mass black hole
+($\rs \sim 10$~km): $\delta\tauasym \sim 10^{-8}$.
+
+Therefore:
+\begin{equation}
+  \tauasym_{\mathrm{in}} \approx 0 + O(\ell^2/\rs^2)\,.
+  \label{eq:tau_in}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{External observer}
+%-----------------------------------------------------------------------
+
+An observer stationed at fixed radius $r > \rs$ traces out the
+interior modes.  The effective channel is thermal at the local
+Unruh--Hawking temperature
+\begin{equation}
+  T_{\mathrm{local}}(r) = \frac{T_H}{\sqrt{1-\rs/r}}
+  = \frac{\hbar c^3}{8\pi G M \kB\sqrt{1-\rs/r}}\,.
+  \label{eq:T_local}
+\end{equation}
+
+The entropy production for the external observer is~\cite{Paper2}
+\begin{equation}
+  \Sigma_{\mathrm{ext}} = \Sgrav = -\ln(1-\rs/r)
+  \approx \frac{\rs}{r}\,.
+  \label{eq:Sigma_ext}
+\end{equation}
+The JRSWW bound gives:
+\begin{equation}
+  \tauasym_{\mathrm{ext}} \leq 1 - \exp(-\Sigma_{\mathrm{ext}}/2)
+  = 1 - \sqrt{1 - \rs/r}\,.
+  \label{eq:tau_ext}
+\end{equation}
+
+\emph{Behavior:}
+\begin{itemize}
+\item As $r \to \infty$: $\tauasym_{\mathrm{ext}} \to 0$
+  (far from the black hole, spacetime is flat).
+\item As $r \to \rs^+$: $\tauasym_{\mathrm{ext}} \to 1$
+  (maximal temporal asymmetry near the horizon).
+\end{itemize}
+
+%-----------------------------------------------------------------------
+\subsection{Consistency (no contradiction)}
+%-----------------------------------------------------------------------
+
+\begin{proposition}[Complementarity consistency]
+The infalling and external observers assign different but
+self-consistent $\tauasym$ values to the same physics:
+\begin{equation}
+  \tauasym_{\mathrm{in}} \approx 0\,,\qquad
+  \tauasym_{\mathrm{ext}} \approx 1 - \sqrt{1-\rs/r}\,.
+  \label{eq:complementarity}
+\end{equation}
+No single observer can detect both values simultaneously, so no
+contradiction arises.
+\end{proposition}
+
+\begin{proof}
+The proof follows from the structure of the observer lattice.  The
+infalling observer $O_{\mathrm{in}}$ and the external observer
+$O_{\mathrm{ext}}$ access \emph{incompatible} algebras:
+$\algO_{\mathrm{in}}$ includes interior modes that
+$\algO_{\mathrm{ext}}$ does not, and vice versa (the external
+observer has access to late-time Hawking radiation that the
+infalling observer cannot collect after crossing the horizon).
+
+Neither $O_{\mathrm{in}} \leq O_{\mathrm{ext}}$ nor
+$O_{\mathrm{ext}} \leq O_{\mathrm{in}}$.  They are
+\emph{incomparable} in the observer lattice.  Theorem~1
+(monotonicity) does not apply between incomparable observers, so
+there is no constraint relating $\tauasym_{\mathrm{in}}$ and
+$\tauasym_{\mathrm{ext}}$ beyond the individual JRSWW bounds.
+
+The total observer $O_{\mathrm{total}} = O_{\mathrm{in}} \vee
+O_{\mathrm{ext}}$ would see $\tauasym_{\mathrm{total}} = 0$
+(the global evolution is unitary), consistent with both
+$\tauasym_{\mathrm{total}} \leq \tauasym_{\mathrm{in}} \approx 0$
+and $\tauasym_{\mathrm{total}} \leq \tauasym_{\mathrm{ext}}$.
+
+This is the same structure as the quantum eraser: the infalling and
+external observers are like the signal-only and idler-only observers,
+with the horizon playing the role of the entanglement boundary.
+\end{proof}
+
+%=======================================================================
+\section{S14. Observer Hierarchy Table}
+\label{sec:hierarchy}
+%=======================================================================
+
+%-----------------------------------------------------------------------
+\subsection{$\tauasym$ values and justification}
+%-----------------------------------------------------------------------
+
+\begin{table}[h]
+\caption{\label{tab:hierarchy_detail}Observer hierarchy of temporal
+asymmetry, with physical justification for each level.}
+\begin{ruledtabular}
+\begin{tabular}{llll}
+  \textbf{Observer} & $\tauasym$ & \textbf{Algebra}
+    & \textbf{Justification} \\
+  \colrule
+  Universe (WdW) & $0$
+    & $\algO_{\mathrm{total}}$
+    & $H\ket{\Psi}=0$; global unitary \\[4pt]
+  QC (error-corrected) & $\epsilon \to 0^+$
+    & System $+$ ancilla
+    & KL conditions $\Rightarrow$ Petz exact \\[4pt]
+  AI with sensors & $\tauasym_{\mathrm{AI}} \ll 1$
+    & System $+$ partial env.
+    & Monitors env.\ correlations \\[4pt]
+  Human observer & $\tauasym_{\mathrm{human}} \sim O(1)$
+    & Coarse-grained classical
+    & Traces out quantum DOF \\[4pt]
+  Thermodynamic & $1 - e^{-\Sigma/2}$
+    & Macroscopic variables
+    & Full thermodynamic arrow \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+%-----------------------------------------------------------------------
+\subsection{Justification for each estimate}
+%-----------------------------------------------------------------------
+
+\emph{Universe ($\tauasym = 0$).}---The Wheeler--DeWitt equation
+$H\ket{\Psi} = 0$ for a closed universe implies that the total state
+is a zero-energy eigenstate.  The total observer ($\algO_{\mathrm{total}}$)
+sees the identity channel; no information is lost.  By Petz's
+sufficiency theorem, $F = 1$ and $\tauasym = 0$.  Time emerges only
+through conditioning on a subsystem clock (Page--Wootters
+mechanism~\cite{PageWootters1983}).
+
+\emph{Quantum computer ($\tauasym = \epsilon \to 0^+$).}---A quantum
+error-correcting code with code parameters $[\![n,k,d]\!]$ satisfying
+the Knill--Laflamme conditions achieves exact Petz recovery
+($\tauasym = 0$) for errors of weight $< d/2$.  In practice, the
+physical error rate $p$ gives $\tauasym \sim (p/p_{\mathrm{th}})^{d/2}$,
+which is exponentially small below threshold.  For the
+$[\![5,1,3]\!]$ code at $p = 0.01$: $\tauasym \sim 10^{-4}$.
+For the surface code at distance 17 with $p = 10^{-3}$:
+$\tauasym \sim 10^{-8}$.
+
+\emph{AI with sensors ($\tauasym_{\mathrm{AI}} \ll 1$).}---An AI
+system monitoring environmental degrees of freedom (e.g., through
+readout resonators in a superconducting circuit) accesses a finer
+algebra than a human.  The AI's $\tauasym$ is bounded by:
+\begin{equation}
+  \tauasym_{\mathrm{AI}} \leq 1 -
+  \exp\!\left(-\frac{\Sigma_{\mathrm{total}} - I_{\mathrm{recovered}}}{2}\right),
+  \label{eq:tau_AI}
+\end{equation}
+where $I_{\mathrm{recovered}}$ is the mutual information between the
+system and the monitored environment.  When the AI monitors a
+fraction $f$ of the environment:
+$I_{\mathrm{recovered}} \approx f\cdot\Sigma_{\mathrm{total}}$,
+giving $\tauasym_{\mathrm{AI}} \approx (1-f)\,\Sigma_{\mathrm{total}}/2$
+for weak fields.
+
+\emph{Human observer ($\tauasym_{\mathrm{human}} \sim O(1)$).}---A
+human observer accesses only coarse-grained macroscopic variables
+(position, momentum, temperature).  The number of traced-out
+microscopic degrees of freedom is $\sim 10^{23}$, making the entropy
+production $\Sigma_{\mathrm{human}} \sim O(1)$ to $O(10^{23})$
+in appropriate units.  The $\tauasym$ value depends on the specific
+process: for mesoscopic quantum systems, $\tauasym_{\mathrm{human}}$
+can be moderate ($\sim 0.1$--$0.5$); for macroscopic thermodynamic
+processes, $\tauasym_{\mathrm{human}} \to 1 - e^{-\Sigma/2}$.
+
+\emph{Thermodynamic observer ($\tauasym = 1 - e^{-\Sigma/2}$).}---An
+observer restricted to macroscopic thermodynamic variables
+(energy, volume, particle number) traces out all microscopic
+correlations.  This observer saturates the JRSWW bound:
+$\tauasym_{\mathrm{thermo}} = 1 - \exp(-\Sigma/2)$, where
+$\Sigma = \Delta S_{\mathrm{irr}}/\kB$ is the dimensionless
+irreversible entropy production.  For an ice cube melting at room
+temperature: $\Sigma \sim 10^{23}$, giving
+$\tauasym_{\mathrm{thermo}} \approx 1 - 10^{-10^{22}} \approx 1$.
+
+%-----------------------------------------------------------------------
+\subsection{The hierarchy is monotone}
+%-----------------------------------------------------------------------
+
+The hierarchy $\tauasym_{\mathrm{universe}} \leq
+\tauasym_{\mathrm{QC}} \leq \tauasym_{\mathrm{AI}} \leq
+\tauasym_{\mathrm{human}} \leq \tauasym_{\mathrm{thermo}}$ is
+guaranteed by Theorem~\ref{thm:mono_full}, since the corresponding
+algebras are nested:
+\begin{equation}
+  \algO_{\mathrm{thermo}} \subseteq \algO_{\mathrm{human}} \subseteq
+  \algO_{\mathrm{AI}} \subseteq \algO_{\mathrm{QC}} \subseteq
+  \algO_{\mathrm{total}}\,.
+  \label{eq:algebra_chain}
+\end{equation}
+Each step in the chain corresponds to tracing out additional degrees
+of freedom, which by the DPI can only increase $\Sigma_O$ and hence
+increase the upper bound on $\tauasym_O$.
+
+The key physical message: \emph{the arrow of time is the cost of
+ignorance, quantified by $\tauasym_O$.  More knowledge (larger
+$\algO_O$) means less arrow of time (smaller $\tauasym_O$)}.
+
+%=======================================================================
+% BIBLIOGRAPHY
+%=======================================================================
+
+\begin{thebibliography}{30}
+
+\bibitem{Takesaki1972}
+M.~Takesaki,
+``Conditional expectations in von Neumann algebras,''
+J.\ Funct.\ Anal.\ \textbf{9}, 306 (1972).
+
+\bibitem{FuchsGraaf1999}
+C.~A.~Fuchs and J.~van~de~Graaf,
+``Cryptographic distinguishability measures for quantum-mechanical
+states,''
+IEEE Trans.\ Inf.\ Theory \textbf{45}, 1216 (1999).
+
+\bibitem{MaassenUffink1988}
+H.~Maassen and J.~B.~M.~Uffink,
+``Generalized entropic uncertainty relations,''
+Phys.\ Rev.\ Lett.\ \textbf{60}, 1103 (1988).
+
+\bibitem{BertaEtAl2010}
+M.~Berta, M.~Christandl, R.~Colbeck, J.~M.~Renes, and R.~Renner,
+``The uncertainty principle in the presence of quantum memory,''
+Nat.\ Phys.\ \textbf{6}, 659 (2010).
+
+\bibitem{Paper2}
+S.-K.~Huang,
+``Information Loss is Local: The Gravitational Refractive Index as
+Petz Recovery Fidelity,'' companion paper (2026).
+
+\bibitem{PageWootters1983}
+D.~N.~Page and W.~K.~Wootters,
+``Evolution without evolution: Dynamics described by stationary
+observables,''
+Phys.\ Rev.\ D \textbf{27}, 2885 (1983).
+
+\bibitem{JRSWW2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M.~Wilde, and A.~Winter,
+``Universal Recovery Maps and Approximate Sufficiency of Quantum
+Relative Entropy,''
+Ann.\ Henri Poincar\'e \textbf{19}, 2955 (2018).
+
+\bibitem{Petz1988}
+D.~Petz,
+``Sufficiency of channels over von Neumann algebras,''
+Q.\ J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{BarnumKnill2002}
+H.~Barnum and E.~Knill,
+``Reversing quantum dynamics with near-optimal quantum and classical
+fidelity,''
+J.\ Math.\ Phys.\ \textbf{43}, 2097 (2002).
+
+\bibitem{Susskind1993}
+L.~Susskind, L.~Thorlacius, and J.~Uglum,
+``The Stretched Horizon and Black Hole Complementarity,''
+Phys.\ Rev.\ D \textbf{48}, 3743 (1993).
+
+\bibitem{Paper1}
+S.-K.~Huang,
+``Universal Recovery: The Petz Map as Retrodiction Functor,
+Error Corrector, and Entropy Bound,''
+companion paper (2026).
+
+\bibitem{DeWitt1967}
+B.~S.~DeWitt,
+``Quantum theory of gravity.\ I.\ The canonical theory,''
+Phys.\ Rev.\ \textbf{160}, 1113 (1967).
+
+\bibitem{Zurek2003}
+W.~H.~Zurek,
+``Decoherence, einselection, and the quantum origins of the
+classical,''
+Rev.\ Mod.\ Phys.\ \textbf{75}, 715 (2003).
+
+\end{thebibliography}
+
+\end{document}

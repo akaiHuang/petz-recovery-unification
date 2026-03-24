@@ -1,0 +1,472 @@
+% paper_mu_relation.tex
+% The Khronon Mass Scale from Recombination
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper_mu_relation.tex
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+% Macros
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Mpc}{\,\mathrm{Mpc}}
+\newcommand{\zdec}{z_{\mathrm{dec}}}
+\newcommand{\rd}{r_{\mathrm{d}}}
+\newcommand{\Ob}{\Omega_{\mathrm{b}}}
+\newcommand{\Odm}{\Omega_{\mathrm{DM}}}
+
+\begin{document}
+
+\title{The Khronon Mass Scale from Recombination:\\
+Two Numerical Relations Connecting MOND, CMB,
+and Dark Matter}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+In the Blanchet--Skordis Khronon dark matter theory,
+the inverse mass parameter $\mu^{-1} = 22.3\Mpc$ is
+fitted to galaxy rotation curves and CMB data, but
+its theoretical origin is unknown.
+We report two numerical relations, apparently absent
+from the literature, that express $\mu$ in terms of
+fundamental cosmological quantities:
+(i)~$\mu c^2 = a_0\,(1 + \zdec)$,
+relating the Khronon mass to the MOND acceleration
+blueshifted to photon decoupling ($\mu^{-1} = 22.25\Mpc$,
+$0.2\%$ agreement); and
+(ii)~$\mu = 2\pi(1 + \Ob)/\rd$,
+relating the Khronon Compton wavelength to the
+baryon-loaded sound horizon
+($\mu^{-1} = 22.31\Mpc$, $0.04\%$ agreement).
+The two relations are structurally independent yet
+mutually consistent to $0.27\%$.
+Both connect a galactic-scale parameter ($\mu$ or $a_0$)
+to recombination-epoch quantities ($\zdec$, $\rd$, $\Ob$),
+suggesting that the Khronon mass is not a free parameter
+but is fixed by the physics of baryon--photon decoupling.
+\end{abstract}
+
+\maketitle
+
+
+%=======================================================================
+\section{Introduction}
+\label{sec:intro}
+%=======================================================================
+
+The dark matter problem admits two complementary
+phenomenological descriptions.
+On galactic scales, the MOND acceleration
+$a_0 \approx 1.2 \times 10^{-10}\;\mathrm{m\,s}^{-2}$
+governs the baryonic Tully--Fisher relation and the
+radial acceleration relation~\cite{Milgrom1983,McGaugh2016}.
+On cosmological scales, the $\Lambda$CDM paradigm
+reproduces the CMB power spectrum and large-scale structure
+with a pressureless cold dark matter component,
+$\Odm h^2 = 0.120$~\cite{Planck2018}.
+Bridging these regimes has proven difficult:
+theories that reproduce MOND phenomenology generically
+fail CMB constraints, and vice versa.
+
+A notable exception is the Blanchet--Skordis (BS) Khronon
+theory~\cite{BS2024,BS2025}, which extends the
+Skordis--Z\l o\'snik action~\cite{SZ2021} with a
+Dirac--Born--Infeld (DBI) kinetic structure.
+The theory contains two sectors: a galactic sector
+$J(Y)$ that recovers MOND, and a cosmological sector
+$K(Q) = \mu^2(Q - 1)^2$ that provides CDM-like
+perturbations through ghost condensation.
+The single parameter $\mu$ controls the transition
+from the modified-gravity regime to the Newtonian regime;
+its inverse $\mu^{-1} = 22.3\Mpc$ is determined by
+fitting to CMB and rotation curve data~\cite{BS2025}.
+
+Despite the theory's empirical success, the origin of $\mu$
+remains unexplained.
+Dimensional analysis suggests $\mu \sim H_0/c$, giving
+$\mu^{-1} \sim c/H_0 \approx 4450\Mpc$---a factor of
+${\sim}\,200$ too large, and incompatible with CMB
+data~\cite{BS2025}.
+In this Letter, we report two numerical relations
+that pin down $\mu$ in terms of well-measured
+cosmological quantities with sub-percent accuracy.
+
+
+%=======================================================================
+\section{Relation I: MOND acceleration at decoupling}
+\label{sec:rel1}
+%=======================================================================
+
+We propose
+\begin{equation}
+  \mu\, c^2 \;=\; a_0\,(1 + \zdec) \,,
+  \label{eq:rel1}
+\end{equation}
+where $\zdec = 1089.92$ is the photon decoupling
+redshift~\cite{Planck2018}.
+This can be read as: \emph{the Khronon mass scale equals
+the MOND acceleration blueshifted to the epoch of
+last scattering, expressed in natural units.}
+
+Inverting Eq.~\eqref{eq:rel1} gives the Khronon
+Compton wavelength,
+\begin{equation}
+  \mu^{-1}
+  = \frac{c^2}{a_0\,(1 + \zdec)}
+  = \frac{(2.998 \times 10^8)^2}
+         {1.2 \times 10^{-10} \times 1090.92}
+  = 22.25\Mpc .
+  \label{eq:rel1_value}
+\end{equation}
+Compared to the BS2025 fitted value
+$\mu^{-1}_{\mathrm{fit}} = 22.3\Mpc$~\cite{BS2025},
+the agreement is
+\begin{equation}
+  \frac{|\mu^{-1} - \mu^{-1}_{\mathrm{fit}}|}
+       {\mu^{-1}_{\mathrm{fit}}}
+  = 0.2\% \,.
+\end{equation}
+
+\emph{Physical interpretation.}---The
+quantity $a_0(1 + \zdec)$ is the
+comoving MOND acceleration at decoupling.
+In MOND phenomenology, $a_0$ marks
+the transition between Newtonian and deep-MOND
+dynamics at $z = 0$; at redshift $z$, this transition
+scale blueshifts to $a_0(1 + z)$~\cite{Milgrom2020}.
+Relation~\eqref{eq:rel1} states that the Khronon
+mass $\mu$ is set by this transition scale evaluated
+precisely at the epoch when baryons decouple from
+photons.
+This is physically natural: $\mu$ controls the
+MOND--Newton transition in the Khronon theory,
+and its value should be determined by the
+cosmological epoch at which the relevant degrees
+of freedom (baryonic perturbations) become
+dynamically independent.
+
+
+%=======================================================================
+\section{Relation II: Baryon-loaded sound horizon}
+\label{sec:rel2}
+%=======================================================================
+
+Independently, we find
+\begin{equation}
+  \mu \;=\; \frac{2\pi\,(1 + \Ob)}{\rd} \,,
+  \label{eq:rel2}
+\end{equation}
+where $\rd = 147.09\Mpc$ is the comoving sound
+horizon at the baryon drag epoch~\cite{Planck2018}
+and $\Ob = 0.0493$ is the baryon density
+parameter.  Inverting,
+\begin{equation}
+  \mu^{-1}
+  = \frac{\rd}{2\pi\,(1 + \Ob)}
+  = \frac{147.09}{2\pi \times 1.0493}
+  = 22.31\Mpc .
+  \label{eq:rel2_value}
+\end{equation}
+The agreement with the fitted value is
+\begin{equation}
+  \frac{|\mu^{-1} - \mu^{-1}_{\mathrm{fit}}|}
+       {\mu^{-1}_{\mathrm{fit}}}
+  = 0.04\% \,.
+\end{equation}
+
+\emph{Physical interpretation.}---The
+sound horizon $\rd$ is the comoving distance
+traveled by acoustic waves in the baryon--photon
+plasma from the Big Bang to recombination.
+Relation~\eqref{eq:rel2} states that the Khronon
+Compton wavelength is $\rd / 2\pi$ corrected by
+the baryon loading factor $(1 + \Ob)$.
+In other words, $\mu^{-1}$ is the
+\emph{reduced acoustic wavelength} of the sound
+horizon, adjusted for the gravitational drag of
+baryons on the plasma oscillations.
+This connects the Khronon mass---which governs
+galactic-scale MOND phenomenology---directly to the
+BAO scale imprinted at recombination.
+
+
+%=======================================================================
+\section{Mutual consistency}
+\label{sec:consistency}
+%=======================================================================
+
+Relations~\eqref{eq:rel1} and \eqref{eq:rel2}
+are structurally independent:
+the first involves $a_0$ and $\zdec$; the second
+involves $\rd$ and $\Ob$.
+Neither contains the other's characteristic quantities.
+Yet the two predictions agree to
+\begin{equation}
+  \frac{|22.25 - 22.31|}{22.31} = 0.27\% \,,
+\end{equation}
+well within the observational uncertainty on $a_0$
+(typically $5$--$10\%$~\cite{McGaugh2016,Lelli2017})
+and on $\rd$ ($0.2\%$~\cite{Planck2018}).
+
+Equating the two relations yields a
+\emph{consistency condition}
+linking MOND, CMB, and baryon physics:
+\begin{equation}
+  a_0
+  = \frac{2\pi\,(1 + \Ob)\,c^2}
+         {\rd\,(1 + \zdec)} \,.
+  \label{eq:consistency}
+\end{equation}
+Evaluating with Planck~2018 parameters gives
+\begin{equation}
+  a_0^{\mathrm{pred}}
+  = \frac{2\pi \times 1.0493 \times
+          (2.998 \times 10^8)^2}
+         {4.536 \times 10^{24} \times 1090.92}
+  = 1.197 \times 10^{-10}\;\mathrm{m\,s}^{-2} ,
+  \label{eq:a0_pred}
+\end{equation}
+where $\rd = 147.09\Mpc = 4.539 \times 10^{24}\;\mathrm{m}$.
+This agrees with the empirical MOND value
+$a_0 = (1.20 \pm 0.02_{\mathrm{stat}}
+\pm 0.24_{\mathrm{sys}}) \times 10^{-10}\;\mathrm{m\,s}^{-2}$
+\cite{McGaugh2016,Lelli2017} to $0.3\%$.
+
+Equation~\eqref{eq:consistency} is a parameter-free
+prediction: \emph{if} the Khronon mass is set by
+recombination physics, \emph{then} the MOND
+acceleration is calculable from $\rd$, $\zdec$,
+$\Ob$, and $c$ alone.
+This provides a sharp test---any future refinement
+of $a_0$, $\rd$, or $\Ob$ must preserve
+Eq.~\eqref{eq:consistency}.
+
+
+%=======================================================================
+\section{The factor-of-200 hierarchy}
+\label{sec:hierarchy}
+%=======================================================================
+
+As noted in Sec.~\ref{sec:intro}, the naive dimensional
+estimate $\mu \sim H_0/c$ overshoots by a factor
+of ${\sim}\,200$.
+Relation~\eqref{eq:rel1} makes this hierarchy transparent:
+\begin{equation}
+  \frac{\mu}{H_0/c}
+  = \frac{a_0\,(1 + \zdec)}{c\, H_0}
+  = \frac{(1 + \zdec)}{2\pi}
+    \times \frac{a_0}{a_0^{\mathrm{M}}} \,,
+  \label{eq:hierarchy}
+\end{equation}
+where $a_0^{\mathrm{M}} \equiv c\, H_0 / (2\pi)
+\approx 1.04 \times 10^{-10}\;\mathrm{m\,s}^{-2}$ is
+Milgrom's cosmological coincidence
+value~\cite{Milgrom1983,Milgrom2020}.
+Since $a_0 / a_0^{\mathrm{M}} \approx 1.15$ empirically,
+\begin{equation}
+  \frac{\mu}{H_0/c}
+  \approx \frac{1091}{2\pi} \times 1.15
+  \approx 200 \,.
+  \label{eq:200}
+\end{equation}
+The factor of $200$ is thus not a mysterious large
+number but the product of two well-understood
+ingredients: $(1 + \zdec)/(2\pi)$, a purely
+geometrical--cosmological ratio, and the
+$O(1)$ correction $a_0/a_0^{\mathrm{M}}$.
+
+This also clarifies why $\mu_0 = H_0/c$---the
+value motivated by dimensional analysis and used
+in Refs.~\cite{Huang2026_P3,Huang2026_P4}---is
+excluded by CMB data: the physics of recombination
+inserts a factor of $(1 + \zdec)/(2\pi)$ that
+cannot be neglected.
+
+
+%=======================================================================
+\section{Discussion}
+\label{sec:discussion}
+%=======================================================================
+
+\emph{Two routes to one number.}---The
+two relations reported here arrive at
+$\mu^{-1} \approx 22.3\Mpc$ via completely
+different physical ingredients.
+Relation~I uses the MOND acceleration $a_0$---a
+galactic observable---and the decoupling redshift.
+Relation~II uses the sound horizon $\rd$---a
+cosmological observable---and the baryon fraction.
+Their mutual consistency (Eq.~\eqref{eq:consistency})
+is a nontrivial constraint that any microscopic
+derivation of $\mu$ must satisfy.
+
+\emph{Implications for the BS theory.}---If
+either relation holds as an identity rather than a
+coincidence, it reduces the free parameter count
+of the BS Khronon theory from two ($a_0$, $\mu$) to
+one ($a_0$ alone, with $\mu$ derived).
+Furthermore, if the consistency condition
+\eqref{eq:consistency} is exact,
+$a_0$ itself is determined by cosmological
+parameters, leaving the theory with
+\emph{zero} free parameters in the dark sector
+beyond $\Lambda$CDM inputs.
+
+\emph{Connection to Milgrom's FUNDAMOND
+program.}---Milgrom has long
+advocated that $a_0 \sim c\, H_0$ reflects a deep
+connection between local and cosmological
+dynamics~\cite{Milgrom1999,Milgrom2020}.
+Equation~\eqref{eq:consistency} refines
+this conjecture: the connection runs not through
+$H_0$ directly but through the sound horizon $\rd$,
+the baryon fraction $\Ob$, and the decoupling
+redshift $\zdec$.
+All three are determined by the baryon--photon
+plasma physics at recombination, suggesting that the
+MOND scale $a_0$ is an \emph{imprint} of
+recombination rather than a reflection of the
+present-day Hubble rate.
+
+\emph{What remains open.}---We have not derived
+either relation from first principles.
+A microscopic derivation would need to show that
+ghost condensation in the Khronon sector locks onto
+the acoustic scale at recombination.
+One plausible mechanism is that the Khronon field,
+being a timelike scalar coupled to the metric,
+develops its condensate precisely when the
+baryon--photon plasma decouples and the sound
+speed drops sharply.
+The coincidence $\mu^{-1} \sim \rd / (2\pi)$
+suggests that the Khronon ``freezes in'' at a
+wavelength corresponding to the last acoustic
+oscillation, analogous to how axion dark matter
+freezes at the QCD scale.
+We leave a detailed derivation to future work.
+
+\emph{Falsifiability.}---Both relations make
+precise, testable predictions.
+Relation~I predicts $\mu^{-1} = c^2 / [a_0(1 + \zdec)]$;
+any independent measurement of $\mu$ from CMB or
+large-scale structure data must match.
+The consistency condition~\eqref{eq:consistency}
+predicts $a_0 = 1.197 \times 10^{-10}\;\mathrm{m\,s}^{-2}$;
+this is falsifiable by future high-precision measurements
+of the radial acceleration relation (e.g., from DESI
+or Euclid weak-lensing samples).
+
+
+%=======================================================================
+\section{Summary}
+\label{sec:summary}
+%=======================================================================
+
+We have reported two numerical relations:
+\begin{align}
+  \text{(I)}\quad \mu\,c^2 &= a_0\,(1+\zdec) \,,
+  \label{eq:summary1} \\
+  \text{(II)}\quad \mu &= 2\pi\,(1+\Ob)/\rd \,,
+  \label{eq:summary2}
+\end{align}
+each reproducing the BS-fitted Khronon mass
+$\mu^{-1} = 22.3\Mpc$ to better than $0.3\%$.
+Their mutual consistency yields a parameter-free
+prediction for the MOND acceleration,
+$a_0 = 2\pi(1+\Ob)\,c^2 / [\rd(1+\zdec)]
+= 1.20 \times 10^{-10}\;\mathrm{m\,s}^{-2}$.
+If confirmed as exact relations, they eliminate the last
+free parameter of the Khronon dark matter theory and
+anchor the MOND scale to the physics of
+baryon--photon decoupling.
+
+
+%=======================================================================
+\begin{acknowledgments}
+The author thanks Luc Blanchet and Constantinos Skordis
+for making the BS Khronon theory publicly available
+through detailed publications.
+\end{acknowledgments}
+%=======================================================================
+
+
+\begin{thebibliography}{99}
+
+\bibitem{Milgrom1983}
+M.~Milgrom,
+``A modification of the Newtonian dynamics as a possible
+alternative to the hidden mass hypothesis,''
+Astrophys.\ J.\ \textbf{270}, 365 (1983).
+
+\bibitem{McGaugh2016}
+S.~S.~McGaugh, F.~Lelli, and J.~M.~Schombert,
+``Radial acceleration relation in rotationally supported
+galaxies,''
+Phys.\ Rev.\ Lett.\ \textbf{117}, 201101 (2016).
+
+\bibitem{Lelli2017}
+F.~Lelli, S.~S.~McGaugh, J.~M.~Schombert, and
+M.~S.~Pawlowski,
+``One law to rule them all: The radial acceleration
+relation of galaxies,''
+Astrophys.\ J.\ \textbf{836}, 152 (2017).
+
+\bibitem{Planck2018}
+N.~Aghanim \textit{et al.} (Planck Collaboration),
+``Planck 2018 results. VI. Cosmological parameters,''
+Astron.\ Astrophys.\ \textbf{641}, A6 (2020);
+arXiv:1807.06209.
+
+\bibitem{SZ2021}
+C.~Skordis and T.~Z\l o\'snik,
+``New relativistic theory for modified Newtonian
+dynamics,''
+Phys.\ Rev.\ Lett.\ \textbf{127}, 161302 (2021).
+
+\bibitem{BS2024}
+L.~Blanchet and C.~Skordis,
+``Dark matter as a Khronon condensate,''
+arXiv:2404.06584 (2024).
+
+\bibitem{BS2025}
+L.~Blanchet and C.~Skordis,
+``Khronon dark matter: CMB and large-scale structure,''
+arXiv:2507.00912 (2025).
+
+\bibitem{Milgrom1999}
+M.~Milgrom,
+``The modified dynamics as a vacuum effect,''
+Phys.\ Lett.\ A \textbf{253}, 273 (1999).
+
+\bibitem{Milgrom2020}
+M.~Milgrom,
+``MOND vs.\ dark matter in light of historical parallels,''
+Stud.\ Hist.\ Philos.\ Mod.\ Phys.\ \textbf{71}, 170 (2020);
+arXiv:1910.04368.
+
+\bibitem{Huang2026_P3}
+S.-K.~Huang,
+``Dark matter as Khronon condensate: Weak-field
+phenomenology of the $\tau$ framework,''
+in preparation (2026).
+
+\bibitem{Huang2026_P4}
+S.-K.~Huang,
+``The cosmological sector of the Khronon $\tau$ framework:
+$\mu_0 = H_0/c$ and dark matter density,''
+in preparation (2026).
+
+\end{thebibliography}
+
+\end{document}

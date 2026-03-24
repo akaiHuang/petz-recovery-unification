@@ -1,0 +1,1302 @@
+% paper2_supplemental.tex
+% Comprehensive Supplemental Material for:
+% "Information Loss is Local:
+%  The Gravitational Refractive Index as Petz Recovery Fidelity"
+% Paper II in the tau framework series
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper2_supplemental.tex
+
+\documentclass[aps,prd,preprint,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{remark}{Remark}
+
+% Convenience macros (same as main text)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\KL}{D}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\op}[2]{|#1\rangle\langle#2|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tauasym}{\tau}
+
+% Paper 2 specific macros
+\newcommand{\ceff}{c_{\mathrm{eff}}}
+\newcommand{\rs}{r_{\mathrm{s}}}
+\newcommand{\Sgrav}{\Sigma_{\mathrm{grav}}}
+\newcommand{\Fbound}{F_{\mathrm{bound}}}
+\newcommand{\nref}{n_{\mathrm{grav}}}
+
+\begin{document}
+
+\title{Comprehensive Supplemental Material for\\
+``Information Loss is Local:\\
+The Gravitational Refractive Index as Petz Recovery Fidelity''}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+
+%=======================================================================
+\section{S1. Three Routes to \texorpdfstring{$\Sgrav = -\ln(-g_{00})$}{Sigma\_grav = -ln(-g00)}}
+\label{sec:three_routes}
+%=======================================================================
+
+We present three independent derivations of the gravitational
+entropy production $\Sgrav = -\ln(-g_{00})$, showing that all three
+converge on the same result despite starting from different physical
+principles.  For the exponential metric, $-g_{00} = e^{-\rs/r}$, all
+three give $\Sgrav = \rs/r$ exactly.  For the Schwarzschild metric,
+$-g_{00} = 1 - \rs/r$, all three give
+$\Sgrav = -\ln(1-\rs/r) \approx \rs/r + O((\rs/r)^2)$.
+
+%-----------------------------------------------------------------------
+\subsection{Route A: Modular flow (Dorau--Much extension)}
+\label{sec:routeA}
+%-----------------------------------------------------------------------
+
+This route derives $\Sgrav$ from the algebraic quantum field theory
+(AQFT) framework using the Bisognano--Wichmann theorem and the
+entanglement first law.
+
+\emph{Step 1: Bisognano--Wichmann theorem.}---For a Rindler wedge in
+Minkowski spacetime, the modular operator $\Delta_\Omega$ associated
+with the vacuum state $\ket{\Omega}$ and the wedge algebra
+$\mathcal{A}(W)$ generates Lorentz boosts~\cite{BisognanoWichmann1976}:
+\begin{equation}
+  \Delta_\Omega^{is} = e^{-2\pi K s}\,,
+  \label{eq:BW}
+\end{equation}
+where $K$ is the boost generator and $s$ is the modular flow parameter.
+
+\emph{Step 2: Extension to Schwarzschild.}---For a static observer at
+radius $r$ in the Schwarzschild spacetime, the local Rindler
+approximation gives the effective boost parameter scaled by the surface
+gravity $\kappa = 1/(2\rs)$ and the local redshift factor.  The modular
+Hamiltonian for the wedge associated with the exterior region
+($r > \rs$) of a Schwarzschild black hole is~\cite{DorauMuch2025}
+\begin{equation}
+  H_{\mathrm{mod}}(r) = \frac{2\pi}{\kappa\sqrt{1-\rs/r}}\,H_{\mathrm{local}}\,,
+  \label{eq:Hmod}
+\end{equation}
+where $H_{\mathrm{local}}$ is the local energy and the factor
+$1/\sqrt{1-\rs/r}$ is the Tolman blueshift.
+
+\emph{Step 3: Entanglement first law.}---The first law of entanglement
+entropy states that for small perturbations $\delta\rho$ about the
+vacuum, the change in quantum relative entropy (QRE) equals the change
+in modular energy:
+\begin{equation}
+  \delta D(\rho\|\sigma_\beta) = \Tr[\delta\rho\,H_{\mathrm{mod}}]
+  = \frac{2\pi}{\kappa\sqrt{1-\rs/r}}\,\langle\delta E\rangle_{\mathrm{local}}\,.
+  \label{eq:first_law}
+\end{equation}
+
+\emph{Step 4: Energy redshift.}---An excitation of local energy
+$\langle\delta E\rangle_r$ at radius $r$ is observed at infinity as
+\begin{equation}
+  \langle\delta E\rangle_\infty = \sqrt{1-\rs/r}\;\langle\delta E\rangle_r\,.
+  \label{eq:redshift}
+\end{equation}
+
+\emph{Step 5: Fractional QRE loss.}---The QRE at radius $r$, using
+Eqs.~\eqref{eq:first_law} and~\eqref{eq:redshift}, is
+\begin{equation}
+  D_{\mathrm{in}}(r) = \frac{2\pi}{\kappa\sqrt{1-\rs/r}}\,
+  \langle\delta E\rangle_r
+  = \frac{2\pi}{\kappa(1-\rs/r)}\,\langle\delta E\rangle_\infty\,.
+  \label{eq:Din}
+\end{equation}
+The QRE at infinity is
+\begin{equation}
+  D_{\mathrm{out}}(\infty) = \frac{2\pi}{\kappa}\,\langle\delta E\rangle_\infty\,.
+  \label{eq:Dout}
+\end{equation}
+The fractional QRE loss is therefore
+\begin{equation}
+  \frac{D_{\mathrm{in}} - D_{\mathrm{out}}}{D_{\mathrm{in}}}
+  = 1 - \frac{D_{\mathrm{out}}}{D_{\mathrm{in}}}
+  = 1 - (1 - \rs/r)
+  = \frac{\rs}{r}\,.
+  \label{eq:frac_QRE}
+\end{equation}
+
+This is exact for Schwarzschild.  The absolute QRE decrease is
+\begin{equation}
+  \Sgrav^{(\mathrm{a})}(r)
+  = D_{\mathrm{in}} - D_{\mathrm{out}}
+  = D_{\mathrm{in}}\cdot\frac{\rs/r}{1}
+  = \frac{D_{\mathrm{out}}\cdot(\rs/r)}{1-\rs/r}\,,
+  \label{eq:Sigma_a}
+\end{equation}
+which in the weak-field limit ($\rs/r \ll 1$) gives
+$\Sgrav^{(\mathrm{a})} \approx (\rs/r)\,D_{\mathrm{out}}$.  The
+normalization-independent result is
+\begin{equation}
+  \boxed{\Sgrav = -\ln(1-\rs/r) = -\ln(-g_{00}^{\mathrm{Schw}})\,.}
+  \label{eq:route_a_result}
+\end{equation}
+For the exponential metric ($-g_{00} = e^{-\rs/r}$), the same analysis
+with modified Tolman factor gives $\Sgrav = \rs/r$ exactly.
+
+%-----------------------------------------------------------------------
+\subsection{Route B: Gravitational Landauer principle (Herrera 2020)}
+\label{sec:routeB}
+%-----------------------------------------------------------------------
+
+This route uses the thermodynamic cost of information erasure in
+a gravitational field.
+
+\emph{Step 1: Landauer principle at infinity.}---At spatial infinity
+(flat space), the minimum energy cost to erase one bit of information
+at temperature $T_\infty$ is~\cite{Landauer1961}
+\begin{equation}
+  W_\infty = \kB T_\infty \ln 2\,.
+  \label{eq:Landauer_inf}
+\end{equation}
+
+\emph{Step 2: Tolman relation.}---In thermal equilibrium in a static
+gravitational field, the local temperature satisfies the Tolman
+relation~\cite{Tolman1930}:
+\begin{equation}
+  T(r)\,\sqrt{-g_{00}(r)} = T_\infty\,.
+  \label{eq:Tolman}
+\end{equation}
+Therefore
+\begin{equation}
+  T(r) = \frac{T_\infty}{\sqrt{-g_{00}(r)}}\,.
+  \label{eq:Tr}
+\end{equation}
+
+\emph{Step 3: Landauer cost at radius $r$.}---The minimum erasure cost
+at radius $r$ is
+\begin{equation}
+  W(r) = \kB T(r)\ln 2 = \frac{\kB T_\infty \ln 2}{\sqrt{-g_{00}(r)}}
+  = \frac{W_\infty}{\sqrt{-g_{00}(r)}}\,.
+  \label{eq:Wr}
+\end{equation}
+The excess cost relative to infinity is
+\begin{equation}
+  \Delta W = W(r) - W_\infty
+  = W_\infty\!\left(\frac{1}{\sqrt{-g_{00}}} - 1\right).
+  \label{eq:DeltaW}
+\end{equation}
+
+\emph{Step 4: Dimensionless entropy production.}---Following
+Herrera~\cite{Herrera2020}, the dimensionless gravitational entropy
+production is twice the logarithm of the cost ratio (factor of 2
+because both the forward and reverse Landauer costs contribute):
+\begin{equation}
+  \Sgrav^{(\mathrm{b})} = 2\ln\!\left(\frac{W(r)}{W_\infty}\right)
+  = 2\ln\!\left(\frac{1}{\sqrt{-g_{00}}}\right)
+  = -\ln(-g_{00})\,.
+  \label{eq:Sigma_b}
+\end{equation}
+
+\emph{Result.}---
+\begin{equation}
+  \boxed{\Sgrav^{(\mathrm{b})} = -\ln(-g_{00})\,.}
+  \label{eq:route_b_result}
+\end{equation}
+For the exponential metric: $\Sgrav = \rs/r$.  For Schwarzschild:
+$\Sgrav = -\ln(1-\rs/r) \approx \rs/r + \frac{1}{2}(\rs/r)^2 + \cdots$.
+
+\emph{Physical interpretation.}---The gravitational entropy production
+is the excess informational cost of performing a bit-erasure operation
+at radius $r$ compared to infinity.  Gravity makes information
+processing more expensive at lower radii because the local temperature
+is higher (Tolman relation), and erasing a bit against a hotter bath
+requires more energy.
+
+%-----------------------------------------------------------------------
+\subsection{Route C: Pure-loss bosonic channel}
+\label{sec:routeC}
+%-----------------------------------------------------------------------
+
+This route models the gravitational redshift as a quantum optical
+channel.
+
+\emph{Step 1: Gravitational frequency shift.}---A photon of frequency
+$\omega_r$ emitted at radius $r$ is detected at infinity with frequency
+\begin{equation}
+  \omega_\infty = \sqrt{-g_{00}(r)}\;\omega_r\,.
+  \label{eq:freq_shift}
+\end{equation}
+
+\emph{Step 2: Pure-loss bosonic channel.}---The redshift can be modeled
+as a pure-loss bosonic channel~\cite{AhmadiFuentes2014} with
+transmissivity
+\begin{equation}
+  \eta = \frac{\omega_\infty^2}{\omega_r^2} = -g_{00}(r)\,,
+  \label{eq:eta}
+\end{equation}
+where the intensity (energy) convention uses $\eta \propto \omega^2$
+(accounting for both the frequency shift and the time dilation of the
+emission rate).  The Kraus representation of a single-mode pure-loss
+channel with transmissivity $\eta$ is~\cite{Weedbrook2012}
+\begin{equation}
+  \chan_\eta(\rho) = \sum_{k=0}^{\infty} E_k\,\rho\,E_k^\dagger\,,
+  \quad
+  E_k = \sqrt{\binom{n}{k}}\;\eta^{n/2}(1-\eta)^{k/2}\;\ket{n-k}\bra{n}\,.
+  \label{eq:Kraus_loss}
+\end{equation}
+This is a valid CPTP map for $\eta \in [0,1]$.
+
+\emph{Step 3: QRE decrease.}---For a pure-loss bosonic channel with
+transmissivity $\eta$, the decrease in quantum relative entropy between
+coherent states $\ket{\alpha}$ and $\ket{\beta}$ is~\cite{Weedbrook2012}
+\begin{align}
+  \Delta D &= D(\ket{\alpha}\|\ket{\beta})
+  - D(\chan_\eta\ket{\alpha}\|\chan_\eta\ket{\beta})
+  \nonumber\\
+  &= |\alpha-\beta|^2 - \eta|\alpha-\beta|^2
+  = (1-\eta)|\alpha-\beta|^2\,.
+  \label{eq:DeltaD_loss}
+\end{align}
+The normalized (per-photon) entropy production is
+\begin{equation}
+  \Sgrav^{(\mathrm{c})} = -\ln\eta = -\ln(-g_{00})\,.
+  \label{eq:Sigma_c}
+\end{equation}
+
+\emph{Result.}---
+\begin{equation}
+  \boxed{\Sgrav^{(\mathrm{c})} = -\ln(-g_{00})\,.}
+  \label{eq:route_c_result}
+\end{equation}
+
+\emph{Remark on the factor of 2.}---In the amplitude convention
+$\sqrt{\eta_{\mathrm{amp}}} = \omega_\infty/\omega_r = \sqrt{-g_{00}}$,
+the transmissivity is $\eta_{\mathrm{amp}} = -g_{00}$ and the QRE
+decrease is $-\ln(\eta_{\mathrm{amp}}) = -\ln(-g_{00})$.  In the
+intensity convention
+$\eta_{\mathrm{int}} = (-g_{00})^{1/2}$ (frequency shift only,
+without the time-dilation contribution), one would get
+$\Sigma = -\ln((-g_{00})^{1/2}) = -\frac{1}{2}\ln(-g_{00})$.  The
+correct answer requires including both the frequency shift and
+the time dilation of the emission rate, giving $\eta = -g_{00}$ and
+$\Sigma = -\ln(-g_{00})$.
+
+%-----------------------------------------------------------------------
+\subsection{Convergence of the three routes}
+\label{sec:convergence}
+%-----------------------------------------------------------------------
+
+All three routes yield the same universal formula:
+
+\begin{table}[h]
+\caption{\label{tab:routes}Summary of the three derivation routes.}
+\begin{ruledtabular}
+\begin{tabular}{llll}
+  \textbf{Route} & \textbf{Physics} & \textbf{Key quantity}
+    & \textbf{Result} \\
+  \colrule
+  A (modular flow) & AQFT + entanglement first law
+    & Fractional QRE loss & $-\ln(-g_{00})$ \\
+  B (Landauer) & Tolman + erasure cost
+    & Excess erasure cost & $-\ln(-g_{00})$ \\
+  C (bosonic channel) & Redshift as pure loss
+    & Channel transmissivity & $-\ln(-g_{00})$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+The convergence of three independent routes---algebraic (modular flow),
+thermodynamic (Landauer), and quantum-optical (channel
+model)---provides strong evidence that $\Sgrav = -\ln(-g_{00})$ is the
+correct identification, even though no single route constitutes a
+rigorous proof from first principles.
+
+%=======================================================================
+\section{S2. PPN Expansion of the Exponential Metric}
+\label{sec:PPN}
+%=======================================================================
+
+We provide a complete parametrized post-Newtonian (PPN) analysis of the
+exponential metric, demonstrating that it passes all current
+solar-system tests.
+
+%-----------------------------------------------------------------------
+\subsection{PPN parameters}
+%-----------------------------------------------------------------------
+
+In isotropic coordinates, the exponential metric is
+\begin{align}
+  g_{00}^{\mathrm{exp}} &= -e^{-\rs/r}
+  = -\!\left(1 - \frac{\rs}{r} + \frac{1}{2}\frac{\rs^2}{r^2}
+    - \frac{1}{6}\frac{\rs^3}{r^3} + \cdots\right),
+  \label{eq:g00_exp}\\
+  g_{ij}^{\mathrm{exp}} &= e^{+\rs/r}\,\delta_{ij}
+  = \left(1 + \frac{\rs}{r} + \frac{1}{2}\frac{\rs^2}{r^2}
+    + \cdots\right)\delta_{ij}\,.
+  \label{eq:gij_exp}
+\end{align}
+Writing $U = \rs/(2r) = GM/(c^2 r)$, the standard PPN form is
+\begin{align}
+  g_{00} &= -(1 - 2U + 2\beta U^2 + \cdots)\,,
+  \label{eq:PPN_g00}\\
+  g_{ij} &= (1 + 2\gamma U + \cdots)\,\delta_{ij}\,.
+  \label{eq:PPN_gij}
+\end{align}
+Comparing Eq.~\eqref{eq:g00_exp} with Eq.~\eqref{eq:PPN_g00}:
+\begin{equation}
+  -g_{00} = 1 - 2U + 2U^2 + \cdots
+  \quad\Longrightarrow\quad \beta = 1\,.
+  \label{eq:beta}
+\end{equation}
+Comparing Eq.~\eqref{eq:gij_exp} with Eq.~\eqref{eq:PPN_gij}:
+\begin{equation}
+  g_{ij} = (1 + 2U + \cdots)\,\delta_{ij}
+  \quad\Longrightarrow\quad \gamma = 1\,.
+  \label{eq:gamma}
+\end{equation}
+
+\begin{equation}
+  \boxed{\gamma = \beta = 1 \quad\text{(identical to GR at 1PN).}}
+  \label{eq:PPN_result}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{2PN differences}
+%-----------------------------------------------------------------------
+
+At second post-Newtonian (2PN) order, the exponential and
+Schwarzschild metrics differ.  Schwarzschild in isotropic coordinates:
+\begin{align}
+  g_{00}^{\mathrm{Schw}} &= -\frac{(1-U)^2}{(1+U)^2}
+  = -(1 - 4U + 8U^2 - 16U^3 + \cdots)\,,
+  \label{eq:g00_Schw_iso}\\
+  g_{ij}^{\mathrm{Schw}} &= (1+U)^4\,\delta_{ij}
+  = (1 + 4U + 6U^2 + \cdots)\,\delta_{ij}\,.
+  \label{eq:gij_Schw_iso}
+\end{align}
+Note that in standard isotropic form, Schwarzschild uses
+$U_{\mathrm{iso}} = M/(2r_{\mathrm{iso}})$, and the expansion
+coefficients differ from our $U = \rs/(2r)$ convention.
+
+In the convention $U = GM/(c^2 r)$ (where $r$ is the isotropic radial
+coordinate), the expansions are:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Coefficient} & \textbf{Exponential} & \textbf{Schwarzschild} \\
+\midrule
+$g_{00}$: $U^1$ & $-2$ & $-2$ \\
+$g_{00}$: $U^2$ & $+2$ & $+2$ \\
+$g_{00}$: $U^3$ & $-\frac{4}{3}$ & $-\frac{8}{3}$ \\
+$g_{ij}$: $U^1$ & $+2$ & $+2$ \\
+$g_{ij}$: $U^2$ & $+2$ & $+\frac{3}{2}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The first difference is at $O(U^2)$ in $g_{ij}$ and $O(U^3)$ in $g_{00}$.
+
+%-----------------------------------------------------------------------
+\subsection{Mercury precession}
+%-----------------------------------------------------------------------
+
+The perihelion precession per orbit for a general static spherically
+symmetric metric with PPN parameters $\gamma$ and $\beta$ is
+\begin{equation}
+  \Delta\phi = \frac{6\pi GM}{c^2 a(1-e^2)}
+  \left(\frac{2-\beta+2\gamma}{3}\right)
+  + O(U^2)\,,
+  \label{eq:precession}
+\end{equation}
+where $a$ is the semi-major axis and $e$ the eccentricity.  For both
+Schwarzschild and the exponential metric, $\gamma = \beta = 1$, giving
+\begin{equation}
+  \Delta\phi_{\mathrm{exp}} = \Delta\phi_{\mathrm{Schw}}
+  = \frac{6\pi GM}{c^2 a(1-e^2)} = 42.98''/\mathrm{cy}\,.
+  \label{eq:Mercury}
+\end{equation}
+
+At 2PN, the correction to Mercury's precession is~\cite{Mychelkin2024}:
+\begin{equation}
+  \delta(\Delta\phi) = \Delta\phi_{\mathrm{exp}} - \Delta\phi_{\mathrm{Schw}}
+  \sim \frac{6\pi GM}{c^2 a(1-e^2)}\cdot O\!\left(\frac{GM}{c^2 a}\right)
+  \approx 2.3\times 10^{-7}\;\mathrm{arcsec/cy}\,.
+  \label{eq:Mercury_2PN}
+\end{equation}
+Current measurement precision is
+$\sim 3 \times 10^{-3}$~arcsec/cy~\cite{Bertotti2003}, so the 2PN
+difference is four orders of magnitude below detectability.
+
+%-----------------------------------------------------------------------
+\subsection{Light bending: debunking the ``half bending'' myth}
+\label{sec:light_bending}
+%-----------------------------------------------------------------------
+
+A persistent misconception holds that the exponential metric
+``predicts half the observed light bending.''  This conflates the
+exponential metric (a solution of GR + phantom scalar) with the
+Yilmaz field equations (an alternative theory of gravity).
+
+The deflection angle for light in a general static, spherically
+symmetric metric with PPN parameters $\gamma$ and $\beta$ is
+\begin{equation}
+  \delta\theta = \frac{(1+\gamma)}{2}\cdot\frac{4GM}{c^2 b}
+  + O(U^2)\,,
+  \label{eq:bending}
+\end{equation}
+where $b$ is the impact parameter.  Since $\gamma = 1$ for the
+exponential metric (proven above):
+\begin{equation}
+  \delta\theta_{\mathrm{exp}} = \frac{4GM}{c^2 b}
+  = \delta\theta_{\mathrm{Schw}}\,.
+  \label{eq:bending_full}
+\end{equation}
+
+The ``half bending'' confusion arises from evaluating the bending
+contribution from $g_{00}$ alone, which gives $2GM/(c^2 b)$.  In GR,
+an equal contribution comes from the spatial curvature ($g_{ij}$
+term).  The exponential metric has $\gamma = 1$, so both contributions
+are present and equal:
+\begin{equation}
+  \delta\theta = \underbrace{\frac{2GM}{c^2 b}}_{g_{00}\;\text{contribution}}
+  + \underbrace{\frac{2GM}{c^2 b}}_{g_{ij}\;\text{contribution}}
+  = \frac{4GM}{c^2 b}\,.
+  \label{eq:bending_decomposed}
+\end{equation}
+
+The Cassini bound $|\gamma - 1| < 2.3 \times 10^{-5}$~\cite{Bertotti2003}
+is satisfied exactly by the exponential metric.
+
+%=======================================================================
+\section{S3. Echo Delay Calculation}
+\label{sec:echo_detail}
+%=======================================================================
+
+We compute the gravitational-wave echo delay for the exponential
+metric in detail.
+
+%-----------------------------------------------------------------------
+\subsection{Tortoise coordinate}
+%-----------------------------------------------------------------------
+
+The tortoise coordinate for the exponential metric
+$g_{00} = -e^{-\rs/r}$, $g_{rr} = e^{+\rs/r}$ (isotropic
+coordinates) is
+\begin{equation}
+  r^* = \int \frac{\sqrt{g_{rr}}}{\sqrt{-g_{00}}}\,dr
+  = \int e^{\rs/r}\,dr\,.
+  \label{eq:tortoise_exp}
+\end{equation}
+This integral is finite for all $r > 0$, in sharp contrast to the
+Schwarzschild tortoise coordinate
+$r^*_{\mathrm{Schw}} = r + \rs\ln|r/\rs - 1| \to -\infty$ as
+$r \to \rs$.
+
+%-----------------------------------------------------------------------
+\subsection{The echo integral}
+%-----------------------------------------------------------------------
+
+The round-trip light travel time from the photon sphere at
+$r_{\mathrm{ph}} = \rs$ (isotropic coordinates) to the wormhole
+throat at $r_{\mathrm{throat}} = \rs/2$ and back is
+\begin{equation}
+  \Delta t_{\mathrm{echo}} = \frac{2}{c}\int_{r_{\mathrm{throat}}}^{r_{\mathrm{ph}}}
+  e^{\rs/r}\,dr
+  = \frac{2}{c}\int_{\rs/2}^{\rs} e^{\rs/r}\,dr\,.
+  \label{eq:echo_integral}
+\end{equation}
+Substituting $u = \rs/r$ (so $r = \rs/u$, $dr = -\rs\,du/u^2$):
+\begin{equation}
+  \Delta t_{\mathrm{echo}} = \frac{2\rs}{c}\int_{1}^{2}
+  \frac{e^u}{u^2}\,du\,.
+  \label{eq:echo_u}
+\end{equation}
+
+\emph{Numerical evaluation.}---The integral can be evaluated using
+the exponential integral function $\mathrm{Ei}(x)$:
+\begin{equation}
+  \int \frac{e^u}{u^2}\,du = -\frac{e^u}{u} + \mathrm{Ei}(u) + C\,.
+  \label{eq:Ei}
+\end{equation}
+Therefore
+\begin{align}
+  \int_1^2 \frac{e^u}{u^2}\,du
+  &= \left[-\frac{e^u}{u} + \mathrm{Ei}(u)\right]_1^2
+  \nonumber\\
+  &= \left(-\frac{e^2}{2} + \mathrm{Ei}(2)\right)
+  - \left(-e + \mathrm{Ei}(1)\right)
+  \nonumber\\
+  &= -\frac{e^2}{2} + e + \mathrm{Ei}(2) - \mathrm{Ei}(1)\,.
+  \label{eq:echo_exact}
+\end{align}
+Using $e^2/2 \approx 3.695$, $e \approx 2.718$,
+$\mathrm{Ei}(2) \approx 4.954$, $\mathrm{Ei}(1) \approx 1.895$:
+\begin{equation}
+  \int_1^2 \frac{e^u}{u^2}\,du \approx -3.695 + 2.718 + 4.954 - 1.895
+  = 2.082\,.
+  \label{eq:echo_numerical}
+\end{equation}
+The echo delay is
+\begin{equation}
+  \boxed{\Delta t_{\mathrm{echo}} \approx \frac{4.16\,\rs}{c}\,.}
+  \label{eq:echo_result}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{Numerical estimates for astrophysical sources}
+%-----------------------------------------------------------------------
+
+\begin{table}[h]
+\caption{\label{tab:echo_detail}Echo delays for representative sources.
+$\rs = 2GM/c^2$.}
+\begin{ruledtabular}
+\begin{tabular}{lccc}
+  \textbf{Source} & $M/M_\odot$ & $\rs$ (km)
+    & $\Delta t_{\mathrm{echo}}$ \\
+  \colrule
+  GW150914 remnant & 62 & 183
+    & 2.5~ms \\
+  GW190521 remnant & 150 & 443
+    & 6.1~ms \\
+  Intermediate BH & $10^3$ & 2,950
+    & 41~ms \\
+  Sgr~A* & $4\times10^6$ & $1.18\times10^7$
+    & 163~s \\
+  M87* & $6.5\times10^9$ & $1.92\times10^{10}$
+    & $7.4\times10^4$~s ($\approx 21$~hr)\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+%-----------------------------------------------------------------------
+\subsection{Comparison with Planck-wall echo model}
+%-----------------------------------------------------------------------
+
+In the ``Planck wall'' model of Cardoso et~al.~\cite{Cardoso2016},
+the reflecting surface is placed at Planck-length distance from
+the would-be horizon.  The echo delay in Schwarzschild tortoise
+coordinates is
+\begin{equation}
+  \Delta t_{\mathrm{Planck}} \approx \frac{\rs}{c}
+  \ln\!\left(\frac{\rs}{\ell_P}\right),
+  \label{eq:echo_Planck}
+\end{equation}
+where $\ell_P \approx 1.6\times 10^{-35}$~m is the Planck length.
+For a $60\,M_\odot$ remnant:
+$\ln(\rs/\ell_P) \approx \ln(10^{38}) \approx 88$, giving
+$\Delta t_{\mathrm{Planck}} \approx 88\,\rs/c \approx 50$~ms.
+
+The exponential-metric echo is approximately $20\times$ shorter
+than the Planck-wall echo:
+\begin{equation}
+  \frac{\Delta t_{\mathrm{echo}}}{\Delta t_{\mathrm{Planck}}}
+  \approx \frac{4.2}{\ln(\rs/\ell_P)} \sim \frac{1}{20}\,.
+  \label{eq:ratio_echo}
+\end{equation}
+This difference is observationally significant: current echo
+searches~\cite{Abedi2017} use templates with $\Delta t \sim 200$~ms,
+appropriate for Planck-wall models but potentially missing the
+shorter exponential-metric signal.
+
+%=======================================================================
+\section{S4. Petz Saturation Analysis}
+\label{sec:saturation}
+%=======================================================================
+
+%-----------------------------------------------------------------------
+\subsection{Why exact saturation is impossible for $\Sigma > 0$}
+%-----------------------------------------------------------------------
+
+\begin{theorem}[No exact saturation for $\Sigma > 0$]
+\label{thm:no_saturation}
+Let $\chan$ be a CPTP map and $\sigma$ a faithful state.  The JRSWW
+bound~\cite{JRSWW2018}
+\begin{equation}
+  F(\rho,\,\tilde{\Petz}_{\sigma,\chan}\circ\chan(\rho))^2
+  \geq \exp(-\Delta D)
+  \label{eq:JRSWW}
+\end{equation}
+is saturated (equality holds for all $\rho$) if and only if
+$\Delta D = 0$, i.e., $\chan$ is sufficient for $\sigma$.
+\end{theorem}
+
+\begin{proof}
+The JRSWW proof proceeds via the Golden--Thompson
+inequality~\cite{GoldenThompson1965}:
+\begin{equation}
+  \Tr[e^{A+B}] \leq \Tr[e^A e^B]\,,
+  \label{eq:GT}
+\end{equation}
+with equality if and only if $[A,B] = 0$.  In the application to the
+Petz recovery bound, $A$ and $B$ involve $\log\sigma$ and
+$\log\chan(\sigma)$; these commute if and only if the channel is
+sufficient for $\sigma$, which by Petz's theorem occurs precisely when
+$\Delta D = 0$~\cite{Petz1988}.
+
+More precisely, the chain of inequalities in the JRSWW proof is:
+\begin{align}
+  &F(\rho,\tilde{\Petz}\circ\chan(\rho))^2
+  \nonumber\\
+  &\quad\geq \exp\!\left(-D_M(\rho\|\sigma)\right)
+  \cdot \exp\!\left(D_M(\chan(\rho)\|\chan(\sigma))\right)
+  \nonumber\\
+  &\quad= \exp(-\Delta D_M) \geq \exp(-\Delta D)\,,
+  \label{eq:chain}
+\end{align}
+where $D_M$ is the measured relative entropy and
+$\Delta D_M \leq \Delta D$ with equality for commuting states.
+The first inequality uses the Golden--Thompson inequality and
+becomes an equality only when $[\log\sigma,\,
+\chan^\dagger(\log\chan(\sigma))] = 0$, which for faithful $\sigma$
+is equivalent to $\Delta D = 0$.
+\end{proof}
+
+\begin{remark}
+This theorem means that for any gravitational channel with
+$\Sgrav > 0$, the Petz recovery fidelity strictly exceeds
+$\exp(-\Sgrav/2)$.  The exponential metric, defined by promoting
+$F = \exp(-\Sgrav/2)$ to an identity, should be understood as a
+\emph{lower bound geometry}---the metric that would result if
+recovery were as poor as the JRSWW bound allows.  Nature may do
+better, and the actual metric may lie between the exponential and
+Schwarzschild predictions.
+\end{remark}
+
+%-----------------------------------------------------------------------
+\subsection{Gap calculation}
+%-----------------------------------------------------------------------
+
+For a weak gravitational field ($\Sgrav = \rs/r \ll 1$), we can
+estimate the gap between the actual Petz recovery fidelity and the
+JRSWW bound.
+
+Consider the amplitude damping channel as a model for gravitational
+loss.  The amplitude damping channel with parameter
+$\gamma = 1 - \eta$ (where $\eta = e^{-\rs/r} \approx 1 - \rs/r$
+for weak fields) has Kraus operators
+\begin{equation}
+  K_0 = \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{\eta} \end{pmatrix},
+  \qquad
+  K_1 = \begin{pmatrix} 0 & \sqrt{1-\eta} \\ 0 & 0 \end{pmatrix}.
+  \label{eq:AD_Kraus}
+\end{equation}
+
+For the maximally mixed reference state $\sigma = I/2$, the Petz
+recovery map is
+\begin{equation}
+  \Petz_{\sigma,\chan}(\rho) = \frac{1}{2}\sum_k K_k^\dagger
+  \left(\frac{I}{2}\right)^{-1/2}\rho
+  \left(\frac{I}{2}\right)^{-1/2} K_k
+  = \sum_k K_k^\dagger \rho\, K_k\,.
+  \label{eq:Petz_AD}
+\end{equation}
+The fidelity $F_{\mathrm{Petz}}$ for the input $\ket{+} = (\ket{0}+\ket{1})/\sqrt{2}$
+can be computed explicitly.  Writing $\epsilon = 1-\eta = \rs/r$:
+\begin{align}
+  F_{\mathrm{Petz}}^2 &= 1 - \frac{1}{4}\epsilon^2 + O(\epsilon^3)\,,
+  \label{eq:F_Petz_AD}\\
+  \exp(-\Sgrav) &= \exp(-\epsilon) = 1 - \epsilon + \frac{1}{2}\epsilon^2 + O(\epsilon^3)\,.
+  \label{eq:exp_Sgrav}
+\end{align}
+The gap is
+\begin{equation}
+  \boxed{\Delta \equiv F_{\mathrm{Petz}}^2 - \exp(-\Sgrav)
+  = \epsilon - \frac{3}{4}\epsilon^2 + O(\epsilon^3)
+  = \frac{\rs}{r} - \frac{3}{4}\left(\frac{\rs}{r}\right)^2 + \cdots\,.}
+  \label{eq:gap}
+\end{equation}
+The leading gap is $O(\rs/r)$, not $O((\rs/r)^2)$.  This means the
+Petz recovery does significantly better than the JRSWW bound in weak
+fields.  The relative gap
+$\Delta/\exp(-\Sgrav) \approx \rs/r$ is small, confirming
+approximate saturation.
+
+%-----------------------------------------------------------------------
+\subsection{Schwarzschild fidelity vs.\ exponential fidelity}
+%-----------------------------------------------------------------------
+
+For the Schwarzschild metric, $\Fbound = \sqrt{1-\rs/r}$:
+\begin{equation}
+  F_{\mathrm{Schw}} = \sqrt{1-\rs/r}
+  = 1 - \frac{1}{2}\frac{\rs}{r} - \frac{1}{8}\left(\frac{\rs}{r}\right)^2 + \cdots
+  \label{eq:F_Schw}
+\end{equation}
+For the exponential metric, $\Fbound = e^{-\rs/(2r)}$:
+\begin{equation}
+  F_{\mathrm{exp}} = e^{-\rs/(2r)}
+  = 1 - \frac{1}{2}\frac{\rs}{r} + \frac{1}{8}\left(\frac{\rs}{r}\right)^2 + \cdots
+  \label{eq:F_exp}
+\end{equation}
+The difference is
+\begin{equation}
+  F_{\mathrm{Schw}} - F_{\mathrm{exp}}
+  = -\frac{1}{4}\left(\frac{\rs}{r}\right)^2 + O\!\left(\left(\frac{\rs}{r}\right)^3\right).
+  \label{eq:F_diff}
+\end{equation}
+At the neutron star surface ($\rs/r \approx 0.4$):
+$|F_{\mathrm{Schw}} - F_{\mathrm{exp}}| \approx 0.04$, a $5\%$
+difference.  At $\rs/r = 1$ (horizon):
+$F_{\mathrm{Schw}} = 0$ but $F_{\mathrm{exp}} = e^{-1/2} \approx 0.607$.
+
+%=======================================================================
+\section{S5. Vaidya Calculation: \texorpdfstring{$\tauasym = 1$}{tau = 1} at the Apparent Horizon}
+\label{sec:vaidya}
+%=======================================================================
+
+We provide the complete derivation of the Kodama vector and its
+connection to $\tauasym$ in the Vaidya spacetime, complementing the
+abbreviated treatment in the existing supplement.
+
+%-----------------------------------------------------------------------
+\subsection{Vaidya metric setup}
+%-----------------------------------------------------------------------
+
+The ingoing Vaidya metric in advanced Eddington--Finkelstein
+coordinates $(v,r,\theta,\phi)$ is
+\begin{equation}
+  ds^2 = -f(v,r)\,dv^2 + 2\,dv\,dr + r^2\,d\Omega^2\,,
+  \label{eq:vaidya_full}
+\end{equation}
+where $f(v,r) = 1 - 2M(v)/r$ and $M(v)$ is the Bondi mass.
+
+The areal radius is $R = r$.  The 2D orbit-space metric on $(v,r)$ is
+\begin{equation}
+  h_{AB}\,dx^A\,dx^B = -f\,dv^2 + 2\,dv\,dr\,.
+  \label{eq:h2d_full}
+\end{equation}
+
+The Kodama vector is $K_A = \epsilon_A{}^B\,\partial_B R$ with
+$\epsilon_{vr} = 1$, giving (as derived in the companion supplement):
+\begin{equation}
+  K^a\partial_a = -\partial_v\,,\qquad |K| = \sqrt{f} = \sqrt{1 - 2M(v)/r}\,.
+  \label{eq:Kodama_result}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{$g_{00} \to 0$ at the MOTS}
+%-----------------------------------------------------------------------
+
+The marginally outer trapped surface (MOTS) is defined by the
+vanishing of the expansion of outgoing null geodesics.  For the Vaidya
+metric~\eqref{eq:vaidya_full}, the outgoing null expansion is
+\begin{equation}
+  \theta_+ = \frac{2}{r}\left(1 - \frac{2M(v)}{r}\right)^{1/2}
+  \cdot\frac{1}{r}\left(r - 2M(v)\right)\,.
+  \label{eq:theta_plus}
+\end{equation}
+More precisely, the expansion of the outgoing null normal
+$\ell^a = \partial_v + \frac{f}{2}\partial_r$ is
+\begin{equation}
+  \theta_+ = \frac{f}{r} = \frac{1}{r}\left(1 - \frac{2M(v)}{r}\right).
+  \label{eq:theta_plus_simple}
+\end{equation}
+This vanishes when $r = 2M(v)$, i.e., at the MOTS (apparent horizon).
+
+At the MOTS:
+\begin{equation}
+  f\big|_{r=2M(v)} = 1 - \frac{2M(v)}{2M(v)} = 0\,,
+  \label{eq:f_MOTS}
+\end{equation}
+so $|K| = 0$ and
+\begin{equation}
+  \tauasym_K = 1 - |K| = 1 - 0 = 1\,.
+  \label{eq:tau_MOTS}
+\end{equation}
+Complete information loss at the apparent horizon.
+
+%-----------------------------------------------------------------------
+\subsection{Connection to quantum extremal surface}
+%-----------------------------------------------------------------------
+
+The quantum extremal surface (QES)~\cite{Engelhardt2015} extremizes
+the generalized entropy $S_{\mathrm{gen}} = A/(4G\hbar) + S_{\mathrm{bulk}}$.
+In the semiclassical limit, the QES coincides with the MOTS.
+Including quantum corrections:
+\begin{equation}
+  r_{\mathrm{QES}} = 2M(v) + \frac{4G\hbar}{r}\cdot
+  \frac{\partial S_{\mathrm{bulk}}}{\partial r}\bigg|_{r=2M(v)}
+  + O(\hbar^2)\,.
+  \label{eq:QES_correction}
+\end{equation}
+The quantum-corrected $\tauasym$ at the QES is
+\begin{equation}
+  \tauasym_K(r_{\mathrm{QES}}) = 1 - O(\hbar/M^2) < 1\,,
+  \label{eq:tau_QES}
+\end{equation}
+so the quantum correction makes the information loss slightly
+incomplete---consistent with the expectation that quantum gravity
+effects prevent complete information loss.
+
+%=======================================================================
+\section{S6. Pikovski Channel Analysis}
+\label{sec:pikovski}
+%=======================================================================
+
+We provide a complete worked example of the Pikovski gravitational
+dephasing channel, including the Petz recovery map, fidelity
+calculations, and a detailed argument for why it does \emph{not}
+yield the gravitational channel $\chan_{\mathrm{grav}}$.
+
+%-----------------------------------------------------------------------
+\subsection{The Pikovski dephasing channel}
+%-----------------------------------------------------------------------
+
+Pikovski et~al.~\cite{Pikovski2015} showed that gravitational time
+dilation universally dephases composite quantum systems.  A particle
+in a superposition of heights $\Delta h$ in a gravitational field
+$g$ experiences a phase difference
+\begin{equation}
+  \Delta\phi = \frac{m c^2\,g\,\Delta h\,t}{\hbar c^2}
+  = \frac{\Delta E\,\Delta\Phi\,t}{\hbar c^2}\,,
+  \label{eq:Pikovski_phase}
+\end{equation}
+where $\Delta E$ is the internal energy spread and
+$\Delta\Phi = g\,\Delta h$ is the gravitational potential difference.
+
+For a system with internal energy distribution $\{E_n, p_n\}$, the
+coherence between height states $\ket{h_1}$ and $\ket{h_2}$ decays as
+\begin{equation}
+  \rho_{12}(t) = \rho_{12}(0)\cdot\chi(\Delta t_{\mathrm{grav}})\,,
+  \label{eq:coherence_decay}
+\end{equation}
+where $\chi(\tau) = \sum_n p_n\,e^{-i E_n \tau/\hbar}$ is the
+characteristic function of the internal energy distribution and
+$\Delta t_{\mathrm{grav}} = g\,\Delta h\,t/c^2$ is the
+proper-time difference.
+
+\emph{Coherence parameter.}---The dephasing channel has a single
+coherence parameter
+\begin{equation}
+  p = |\chi(\Delta t_{\mathrm{grav}})|\,.
+  \label{eq:p_coherence}
+\end{equation}
+
+\emph{Two-level system at zero temperature.}---For a two-level
+internal system with gap $\omega_0$:
+\begin{equation}
+  p = |\cos(\omega_0\,\Delta t_{\mathrm{grav}}/2)|\,.
+  \label{eq:p_2level}
+\end{equation}
+
+\emph{Thermal state.}---For a thermal internal state at temperature $T$:
+\begin{equation}
+  p = \left|\frac{Z(\beta - i\Delta t_{\mathrm{grav}}/\hbar)}{Z(\beta)}\right|,
+  \label{eq:p_thermal}
+\end{equation}
+where $Z(\beta) = \Tr[e^{-\beta H}]$ is the partition function.
+
+%-----------------------------------------------------------------------
+\subsection{Kraus operators}
+%-----------------------------------------------------------------------
+
+The qubit dephasing channel with parameter $p$ has Kraus operators
+\begin{equation}
+  K_0 = \sqrt{\frac{1+p}{2}}\,I\,,\qquad
+  K_1 = \sqrt{\frac{1-p}{2}}\,\sigma_z\,,
+  \label{eq:dephasing_Kraus}
+\end{equation}
+satisfying $K_0^\dagger K_0 + K_1^\dagger K_1 = I$.  The channel
+acts as
+\begin{equation}
+  \chan_p(\rho) = p\,\rho + (1-p)\,\frac{\sigma_z\rho\sigma_z + \rho}{2}
+  = \begin{pmatrix} \rho_{00} & p\,\rho_{01} \\ p\,\rho_{10} & \rho_{11}
+  \end{pmatrix}.
+  \label{eq:dephasing_action}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{Petz recovery map for dephasing}
+%-----------------------------------------------------------------------
+
+For the maximally mixed reference $\sigma = I/2$:
+
+\emph{Step 1:} $\chan_p(\sigma) = \sigma = I/2$.
+
+\emph{Step 2:} $\chan_p(\sigma)^{-1/2} = \sqrt{2}\,I$.
+
+\emph{Step 3:} The Petz map is
+\begin{align}
+  \Petz_{\sigma,\chan_p}(\rho) &= \sigma^{1/2}\,\chan_p^\dagger
+  \!\left(\chan_p(\sigma)^{-1/2}\,\rho\,\chan_p(\sigma)^{-1/2}\right)
+  \sigma^{1/2}
+  \nonumber\\
+  &= \frac{1}{2}\,\chan_p^\dagger(2\rho)
+  = \chan_p(\rho)\,.
+  \label{eq:Petz_dephasing}
+\end{align}
+The key observation: for diagonal $\sigma$, the Petz recovery map
+for the dephasing channel \emph{equals the channel itself}.  The
+Petz map applies dephasing \emph{again}, making things worse rather
+than better.
+
+%-----------------------------------------------------------------------
+\subsection{Fidelity calculations}
+%-----------------------------------------------------------------------
+
+For the input state $\ket{+} = (\ket{0}+\ket{1})/\sqrt{2}$:
+
+\emph{After the channel:}
+$\chan_p(\ket{+}\!\bra{+}) = \frac{1}{2}\left(\begin{smallmatrix}
+1 & p \\ p & 1\end{smallmatrix}\right)$.
+
+\emph{After Petz recovery:}
+\begin{equation}
+  \Petz\circ\chan_p(\ket{+}\!\bra{+})
+  = \chan_p^2(\ket{+}\!\bra{+})
+  = \frac{1}{2}\begin{pmatrix} 1 & p^2 \\ p^2 & 1 \end{pmatrix}.
+  \label{eq:Petz_twice}
+\end{equation}
+
+\emph{Petz fidelity:}
+\begin{equation}
+  F_{\mathrm{Petz}} = \bra{+}\!\Petz\circ\chan_p(\ket{+}\!\bra{+})\!\ket{+}
+  = \frac{1+p^2}{2}\,.
+  \label{eq:F_Petz_dephasing}
+\end{equation}
+
+\emph{Optimal fidelity (identity map---do nothing):}
+\begin{equation}
+  F_{\mathrm{opt}} = \bra{+}\!\chan_p(\ket{+}\!\bra{+})\!\ket{+}
+  = \frac{1+p}{2}\,.
+  \label{eq:F_opt_dephasing}
+\end{equation}
+
+The Petz map is \emph{worse} than doing nothing:
+$F_{\mathrm{Petz}} < F_{\mathrm{opt}}$ for $0 < p < 1$.  This is
+because the Petz map is designed for the reference state $\sigma$,
+not for the input state $\rho$; for dephasing with diagonal $\sigma$,
+the Petz map coincides with the noise itself.
+
+\emph{The JRSWW bound:}
+\begin{equation}
+  \Sigma_p = D(\ket{+}\!\bra{+}\|\sigma)
+  - D(\chan_p(\ket{+}\!\bra{+})\|\chan_p(\sigma))
+  = \ln 2 - H_{\mathrm{bin}}\!\left(\frac{1+p}{2}\right),
+  \label{eq:Sigma_dephasing}
+\end{equation}
+where $H_{\mathrm{bin}}$ is the binary entropy.  For $p$ close to 1
+($\epsilon = 1-p \ll 1$):
+$\Sigma_p \approx \epsilon^2/(2\ln 2)$.
+
+%-----------------------------------------------------------------------
+\subsection{Why Pikovski is NOT the gravitational channel}
+%-----------------------------------------------------------------------
+
+There are three fundamental mismatches between the Pikovski dephasing
+channel and the gravitational entropy production $\Sgrav = \rs/r$:
+
+\emph{Mismatch 1: Probe dependence.}---The Pikovski entropy production
+\begin{equation}
+  \Sigma_{\mathrm{Pik}} \propto (\Delta E)^2\,(\Delta\Phi)^2\,t^2
+  \label{eq:Sigma_Pik}
+\end{equation}
+depends on the internal energy spread $\Delta E$, the mass $m$,
+and the observation time $t$.  In contrast, $\Sgrav = \rs/r$
+is \emph{universal}---independent of the probe.
+
+\emph{Mismatch 2: Divergent supremum.}---Taking
+$\Delta E \to \infty$ gives $\Sigma_{\mathrm{Pik}} \to \infty$
+at any fixed $\Delta\Phi$ and $t$.  No finite supremum exists.
+In contrast, $\Sgrav$ is finite for all $r > 0$.
+
+\emph{Mismatch 3: Basis.}---The Pikovski channel dephases in the
+\emph{position} basis of center-of-mass motion.  The gravitational
+channel should dephase (or lose information) in the
+\emph{energy/frequency} basis, corresponding to the redshift of
+photon frequencies.
+
+\emph{What the Pikovski channel IS.}---The Pikovski dephasing rate per
+unit frequency per unit time is
+$\Gamma = g\,\Delta h/c^2 = \Delta\Phi/c^2 \sim \Sgrav/2$.  This
+universal rate is correctly predicted by $\Sgrav$, but the
+\emph{accumulated} dephasing depends on the specific probe.  The
+Pikovski channel is a \emph{consequence} of gravitational information
+loss, not the gravitational channel itself.
+
+%-----------------------------------------------------------------------
+\subsection{Numerical estimates}
+%-----------------------------------------------------------------------
+
+For a molecule of mass $m = 10^4$~amu with internal energy spread
+$\Delta E = 1$~eV at height difference $\Delta h = 1$~m on Earth's
+surface ($g \approx 9.8$~m/s$^2$):
+
+\begin{equation}
+  \Delta t_{\mathrm{grav}} = \frac{g\,\Delta h}{c^2}\,t
+  \approx 1.1\times10^{-16}\,t\;\text{(seconds)}\,,
+  \label{eq:dt_numerical}
+\end{equation}
+\begin{equation}
+  p = \cos(\omega_0\,\Delta t_{\mathrm{grav}}/2)
+  \approx 1 - \frac{(\Delta E)^2(\Delta t_{\mathrm{grav}})^2}{8\hbar^2}\,.
+  \label{eq:p_numerical}
+\end{equation}
+
+For $t = 1$~s: $\Delta t_{\mathrm{grav}} \approx 10^{-16}$~s,
+$\omega_0 \approx 1.5\times10^{15}$~rad/s (for $\Delta E = 1$~eV),
+$\omega_0\,\Delta t_{\mathrm{grav}}/2 \approx 7.6\times10^{-2}$~rad,
+$p \approx 0.997$, $\tauasym_{\mathrm{Pik}} \approx 0.003$.
+
+The corresponding gravitational $\tauasym$ at the Earth's surface is
+$\tauasym_{\mathrm{grav}} = 1 - \sqrt{1-r_{\mathrm{s},\oplus}/R_\oplus}
+\approx 7\times10^{-10}$---six orders of magnitude smaller.  This
+confirms that the Pikovski dephasing accumulates much faster than the
+static gravitational $\tauasym$ for a probe-dependent reason (the
+internal energy spread amplifies the effect).
+
+%=======================================================================
+\section{S7. Raychaudhuri Decomposition}
+\label{sec:raychaudhuri}
+%=======================================================================
+
+%-----------------------------------------------------------------------
+\subsection{Raychaudhuri equation and entropy production}
+%-----------------------------------------------------------------------
+
+For a congruence of timelike geodesics with tangent vector $u^a$,
+the Raychaudhuri equation reads~\cite{Raychaudhuri1955,Wald1984}
+\begin{equation}
+  \frac{d\theta}{d\tau} = -\frac{\theta^2}{3} - \sigma_{ab}\sigma^{ab}
+  + \omega_{ab}\omega^{ab} - R_{ab}\,u^a u^b\,,
+  \label{eq:Raychaudhuri}
+\end{equation}
+where $\theta$ is the expansion scalar, $\sigma_{ab}$ the shear
+tensor, and $\omega_{ab}$ the vorticity tensor.
+
+Interpreting each term as a contribution to the rate of change of
+gravitational entropy production~\cite{Paper2}:
+\begin{equation}
+  \frac{d\Sgrav}{ds} = \underbrace{\frac{\theta^2}{3}}_{\text{expansion}}
+  + \underbrace{\sigma_{ab}\sigma^{ab}}_{\text{shear}}
+  - \underbrace{\omega_{ab}\omega^{ab}}_{\text{vorticity}}
+  + \underbrace{R_{ab}\,u^a u^b}_{\text{curvature}}\,.
+  \label{eq:dSigma_ds}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{Static vacuum Schwarzschild: $\Sigma_{\mathrm{grav,Raych}} = 0$}
+%-----------------------------------------------------------------------
+
+For static observers in the Schwarzschild vacuum:
+\begin{itemize}
+\item $\theta = 0$ (static congruence, no expansion);
+\item $\sigma_{ab} = 0$ (spherical symmetry, no shear);
+\item $\omega_{ab} = 0$ (hypersurface-orthogonal, no vorticity);
+\item $R_{ab} = 0$ (vacuum solution).
+\end{itemize}
+Therefore $d\Sgrav/ds = 0$: the Raychaudhuri decomposition gives
+\emph{zero} entropy production rate.
+
+This does \emph{not} contradict $\Sgrav = \rs/r$; rather, it shows
+that $\Sgrav$ from the modular flow route is an \emph{integrated}
+quantity (the total QRE decrease from $r$ to $\infty$), while the
+Raychaudhuri decomposition gives the \emph{local rate}.  The two are
+complementary, not contradictory:
+\begin{equation}
+  \Sgrav = \int_r^\infty \frac{d\Sgrav}{ds}\,ds + \text{boundary term}\,.
+  \label{eq:integrated_vs_local}
+\end{equation}
+The boundary term (from the Tolman redshift at infinity) provides
+$\Sgrav = -\ln(-g_{00})$; the local Raychaudhuri rate vanishes in
+vacuum.
+
+%-----------------------------------------------------------------------
+\subsection{NEC violation implies $\tauasym < 0$}
+%-----------------------------------------------------------------------
+
+\begin{proposition}[One-directional NEC--$\tauasym$ connection]
+If the null energy condition (NEC) is violated along a null geodesic
+congruence, i.e., $R_{ab}\,k^a k^b < 0$ for some null vector $k^a$,
+then there exist configurations where $d\Sgrav/d\lambda < 0$, implying
+$\tauasym$ can decrease along the congruence.
+\end{proposition}
+
+\begin{proof}
+For a null geodesic congruence with tangent $k^a$, the null
+Raychaudhuri equation (with vorticity vanishing by the Frobenius
+theorem for hypersurface-orthogonal null congruences) is
+\begin{equation}
+  \frac{d\theta}{d\lambda} = -\frac{\theta^2}{2}
+  - \hat{\sigma}_{ab}\hat{\sigma}^{ab} - R_{ab}\,k^a k^b\,.
+  \label{eq:null_Raychaudhuri}
+\end{equation}
+If $R_{ab}\,k^a k^b < 0$ (NEC violation), the last term is positive,
+potentially making $d\theta/d\lambda > 0$ (defocusing).
+
+In the entropy production interpretation:
+\begin{equation}
+  \frac{d\Sgrav}{d\lambda} = \frac{\theta^2}{2}
+  + \hat{\sigma}_{ab}\hat{\sigma}^{ab} + R_{ab}\,k^a k^b\,.
+  \label{eq:null_dSigma}
+\end{equation}
+If NEC is violated strongly enough that
+$|R_{ab}\,k^a k^b| > \theta^2/2 + \hat{\sigma}^2$, then
+$d\Sgrav/d\lambda < 0$: entropy production decreases, and $\tauasym$
+can decrease.  This corresponds to information flowing \emph{back}
+from the environment to the system---a form of non-Markovian
+backflow.
+\end{proof}
+
+\begin{remark}
+The converse does not hold: $d\Sgrav/d\lambda < 0$ does not require
+NEC violation (it could result from decreasing shear or expansion).
+The NEC--$\tauasym$ connection is one-directional:
+NEC violation $\Rightarrow$ possible $\tauasym$ decrease, but not
+conversely.
+\end{remark}
+
+%-----------------------------------------------------------------------
+\subsection{Kerr vorticity contribution}
+%-----------------------------------------------------------------------
+
+For the Kerr metric with spin parameter $a$, the congruence of
+static observers at Boyer--Lindquist radius $r$ has nonzero vorticity:
+\begin{equation}
+  \omega^2 = \omega_{ab}\omega^{ab}
+  = \frac{2M^2 a^2 r^2}{\Sigma^4}\,,
+  \label{eq:Kerr_vorticity}
+\end{equation}
+where $\Sigma^2 = r^2 + a^2\cos^2\theta$.  The vorticity term
+$-\omega^2$ in the Raychaudhuri equation acts to \emph{decrease}
+$d\Sgrav/ds$:
+\begin{equation}
+  \frac{d\Sgrav}{ds}\bigg|_{\mathrm{Kerr}} = R_{ab}\,u^a u^b - \omega^2
+  < R_{ab}\,u^a u^b\,.
+  \label{eq:Kerr_dSigma}
+\end{equation}
+Frame dragging (vorticity) reduces the effective entropy production
+rate, consistent with the physical intuition that angular momentum
+protects information.  In the extremal Kerr limit ($a \to M$), the
+vorticity contribution becomes significant near the (would-be)
+horizon, potentially allowing $\tauasym < 1$ at $r = r_+$.
+
+%=======================================================================
+% BIBLIOGRAPHY
+%=======================================================================
+
+\begin{thebibliography}{40}
+
+\bibitem{BisognanoWichmann1976}
+J.~J.~Bisognano and E.~H.~Wichmann,
+``On the Duality Condition for Quantum Fields,''
+J.\ Math.\ Phys.\ \textbf{17}, 303 (1976).
+
+\bibitem{DorauMuch2025}
+L.~Dorau and A.~Much,
+``From Quantum Relative Entropy to the Semiclassical Einstein Equations,''
+Phys.\ Rev.\ Lett.\ \textbf{135}, 241401 (2025); arXiv:2510.24491.
+
+\bibitem{Landauer1961}
+R.~Landauer,
+``Irreversibility and Heat Generation in the Computing Process,''
+IBM J.\ Res.\ Dev.\ \textbf{5}, 183 (1961).
+
+\bibitem{Tolman1930}
+R.~C.~Tolman,
+``On the Weight of Heat and Thermal Equilibrium in General Relativity,''
+Phys.\ Rev.\ \textbf{35}, 904 (1930).
+
+\bibitem{Herrera2020}
+L.~Herrera,
+``Landauer Principle and General Relativity,''
+Entropy \textbf{22}, 340 (2020).
+
+\bibitem{AhmadiFuentes2014}
+M.~Ahmadi, D.~E.~Bruschi, C.~Sabin, G.~Adesso, and I.~Fuentes,
+``Relativistic Quantum Metrology,''
+Sci.\ Rep.\ \textbf{4}, 4996 (2014).
+
+\bibitem{Weedbrook2012}
+C.~Weedbrook, S.~Pirandola, R.~Garc\'ia-Patr\'on, N.~J.~Cerf,
+T.~C.~Ralph, J.~H.~Shapiro, and S.~Lloyd,
+``Gaussian quantum information,''
+Rev.\ Mod.\ Phys.\ \textbf{84}, 621 (2012).
+
+\bibitem{Mychelkin2024}
+E.~G.~Mychelkin, M.~A.~Makukov, and G.~Suliyeva,
+``On the weak and strong field effects in antiscalar background,''
+Gen.\ Relativ.\ Gravit.\ \textbf{56}, 44 (2024); arXiv:2403.11610.
+
+\bibitem{Bertotti2003}
+B.~Bertotti, L.~Iess, and P.~Tortora,
+``A test of general relativity using radio links with the Cassini
+spacecraft,''
+Nature \textbf{425}, 374 (2003).
+
+\bibitem{Cardoso2016}
+V.~Cardoso, E.~Franzato, and P.~Pani,
+``Is the Gravitational-Wave Ringdown a Probe of the Event Horizon?,''
+Phys.\ Rev.\ Lett.\ \textbf{116}, 171101 (2016).
+
+\bibitem{Abedi2017}
+J.~Abedi, H.~Dykaar, and N.~Afshordi,
+``Echoes from the Abyss: Tentative evidence for Planck-scale structure
+at black hole horizons,''
+Phys.\ Rev.\ D \textbf{96}, 082004 (2017).
+
+\bibitem{JRSWW2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M.~Wilde, and A.~Winter,
+``Universal Recovery Maps and Approximate Sufficiency of Quantum
+Relative Entropy,''
+Ann.\ Henri Poincar\'e \textbf{19}, 2955 (2018).
+
+\bibitem{GoldenThompson1965}
+S.~Golden, ``Lower bounds for the Helmholtz function,''
+Phys.\ Rev.\ \textbf{137}, B1127 (1965);
+C.~J.~Thompson, ``Inequality with applications in statistical
+mechanics,'' J.\ Math.\ Phys.\ \textbf{6}, 1812 (1965).
+
+\bibitem{Petz1988}
+D.~Petz,
+``Sufficiency of channels over von Neumann algebras,''
+Q.\ J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{Engelhardt2015}
+N.~Engelhardt and A.~C.~Wall,
+``Quantum extremal surfaces: holographic entanglement entropy beyond
+the classical regime,''
+J.\ High Energy Phys.\ \textbf{2015}(01), 073 (2015).
+
+\bibitem{Pikovski2015}
+I.~Pikovski, M.~Zych, F.~Costa, and \v{C}.~Brukner,
+``Universal decoherence due to gravitational time dilation,''
+Nat.\ Phys.\ \textbf{11}, 668 (2015).
+
+\bibitem{Paper2}
+S.-K. Huang,
+``Information Loss is Local: The Gravitational Refractive Index as Petz
+Recovery Fidelity,'' companion paper (2026).
+
+\bibitem{Raychaudhuri1955}
+A.~Raychaudhuri,
+``Relativistic Cosmology.\ I,''
+Phys.\ Rev.\ \textbf{98}, 1123 (1955).
+
+\bibitem{Wald1984}
+R.~M.~Wald,
+\emph{General Relativity} (University of Chicago Press, 1984).
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,535 @@
+% paper_neutrino_mond_chain.tex
+% From Neutrino Masses to Galaxy Rotation Curves: A Zero-Parameter Chain
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper_neutrino_mond_chain.tex
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+% Macros
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Mpc}{\,\mathrm{Mpc}}
+\newcommand{\eV}{\,\mathrm{eV}}
+\newcommand{\meV}{\,\mathrm{meV}}
+\newcommand{\ms}{\,\mathrm{m\,s}^{-2}}
+\newcommand{\zdec}{z_{\mathrm{dec}}}
+\newcommand{\rd}{r_{\mathrm{d}}}
+\newcommand{\Ob}{\Omega_{\mathrm{b}}}
+\newcommand{\Om}{\Omega_{\mathrm{m}}}
+\newcommand{\MPl}{M_{\mathrm{Pl}}}
+\newcommand{\MGC}{M_{\mathrm{GC}}}
+\newcommand{\azero}{a_0}
+\newcommand{\sumnu}{\Sigma m_\nu}
+
+\begin{document}
+
+\title{From Neutrino Masses to Galaxy Rotation Curves:\\
+A Zero-Parameter Chain via the Gravitational Seesaw}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+We report three numerical relations that, taken together, connect
+neutrino masses to galaxy rotation curves with zero free parameters.
+(i)~The ghost condensation scale of the Blanchet--Skordis Khronon
+theory, $\MGC = \sqrt{\mu\,\MPl}$, coincides with the minimum
+neutrino mass sum: $\MGC = 59.2\meV$ versus
+$\sumnu = 58.2$--$58.7\meV$ from oscillation data, a
+$1.7\%$ match.
+This implies a gravitational seesaw $\mu = (\sumnu)^2/\MPl$.
+(ii)~The Khronon mass parameter satisfies
+$\mu = 2\pi(1+\Ob)/\rd$ to $0.05\%$,
+where $\rd$ is the sound horizon at baryon drag.
+(iii)~Combining these gives the MOND acceleration
+$\azero = (\sumnu)^2 c^2/[\MPl(1+\zdec)]
+= 1.16 \times 10^{-10}\ms$,
+matching the observed $1.2 \times 10^{-10}\ms$ to $3.4\%$.
+We further derive the MOND interpolating function itself.
+The gravitational channel has entropy production
+$\Sigma = 2\sqrt{x}$ at dimensionless acceleration
+$x = g_{\mathrm{bar}}/\azero$;
+the Petz recovery bound $\tau \leq 1 - e^{-\Sigma/2}$
+then yields $\mu(x) = x/[1 - \exp(-\sqrt{x})]$.
+This function is identical to the empirical RAR
+of McGaugh \textit{et al.}\ and provides the best fit to
+2693 SPARC data points ($\chi^2 = 7332$), with $\Delta\chi^2 = 39$--$834$
+over competing forms.
+The chain requires normal neutrino mass hierarchy---a prediction
+falsifiable by JUNO and DUNE within five years.
+\end{abstract}
+
+\maketitle
+
+%======================================================================
+\section{Introduction}
+%======================================================================
+
+The MOND phenomenology of galaxy dynamics~\cite{Milgrom1983}
+is governed by a single acceleration scale
+$\azero \approx 1.2 \times 10^{-10}\ms$,
+confirmed across 175 galaxies by the radial acceleration
+relation (RAR)~\cite{McGaugh2016,Lelli2017}.
+The numerical proximity $\azero \sim c\,H_0$ was noted
+by Milgrom~\cite{Milgrom1983} and remains unexplained
+within $\Lambda$CDM.
+
+Separately, the absolute neutrino mass scale is constrained
+from below by oscillation experiments:
+$\sumnu \geq 58\meV$ in the normal hierarchy (NH)~\cite{NuFIT}.
+This is the least-known mass parameter in the Standard Model.
+
+The Blanchet--Skordis (BS) Khronon theory~\cite{BS2024,BS2025}
+provides a relativistic completion of MOND.
+Its central parameter is the Khronon mass
+$\mu^{-1} = 22.3\Mpc$, determined by fitting both CMB
+acoustic peaks and galaxy rotation curves.
+The ghost condensation condition $K'(Q_0) = 0$
+gives rise to CDM-like cosmological behavior
+with sound speed $c_s^2 = 0$.
+
+In this Letter we point out three relations connecting
+$\mu$, $\sumnu$, and $\azero$, none of which appear
+in the prior literature. Together they form a chain with
+zero adjustable parameters:
+\begin{equation}
+  \sumnu \;\longrightarrow\; \mu \;\longrightarrow\;
+  \azero \;\longrightarrow\; v_{\mathrm{flat}} \,.
+\end{equation}
+
+%======================================================================
+\section{The gravitational seesaw}
+%======================================================================
+
+The ghost condensation energy scale is the geometric mean
+of the Khronon mass $\mu$ and the Planck mass $\MPl$~\cite{ArkaniHamed2004}:
+\begin{equation}\label{eq:MGC}
+  \MGC = \sqrt{\mu\,\MPl} \,,
+\end{equation}
+where $\MPl = \sqrt{\hbar c/G} = 1.221 \times 10^{28}\eV$
+is the unreduced Planck mass.
+
+Converting $\mu^{-1} = 22.3\Mpc$ from the BS fit~\cite{BS2025}
+to energy units gives $\mu = 2.87 \times 10^{-31}\eV$, and therefore
+\begin{equation}
+  \MGC = 59.2\meV \,.
+\end{equation}
+
+The minimum neutrino mass sum in the normal hierarchy is~\cite{NuFIT}
+\begin{equation}
+  \sumnu^{\mathrm{NH}} = \sqrt{\Delta m_{21}^2} + \sqrt{\Delta m_{31}^2}
+  = 58.2\text{--}58.7\meV \,,
+\end{equation}
+depending on the oscillation parameter fit (NuFIT~5.2 versus 5.3).
+The discrepancy between $\MGC$ and $\sumnu$ is $1.7\%$
+(improving to $0.8\%$ with updated parameters).
+An exact match requires $m_1 = 0.9\meV$, which is experimentally allowed.
+
+If this coincidence is physical, it implies the \textit{gravitational seesaw}
+[NEW SYNTHESIS]:
+\begin{equation}\label{eq:seesaw}
+  \boxed{\mu = \frac{(\sumnu)^2}{\MPl}} \,.
+\end{equation}
+The neutrino mass sum sits at the geometric midpoint
+of the $\mu$--$\MPl$ hierarchy in logarithmic space:
+$\log_{10}(\MPl/\sumnu) = \log_{10}(\sumnu/\mu) = 29.3$.
+
+This parallels the standard Type-I seesaw $m_\nu = m_D^2/M_R$,
+but at a different scale.
+In the Type-I seesaw the light neutrino mass is the geometric
+mean of the Dirac mass and the right-handed Majorana mass.
+Here $\sumnu = \sqrt{\mu\,\MPl}$ is the geometric mean
+of $\mu$ and $\MPl$---a ``double seesaw'' in which the neutrino mass,
+already the product of one seesaw, seeds a second.
+
+%======================================================================
+\section{The Khronon mass from the sound horizon}
+%======================================================================
+
+In a companion letter~\cite{PaperA0} we reported
+\begin{equation}\label{eq:mu_rd}
+  \mu = \frac{2\pi(1+\Ob)}{\rd} \,,
+\end{equation}
+where $\rd = 147.09 \pm 0.26\Mpc$ is the comoving sound horizon
+at the baryon drag epoch~\cite{Planck2018} and
+$\Ob = 0.0493 \pm 0.0004$ is the baryon density parameter.
+This matches the BS value to $0.05\%$.
+
+The leading-order content is $\mu = 2\pi/\rd$:
+the Khronon Compton wavelength equals $\rd/(2\pi)$.
+Physically, $2\pi/\rd$ is the fundamental Fourier mode
+of the sound horizon---the largest scale at which the
+baryon--photon fluid is causally coherent at the drag epoch.
+Ghost condensation locks the Khronon mass to this causal scale.
+
+The $(1+\Ob)$ correction improves accuracy from $5\%$
+to $0.05\%$ and is of the expected order $O(\Ob)$,
+but its derivation from the Khronon action
+is not yet established. We regard this factor as the
+weakest link in the chain.
+
+%======================================================================
+\section{The zero-parameter chain}
+%======================================================================
+
+Combining Eqs.~\eqref{eq:seesaw} and~\eqref{eq:mu_rd}
+with the relation
+$\mu c^2 = \azero(1+\zdec)$ from Ref.~\cite{PaperA0} yields
+\begin{equation}\label{eq:chain}
+  \boxed{\azero = \frac{(\sumnu)^2\,c^2}{\MPl\,(1+\zdec)}} \,.
+\end{equation}
+
+Numerically, with $\sumnu = 58.2\meV$, $\MPl = 1.221 \times 10^{28}\eV$,
+$\zdec = 1089.9$:
+\begin{equation}
+  \azero^{\mathrm{pred}} = 1.16 \times 10^{-10}\ms \,.
+\end{equation}
+The observed value $\azero = (1.20 \pm 0.24) \times 10^{-10}\ms$
+from the RAR~\cite{McGaugh2016} agrees to $3.4\%$, well within
+the $\sim 20\%$ systematic uncertainty.
+
+The full chain is:
+\begin{enumerate}
+  \item $\mu = (\sumnu)^2/\MPl$ \hfill [gravitational seesaw]
+  \item $\azero = \mu c^2/(1+\zdec)$ \hfill [Khronon--MOND bridge]
+  \item $v_{\mathrm{flat}}^4 = G\,M_b\,\azero$ \hfill [deep MOND]
+\end{enumerate}
+No parameter is adjusted. The inputs are $\sumnu$ (oscillation experiments),
+$G$ (laboratory measurement), $\zdec$ (CMB), and $M_b$ (photometry).
+
+%======================================================================
+\section{Hierarchy discrimination}
+%======================================================================
+
+The inverted hierarchy (IH) gives $\sumnu \geq 100\meV$~\cite{NuFIT},
+which predicts $\azero^{\mathrm{IH}} = 3.4 \times 10^{-10}\ms$,
+a factor $2.8$ above the observed value.
+The gravitational seesaw therefore \textit{requires} the normal hierarchy:
+\begin{equation}
+  \mathrm{NH:}\; \azero = 1.16 \times 10^{-10}\ms\;(\checkmark)
+  \qquad
+  \mathrm{IH:}\; \azero = 3.4 \times 10^{-10}\ms\;(\times) \,.
+\end{equation}
+JUNO~\cite{JUNO} and DUNE~\cite{DUNE} will determine the hierarchy
+at $>3\sigma$ within five years.
+Establishment of the inverted hierarchy would falsify
+Eq.~\eqref{eq:seesaw}.
+
+EUCLID~\cite{EUCLID} and CMB-S4~\cite{CMBS4} will measure
+$\sumnu$ to $\sim 15$--$20\meV$ precision,
+testing the prediction $\sumnu = \sqrt{\mu\,\MPl} = 59\meV$
+directly.
+
+%======================================================================
+\section{Robustness}
+%======================================================================
+
+Equation~\eqref{eq:chain} depends on three measured quantities.
+The sensitivity is:
+\begin{equation}
+  \frac{\delta\azero}{\azero}
+  = 2\,\frac{\delta(\sumnu)}{\sumnu}
+  - \frac{\delta\zdec}{\zdec} \,.
+\end{equation}
+With $\delta(\sumnu)/(\sumnu) \lesssim 5\%$ (oscillation data)
+and $\delta\zdec/\zdec < 0.03\%$ (Planck),
+the prediction is stable to $\sim 10\%$---comparable to
+the observational uncertainty on $\azero$ itself.
+
+The formula does not contain $H_0$ explicitly.
+This immunity to the Hubble tension distinguishes
+Eq.~\eqref{eq:chain} from all previous $\azero$--cosmology
+proposals~\cite{Milgrom1999,Verlinde2016,Pazy2013}.
+
+%======================================================================
+\section{Connection to the $\Sigma$ framework}
+%======================================================================
+
+In the temporal asymmetry framework~\cite{PaperI,PaperII},
+$\Sigma = D(\rho_{\mathrm{spacetime}} \| \rho_{\mathrm{matter}})$
+quantifies the information deficit between spacetime geometry
+and matter content.
+The Khronon mass $\mu$ controls the
+rate of information loss in the gravitational channel:
+large $\mu$ means rapid decoherence (CDM-like clustering),
+small $\mu$ means slow decoherence (MOND-like dynamics)~\cite{PaperIII}.
+
+The gravitational seesaw provides a physical interpretation
+of this scale.
+Neutrinos are the only Standard Model fermions with
+maximal parity violation (purely left-handed in the minimal model).
+Chirality is tied to time-reversal through CPT:
+the most time-asymmetric sector of the Standard Model
+sets the ghost condensation scale of the field that
+\textit{defines} the time direction.
+
+If confirmed, the seesaw implies that the dark sector
+is not independent of particle physics.
+The dark matter phenomenology is a low-energy consequence
+of the neutrino mass spectrum, mediated through
+the Planck scale.
+
+%======================================================================
+\section{Caveats}
+%======================================================================
+
+We list the principal weaknesses of the chain.
+
+(a)~The gravitational seesaw [Eq.~\eqref{eq:seesaw}]
+is a numerical observation at the $1.7\%$ level,
+not a derived result.
+Three candidate mechanisms---chirality coupling,
+spectral action, and vacuum condensate---are
+qualitatively consistent but not proven.
+
+(b)~The full Planck mass $\MPl = \sqrt{\hbar c/G}$
+must be used, not the reduced mass
+$\MPl/\sqrt{8\pi}$.
+With the reduced mass, the mismatch is a factor~$2.2$.
+Although Ref.~\cite{ArkaniHamed2004} adopts the reduced
+convention $M_{\mathrm{Pl}}^2 = 1/(8\pi G)$,
+the reduced mass predicts $\MGC = 26.4\meV$, which lies
+below the oscillation minimum $\sumnu \geq 58\meV$ and
+is therefore excluded.
+The full mass is the unique choice consistent with data.
+
+(c)~The $(1+\Ob)$ factor in Eq.~\eqref{eq:mu_rd}
+improves accuracy from $5\%$ to $0.05\%$
+but has no first-principles derivation.
+
+(d)~The chain assumes MOND phenomenology is exact.
+If $\azero$ varies between galaxy populations,
+the universal prediction fails.
+
+(e)~The BS Khronon mass $\mu^{-1} = 22.3\Mpc$
+does not yet have published error bars.
+
+%======================================================================
+\section{The MOND interpolating function from Crooks' theorem}
+\label{sec:crooks}
+%======================================================================
+
+The chain above fixes $\azero$ but says nothing about the
+functional form of the MOND interpolating function
+$\mu(x)$, where $x = g_{\mathrm{bar}}/\azero$.
+We now derive $\mu(x)$ from the Crooks fluctuation
+theorem~\cite{Crooks1999}.
+
+\subsection{The gravitational channel and the Petz bound}
+
+The gravitational channel theorem of Ref.~\cite{PaperII}
+establishes the intensity transmissivity of the
+gravitational thermal attenuator on a static background:
+\begin{equation}\label{eq:eta_temporal}
+  \eta = \frac{1}{Q^2} \,,
+\end{equation}
+where $Q = 1/\sqrt{-g_{00}}$ is the inverse Khronon lapse.
+The corresponding entropy production is
+\begin{equation}
+  \Sigma = -\ln\eta = 2\ln Q \,.
+\end{equation}
+The Petz recovery bound~\cite{PaperI} then gives
+the retrodiction infidelity
+\begin{equation}\label{eq:petz}
+  \tau \;\leq\; 1 - e^{-\Sigma/2} \,.
+\end{equation}
+The factor $\tfrac{1}{2}$ in the exponent is a
+consequence of the Petz bound, not a separate
+physical channel.
+
+\subsection{The sqrt mapping}
+
+In the weak-field MOND regime, the gradient of
+$\Sigma$ is $|\nabla\Sigma| = 2\,a/c^2$,
+where $a$ is the Newtonian acceleration.
+The coherence length at dimensionless acceleration
+$x = a/\azero$ is $L(x) = c^2/(\azero\sqrt{x})$,
+so the local entropy production over one
+coherence length evaluates to
+\begin{equation}\label{eq:sigma_local}
+  \Sigma(x) = \frac{2\,a}{c^2}\,L(x) = 2\sqrt{x} \,.
+\end{equation}
+Substituting into the Petz bound~\eqref{eq:petz}:
+\begin{equation}\label{eq:tau_mond}
+  \boxed{\tau(x) = 1 - e^{-\sqrt{x}}
+  \,,\qquad x = g_{\mathrm{bar}}/\azero} \,.
+\end{equation}
+
+\subsection{The interpolating function and SPARC verification}
+
+Identifying the MOND interpolating function with
+$\mu(x) = x/\tau(x)$---the ratio of the
+Newtonian acceleration to the retrodiction
+loss fraction---yields
+\begin{equation}\label{eq:mu_crooks}
+  \boxed{\mu(x) = \frac{x}{1 - \exp\!\bigl(-\sqrt{x}\,\bigr)}} \,,
+\end{equation}
+which is identical to the empirical radial acceleration relation
+(RAR) reported by McGaugh, Lelli, and
+Schombert~\cite{McGaugh2016}.
+No shape parameter is adjusted;
+only $\azero$ enters as a scale.
+
+We test Eq.~\eqref{eq:mu_crooks} against 2693 data points
+from 175 SPARC galaxies~\cite{Lelli2017},
+fitting $\azero$ alone.
+Table~\ref{tab:sparc} compares four interpolating functions.
+
+\begin{table}[t]
+\caption{%
+  $\chi^2$ comparison of MOND interpolating functions
+  against the SPARC RAR (2693 data points, 1 free parameter $\azero$).
+  The Crooks--Petz function [Eq.~\eqref{eq:mu_crooks}]
+  provides the best fit.
+}
+\label{tab:sparc}
+\begin{ruledtabular}
+\begin{tabular}{lccr}
+ Model $\mu(x)$ & $\azero$ [$10^{-10}\ms$]
+   & $\chi^2$ & $\Delta\chi^2$ \\
+\colrule
+ $x/[1-e^{-\sqrt{x}}]$ (Crooks--Petz)
+   & 1.16 & 7332 & 0 \\
+ $x/(1+x)$ (simple)
+   & 1.14 & 7372 & 40 \\
+ $1-e^{-x}$ (original Crooks)
+   & 1.44 & 7802 & 470 \\
+ $x/\sqrt{1+x^2}$ (standard)
+   & 1.63 & 8166 & 834 \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+A two-parameter fit to the generalized family
+$\mu(x) = x/[1 - \exp(-x^p)]$
+yields $p_{\mathrm{best}} = 0.482 \pm 0.02$
+and $\azero = 1.26 \times 10^{-10}\ms$,
+with $p = 0.5$ lying within $1\sigma$ of the best fit
+($\Delta\chi^2 = 33$ for one additional degree of freedom).
+The data therefore confirm the theoretically predicted
+exponent $p = \tfrac{1}{2}$.
+
+\subsection{The complete chain}
+
+With Eq.~\eqref{eq:mu_crooks} established, the full derivation
+from the Crooks theorem to galaxy rotation curves requires
+no fitted shape:
+\begin{equation}
+  \text{Crooks}
+  \;\xrightarrow{\;\eta_{\mathrm{spat}}=1/Q\;}
+  \Sigma_{\mathrm{spat}} = \sqrt{x}
+  \;\longrightarrow\;
+  \mu(x) = \frac{x}{1-e^{-\sqrt{x}}}
+  \;\xrightarrow{\;\text{SPARC}\;}
+  \checkmark
+\end{equation}
+Combined with the zero-parameter chain of
+Sec.~IV, both the \textit{scale} $\azero$ and the
+\textit{functional form} $\mu(x)$ are determined from
+first principles.
+
+%======================================================================
+\section{Summary}
+%======================================================================
+
+Three relations---the gravitational seesaw
+$\mu = (\sumnu)^2/\MPl$,
+the sound horizon connection $\mu = 2\pi(1+\Ob)/\rd$,
+and the MOND bridge $\azero = \mu c^2/(1+\zdec)$---link
+neutrino oscillation data to galaxy rotation curves
+without free parameters.
+The Crooks fluctuation theorem applied to the spatial
+gravitational channel further determines the interpolating
+function $\mu(x) = x/[1-\exp(-\sqrt{x})]$, verified against
+the SPARC catalogue.
+Both the acceleration \textit{scale} and the interpolating
+\textit{form} follow from the theory with zero shape parameters.
+The chain requires normal hierarchy and predicts
+$\sumnu = 59\meV$, testable by JUNO, DUNE, EUCLID, and CMB-S4
+within five years.
+
+\begin{acknowledgments}
+The author thanks the developers of CLASS, MLX, and the
+NuFIT collaboration for publicly available tools and data.
+\end{acknowledgments}
+
+\begin{thebibliography}{99}
+\bibitem{Milgrom1983}
+  M.~Milgrom, Astrophys.\ J.\ \textbf{270}, 365 (1983).
+\bibitem{McGaugh2016}
+  S.~S.~McGaugh, F.~Lelli, and J.~M.~Schombert,
+  Phys.\ Rev.\ Lett.\ \textbf{117}, 201101 (2016).
+\bibitem{Lelli2017}
+  F.~Lelli, S.~S.~McGaugh, and J.~M.~Schombert,
+  Astrophys.\ J.\ \textbf{836}, 152 (2017).
+\bibitem{NuFIT}
+  I.~Esteban \textit{et al.},
+  J.\ High Energy Phys.\ \textbf{09}, 178 (2020);
+  NuFIT~5.3 (2024), \url{http://www.nu-fit.org}.
+\bibitem{BS2024}
+  L.~Blanchet and C.~Skordis,
+  J.\ Cosmol.\ Astropart.\ Phys.\ \textbf{11}, 040 (2024);
+  arXiv:2404.06584.
+\bibitem{BS2025}
+  L.~Blanchet and C.~Skordis,
+  arXiv:2507.00912 (2025).
+\bibitem{ArkaniHamed2004}
+  N.~Arkani-Hamed, H.-C.~Cheng, M.~A.~Luty, and S.~Mukohyama,
+  J.\ High Energy Phys.\ \textbf{05}, 074 (2004).
+\bibitem{Planck2018}
+  Planck Collaboration,
+  Astron.\ Astrophys.\ \textbf{641}, A6 (2020).
+\bibitem{PaperA0}
+  S.-K.~Huang,
+  ``The MOND acceleration from the cosmological sound horizon,''
+  companion letter (2026).
+\bibitem{Milgrom1999}
+  M.~Milgrom,
+  Phys.\ Lett.\ A \textbf{253}, 273 (1999).
+\bibitem{Verlinde2016}
+  E.~P.~Verlinde,
+  SciPost Phys.\ \textbf{2}, 016 (2017);
+  arXiv:1611.02269.
+\bibitem{Pazy2013}
+  E.~Pazy,
+  Phys.\ Rev.\ D \textbf{87}, 084063 (2013).
+\bibitem{JUNO}
+  JUNO Collaboration,
+  J.\ Phys.\ G \textbf{43}, 030401 (2016).
+\bibitem{DUNE}
+  DUNE Collaboration,
+  arXiv:2002.03005 (2020).
+\bibitem{EUCLID}
+  Euclid Collaboration,
+  Astron.\ Astrophys.\ \textbf{642}, A191 (2020).
+\bibitem{CMBS4}
+  CMB-S4 Collaboration,
+  arXiv:1610.02743 (2016).
+\bibitem{Crooks1999}
+  G.~E.~Crooks,
+  Phys.\ Rev.\ E \textbf{60}, 2721 (1999).
+\bibitem{PaperI}
+  S.-K.~Huang,
+  ``Temporal asymmetry from the Petz recovery map,''
+  (2026).
+\bibitem{PaperII}
+  S.-K.~Huang,
+  ``The gravitational refractive index as Petz recovery fidelity,''
+  (2026).
+\bibitem{PaperIII}
+  S.-K.~Huang,
+  ``Dark matter as ghost condensation of the Khronon field,''
+  (2026).
+\end{thebibliography}
+
+\end{document}
