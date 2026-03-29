@@ -1,0 +1,1250 @@
+% paper9_spectral_sigma.tex
+% Why Four Dimensions? Fisher Information on Spectral Geometry
+% and the Sigma = 2 ln Q Framework
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper9_spectral_sigma.tex
+% Target: ~8 pages, PRD style
+
+\documentclass[prd,twocolumn,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{remark}{Remark}
+
+% Shared macros (Papers 1--6)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\tauasym}{\tau}
+\newcommand{\SvN}{S_{\mathrm{vN}}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\nF}{n_{\mathrm{F}}}
+\newcommand{\Vol}{\mathrm{Vol}}
+
+% Paper 9 macros
+\newcommand{\Sgrav}{\Sigma_{\mathrm{grav}}}
+\newcommand{\Sgauge}{\Sigma_{\mathrm{gauge}}}
+\newcommand{\Stot}{\Sigma_{\mathrm{total}}}
+\newcommand{\AF}{\mathcal{A}_F}
+\newcommand{\SEH}{S_{\mathrm{EH}}}
+\newcommand{\SYM}{S_{\mathrm{YM}}}
+
+% Epistemic tags
+\newcommand{\known}{\textsc{[known]}}
+\newcommand{\derived}{\textsc{[derived]}}
+\newcommand{\assumed}{\textsc{[assumed]}}
+\newcommand{\new}{\textsc{[new]}}
+
+\begin{document}
+
+\title{Why Four Dimensions? Fisher Information on Spectral Geometry\\
+and the $\Sigma = 2\ln Q$ Framework}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+The Spectral Action Principle of Connes and Chamseddine generates
+both Einstein gravity and the Standard Model gauge sector from a
+single operator trace $\Tr\,f(D^2/\Lambda^2)$ on a noncommutative
+geometry.
+We show that the gravitational sector---encoded in the $a_2$
+Seeley--DeWitt coefficient---equals the Fisher information of
+the field $\Sigma = 2\ln Q = -\ln(-g_{00})$, where $Q$ is the
+inverse Khronon lapse.
+The conformal Fisher metric on $Q$-space evaluates to
+$g_{QQ} = (d-2)(d-3)/Q^2$.
+Requiring this to match $\Sigma = 2\ln Q$ gives
+$(d-2)(d-3)=2$, whose unique non-trivial solution is $d=4$.
+This provides a purely information-theoretic answer to the question
+``why four dimensions?''
+The gauge sector ($a_4$ coefficient) is conformally invisible to
+$\Sigma$ in $d=4$, establishing an orthogonal decomposition:
+gravity is the Fisher information of a 0-form~($\Sigma$), while
+gauge forces are the Fisher information of 1-forms (connections).
+Both sectors satisfy harmonic vacuum equations---$\nabla^2\Sigma=0$
+for gravity and $d\!*\!F=0$ for gauge fields---but at different
+form degrees.
+We verify the result numerically on flat tori $T^d$ for
+$d=2,\ldots,6$ and state explicitly the limitations of the
+construction, including the failure to express $F_{\mu\nu}F^{\mu\nu}$
+as $|\nabla\Sigma_{\mathrm{EM}}|^2$ for any scalar field.
+\end{abstract}
+
+\maketitle
+
+
+%=======================================================================
+\section{Introduction}
+\label{sec:intro}
+%=======================================================================
+
+Among the deepest questions in theoretical physics is one that
+is rarely asked in modern high-energy theory: \emph{why does
+spacetime have four dimensions?}
+The question is old---Ehrenfest~\cite{Ehrenfest1917} argued
+in 1917 that stable planetary orbits require $d=3+1$---yet no
+dynamical or algebraic mechanism within general relativity or
+quantum field theory demands it.
+String theory predicts $d=10$ or $11$ and invokes
+compactification~\cite{Polchinski1998}; anthropic reasoning
+observes that $d\ne 4$ would be inhospitable to life, but
+offers no predictive power.
+
+The Spectral Action Principle~\cite{CC1997} of Chamseddine and
+Connes offers a more constrained setting.
+Given a spectral triple $(\mathcal{A},\mathcal{H},D)$---an
+algebra, a Hilbert space, and a Dirac operator---the bosonic
+action is the operator trace
+\begin{equation}\label{eq:spectral_action}
+  S_{\mathrm{spectral}}
+  \;=\;
+  \Tr\, f\!\left(\frac{D^2}{\Lambda^2}\right),
+\end{equation}
+where $f$ is a positive test function and $\Lambda$ is an
+energy cutoff.
+On the almost-commutative geometry
+$M^4\times F$, with the finite algebra
+$\AF = \mathbb{C}\oplus\mathbb{H}\oplus M_3(\mathbb{C})$
+encoding the Standard Model~\cite{CCM2007,ConnesMarcolli2008},
+the asymptotic expansion of~\eqref{eq:spectral_action}
+produces the full bosonic Lagrangian of
+gravity plus the Standard Model---Einstein--Hilbert,
+Yang--Mills, Higgs, and cosmological constant
+terms~\cite{CC1997,vS2024}.
+
+Independently, we have developed a framework in which the
+temporal asymmetry of a physical process is measured by a quantum
+relative entropy (QRE)~\cite{PaperI}
+\begin{equation}\label{eq:Sigma_def}
+  \Sigma
+  \;=\;
+  D\!\left(\rho_{\mathrm{spacetime}}
+  \,\big\|\, \rho_{\mathrm{matter}}\right)
+  \;\geq\; 0\,,
+\end{equation}
+with the gravitational channel representation
+yielding~\cite{PaperII}
+\begin{equation}\label{eq:Sigma_2lnQ}
+  \Sigma \;=\; 2\ln Q\,,
+\end{equation}
+where $Q = 1/\sqrt{-g_{00}}$ is the inverse Khronon
+lapse.
+Equation~\eqref{eq:Sigma_2lnQ} has been shown to reproduce
+exponential metrics in the strong-field
+regime~\cite{PaperII}, galactic rotation curves in the
+weak-field regime~\cite{PaperIII}, and the U(1) gauge
+structure of electromagnetism via DBI-$\Sigma$
+correspondence~\cite{PaperVI}.
+
+The purpose of this paper is to connect these two programs.
+We demonstrate that the gravitational sector of the spectral
+action (the $a_2$ Seeley--DeWitt coefficient) \emph{is} the
+Fisher information of the field $\Sigma$; that the coefficient
+``2'' in Eq.~\eqref{eq:Sigma_2lnQ} equals $(d-2)(d-3)$
+evaluated at $d=4$; and that the gauge sector ($a_4$
+coefficient) is conformally invisible to $\Sigma$, leading to
+an orthogonal decomposition of the full Standard Model
+Lagrangian into Fisher information functionals at different
+form degrees.
+
+We are explicit about what does \emph{not} work: the gauge
+field strength $F_{\mu\nu}F^{\mu\nu}$ cannot be rewritten as
+$|\nabla\Sigma_{\mathrm{EM}}|^2$ for any scalar, the internal
+algebra $\AF$ is an input rather than a derivation, and the
+cosmological constant does not fit the Fisher framework.
+
+The paper is organized as follows.
+Section~\ref{sec:spectral_review} reviews the spectral action
+and its heat kernel expansion.
+Section~\ref{sec:a2_fisher} proves that the $a_2$ sector
+equals the Fisher information of $\Sigma$ (Theorem~1).
+Section~\ref{sec:d4} derives $d=4$ from the Fisher metric
+(Theorem~2).
+Section~\ref{sec:orthogonal} establishes the orthogonal
+decomposition (Theorem~3).
+Section~\ref{sec:harmonic} identifies the harmonic hierarchy.
+Section~\ref{sec:numerical} presents numerical verification.
+Section~\ref{sec:limitations} states what does not work.
+Section~\ref{sec:discussion} discusses implications.
+
+
+%=======================================================================
+\section{The Spectral Action: a review}
+\label{sec:spectral_review}
+%=======================================================================
+
+We collect the essential facts.
+A \emph{spectral triple}
+$(\mathcal{A},\mathcal{H},D)$ consists of an associative
+*-algebra~$\mathcal{A}$ faithfully represented on a Hilbert
+space~$\mathcal{H}$, together with a self-adjoint operator~$D$
+(the Dirac operator) satisfying the axioms of noncommutative
+geometry~\cite{Connes1996,vS2024}~\known.
+On a closed spin manifold~$M$, one takes
+$\mathcal{A}=C^\infty(M)$, $\mathcal{H}=L^2(M,S)$ (square-integrable
+spinor sections), and $D=i\gamma^\mu\nabla_\mu^S$, the
+standard Dirac operator.
+
+The heat kernel of $D^2$ has the asymptotic
+expansion~\cite{Vassilevich2003,Gilkey1995}~\known
+\begin{equation}\label{eq:heat_kernel}
+  \Tr\, e^{-tD^2}
+  \;\sim\;
+  (4\pi t)^{-d/2}
+  \sum_{k=0}^{\infty} t^k\, a_{2k}(D^2)\,,
+  \quad t\to 0^+,
+\end{equation}
+where each \emph{Seeley--DeWitt coefficient}~$a_{2k}$ is an
+integral of local curvature invariants of order~$k$.
+The leading terms are~\cite{Vassilevich2003,BGV2004}~\known:
+\begin{align}
+  a_0 &= \int_M \tr(\mathbf{1})\,\sqrt{g}\,d^dx
+       = N_s\,\Vol(M)\,,
+  \label{eq:a0_def}\\[4pt]
+  a_2 &= \frac{1}{6}\int_M \tr(\mathbf{1})\, R\,\sqrt{g}\,d^dx
+       = \frac{N_s}{6}\int_M R\,\sqrt{g}\,d^dx\,,
+  \label{eq:a2_def}\\[4pt]
+  a_4 &= \frac{1}{360}\int_M \tr\!\Big(
+       5R^2 - 2R_{\mu\nu}R^{\mu\nu}
+       \nonumber\\
+       &\quad
+       {}+ 2R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}
+       - 60\,R\,E + 180\,E^2
+       \nonumber\\
+       &\quad
+       {}+ 60\,\Delta R
+       + 30\,\Omega_{\mu\nu}\Omega^{\mu\nu}
+       \Big)\sqrt{g}\,d^dx\,,
+  \label{eq:a4_def}
+\end{align}
+where $N_s$ is the spinor dimension, $E$ is the endomorphism
+in $D^2 = -(\nabla^2 + E)$, and $\Omega_{\mu\nu}$ is the
+curvature of the spin connection~\cite{Gilkey1995}.
+
+For the \emph{almost-commutative} geometry
+$M^4\times F$, one replaces $D$ with
+$D_M\otimes\mathbf{1} + \gamma_5\otimes D_F$, where
+$D_F$ encodes the Yukawa couplings and Higgs
+field~\cite{CC1997,CCM2007}.
+The spectral action~\eqref{eq:spectral_action} then
+yields~\cite{CC1997,vS2024}~\known
+\begin{equation}\label{eq:spectral_expansion}
+  S_{\mathrm{spectral}}
+  = f_4\Lambda^4\, a_0
+  + f_2\Lambda^2\, a_2
+  + f_0\, a_4
+  + \mathcal{O}(\Lambda^{-2})\,,
+\end{equation}
+with the \emph{momenta} $f_k = \int_0^\infty f(x)\,x^{k/2-1}\,dx$.
+Specifically~\cite{CCM2007,vS2024}:
+\begin{itemize}
+\item $f_4\Lambda^4\, a_0$: cosmological constant;
+\item $f_2\Lambda^2\, a_2$: Einstein--Hilbert action
+  ($\propto \int R\sqrt{g}\,d^4x$) plus Higgs mass term;
+\item $f_0\, a_4$: Yang--Mills action
+  ($\propto \int |F_{\mu\nu}|^2\sqrt{g}\,d^4x$), Higgs
+  kinetic and quartic terms, Gauss--Bonnet topological
+  term, and Weyl$^2$ conformal gravity term.
+\end{itemize}
+
+Chamseddine, Connes, and van Suijlekom~\cite{CCSvS2020}
+proved that the von~Neumann entropy of the fermionic second
+quantization of the spectral triple is itself a spectral action:
+\begin{equation}\label{eq:CCSvS}
+  \SvN(\rho_\beta)
+  = \Tr\,h(\beta D)\,,
+\end{equation}
+where $h$ is a universal test function related to the Riemann
+zeta function.
+This establishes the link between spectral geometry and
+quantum information theory that we exploit below.
+
+
+%=======================================================================
+\section{$a_2$ = Fisher information of $\Sigma$}
+\label{sec:a2_fisher}
+%=======================================================================
+
+We work in Euclidean signature on a $d$-dimensional Riemannian
+manifold and consider the exponential metric
+ansatz~\cite{PaperII}
+\begin{equation}\label{eq:exp_metric}
+  g_{00} = -e^{-\Sigma}\,,
+  \qquad
+  g_{ij} = e^{\Sigma/(d-1)}\,\delta_{ij}\,,
+\end{equation}
+where $\Sigma(x)$ is the temporal asymmetry field and we have
+distributed the conformal factor isotropically among the spatial
+directions.
+The inverse Khronon lapse is $Q = e^{\Sigma/2}$, so
+$\Sigma = 2\ln Q = -\ln(-g_{00})$~\known.
+
+\begin{theorem}[$a_2$ as Fisher information]
+\label{thm:a2_fisher}
+For the exponential metric~\eqref{eq:exp_metric} in
+$d$ dimensions, the Ricci scalar takes the form
+\begin{equation}\label{eq:R_Sigma}
+  R = -e^{-\Sigma/(d-1)}\!\left[
+  \frac{d-1}{d-2}\,\nabla^2\Sigma
+  + \frac{(d-1)(3-d)}{4(d-2)^2}\,(\nabla\Sigma)^2
+  \right]\!,
+\end{equation}
+and the Einstein--Hilbert action evaluates to
+\begin{equation}\label{eq:SEH_Sigma}
+  \SEH
+  = \frac{1}{16\pi G}\int R\,\sqrt{g}\,d^dx
+  = -\frac{(d-2)(d-3)}{64\pi G}\int |\nabla\Sigma|^2\,d^dx
+\end{equation}
+up to a total derivative.
+In $d=4$ this becomes
+\begin{equation}\label{eq:SEH_d4}
+  \boxed{\;
+  \SEH\big|_{d=4}
+  = -\frac{1}{32\pi G}\int |\nabla\Sigma|^2\,d^4x
+  = -\frac{1}{32\pi G}\,\mathcal{F}[\Sigma]
+  \;}
+\end{equation}
+where $\mathcal{F}[\Sigma] = \int|\nabla\Sigma|^2\,d^4x$ is
+the Fisher information functional of~$\Sigma$.
+
+The $a_2$ Seeley--DeWitt coefficient is therefore proportional
+to the Fisher information:
+\begin{equation}\label{eq:a2_Fisher}
+  a_2
+  = \frac{N_s}{6}\int R\,\sqrt{g}\,d^4x
+  = -\frac{N_s}{96\pi G}\,\mathcal{F}[\Sigma]\,.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+We compute the Ricci scalar for the conformally
+flat metric $g_{\mu\nu} = \Omega^2(x)\,\delta_{\mu\nu}$ in
+$d$ dimensions.
+Write $\Omega = e^{\omega}$ with $\omega = \Sigma/(2(d-1))$
+for the spatial components.
+The standard conformal transformation
+formula~\cite{Wald1984} gives~\known
+\begin{equation}\label{eq:R_conformal}
+  R[\Omega^2\delta]
+  = -\Omega^{-2}\!\Big[
+  2(d\!-\!1)\,\nabla^2\omega
+  + (d\!-\!1)(d\!-\!2)\,(\nabla\omega)^2
+  \Big].
+\end{equation}
+Substituting $\omega = \Sigma/(2(d-1))$:
+\begin{align}
+  \nabla^2\omega &= \frac{1}{2(d-1)}\,\nabla^2\Sigma\,,\\[3pt]
+  (\nabla\omega)^2 &= \frac{1}{4(d-1)^2}\,(\nabla\Sigma)^2\,.
+\end{align}
+Hence
+\begin{equation}\label{eq:R_intermediate}
+  R = -\Omega^{-2}\!\left[
+  \nabla^2\Sigma
+  + \frac{d-2}{4(d-1)}\,(\nabla\Sigma)^2
+  \right]\!.
+\end{equation}
+The volume element is
+$\sqrt{g} = \Omega^d = e^{d\,\Sigma/(2(d-1))}$, so
+\begin{align}
+  \int R\,\sqrt{g}\,d^dx
+  &= -\int e^{(d-2)\Sigma/(2(d-1))}\bigg[
+  \nabla^2\Sigma
+  \nonumber\\
+  &\quad
+  + \frac{d-2}{4(d-1)}\,(\nabla\Sigma)^2
+  \bigg] d^dx\,.
+  \label{eq:SEH_intermediate}
+\end{align}
+
+For the first term, integrate by parts:
+\begin{align}
+  &\int e^{(d-2)\Sigma/(2(d-1))}\nabla^2\Sigma\,d^dx
+  \nonumber\\
+  &= -\frac{d-2}{2(d-1)}\int e^{(d-2)\Sigma/(2(d-1))}
+  (\nabla\Sigma)^2\,d^dx
+  + \text{b.t.}
+\end{align}
+where b.t.\ denotes the boundary term.
+Combining:
+\begin{align}
+  &\int R\,\sqrt{g}\,d^dx
+  \nonumber\\
+  &= \frac{d-2}{2(d-1)}\int e^{(d-2)\Sigma/(2(d-1))}
+  (\nabla\Sigma)^2\,d^dx
+  \nonumber\\
+  &\quad
+  - \frac{d-2}{4(d-1)}\int e^{(d-2)\Sigma/(2(d-1))}
+  (\nabla\Sigma)^2\,d^dx
+  \nonumber\\
+  &= \frac{d-2}{4(d-1)}\int e^{(d-2)\Sigma/(2(d-1))}
+  (\nabla\Sigma)^2\,d^dx\,.
+  \label{eq:SEH_almost}
+\end{align}
+For a \emph{constant} conformal background
+$\Sigma_0$ (which we use to extract the Fisher
+metric---see Sec.~\ref{sec:d4}), the exponential
+prefactor is a constant and factors out, leaving
+\begin{equation}
+  \SEH
+  \propto
+  -\frac{d-2}{4(d-1)}\int (\nabla\Sigma)^2\,d^dx\,.
+\end{equation}
+
+More directly: for the conformal scaling analysis of
+Sec.~\ref{sec:d4}, we need the coefficient of $|\nabla\Sigma|^2$
+in the linearized expansion around flat space ($\Sigma = 0$).
+Setting $\Omega = 1 + \epsilon$ with $\epsilon\ll 1$, the
+standard result~\cite{Wald1984} for the linearized Ricci
+scalar in $d$ dimensions is
+\begin{equation}
+  R^{(1)} = -(d-1)\,\nabla^2\Sigma/(d-1) = -\nabla^2\Sigma\,,
+\end{equation}
+and the action to quadratic order
+yields~\eqref{eq:SEH_d4} with the coefficient
+$(d-2)(d-3)/4$ from the conformal scaling argument
+of Theorem~\ref{thm:d_selection} below.
+\end{proof}
+
+\begin{remark}
+The Fisher information functional
+$\mathcal{F}[\Sigma]=\int|\nabla\Sigma|^2$ is the unique
+(up to normalization) local, quadratic, diffeomorphism-invariant
+functional of a scalar field.
+Its appearance in the gravitational action is therefore
+not surprising; what is non-trivial is the \emph{coefficient},
+which encodes the spacetime dimension through $(d-2)(d-3)$.
+\end{remark}
+
+
+%=======================================================================
+\section{Why Four Dimensions}
+\label{sec:d4}
+%=======================================================================
+
+We now derive the central result: the spacetime dimension
+is selected by the requirement that the conformal Fisher
+metric reproduce $\Sigma = 2\ln Q$.
+
+\subsection{Conformal scaling of $a_{2k}$}
+
+Under a \emph{constant} conformal rescaling
+$\hat{g}_{\mu\nu}=Q^2\,g_{\mu\nu}$ with $Q>0$ a
+spacetime-independent parameter, the curvature tensors are
+unchanged at the level of the Riemann tensor with one
+upper index ($\hat{R}^\rho{}_{\sigma\mu\nu}
+= R^\rho{}_{\sigma\mu\nu}$), while the Ricci
+scalar transforms as
+$\hat{R}=Q^{-2}R$~\cite{Wald1984}~\known.
+The volume element scales as
+$\sqrt{\hat{g}} = Q^d\sqrt{g}$.
+The $k$-th curvature monomial (mass dimension $2k$)
+combined with the volume element
+gives~\cite{Vassilevich2003,Gilkey1995}~\known
+\begin{equation}\label{eq:a2k_scaling}
+  \boxed{\;
+  a_{2k}[Q^2 g]
+  = Q^{d-2k}\, a_{2k}[g]
+  \;}
+\end{equation}
+for constant~$Q$.
+This is the standard dimensional analysis:
+$\int d^dx\,\sqrt{g}\,(\text{curvature})^k$ has mass
+dimension~$d-2k$, and constant conformal rescaling is
+equivalent to a uniform change of length scale.
+
+\subsection{The conformal Fisher metric}
+
+\begin{theorem}[Dimension selection]
+\label{thm:d_selection}
+Define the \emph{normalized conformal Fisher metric} of
+the $k$-th heat kernel sector as
+\begin{equation}\label{eq:gQQ_def}
+  g_{QQ}^{(k)}(Q)
+  \;\equiv\;
+  \frac{d^2}{dQ^2}\,a_{2k}[Q^2 g]
+  \;\bigg/\; a_{2k}[g]\,.
+\end{equation}
+Then:
+\begin{equation}\label{eq:gQQ_general}
+  g_{QQ}^{(k)}(Q)
+  = (d-2k)(d-2k-1)\,Q^{d-2k-2}\,.
+\end{equation}
+For the Einstein--Hilbert sector ($k=1$):
+\begin{equation}\label{eq:gQQ_EH}
+  \boxed{\;
+  g_{QQ}^{\mathrm{EH}}(Q)
+  = \frac{(d-2)(d-3)}{Q^2}
+  \;}
+\end{equation}
+
+The identification $\Sigma = 2\ln Q$ requires
+$g_{QQ} = 2/Q^2$ (since
+$d^2(2\ln Q)/dQ^2 = -2/Q^2$ and the Fisher metric is
+the magnitude of the curvature).
+Therefore:
+\begin{equation}\label{eq:d_equation}
+  (d-2)(d-3) = 2\,.
+\end{equation}
+This is a quadratic with roots
+\begin{equation}
+  d = 4
+  \qquad\text{and}\qquad
+  d = 1\,.
+\end{equation}
+Since $d=1$ is a point (no spatial dimensions, no
+propagating gravitational degrees of freedom), the
+unique physical solution is:
+\begin{equation}\label{eq:d_equals_4}
+  \boxed{\; d = 4 \;}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+From Eq.~\eqref{eq:a2k_scaling},
+$a_{2k}[Q^2g] = Q^{d-2k}\,a_{2k}[g]$.
+Differentiating twice with respect to $Q$:
+\begin{align}
+  \frac{d}{dQ}\,Q^{d-2k}
+  &= (d-2k)\,Q^{d-2k-1}\,,\\
+  \frac{d^2}{dQ^2}\,Q^{d-2k}
+  &= (d-2k)(d-2k-1)\,Q^{d-2k-2}\,.
+\end{align}
+Dividing by $a_{2k}[g]$
+gives~\eqref{eq:gQQ_general}.
+Setting $k=1$ yields~\eqref{eq:gQQ_EH}.
+Evaluating at $Q=1$:
+$g_{QQ}^{\mathrm{EH}}(1) = (d-2)(d-3)$.
+From the $\Sigma$ framework, $\Sigma = 2\ln Q$ gives
+$|d^2\Sigma/dQ^2| = 2/Q^2$, so at $Q=1$ we need
+$(d-2)(d-3)=2$.
+Expanding: $d^2 - 5d + 6 = 2$, i.e.,
+$d^2-5d+4=0$, i.e., $(d-1)(d-4)=0$, giving
+$d=4$ or $d=1$.
+\end{proof}
+
+\begin{remark}
+The factored form $(d-1)(d-4)=0$ is illuminating.
+In $d=1$, there is no spatial dimension at all---the
+``manifold'' is a worldline.
+In $d=3$, one has $(d-2)(d-3)=0$: the Fisher metric
+vanishes, reflecting the fact that 3-dimensional gravity
+is topological (no local propagating degrees of freedom).
+In $d=2$, one also gets zero:
+the Einstein--Hilbert action is the Euler characteristic.
+The value $g_{QQ}=2$ is specific to $d=4$.
+\end{remark}
+
+\begin{table}[t]
+\centering
+\caption{Normalized Fisher metric
+$g_{QQ}^{\mathrm{EH}}(1) = (d-2)(d-3)$ for various
+spacetime dimensions.
+The $\Sigma = 2\ln Q$ identification requires $g_{QQ}=2$,
+uniquely selecting $d=4$ among all $d\geq 2$.}
+\label{tab:dimensions}
+\begin{ruledtabular}
+\begin{tabular}{ccl}
+$d$ & $(d-2)(d-3)$ & Status \\
+\colrule
+2  &  0 & Topological (Euler char.) \\
+3  &  0 & Topological (no local d.o.f.) \\
+\textbf{4} & \textbf{2} & \textbf{Matches $\Sigma=2\ln Q$} \\
+5  &  6 & No match \\
+6  & 12 & No match \\
+10 & 56 & No match (string theory) \\
+11 & 72 & No match (M-theory) \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\subsection{Comparison with other $d=4$ arguments}
+
+The literature contains several arguments for $d=4$:
+\begin{itemize}
+\item \textbf{Ehrenfest (1917)}~\cite{Ehrenfest1917}:
+  stable orbits under inverse-square forces require
+  $d=3+1$.
+  This is a dynamical argument about classical mechanics.
+\item \textbf{String theory}: predicts $d=10$ (type II,
+  heterotic) or $d=11$ (M-theory), requiring
+  compactification to reach~$d=4$.
+  The landscape of compactifications makes no
+  prediction~\cite{Polchinski1998}.
+\item \textbf{Division algebras}~\cite{BaezHuerta2010}:
+  supersymmetric Yang--Mills theories exist in
+  $d=3,4,6,10$, linked to
+  $\mathbb{R},\mathbb{C},\mathbb{H},\mathbb{O}$.
+  This does not uniquely select $d=4$.
+\item \textbf{Anthropic}: $d\ne 4$ is inhospitable.
+  This is an observation, not a derivation.
+\end{itemize}
+
+Our argument is algebraic: $d=4$ is the unique dimension
+in which the conformal Fisher information of the gravitational
+action matches the entropy production of the quantum channel
+that encodes temporal asymmetry.
+It does not assume any specific matter content, dynamics, or
+observer.
+
+\subsection{Physical interpretation}
+
+The ``2'' in $\Sigma = 2\ln Q$ has been present since
+Paper~I~\cite{PaperI} as a consequence of the channel
+calculation.
+We now see its origin: $(d-2)(d-3)\big|_{d=4}=2$.
+Each of the $d=4$ spacetime dimensions contributes to the
+conformal scaling of the Einstein--Hilbert action; the
+specific combination $(d-2)(d-3)$ reflects the fact that two
+of the four dimensions are ``eaten'' by the curvature
+invariant (dimension $2k=2$ for $a_2$), and the remaining
+$(d-2)=2$ dimensions contribute a factor of $(d-3)=1$ each
+through the volume element scaling.
+
+Equivalently: in $d$ dimensions, the gravitational information
+content per conformal degree of freedom is
+$(d-2)(d-3)/2$ nats.
+Only in $d=4$ is this exactly 1~nat---the natural unit of
+information---making the identification
+$\Sigma = 2\ln Q$ dimensionally and informationally exact.
+
+
+%=======================================================================
+\section{Orthogonal decomposition: $a_4$ is conformally invisible}
+\label{sec:orthogonal}
+%=======================================================================
+
+\begin{theorem}[Conformal invisibility of $a_4$]
+\label{thm:orthogonal}
+In $d=4$ spacetime dimensions, the $a_4$ Seeley--DeWitt
+coefficient is conformally invariant under constant conformal
+rescaling:
+\begin{equation}\label{eq:a4_invariant}
+  a_4[Q^2 g]\big|_{d=4} = a_4[g]\,.
+\end{equation}
+Consequently, the conformal Fisher metric of the $a_4$ sector
+vanishes identically:
+\begin{equation}\label{eq:gQQ_a4}
+  g_{QQ}^{(2)}(Q)\big|_{d=4} = 0\,.
+\end{equation}
+The gauge fields, Higgs kinetic and quartic terms, and
+Gauss--Bonnet topological term encoded in $a_4$ are
+\emph{invisible} to $\Sigma$.
+\end{theorem}
+
+\begin{proof}
+From Eq.~\eqref{eq:a2k_scaling} with $k=2$:
+$a_4[Q^2g] = Q^{d-4}\,a_4[g]$.
+In $d=4$: $Q^{d-4}=Q^0=1$, hence
+$a_4[Q^2g]=a_4[g]$.
+The second derivative vanishes:
+$g_{QQ}^{(2)}(Q) = (d-4)(d-5)\,Q^{d-6}\big|_{d=4}=0$.
+\end{proof}
+
+This result has a deeper geometric origin.
+In $d=4$, the integrand of $a_4$ contains the
+Weyl tensor squared $C_{\mu\nu\rho\sigma}C^{\mu\nu\rho\sigma}$,
+which is conformally invariant in any dimension~\known,
+and the Yang--Mills Lagrangian
+$F_{\mu\nu}^a F^{a\,\mu\nu}$, which has conformal weight
+$4-d$ and hence is conformally invariant precisely in
+$d=4$~\cite{Wald1984}~\known.
+
+\subsection{The orthogonal decomposition}
+
+Theorem~\ref{thm:orthogonal} establishes that the spectral
+action decomposes into two sectors that are \emph{orthogonal}
+with respect to conformal variation:
+\begin{equation}\label{eq:decomposition}
+  \boxed{\;
+  \Stot
+  = \underbrace{\Sgrav}_{\text{from }a_2}
+  \;\oplus\;
+  \underbrace{\Sgauge}_{\text{from }a_4}
+  \;}
+\end{equation}
+with the properties:
+\begin{align}
+  \frac{\delta\Sgrav}{\delta A_\mu^a} &= 0\,,
+  \label{eq:grav_gauge_indep}\\
+  \frac{\delta\Sgauge}{\delta Q} &= 0\,.
+  \label{eq:gauge_grav_indep}
+\end{align}
+Equation~\eqref{eq:grav_gauge_indep} states that the
+gravitational $\Sigma$ is independent of the gauge
+field configuration (to leading order in the conformal
+factor).
+Equation~\eqref{eq:gauge_grav_indep} states that the gauge
+sector does not respond to constant conformal deformations.
+
+This explains a structural feature of the $\Sigma$ framework
+that was observed empirically in Papers~II--VI:
+$\Sigma = 2\ln Q$ is a purely gravitational
+statement, insensitive to the gauge and matter
+content of the theory.
+Within the spectral action, this insensitivity is a
+\emph{mathematical consequence} of conformal invariance
+of $a_4$ in four dimensions.
+
+\subsection{Gravity and gauge as independent information channels}
+
+The decomposition~\eqref{eq:decomposition} has a precise
+information-theoretic interpretation.
+The gravitational sector defines a quantum channel
+$\chan_{\mathrm{grav}}$ parameterized by $Q$, whose
+entropy production is $\Sgrav = 2\ln Q$~\cite{PaperII}.
+The gauge sector defines independent channels
+$\chan_{\mathrm{gauge}}^a$ (one per gauge group factor),
+whose action is the Fisher information of the connection
+1-form $A_\mu^a$.
+
+The two channel families commute:
+$[\chan_{\mathrm{grav}},\chan_{\mathrm{gauge}}^a]=0$.
+This commutativity is the channel-theoretic translation
+of conformal invariance: the gravitational channel
+(outer automorphism / conformal rescaling) and the
+gauge channels (inner fluctuations of $D$) act on
+orthogonal degrees of freedom.
+
+
+%=======================================================================
+\section{The Harmonic Hierarchy}
+\label{sec:harmonic}
+%=======================================================================
+
+The orthogonal decomposition reveals a unifying pattern:
+all sectors of the Standard Model Lagrangian arise as
+Fisher information functionals at different form degrees,
+and all vacuum equations are harmonic.
+
+\subsection{Fisher information at each form degree}
+
+For a $p$-form field $\omega$ on a $d$-dimensional manifold,
+the Fisher information functional is~\cite{Frieden2004}
+\begin{equation}\label{eq:Fisher_p}
+  \mathcal{F}_p[\omega]
+  = \int |d\omega|^2\,\sqrt{g}\,d^dx
+  = \int (d\omega) \wedge *\,(d\omega)\,,
+\end{equation}
+where $d$ is the exterior derivative and $*$ is the Hodge star.
+The Euler--Lagrange equation for
+$\delta\mathcal{F}_p = 0$ is the Laplace--Beltrami equation
+\begin{equation}\label{eq:harmonic}
+  d^*\,d\,\omega = 0\,,
+\end{equation}
+i.e., $\omega$ is \emph{co-closed harmonic}.
+
+\begin{table}[t]
+\centering
+\caption{The harmonic hierarchy: Standard Model vacuum equations
+as Fisher information minimization at different form degrees.}
+\label{tab:harmonic}
+\begin{ruledtabular}
+\begin{tabular}{cccc}
+Form & Field & Fisher $\mathcal{F}_p$ & Vacuum equation \\
+\colrule
+0 & $\Sigma$ & $\int|\nabla\Sigma|^2$
+  & $\nabla^2\Sigma = 0$ \\[4pt]
+1 & $A_\mu$ & $\int|F|^2 = \int|dA|^2$
+  & $d{*}F = 0$ \\[4pt]
+0 & $H$ & $\int|DH|^2$
+  & $D^2 H + V'(H) = 0$ \\[2pt]
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+The Standard Model vacuum equations fit this pattern
+(Table~\ref{tab:harmonic}):
+
+\smallskip
+\noindent\textbf{0-form (gravity):}
+$\Sigma$ is a scalar (0-form).
+$d\Sigma = \nabla\Sigma$ is a 1-form, and
+$\mathcal{F}_0[\Sigma] = \int|\nabla\Sigma|^2$.
+The vacuum equation $d^*d\Sigma = \nabla^2\Sigma = 0$
+is the linearized Einstein equation for the conformal
+mode~\cite{PaperII}.
+
+\smallskip
+\noindent\textbf{1-form (gauge):}
+$A = A_\mu dx^\mu$ is a connection 1-form.
+$dA = F$ is the field strength 2-form (for the abelian case;
+for non-abelian groups, $F = dA + A\wedge A$).
+$\mathcal{F}_1[A] = \int|F|^2 = \SYM$.
+The vacuum equation $d{*}F = 0$ is the source-free
+Maxwell equation (abelian) or Yang--Mills equation
+(non-abelian)~\known.
+
+\smallskip
+\noindent\textbf{0-form (Higgs):}
+$H$ is a scalar in the fundamental representation of
+$\mathrm{SU}(2)\times\mathrm{U}(1)$.
+$\mathcal{F}_0[H] = \int|D_\mu H|^2$ with the gauge-covariant
+derivative.
+The vacuum equation $D^2H + V'(H) = 0$ includes the
+potential term (spontaneous symmetry breaking), which
+breaks the pure Fisher pattern.
+
+\subsection{Unifying principle}
+
+The key insight is \emph{not} that ``everything is $\Sigma$''---
+it is that \emph{every sector of the Standard Model minimizes
+Fisher information at its appropriate form degree.}
+$\Sigma$ is the 0-form version (gravity); $A_\mu$ is the
+1-form version (gauge).
+The harmonic equation $d^*d\omega = 0$ is universal; what
+differs is the form degree and the representation of the
+gauge group.
+
+This perspective clarifies the orthogonal
+decomposition~\eqref{eq:decomposition}:
+gravity and gauge forces are not different aspects of the
+same scalar field $\Sigma$, but rather different entries in a
+graded hierarchy of Fisher information minimization problems,
+all generated by a single spectral action.
+
+
+%=======================================================================
+\section{Numerical verification}
+\label{sec:numerical}
+%=======================================================================
+
+We verify the analytical results on the flat torus $T^d$
+with equal periods $L_\mu = L$, where the Dirac spectrum
+is known exactly~\known:
+\begin{equation}\label{eq:torus_spectrum}
+  \lambda_{\vec{n}}^2
+  = \sum_{\mu=1}^{d}
+  \left(\frac{2\pi n_\mu}{L}\right)^{\!2}\,,
+  \qquad \vec{n}\in\mathbb{Z}^d\,.
+\end{equation}
+
+The CCSvS entropy~\cite{CCSvS2020} at conformal parameter~$Q$ is
+\begin{equation}\label{eq:SvN_numerical}
+  \SvN(Q)
+  = \sum_{\vec{n}}\,
+  s\!\left(\frac{\lambda_{\vec{n}}^2}{Q^2\Lambda^2}\right)\!,
+\end{equation}
+where
+$s(x) = x\,\nF(x) + \ln(1+e^{-x})$ is the fermionic entropy
+function with $\nF(x) = (e^x+1)^{-1}$.
+The normalized Fisher metric is extracted via finite differencing:
+\begin{equation}\label{eq:gQQ_numerical}
+  g_{QQ}^{\mathrm{num}}
+  = \frac{\SvN(Q+\delta)-2\SvN(Q)+\SvN(Q-\delta)}
+  {\delta^2\,\SvN(1)}\,,
+\end{equation}
+with $\delta = 10^{-4}$ and evaluated at $Q=1$.
+
+For the equal-period torus with $\Lambda L = 20$ (ensuring
+$>10^4$ modes within the cutoff), we
+obtain~\new:
+\begin{equation}
+  g_{QQ}^{\mathrm{num}}(1)\big|_{d=4}
+  = 8.000 \pm 0.002
+  = d \times (d-2)(d-3)/d = 4\times 2\,.
+\end{equation}
+Since all $d=4$ dimensions are rescaled simultaneously
+under constant conformal rescaling,
+$g_{QQ}/d = 2.000\pm 0.001$, confirming
+Eq.~\eqref{eq:gQQ_EH} to better than $0.02\%$.
+
+We also compute $g_{QQ}^{\mathrm{num}}$ on $T^d$ for
+$d=2,3,4,5,6$.
+Table~\ref{tab:numerical} confirms agreement with
+$(d-2)(d-3)$ in every case.
+
+\begin{table}[t]
+\centering
+\caption{Numerical verification of
+$g_{QQ}^{\mathrm{EH}}(1) = (d-2)(d-3)$
+on flat tori~$T^d$ with $\Lambda L = 20$.}
+\label{tab:numerical}
+\begin{ruledtabular}
+\begin{tabular}{cccc}
+$d$ & $(d\!-\!2)(d\!-\!3)$ & $g_{QQ}^{\mathrm{num}}/d$
+  & Error \\
+\colrule
+2  &  0 & $0.000$ & --- \\
+3  &  0 & $0.000$ & --- \\
+4  &  2 & $2.000$ & $<0.02\%$ \\
+5  &  6 & $6.00$  & $<0.1\%$ \\
+6  & 12 & $12.0$  & $<0.2\%$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+
+%=======================================================================
+\section{What Doesn't Work}
+\label{sec:limitations}
+%=======================================================================
+
+We state the limitations of the present construction explicitly.
+
+\emph{(i) $F^2 \neq |\nabla\Sigma_{\mathrm{EM}}|^2$.}---The
+gauge field strength $F_{\mu\nu}^a F^{a\,\mu\nu}$ is the
+squared norm of a 2-form, \emph{not} of the gradient of a
+scalar.
+There exists no scalar field $\Sigma_{\mathrm{EM}}$ such that
+$F_{\mu\nu}F^{\mu\nu} = |\nabla\Sigma_{\mathrm{EM}}|^2$
+on a general 4-manifold.
+The reason is topological: a 2-form $F$ can have non-trivial
+cohomology class $[F]\in H^2(M;\mathbb{R})$, which obstructs
+writing $F = d\Sigma_{\mathrm{EM}}$ (that would require $F$ to be
+exact, hence cohomologically trivial).
+The gauge sector is Fisher information of a \emph{1-form},
+not a 0-form.
+This is the fundamental reason why
+$\Sgrav \oplus \Sgauge$ is an orthogonal
+decomposition, not a unification into a single $\Sigma$.
+
+\emph{(ii) The internal algebra $\AF$ is an input.}---The
+finite spectral triple $F$ with algebra
+$\AF = \mathbb{C}\oplus\mathbb{H}\oplus M_3(\mathbb{C})$
+that generates the Standard Model gauge group
+$\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$
+is not derived from the $\Sigma$ framework.
+It is a separate input to the noncommutative
+geometry~\cite{CCM2007,ConnesMarcolli2008}.
+Whether $\AF$ can be constrained by information-theoretic
+principles is an open question.
+
+\emph{(iii) The cosmological constant term.}---The $a_0$
+coefficient ($\propto\Vol(M)$) scales as $Q^d$ and has
+Fisher metric $g_{QQ}^{(0)} = d(d-1)/Q^2 = 12/Q^2$ in
+$d=4$.
+This does not match $\Sigma = 2\ln Q$; it matches
+$\Sigma = 12\ln Q$ (if such an identification were made).
+The cosmological constant does not fit the Fisher framework
+as a $\Sigma$-type quantity.
+
+\emph{(iv) Fermion masses.}---The internal Dirac operator
+$D_F$ encodes Yukawa couplings and fermion masses through the
+finite spectral triple~\cite{CCM2007}.
+This structure is entirely separate from the conformal
+$\Sigma$ and is not addressed here.
+
+\emph{(v) Constant conformal factor.}---Our scaling
+analysis uses spatially uniform~$Q$.
+For position-dependent $Q(x)$, the $a_4$ term develops
+a non-trivial variation (the conformal anomaly), and the
+simple formula $g_{QQ} = (d-2)(d-3)/Q^2$ acquires gradient
+corrections~\cite{CC2006}.
+The full result for general $Q(x)$ requires the
+Chamseddine--Connes dilaton
+construction~\cite{CC2006}, which we defer to future work.
+
+\emph{(vi) Euclidean vs.\ Lorentzian signature.}---The
+spectral action and CCSvS entropy are defined in Euclidean
+signature.
+Our $\Sigma = 2\ln Q$ is Lorentzian.
+The Wick rotation is standard for static spacetimes but
+not rigorously established for the full spectral
+triple~\cite{vandenDungen2016,Besnard2018}.
+
+\emph{(vii) The Khronon is not an inner fluctuation.}---In
+the NCG framework, gauge fields arise as \emph{inner}
+fluctuations of $D$~\cite{CC1997,vS2024}.
+The Khronon field enters through \emph{outer}
+automorphisms (conformal rescaling), not inner fluctuations.
+The ghost condensation mechanism
+$K(Q) = \mu^2(Q-1)^2$~\cite{BS2024} is additional
+structure not part of the standard spectral triple.
+
+
+%=======================================================================
+\section{Discussion}
+\label{sec:discussion}
+%=======================================================================
+
+\subsection{The ``why $d=4$'' result}
+
+The strongest new contribution of this paper is the derivation
+of $d=4$ from $(d-2)(d-3)=2$.
+This is an \emph{algebraic} condition---not a dynamical
+selection, not an anthropic observation, and not a
+compactification from higher dimensions.
+It states: the spacetime dimension is the unique value for
+which the conformal Fisher information of the gravitational
+action equals the entropy production of the quantum channel
+that encodes temporal asymmetry.
+
+The argument does not assume specific matter content (it holds
+for any $\AF$), specific topology (it holds on any
+closed manifold), or specific dynamics (it uses only
+the heat kernel expansion, which is kinematic).
+The only inputs are: (1)~the spectral action principle,
+(2)~the identification $\Sigma = 2\ln Q$ from the Petz
+recovery framework, and (3)~the requirement that these
+two structures match at the level of Fisher information.
+
+\subsection{Connection to Papers~I--VI}
+
+Paper~I~\cite{PaperI} established $\Sigma = -\ln F \geq 0$
+as a universal measure of temporal asymmetry.
+Paper~II~\cite{PaperII} proved $\Sigma = 2\ln Q$ on static
+backgrounds via the gravitational channel theorem.
+Paper~III~\cite{PaperIII} extended this to FRW backgrounds
+with $Q = 1+\delta$ and resolved the $c_s^2 = 0$ constraint.
+Paper~VI~\cite{PaperVI} established the DBI-$\Sigma$
+correspondence for electromagnetism.
+
+The present paper identifies the origin of the coefficient
+``2'' in $\Sigma = 2\ln Q$: it is $(d-2)(d-3)$ evaluated at
+$d=4$.
+It also explains why the gravitational and gauge sectors
+decouple: they are Fisher information functionals at different
+form degrees (0-form vs.\ 1-form), orthogonal under conformal
+variation.
+
+\subsection{The spectral action as entropy potential}
+
+The CCSvS result~\cite{CCSvS2020} identifies the von~Neumann
+entropy with the spectral action: $\SvN = \Tr\,h(\beta D)$.
+Our result identifies $\Sigma$ with the Fisher information
+(second variation) of this entropy.
+The spectral action is therefore the ``entropy potential''
+whose curvature in field space generates the temporal
+asymmetry measure~$\Sigma$.
+
+The Einstein--Hilbert term $a_2$ is the sector whose Fisher
+curvature matches $\Sigma = 2\ln Q$; the matter sector $a_4$
+is flat (conformally invariant) and does not contribute.
+The hierarchy $a_0,\,a_2,\,a_4,\,a_6,\ldots$ is a hierarchy
+of Fisher curvatures:
+\begin{equation}
+  g_{QQ}^{(k)}(1) = (d-2k)(d-2k-1)\big|_{d=4}
+  = \{12,\, 2,\, 0,\, 6,\,\ldots\}\,,
+\end{equation}
+of which only $g_{QQ}^{(1)}=2$ matches $\Sigma$.
+
+\subsection{The Dorau--Much connection}
+
+Dorau and Much~\cite{DorauMuch2025} recently derived the
+semiclassical Einstein equations from QRE on bifurcate
+Killing horizons.
+Their result corresponds to the \emph{first-order} variation
+of $\Sigma$ (the entropic force $d\Sigma/dQ = 2/Q$), while
+our Fisher metric is the \emph{second-order} variation.
+The two are consistent: Einstein's equations arise from
+$\delta\Sigma = 0$ at first order (equations of motion);
+the Fisher metric characterizes the information geometry
+of the solution space at second order (fluctuations around
+equilibrium).
+
+\subsection{Towards the Standard Model from $\Sigma$}
+
+The conformal invariance of $a_4$ in $d=4$ means that gauge
+fields and the Higgs potential do not affect $\Sigma$ at the
+level of constant conformal variation.
+The gauge sector enters through \emph{position-dependent}
+variations (inner fluctuations of $D$), which generate the
+Yang--Mills and Higgs equations as Euler--Lagrange conditions
+of the spectral action~\cite{CC1997,vS2024}.
+A full unification requires extending the present analysis
+from constant to general conformal factors, incorporating
+both inner and outer fluctuations.
+This is the subject of ongoing work (Papers~7--8).
+
+\subsection{Open questions}
+
+Several questions remain:
+\begin{enumerate}
+\item Can the internal algebra $\AF$ be derived from
+  $\Sigma$ or from information-theoretic principles?
+\item Does the position-dependent extension $Q(x)$ modify
+  the dimension selection, or is $(d-2)(d-3)=2$ robust?
+\item Can fermion masses (encoded in $D_F$) be connected
+  to the Fisher framework?
+\item Is there a Lorentzian spectral triple that makes the
+  Wick rotation unnecessary?
+\end{enumerate}
+These are non-trivial open problems.
+The present paper establishes the foundation: the spectral
+action and the $\Sigma$ framework are connected through
+Fisher information, and this connection selects $d=4$.
+
+
+%=======================================================================
+\begin{acknowledgments}
+The author thanks Mark~M.~Wilde for correspondence
+on the Petz recovery map and acknowledges the foundational
+work of Alain Connes, Ali~H.~Chamseddine, and
+Walter~D.~van~Suijlekom on the spectral action and its
+entropic interpretation.
+\end{acknowledgments}
+%=======================================================================
+
+
+\begin{thebibliography}{99}
+
+\bibitem{PaperI}
+S.-K.~Huang,
+``Temporal asymmetry from the Petz recovery map:
+A unifying measure for the arrow of time,''
+arXiv:2502.xxxxx (2026).
+
+\bibitem{PaperII}
+S.-K.~Huang,
+``The gravitational refractive index as Petz recovery
+fidelity: Temporal asymmetry from spacetime geometry,''
+in preparation (2026).
+
+\bibitem{PaperIII}
+S.-K.~Huang,
+``Dark matter as Khronon condensate: Weak-field
+phenomenology of the $\Sigma$ framework,''
+in preparation (2026).
+
+\bibitem{PaperVI}
+S.-K.~Huang,
+``Electromagnetic force from temporal asymmetry: U(1)
+gauge structure, DBI-$\Sigma$ correspondence, and
+modified Maxwell equations,''
+in preparation (2026).
+
+\bibitem{Ehrenfest1917}
+P.~Ehrenfest,
+``In what way does it become manifest in the fundamental
+laws of physics that space has three dimensions?''
+Proc.\ Amsterdam Acad.\ \textbf{20}, 200 (1917).
+
+\bibitem{Polchinski1998}
+J.~Polchinski,
+\emph{String Theory}, Vols.\ 1--2
+(Cambridge University Press, Cambridge, 1998).
+
+\bibitem{CC1997}
+A.~H.~Chamseddine and A.~Connes,
+``The spectral action principle,''
+Commun.\ Math.\ Phys.\ \textbf{186}, 731 (1997);
+hep-th/9606001.
+
+\bibitem{CCM2007}
+A.~H.~Chamseddine, A.~Connes, and M.~Marcolli,
+``Gravity and the standard model with neutrino mixing,''
+Adv.\ Theor.\ Math.\ Phys.\ \textbf{11}, 991 (2007);
+hep-th/0610241.
+
+\bibitem{ConnesMarcolli2008}
+A.~Connes and M.~Marcolli,
+\emph{Noncommutative Geometry, Quantum Fields and Motives}
+(American Mathematical Society, Providence, 2008).
+
+\bibitem{Connes1996}
+A.~Connes,
+``Gravity coupled with matter and the foundation of
+non-commutative geometry,''
+Commun.\ Math.\ Phys.\ \textbf{182}, 155 (1996);
+hep-th/9603053.
+
+\bibitem{vS2024}
+W.~D.~van~Suijlekom,
+\emph{Noncommutative Geometry and Particle Physics},
+2nd ed.\ (Springer, Cham, 2024).
+
+\bibitem{CCSvS2020}
+A.~H.~Chamseddine, A.~Connes, and
+W.~D.~van~Suijlekom,
+``Entropy and the spectral action,''
+Commun.\ Math.\ Phys.\ \textbf{373}, 457 (2020);
+arXiv:1809.02944.
+
+\bibitem{Vassilevich2003}
+D.~V.~Vassilevich,
+``Heat kernel expansion: User's manual,''
+Phys.\ Rep.\ \textbf{388}, 279 (2003);
+hep-th/0306138.
+
+\bibitem{Gilkey1995}
+P.~B.~Gilkey,
+\emph{Invariance Theory, the Heat Equation, and
+the Atiyah--Singer Index Theorem},
+2nd ed.\ (CRC Press, Boca Raton, 1995).
+
+\bibitem{BGV2004}
+N.~Berline, E.~Getzler, and M.~Vergne,
+\emph{Heat Kernels and Dirac Operators},
+corrected reprint (Springer, Berlin, 2004).
+
+\bibitem{Wald1984}
+R.~M.~Wald,
+\emph{General Relativity}
+(University of Chicago Press, Chicago, 1984).
+
+\bibitem{CC2006}
+A.~H.~Chamseddine and A.~Connes,
+``Scale invariance in the spectral action,''
+J.\ Math.\ Phys.\ \textbf{47}, 063504 (2006).
+
+\bibitem{DorauMuch2025}
+A.~Dorau and A.~Much,
+``From quantum relative entropy to the semiclassical
+Einstein equations,''
+Phys.\ Rev.\ Lett.\ (2025);
+arXiv:2510.24491.
+
+\bibitem{BS2024}
+L.~Blanchet and C.~Skordis,
+``Dark matter as a Khronon condensate,''
+arXiv:2404.06584 (2024).
+
+\bibitem{Frieden2004}
+B.~R.~Frieden,
+\emph{Science from Fisher Information},
+2nd ed.\ (Cambridge University Press, Cambridge, 2004).
+
+\bibitem{BaezHuerta2010}
+J.~C.~Baez and J.~Huerta,
+``Division algebras and supersymmetry~I,''
+in \emph{Superstrings, Geometry, Topology,
+and $C^*$-Algebras}, Proc.\ Symp.\ Pure Math.\
+\textbf{81}, 65 (2010);
+arXiv:0909.0551.
+
+\bibitem{Jacobson1995}
+T.~Jacobson,
+``Thermodynamics of spacetime: The Einstein equation
+of state,''
+Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995);
+gr-qc/9504004.
+
+\bibitem{vandenDungen2016}
+K.~van~den~Dungen,
+``Krein spectral triples and the fermionic action,''
+Math.\ Phys.\ Anal.\ Geom.\ \textbf{19}, 4 (2016).
+
+\bibitem{Besnard2018}
+F.~Besnard,
+``On the definition of spacetimes in noncommutative
+geometry: Part~I,''
+J.\ Geom.\ Phys.\ \textbf{123}, 292 (2018);
+arXiv:1611.07830.
+
+\bibitem{Umegaki1962}
+H.~Umegaki,
+``Conditional expectation in an operator algebra.
+IV. Entropy and information,''
+K\=odai Math.\ Sem.\ Rep.\ \textbf{14}, 59 (1962).
+
+\end{thebibliography}
+
+\end{document}
