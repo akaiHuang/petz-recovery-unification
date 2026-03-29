@@ -13,17 +13,21 @@ We establish a precise mathematical dictionary between the tau-Sigma quantum cha
 
 ---
 
+**Honest assessment of rigor**: Correspondences 1-5 are mathematically valid structural analogies between quantum channels and classical diffusion processes. They are 'exact' in the sense that the same equations appear in both contexts, but the physical objects (quantum states vs. classical probability distributions) are fundamentally different. Correspondences 6-7 are conjectures that require empirical validation. The dictionary provides a useful conceptual bridge but should not be interpreted as proving that diffusion models ARE quantum gravity.
+
+---
+
 ## Table of Contents
 
 1. [Preliminaries: The tau-Sigma Framework](#1-preliminaries-the-tau-sigma-framework)
 2. [Preliminaries: Score-Based Diffusion Models](#2-preliminaries-score-based-diffusion-models)
-3. [Step 1: Forward Process = Quantum Channel (EXACT)](#3-step-1-forward-process--quantum-channel-exact)
-4. [Step 2: Reverse Process = Petz Recovery (EXACT)](#4-step-2-reverse-process--petz-recovery-exact)
+3. [Step 1: Forward Process = Quantum Channel (EXACT in distributional form)](#3-step-1-forward-process--quantum-channel-exact-in-distributional-form)
+4. [Step 2: Reverse Process = Petz Recovery (EXACT in distributional form)](#4-step-2-reverse-process--petz-recovery-exact-in-distributional-form)
 5. [Step 3: ELBO and the JRSWW/Petz Bound (RELATED)](#5-step-3-elbo-and-the-jrswwpetz-bound-related)
-6. [Step 4: Score Function = Gradient of Sigma (EXACT)](#6-step-4-score-function--gradient-of-sigma-exact)
-7. [Step 5: Fisher Information Identity (EXACT)](#7-step-5-fisher-information-identity-exact)
-8. [Step 6: Laplacian Condition and Harmonicity (EXACT for optimal models)](#8-step-6-laplacian-condition-and-harmonicity-exact-for-optimal-models)
-9. [Step 7: Noise Schedule from Entropy Production (EXACT)](#9-step-7-noise-schedule-from-entropy-production-exact)
+6. [Step 4: Score Function = Gradient of Sigma (EXACT — tautological)](#6-step-4-score-function--gradient-of-sigma-exact--tautological)
+7. [Step 5: Fisher Information Identity (EXACT — standard result)](#7-step-5-fisher-information-identity-exact--standard-result)
+8. [Step 6: Laplacian Condition and Harmonicity (CONJECTURED)](#8-step-6-laplacian-condition-and-harmonicity-conjectured)
+9. [Step 7: Noise Schedule from Entropy Production (CONJECTURED)](#9-step-7-noise-schedule-from-entropy-production-conjectured)
 10. [The Complete Dictionary](#10-the-complete-dictionary)
 11. [Predictions for AI from Physics](#11-predictions-for-ai-from-physics)
 12. [Predictions for Physics from AI](#12-predictions-for-physics-from-ai)
@@ -176,7 +180,7 @@ log p(x_0) >= -1/2 integral_0^T beta(t) E_{q_t}[ |s_theta(x, t) - nabla log q_t(
 
 ---
 
-## 3. Step 1: Forward Process = Quantum Channel (EXACT)
+## 3. Step 1: Forward Process = Quantum Channel (EXACT in distributional form)
 
 ### 3.1 Amplitude Damping as Gaussian Channel
 
@@ -218,12 +222,12 @@ The identification is:
 
 | Diffusion | Amplitude Damping | Exact? |
 |-----------|-------------------|--------|
-| Signal retention alpha_t | Transmissivity eta | EXACT |
-| sqrt(alpha_t) | Amplitude gain sqrt(eta) | EXACT |
-| 1 - alpha_t | Noise variance 1 - eta | EXACT |
-| x_0 (data) | Input state rho | EXACT |
-| x_t (noisy data) | Output state N(rho) | EXACT |
-| epsilon ~ N(0,I) | Environment vacuum | EXACT |
+| Signal retention alpha_t | Transmissivity eta | EXACT (classical limit) |
+| sqrt(alpha_t) | Amplitude gain sqrt(eta) | EXACT (classical limit) |
+| 1 - alpha_t | Noise variance 1 - eta | EXACT (classical limit) |
+| x_0 (data) | Input state rho | EXACT (classical limit) |
+| x_t (noisy data) | Output state N(rho) | EXACT (classical limit) |
+| epsilon ~ N(0,I) | Environment vacuum | EXACT (classical limit) |
 
 **Remark.** This is not an analogy. The variance-preserving diffusion forward process IS a classical amplitude damping channel. The Stinespring dilation is:
 
@@ -301,7 +305,7 @@ This is exactly the chain rule for entropy production under channel composition 
 
 ---
 
-## 4. Step 2: Reverse Process = Petz Recovery (EXACT)
+## 4. Step 2: Reverse Process = Petz Recovery (EXACT in distributional form)
 
 ### 4.1 Classical Petz = Bayes' Theorem
 
@@ -494,7 +498,7 @@ The Petz bound gives the floor; score matching error adds on top.
 
 ---
 
-## 6. Step 4: Score Function = Gradient of Sigma (EXACT)
+## 6. Step 4: Score Function = Gradient of Sigma (EXACT — tautological)
 
 ### 6.1 The Sigma Field for Diffusion
 
@@ -555,7 +559,7 @@ nabla_x Sigma_rel(x, t) = -nabla_x ln q_t(x) = -s(x, t)
 Therefore:
 
 ```
-s(x, t) = -nabla_x Sigma_rel(x, t)    [EXACT]
+s(x, t) = -nabla_x Sigma_rel(x, t)    [EXACT, tautological]
 ```
 
 The score function is the negative gradient of the log-density, which is **exactly** the negative gradient of the Sigma field (up to an x-independent constant). []
@@ -578,10 +582,10 @@ The parallel is exact in structure:
 
 | Gravity | Diffusion | Status |
 |---------|-----------|--------|
-| Sigma = -ln(-g_00) | Sigma = -ln q_t(x) + const | EXACT (both = -ln of channel output) |
-| nabla Sigma = gravitational field | -nabla Sigma = score (denoising field) | EXACT (gradient of same structure) |
+| Sigma = -ln(-g_00) | Sigma = -ln q_t(x) + const | EXACT in distributional form (both = -ln of channel output) |
+| nabla Sigma = gravitational field | -nabla Sigma = score (denoising field) | EXACT (tautological: gradient of same definition) |
 | Free fall follows -nabla Sigma | Reverse SDE follows -nabla Sigma | EXACT (both are gradient flows) |
-| Einstein eq. constrains Sigma | Fokker-Planck eq. constrains Sigma | EXACT (both are field equations) |
+| Einstein eq. constrains Sigma | Fokker-Planck eq. constrains Sigma | Structural analogy (different field equations) |
 
 ### 6.4 Score Matching = Learning the Sigma Field
 
@@ -593,11 +597,11 @@ L_DSM = E_{t, x_0, epsilon}[ |s_theta(x_t, t) + nabla_x Sigma(x_t, t)|^2 ]
 
 Score matching is therefore **learning the gradient of the Sigma field**. This is the AI analog of measuring the gravitational field (which is also nabla Sigma).
 
-**Status: EXACT.** The identification s = -nabla Sigma is a mathematical identity, not an approximation.
+**Status: EXACT (tautological: Sigma = -ln q_t by definition).** The identification s = -nabla Sigma is a mathematical identity, not an approximation. It follows directly from the definition of Sigma.
 
 ---
 
-## 7. Step 5: Fisher Information Identity (EXACT)
+## 7. Step 5: Fisher Information Identity (EXACT — standard result)
 
 ### 7.1 Fisher Information in the tau Framework
 
@@ -658,11 +662,11 @@ integral_0^T beta(t) I_F(t) dt = 2 [H(N(0,I)) - H(p_data)] = d ln(2 pi e) - 2 H(
 
 This is the **total entropy production** Sigma_total of the full channel, expressed as an integral of the Fisher information of the Sigma field along the path.
 
-**Status: EXACT.** This follows from the De Bruijn identity applied to the Ornstein-Uhlenbeck forward process.
+**Status: EXACT (standard result in information geometry).** This follows from the De Bruijn identity applied to the Ornstein-Uhlenbeck forward process.
 
 ---
 
-## 8. Step 6: Laplacian Condition and Harmonicity (EXACT for optimal models)
+## 8. Step 6: Laplacian Condition and Harmonicity (CONJECTURED)
 
 ### 8.1 The Vacuum Condition in Gravity
 
@@ -721,11 +725,11 @@ nabla^2 [log q_t - log q_prior] -> 0    [in data-sparse regions]
 
 This is the precise analog of the vacuum Einstein equation: the **perturbation** of Sigma from its background value is harmonic in regions where the "matter" (data) density is negligible.
 
-**Status: EXACT** for the perturbative Sigma in data-sparse regions. The full nonlinear case requires the Fokker-Planck equation as the field equation (analogous to the full Einstein equations).
+**Status: CONJECTURED (unproven; requires empirical validation).** The perturbative argument is suggestive but does not constitute a proof. The full nonlinear case requires the Fokker-Planck equation as the field equation (analogous to the full Einstein equations). Whether optimal diffusion models actually learn harmonic scores in data-sparse regions is an empirical question that has not been tested.
 
 ---
 
-## 9. Step 7: Noise Schedule from Entropy Production (EXACT)
+## 9. Step 7: Noise Schedule from Entropy Production (CONJECTURED)
 
 ### 9.1 The Noise Schedule as Sigma Parametrization
 
@@ -778,11 +782,13 @@ where alpha_t = e^{-Sigma(t)}.
 
 So:
 ```
-Signal power: alpha_t = e^{-Sigma(t)}  ↔  |g_00| = e^{-Sigma}   [EXACT]
+Signal power: alpha_t = e^{-Sigma(t)}  ↔  |g_00| = e^{-Sigma}   [EXACT by definition]
 Noise power: 1 - alpha_t = 1 - e^{-Sigma(t)}                     [bounded version]
 ```
 
 The signal attenuation in the diffusion process follows the same exponential decay as the time-time metric component. This is not a coincidence: both describe the transmission fidelity of a thermal attenuator channel parametrized by Sigma.
+
+**Status: CONJECTURED (unproven; cosine schedule empirically outperforms).** The identification of alpha_t = e^{-Sigma(t)} is exact by definition, but the claim that physics determines the *optimal* noise schedule is a conjecture. Empirically, the cosine schedule (Nichol & Dhariwal 2021) outperforms the linear schedule, and neither is derived from the entropy production rate of any physical channel. The connection is suggestive but not predictive.
 
 ---
 
@@ -792,19 +798,19 @@ The signal attenuation in the diffusion process follows the same exponential dec
 
 | # | Physics (tau-Sigma Framework) | Diffusion Model | Status |
 |---|-------------------------------|-----------------|--------|
-| 1 | Quantum channel N | Forward process q(x_t\|x_0) | **EXACT** (Thm 1) |
-| 2 | Transmissivity eta | Signal retention alpha_t | **EXACT** |
-| 3 | Entropy production Sigma = -ln(eta) | Accumulated noise -ln(alpha_t) | **EXACT** (Cor 1) |
-| 4 | Petz recovery map R_{sigma,N} | Optimal denoiser (Bayes posterior) | **EXACT** (Thm 2) |
+| 1 | Quantum channel N | Forward process q(x_t\|x_0) | **EXACT in distributional form** (classical limit of quantum channel) (Thm 1) |
+| 2 | Transmissivity eta | Signal retention alpha_t | **EXACT in distributional form** (classical limit of quantum channel) |
+| 3 | Entropy production Sigma = -ln(eta) | Accumulated noise -ln(alpha_t) | **EXACT in distributional form** (classical limit of quantum channel) (Cor 1) |
+| 4 | Petz recovery map R_{sigma,N} | Optimal denoiser (Bayes posterior) | **EXACT in distributional form** (classical limit of quantum channel) (Thm 2) |
 | 5 | JRSWW bound F^2 >= e^{-Sigma} | ELBO lower bound | **EXACT for Gaussian** (Thm 3); **RELATED** in general |
 | 6 | Sigma saturation (F^2 = e^{-Sigma}) | ELBO tightness (optimal reverse) | **EXACT for Gaussian** (Thm 3) |
-| 7 | Score = -nabla Sigma | Score function nabla log q_t | **EXACT** (Thm 4) |
-| 8 | Fisher information integral(\|nabla Sigma\|^2) | Score matching loss | **EXACT** (Sec 7) |
-| 9 | nabla^2 Sigma = 0 (vacuum) | Score divergence-free (data-sparse) | **EXACT** perturbatively (Thm 6) |
+| 7 | Score = -nabla Sigma | Score function nabla log q_t | **EXACT (tautological: Sigma = -ln q_t by definition)** (Thm 4) |
+| 8 | Fisher information integral(\|nabla Sigma\|^2) | Score matching loss | **EXACT (standard result in information geometry)** (Sec 7) |
+| 9 | nabla^2 Sigma = 0 (vacuum) | Score divergence-free (data-sparse) | **CONJECTURED** (unproven; requires empirical validation) (Thm 6) |
 | 10 | tau = 1 - F (temporal asymmetry) | Reconstruction error 1 - F | **EXACT** |
-| 11 | Noise schedule beta(t) | dSigma/dt (entropy production rate) | **EXACT** |
-| 12 | Exponential metric e^{-Sigma} | Signal power alpha_t = e^{-Sigma(t)} | **EXACT** |
-| 13 | Gravitational field nabla Sigma | Denoising direction -score | **EXACT** |
+| 11 | Noise schedule beta(t) | dSigma/dt (entropy production rate) | **CONJECTURED** (unproven; cosine schedule empirically outperforms) |
+| 12 | Exponential metric e^{-Sigma} | Signal power alpha_t = e^{-Sigma(t)} | **EXACT in distributional form** (classical limit of quantum channel) |
+| 13 | Gravitational field nabla Sigma | Denoising direction -score | **EXACT (tautological: Sigma = -ln q_t by definition)** |
 | 14 | Second law: dSigma >= 0 | Monotonic noise increase in forward | **EXACT** |
 | 15 | sqrt(tau) triangle inequality | Composition bound for multi-step error | **EXACT** (Paper 1, Thm 2) |
 | 16 | DPI: Sigma >= 0 | KL divergence non-negativity | **EXACT** |
@@ -1139,6 +1145,6 @@ The key conceptual insight: **diffusion models work because they implement Petz 
 
 ---
 
-*This document establishes the mathematical dictionary between the tau-Sigma quantum channel framework and score-based diffusion generative models. All correspondences marked EXACT are mathematical identities or theorems. Those marked RELATED share the same mathematical structure (Jensen's inequality) but differ in quantitative details for non-Gaussian distributions.*
+*This document establishes the mathematical dictionary between the tau-Sigma quantum channel framework and score-based diffusion generative models. Correspondences marked EXACT are mathematical identities valid in the classical (distributional) limit. Those marked CONJECTURED require empirical validation. Those marked RELATED share the same mathematical structure (Jensen's inequality) but differ in quantitative details for non-Gaussian distributions. See the honest assessment of rigor at the top of this document.*
 
 *The central message: diffusion models are practical implementations of Petz recovery, and their success provides empirical support for the physical role of Petz retrodiction in the arrow of time.*

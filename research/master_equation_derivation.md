@@ -859,7 +859,7 @@ D_out / D_in = f(r_0) = -g_{00}(r_0)
 
 **THIS gives the ratio form of the master equation.**
 
-But note: this is the QRE ratio for the RESTRICTION channel, and it involves tracing out the modes BETWEEN r_0 and infinity, NOT the gravitational redshift channel. The equivalence between "tracing out intermediate modes" and "gravitational redshift" is the content of the Channel Theorem (Theorem 2).
+But note: this is the QRE ratio for the RESTRICTION channel, and it involves tracing out the modes BETWEEN r_0 and infinity, NOT the gravitational redshift channel. The consistency between "tracing out intermediate modes" and "gravitational redshift" is suggested by the Channel Theorem (Theorem 2), but their formal equivalence has not been established.
 
 ### 5.6 Summary of Theorem 4
 
@@ -885,11 +885,13 @@ which is self-consistent only for specific values of D_in (namely, D_in = -ln(f)
 
 **Status**: PROVEN in the entanglement first-law (linear) regime, for perturbations near the bifurcation surface. The extension to general perturbations and finite-energy states requires going beyond the first law. [PROVEN CONDITIONAL]
 
+**Important caveat**: The bosonic channel approach (Theorem 2) and the modular flow approach (Theorem 4) give consistent results (both yield Sigma = -ln(-g_00) to leading order), but their formal equivalence has not been established. The bosonic channel treats gravitational redshift as a pure-loss channel; the modular flow treats it as a restriction of the vacuum state. These are physically distinct operations that happen to produce the same entropy production in the weak-field limit. A rigorous proof of their equivalence would require constructing the gravitational CPTP map from first-principles QFT (Gap G1).
+
 ---
 
 ## 6. Unified Master Equation: Precise Statement
 
-### 6.1 The Three Equivalent Forms
+### 6.1 The Three Consistent Forms
 
 **Form A (Additive, PROVEN)**:
 ```

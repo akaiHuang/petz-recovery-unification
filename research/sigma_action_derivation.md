@@ -1217,6 +1217,8 @@ This is a variational formulation of the second law: entropy production is minim
 
 6. **No additional scalar Lagrangian needed**: The Sigma kinetic energy IS the Ricci scalar. The Einstein-Hilbert action alone suffices.
 
+   **Methodological caveat**: This result is obtained by substituting the exponential metric ansatz g_00 = -e^{-Sigma} into the Einstein-Hilbert action. The field equation nabla^2 Sigma = 0 emerges as a consistency condition within this ansatz, not as a prediction from a more general theory. A fully covariant action principle that derives (rather than assumes) the exponential metric form remains an open problem. The present result should be understood as: 'the exponential metric is a self-consistent solution whose action equals the Fisher information,' not as 'the Fisher information principle uniquely determines the metric.'
+
 7. **Comparison**: Not Brans-Dicke, not dilaton gravity, not k-essence. Closest analog is the JNW scalar field solution with scalar charge = mass (Makukov-Mychelkin 2020).
 
 ### 11.2 Key Conceptual Point
