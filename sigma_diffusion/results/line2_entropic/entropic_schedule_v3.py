@@ -33,7 +33,7 @@ import numpy as np
 from scipy.ndimage import gaussian_filter1d
 from scipy.interpolate import interp1d
 
-os.environ["HF_TOKEN"] = "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"
+os.environ["HF_TOKEN"] = "YOUR_HF_TOKEN_HERE"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 import torch

@@ -32,7 +32,7 @@ from dataclasses import dataclass, field
 import numpy as np
 
 # -- HF auth --
-os.environ["HF_TOKEN"] = "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"
+os.environ["HF_TOKEN"] = "YOUR_HF_TOKEN_HERE"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 import torch

@@ -31,7 +31,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 warnings.filterwarnings("ignore")
 
-os.environ["HF_TOKEN"] = "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"
+os.environ["HF_TOKEN"] = "YOUR_HF_TOKEN_HERE"
 os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = "0.0"
 
 DEVICE = "mps"
