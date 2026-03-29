@@ -16,6 +16,18 @@ __pycache__/
 .ipynb_checkpoints/
 *.egg-info/
 
+# SECRETS — NEVER COMMIT
+.env
+.env.*
+*.secret
+**/secrets/
+**/credentials/
+*token*
+!**/token*.py  # allow files with "token" in logic, but not actual tokens
+config.json
+*.pem
+*.key
+
 # OS
 .DS_Store
 Thumbs.db
