@@ -1,0 +1,13 @@
+======================================================================
+  tau-chrono QUANTUM APPLICATION BENCHMARKS
+  Backend: Tuna-9
+  Date: 2026-03-19 10:43
+  Shots: 4096  |  Timeout: 600s
+======================================================================
+
+Checking Tuna-9 status...
+  Status: executing
+
+  Tuna-9 is NOT idle (status: executing).
+  Run with --local for simulated mode, or wait and retry.
+  Use code/run_when_ready.py to auto-run when idle.

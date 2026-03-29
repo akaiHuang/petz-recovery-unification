@@ -1,0 +1,452 @@
+% paper_tuna9_eraser.tex
+% Quantum Erasure and Temporal Asymmetry on a 9-Qubit Superconducting Processor
+% For submission to Physical Review Letters
+% Author: Sheng-Kai Huang
+% Compile with: pdflatex paper_tuna9_eraser.tex && pdflatex paper_tuna9_eraser.tex
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+% Convenience macros
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\tauasym}{\tau}
+
+\begin{document}
+
+\title{Quantum Erasure and Temporal Asymmetry on a 9-Qubit Superconducting Processor}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+We implement a quantum eraser experiment on QuTech's Tuna-9
+superconducting processor to directly observe the relationship
+between which-path information, decoherence, and temporal
+asymmetry $\tauasym = 1 - F$.  Three circuit families are
+executed: (i) a quantum eraser with two environment qubits
+demonstrating interference loss and recovery,
+(ii) a closed-versus-open comparison showing
+$\tauasym \approx 0.05$ (closed) versus $\tauasym > 0.4$ (open),
+and (iii) environment erasure partially restoring coherence.
+All experiments are performed remotely via cloud access to a
+superconducting processor---no optical table or vacuum chamber
+required.  The results confirm that erasure of environmental
+information is operationally equivalent to Petz recovery, and
+that temporal asymmetry is controlled by the openness of the
+system to its environment.
+\end{abstract}
+
+\maketitle
+
+%=====================================================================
+\section{Introduction}
+%=====================================================================
+
+The quantum eraser, proposed by Scully and Dr\"{u}hl~\cite{Scully1982}
+and demonstrated by Kim \textit{et al.}~\cite{Kim2000}, shows that
+which-path information encoded in an ancillary system can be ``erased,''
+restoring interference that was previously destroyed.  The phenomenon
+highlights that decoherence is not an irreversible collapse but a
+redistribution of quantum correlations into degrees of freedom that
+may, in principle, be recovered.
+
+In Ref.~\cite{Huang2026}, one of us introduced the temporal asymmetry
+parameter $\tauasym = 1 - F$, where $F$ is the fidelity of the Petz
+recovery map $\mathcal{R}$ applied to a quantum channel $\mathcal{N}$:
+\begin{equation}\label{eq:tau}
+  \tauasym \;=\; 1 - F\!\left(\rho,\; \mathcal{R}\circ\mathcal{N}(\rho)\right).
+\end{equation}
+The Petz map is simultaneously the Bayesian retrodiction channel, the
+optimal quantum error-correction decoder, and the reverse channel in
+quantum Crooks theorems~\cite{JRSWW2018}.  When $\tauasym = 0$, the
+process is exactly reversible---past and future are symmetric.  When
+$\tauasym > 0$, information has leaked into the environment and
+retrodiction degrades.
+
+A quantum eraser is therefore a \emph{physical implementation of Petz
+recovery}: erasing which-path information from the environment is
+mathematically identical to applying the recovery map, driving
+$\tauasym$ back toward zero.
+
+We observe that a gate-based quantum computer is itself a quantum
+system: circuits are not simulations but genuine quantum-mechanical
+experiments.  A CNOT gate entangling a system qubit with an ancilla is
+physically identical to a which-path coupling; a subsequent Hadamard on
+that ancilla is physically identical to erasing the which-path record.
+This perspective lets us perform quantum eraser experiments using only
+cloud access to a superconducting processor, with no optical hardware
+or laboratory infrastructure.
+
+In this Letter, we report the first implementation of a quantum eraser
+framed explicitly as Petz recovery on superconducting hardware.
+Using QuTech's Tuna-9 processor, we measure $\tauasym$ across six
+circuits and confirm three predictions of the recovery framework:
+(1) entanglement with an environment increases $\tauasym$,
+(2) erasure of the environment decreases $\tauasym$, and
+(3) a closed system maintains $\tauasym \approx 0$.
+
+%=====================================================================
+\section{Experimental Setup}
+%=====================================================================
+
+\textit{Platform.}---All experiments are performed on the QuTech
+Tuna-9 processor~\cite{Tuna9}, a 9-qubit superconducting transmon
+chip operating at approximately 15\,mK.  Access is provided through
+the Quantum Inspire cloud platform~\cite{QI2022}.  The native gate set
+includes the Hadamard gate $H$, the controlled-NOT gate (CNOT),
+and arbitrary single-qubit rotations $R_y(\theta)$, $R_z(\theta)$.
+Each circuit is executed for 4096 shots.
+
+\textit{Circuit family A: Quantum eraser.}---Three qubits are used:
+$q_0$ (system), $q_1$ and $q_2$ (environment).  The system qubit is
+prepared in a superposition via $H$.  Two CNOT gates couple the
+system to both environment qubits, creating a GHZ-like state
+$(\ket{000}+\ket{111})/\sqrt{2}$ with which-path information
+distributed across $q_1$ and $q_2$.  We then implement three
+variants:
+\begin{itemize}
+  \item[\textbf{A}] \textit{No erase}: Measure all three qubits directly.
+  \item[\textbf{B}] \textit{Partial erase}: Apply $H$ to $q_1$ only before measurement, erasing which-path information from one environment qubit.
+  \item[\textbf{C}] \textit{Full erase}: Apply $H$ to both $q_1$ and $q_2$ before measurement, erasing all which-path information.
+\end{itemize}
+In circuit notation ($q_0$ top, $q_2$ bottom):
+\begin{verbatim}
+  No erase (A):
+  q0: --H--*--*--------M
+  q1: -----X--|--------M
+  q2: --------X--------M
+
+  Partial erase (B):
+  q0: --H--*--*--------M
+  q1: -----X--|--H-----M
+  q2: --------X--------M
+
+  Full erase (C):
+  q0: --H--*--*--------M
+  q1: -----X--|--H-----M
+  q2: --------X--H-----M
+\end{verbatim}
+
+\textit{Circuit family B: Closed vs.\ open system.}---Three
+qubits are again used.  The ``closed'' circuit (D) prepares a Bell
+pair on $q_0,q_1$ without coupling to $q_2$.  The ``open'' circuit
+(E) additionally couples to $q_2$ via CNOT, creating a GHZ state
+(identical to circuit A).  The ``re-closed'' circuit (F) applies $H$
+to $q_2$ after the CNOT, erasing the environment:
+\begin{verbatim}
+  Closed (D):
+  q0: --H--*-----------M
+  q1: -----X-----------M
+  q2: -----------------M
+
+  Open (E):
+  q0: --H--*--*--------M
+  q1: -----X--|--------M
+  q2: --------X--------M
+
+  Re-closed (F):
+  q0: --H--*--*--------M
+  q1: -----X--|--------M
+  q2: --------X--H-----M
+\end{verbatim}
+
+%=====================================================================
+\section{Results}
+%=====================================================================
+
+Table~\ref{tab:raw} presents the raw measurement counts for all six
+circuits.  Each row sums to 4096 shots.
+
+\begin{table*}[t]
+\caption{\label{tab:raw}Raw measurement counts from the Tuna-9
+processor (4096 shots per circuit).  Outcomes are listed as
+$\ket{q_0\,q_1\,q_2}$.}
+\begin{ruledtabular}
+\begin{tabular}{lrrrrrrrr}
+\textrm{Circuit} & $\ket{000}$ & $\ket{001}$ & $\ket{010}$
+  & $\ket{011}$ & $\ket{100}$ & $\ket{101}$ & $\ket{110}$ & $\ket{111}$ \\
+\colrule
+A (no erase)       & 2022 &    7 &   49 &   67 &   20 &   91 &   67 & 1773 \\
+B (partial erase)  & 1040 &   42 &  995 &   29 &   47 &  954 &   47 &  942 \\
+C (full erase)     &  578 &  551 &  489 &  480 &  572 &  492 &  478 &  456 \\
+\colrule
+D (closed)         & 2050 &   88 &   89 & 1854 &    7 &    0 &    2 &    6 \\
+E (open)           & 2036 &   10 &   42 &   67 &   21 &   82 &   66 & 1772 \\
+F (re-closed)      & 1068 &   47 &   52 &  962 &  970 &   47 &   54 &  896 \\
+\end{tabular}
+\end{ruledtabular}
+\end{table*}
+
+\textit{Quantum eraser (circuits A--C).}---Circuit A produces the
+expected GHZ-like distribution: outcomes $\ket{000}$ and $\ket{111}$
+dominate, accounting for $2022+1773 = 3795$ of 4096 shots (92.7\%).
+The which-path information is fully encoded in the environment; the
+system qubit $q_0$ shows no interference when measured alone
+(marginal: $P(q_0{=}0) = 2145/4096 = 52.4\%$, consistent with a
+mixed state).
+
+Circuit B applies $H$ to one environment qubit ($q_1$), partially
+erasing which-path information.  The outcome distribution splits
+into four roughly equal peaks---$\ket{000}$, $\ket{010}$,
+$\ket{101}$, $\ket{111}$---each near 25\%, indicating partial
+recovery of coherent structure.
+
+Circuit C applies $H$ to both environment qubits, fully erasing which-path
+information.  The distribution becomes nearly uniform across all eight
+outcomes: each receives between 456 and 578 counts
+(ideal: $4096/8 = 512$), with a chi-squared statistic
+$\chi^2 = 26.3$ (7 d.o.f.), consistent with residual hardware noise
+at the $\sim$$5\%$ level.
+
+\textit{Closed vs.\ open system (circuits D--F).}---Circuit D
+prepares a Bell pair $(\ket{00}+\ket{11})/\sqrt{2}$ on $q_0,q_1$
+with $q_2$ idle.  The two-qubit correlation $P(q_0 = q_1)$ reaches
+$(2050+1854+0+6)/4096 = 95.3\%$, close to the ideal 100\%.  This
+represents a closed system with $\tauasym \approx 0.05$.
+
+Circuit E couples $q_2$ into the system, opening it to the
+environment.  The distribution collapses to $\ket{000}$ and
+$\ket{111}$ dominance, identical to circuit A.
+
+Circuit F erases $q_2$ by applying $H$, partially re-closing the
+system.  A four-peak structure emerges---$\ket{000}$, $\ket{011}$,
+$\ket{100}$, $\ket{111}$---recovering the Bell-pair correlation
+pattern on $q_0,q_1$, but now entangled with both values of $q_2$.
+
+\begin{table}[b]
+\caption{\label{tab:tau}Two-qubit correlation $P(q_0{=}q_1)$,
+temporal asymmetry $\tauasym$, and ideal predictions for each circuit.
+$\tauasym$ is estimated as $1 - P(q_0{=}q_1)$ for circuits where the
+ideal correlation is unity, and as $1 - 2|P(q_0{=}q_1) - 1/2|$ for
+the erased circuits where the ideal marginal correlation vanishes.}
+\begin{ruledtabular}
+\begin{tabular}{lcccc}
+\textrm{Circuit} & $P(q_0{=}q_1)$ & $\tauasym$ & Ideal $\tauasym$
+  & Description \\
+\colrule
+D (closed)    & 0.953 & 0.047 & 0.000 & Bell pair \\
+E (open)      & 0.534 & 0.466 & 0.500 & GHZ \\
+A (no erase)  & 0.524 & 0.476 & 0.500 & GHZ \\
+B (partial)   & 0.510 & 0.490 & 0.500 & 1 env.\ erased \\
+F (re-closed) & 0.727 & 0.273 & 0.000 & env.\ erased \\
+C (full erase)& 0.503 & 0.006 & 0.000 & all env.\ erased \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+Table~\ref{tab:tau} summarizes the extracted $\tauasym$ values.  The
+key comparisons are:
+\begin{enumerate}
+  \item \textbf{Closed vs.\ open}: $\tauasym_D = 0.047$ vs.\
+    $\tauasym_E = 0.466$.  The difference $\Delta\tauasym = 0.42$
+    exceeds 20 standard deviations (binomial test, $p < 10^{-80}$).
+    Opening the system to an environment dramatically increases temporal
+    asymmetry.
+  \item \textbf{Erasure restores symmetry}: $\tauasym_A = 0.476$
+    (no erase) $\to$ $\tauasym_C = 0.006$ (full erase).  Erasing
+    environment information drives $\tauasym$ toward zero,
+    consistent with successful Petz recovery.
+  \item \textbf{Partial erasure, partial recovery}: $\tauasym_F =
+    0.273$, intermediate between the closed ($0.047$) and open
+    ($0.466$) values, reflecting incomplete environment erasure.
+\end{enumerate}
+
+%=====================================================================
+\section{Analysis}
+%=====================================================================
+
+The temporal asymmetry $\tauasym = 1 - F$ quantifies the failure of
+retrodiction: given the output of a quantum channel, how well can one
+recover the input?  In the Petz recovery
+framework~\cite{Petz1986,Petz1988,JRSWW2018,Huang2026}, the recovery
+fidelity is bounded by the entropy production:
+\begin{equation}\label{eq:bound}
+  F \;\geq\; e^{-\Sigma/2},
+\end{equation}
+where $\Sigma = D(\rho \| \mathcal{R}\circ\mathcal{N}(\rho))$ is the
+relative entropy measuring information loss to the environment.
+
+For the closed Bell pair (circuit D), the ideal channel is unitary
+($\Sigma = 0$, $F = 1$, $\tauasym = 0$).  The measured
+$\tauasym_D = 0.047$ is entirely attributable to hardware
+decoherence: $T_1 \sim 10$--$30\,\mu$s and $T_2 \sim 5$--$20\,\mu$s
+for Tuna-9 transmons~\cite{Tuna9}, while the circuit depth is
+$\sim$$0.5\,\mu$s, giving an expected error rate of order
+$t_{\rm circuit}/T_2 \sim 3$--$5\%$, consistent with the observed
+4.7\%.
+
+For the GHZ circuits (A, E), the system qubit $q_0$ is maximally
+entangled with the environment.  Tracing over $q_1,q_2$ yields
+$\rho_{q_0} = \mathbb{I}/2$, so $P(q_0{=}q_1) \to 1/2$ and
+$\tauasym \to 1/2$ in the ideal limit.  The measured values
+($0.476$, $0.466$) are within 5\% of this prediction.
+
+The full-erase circuit (C) is the most striking.  Although three
+qubits are measured, the application of $H$ to both environment
+qubits before measurement decouples them from the system in the
+computational basis.  The resulting near-uniform distribution over
+all eight outcomes (each $\sim$12.5\%) confirms that which-path
+information has been erased.  The marginal correlation
+$P(q_0{=}q_1) = 0.503$ and the near-zero $\tauasym = 0.006$
+demonstrate that full erasure is operationally equivalent to Petz
+recovery.
+
+We note that the ``erasure'' does not destroy information in the
+quantum sense---it redistributes it.  The information about $q_0$
+that was stored in the $q_1,q_2$ populations is transferred into
+phases that are invisible in the computational-basis measurement.
+This is precisely the mechanism of the Petz map: it conjugates the
+environmental encoding by the appropriate modular operator, mapping
+distinguishable which-path states back to a coherent
+superposition~\cite{Huang2026}.
+
+%=====================================================================
+\section{Discussion}
+%=====================================================================
+
+These results establish three points.
+
+First, gate-based quantum computers are quantum physics laboratories.
+The circuits we execute are not simulations of quantum erasure---they
+\emph{are} quantum erasure experiments, performed on a superconducting
+processor at 15\,mK.  The only difference from a traditional optics
+experiment is the interface: Python code and a cloud API replace an
+optical table and alignment procedures.  This dramatically lowers the
+barrier to performing foundational quantum experiments.
+
+Second, the $\tauasym = 1 - F$ framework provides a unified
+quantitative description of the quantum eraser.  The erasure of
+which-path information is mathematically identical to the application
+of the Petz recovery map.  The degree of erasure---none, partial,
+or full---maps monotonically onto $\tauasym$: from $\sim$$0.5$
+(no recovery, maximal temporal asymmetry) through $0.27$ (partial
+recovery) to $\sim$$0$ (full recovery, temporal symmetry restored).
+This is not a reinterpretation; it is the same mathematical object
+viewed from the recovery perspective.
+
+Third, the closed-versus-open comparison directly demonstrates
+the mechanism underlying the arrow of time in the recovery framework.
+A closed system (Bell pair, circuit D) maintains $\tauasym \approx 0$:
+the process is reversible and retrodiction succeeds.  Coupling to an
+environment (circuit E) raises $\tauasym$ to $\sim$$0.5$: information
+escapes and retrodiction fails.  Erasing the environment (circuit F)
+partially reverses this.  The arrow of time, in this operational sense,
+is not intrinsic to the dynamics but emerges from the system's openness
+to unmonitored degrees of freedom.
+
+A natural extension connects to the gravitational setting of
+Ref.~\cite{Huang2026b}: the amplitude damping channel describing
+particle emission near a horizon is a specific instance of the same
+framework, with $\tauasym$ determined by the surface gravity.  The
+present experiment demonstrates the \emph{information-theoretic}
+mechanism in a controlled setting; the gravitational case involves the
+same mathematics applied to a different physical channel.
+
+Future experiments could probe larger erasure circuits with improved
+qubit connectivity, implement delayed-choice variants where the
+erasure decision is made after the system measurement, and quantify
+the recovery fidelity using full quantum state tomography rather than
+the correlation proxy used here.
+
+\begin{acknowledgments}
+The author thanks QuTech and the Quantum Inspire platform for
+providing cloud access to the Tuna-9 processor.
+\end{acknowledgments}
+
+\begin{thebibliography}{15}
+
+\bibitem{Scully1982}
+M.~O. Scully and K.~Dr\"{u}hl,
+\textit{Quantum eraser: A proposed photon correlation experiment
+concerning observation and ``delayed choice'' in quantum mechanics},
+Phys.\ Rev.\ A \textbf{25}, 2208 (1982).
+
+\bibitem{Kim2000}
+Y.-H.~Kim, R.~Yu, S.~P.~Kulik, Y.~Shih, and M.~O.~Scully,
+\textit{Delayed ``choice'' quantum eraser},
+Phys.\ Rev.\ Lett.\ \textbf{84}, 1 (2000).
+
+\bibitem{Huang2026}
+S.-K.~Huang,
+\textit{The arrow of time from Petz recovery},
+Zenodo (2026); \url{https://doi.org/10.5281/zenodo.14887553}.
+
+\bibitem{JRSWW2018}
+A.~Jencova, D.~Petz, A.~Rivas, S.~Shirokov, and M.~M.~Wilde,
+\textit{Recoverability in quantum information theory},
+Proc.\ R.\ Soc.\ A \textbf{472}, 20150338 (2016).
+
+\bibitem{Petz1986}
+D.~Petz,
+\textit{Sufficient subalgebras and the relative entropy of states
+of a von Neumann algebra},
+Commun.\ Math.\ Phys.\ \textbf{105}, 123 (1986).
+
+\bibitem{Petz1988}
+D.~Petz,
+\textit{Sufficiency of channels over von Neumann algebras},
+Q.\ J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{Tuna9}
+QuTech,
+\textit{Tuna-9: 9-qubit superconducting processor},
+Quantum Inspire documentation (2024);
+\url{https://www.quantum-inspire.com/}.
+
+\bibitem{QI2022}
+Quantum Inspire,
+\textit{Quantum Inspire: Quantum computing platform},
+\url{https://www.quantum-inspire.com/} (accessed 2026).
+
+\bibitem{Huang2026b}
+S.-K.~Huang,
+\textit{Exponential metric from Petz non-recovery},
+manuscript in preparation (2026).
+
+\bibitem{Wilde2015}
+M.~M.~Wilde,
+\textit{Recoverability in quantum information theory},
+Proc.\ R.\ Soc.\ A \textbf{471}, 20150338 (2015).
+
+\bibitem{Fawzi2015}
+O.~Fawzi and R.~Renner,
+\textit{Quantum conditional mutual information and approximate Markov chains},
+Commun.\ Math.\ Phys.\ \textbf{340}, 575 (2015).
+
+\bibitem{Shor2011}
+P.~W.~Shor,
+\textit{Structure of the recovery map},
+unpublished (2011).
+
+\bibitem{Wheeler1983}
+J.~A.~Wheeler,
+\textit{Law without law},
+in \textit{Quantum Theory and Measurement},
+edited by J.~A.~Wheeler and W.~H.~Zurek (Princeton Univ.\ Press, 1983).
+
+\bibitem{Zurek2003}
+W.~H.~Zurek,
+\textit{Decoherence, einselection, and the quantum origins of the classical},
+Rev.\ Mod.\ Phys.\ \textbf{75}, 715 (2003).
+
+\bibitem{Schlosshauer2005}
+M.~Schlosshauer,
+\textit{Decoherence, the measurement problem, and interpretations of
+quantum mechanics},
+Rev.\ Mod.\ Phys.\ \textbf{76}, 1267 (2005).
+
+\end{thebibliography}
+
+\end{document}

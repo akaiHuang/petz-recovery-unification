@@ -1,0 +1,201 @@
+{
+  "experiment": "QEC Experiment 5: Retrodiction Gap as Decoder Quality Metric",
+  "paper": "Paper 1 (Prediction 2)",
+  "prediction": "delta_D orders decoder quality",
+  "verdict": "EXACT_MATCH",
+  "setup": {
+    "code": "3-qubit bit-flip",
+    "noise": "bit-flip p=0.05",
+    "petz_reference": "sigma = I/2 (maximally mixed logical)",
+    "n_random_states": 200
+  },
+  "results": {
+    "No correction": {
+      "F_ent": 0.8573749999999997,
+      "F_state_plus": 0.8574999999999992,
+      "delta_D_plus": 0.09877347322979246,
+      "delta_D_avg": 0.09960600189392409,
+      "cptp": false
+    },
+    "Wrong correction": {
+      "F_ent": 0.9024999999999996,
+      "F_state_plus": 0.9049999999999992,
+      "delta_D_plus": 0.06584898215319501,
+      "delta_D_avg": 0.07765303681865036,
+      "cptp": false
+    },
+    "Majority vote": {
+      "F_ent": 0.9927499999999996,
+      "F_state_plus": 0.9999999999999991,
+      "delta_D_plus": 2.220446049250313e-16,
+      "delta_D_avg": 0.029598126346195297,
+      "cptp": true
+    },
+    "Petz recovery": {
+      "F_ent": 0.9862125364431482,
+      "F_state_plus": 0.9999999999999989,
+      "delta_D_plus": 4.440892098500626e-16,
+      "delta_D_avg": 0.05037964866712073,
+      "cptp": true
+    }
+  },
+  "ordering_by_F_ent": [
+    "Majority vote",
+    "Petz recovery",
+    "Wrong correction",
+    "No correction"
+  ],
+  "ordering_by_delta_D": [
+    "Majority vote",
+    "Petz recovery",
+    "Wrong correction",
+    "No correction"
+  ],
+  "orderings_match": true,
+  "noise_sweep": {
+    "0.001": {
+      "No corr": {
+        "F_ent": 0.9970029990000004,
+        "delta_D_avg": 0.002077376201583704
+      },
+      "Wrong": {
+        "F_ent": 0.9980010000000005,
+        "delta_D_avg": 0.0013945878171342785
+      },
+      "Majority": {
+        "F_ent": 0.9999970020000005,
+        "delta_D_avg": 2.691641494922514e-05
+      },
+      "Petz": {
+        "F_ent": 0.9999940099940003,
+        "delta_D_avg": 5.112474015961821e-05
+      }
+    },
+    "0.005": {
+      "No corr": {
+        "F_ent": 0.9850748749999998,
+        "delta_D_avg": 0.010346597002483988
+      },
+      "Wrong": {
+        "F_ent": 0.9900249999999998,
+        "delta_D_avg": 0.007087161089119251
+      },
+      "Majority": {
+        "F_ent": 0.9999252499999999,
+        "delta_D_avg": 0.0005171949625040672
+      },
+      "Petz": {
+        "F_ent": 0.9998512462500315,
+        "delta_D_avg": 0.0009636771270820821
+      }
+    },
+    "0.01": {
+      "No corr": {
+        "F_ent": 0.970299,
+        "delta_D_avg": 0.020596132991372168
+      },
+      "Wrong": {
+        "F_ent": 0.9801,
+        "delta_D_avg": 0.01439629823760988
+      },
+      "Majority": {
+        "F_ent": 0.9997019999999999,
+        "delta_D_avg": 0.0017979296466326155
+      },
+      "Petz": {
+        "F_ent": 0.9994099400020614,
+        "delta_D_avg": 0.003301742751165383
+      }
+    },
+    "0.02": {
+      "No corr": {
+        "F_ent": 0.9411920000000003,
+        "delta_D_avg": 0.040823541938346496
+      },
+      "Wrong": {
+        "F_ent": 0.9604000000000003,
+        "delta_D_avg": 0.029499012776164072
+      },
+      "Majority": {
+        "F_ent": 0.9988160000000003,
+        "delta_D_avg": 0.006096467019670455
+      },
+      "Petz": {
+        "F_ent": 0.9976790401359968,
+        "delta_D_avg": 0.010947704536388412
+      }
+    },
+    "0.05": {
+      "No corr": {
+        "F_ent": 0.8573749999999997,
+        "delta_D_avg": 0.09958488611927117
+      },
+      "Wrong": {
+        "F_ent": 0.9024999999999996,
+        "delta_D_avg": 0.07736134890352275
+      },
+      "Majority": {
+        "F_ent": 0.9927499999999996,
+        "delta_D_avg": 0.028876145008909185
+      },
+      "Petz": {
+        "F_ent": 0.9862125364431482,
+        "delta_D_avg": 0.04916328929044754
+      }
+    },
+    "0.1": {
+      "No corr": {
+        "F_ent": 0.7289999999999999,
+        "delta_D_avg": 0.1922052210807414
+      },
+      "Wrong": {
+        "F_ent": 0.8099999999999998,
+        "delta_D_avg": 0.16122338025316607
+      },
+      "Majority": {
+        "F_ent": 0.9719999999999998,
+        "delta_D_avg": 0.08683397829047224
+      },
+      "Petz": {
+        "F_ent": 0.9494027397260273,
+        "delta_D_avg": 0.13694096759477487
+      }
+    },
+    "0.15": {
+      "No corr": {
+        "F_ent": 0.6141250000000003,
+        "delta_D_avg": 0.279187159089869
+      },
+      "Wrong": {
+        "F_ent": 0.7225000000000003,
+        "delta_D_avg": 0.24540324160607543
+      },
+      "Majority": {
+        "F_ent": 0.9392500000000003,
+        "delta_D_avg": 0.1568952030123717
+      },
+      "Petz": {
+        "F_ent": 0.895749392712551,
+        "delta_D_avg": 0.23032320525921599
+      }
+    },
+    "0.2": {
+      "No corr": {
+        "F_ent": 0.5119999999999999,
+        "delta_D_avg": 0.3606652044307562
+      },
+      "Wrong": {
+        "F_ent": 0.6399999999999999,
+        "delta_D_avg": 0.3259887262642839
+      },
+      "Majority": {
+        "F_ent": 0.8959999999999999,
+        "delta_D_avg": 0.22994581190011307
+      },
+      "Petz": {
+        "F_ent": 0.8306461538461534,
+        "delta_D_avg": 0.3149411148936812
+      }
+    }
+  }
+}

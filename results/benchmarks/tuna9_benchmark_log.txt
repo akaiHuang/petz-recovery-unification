@@ -1,0 +1,298 @@
+======================================================================
+  tau-chrono QUANTUM APPLICATION BENCHMARKS
+  Backend: Tuna-9
+  Date: 2026-03-19 10:47
+  Shots: 4096  |  Timeout: 600s
+======================================================================
+
+Checking Tuna-9 status...
+  Status: idle
+  Tuna-9 is IDLE. Connecting...
+  Connected: QuantumInspireBackend(name='Tuna-9', qubits=9, opt_level=0)
+
+======================================================================
+  GATE CHARACTERIZATION (cached)
+======================================================================
+  [cache] Characterizing H on hardware...
+=== 1-Qubit Process Tomography ===
+Building 12 tomography circuits...
+Submitting 12 circuits to <qiskit_quantuminspire.qi_backend.QIBackend object at 0x10e6f7320 (name=Tuna-9, id=6)>...
+Collecting measurement results...
+Reconstructing Choi matrix...
+Choi eigenvalues: [ 1.95246347  0.06131595  0.00829587 -0.02207529]
+Choi trace: 2.0000 (should be 2)
+Extracted 3 Kraus operators
+CPTP error: 1.17e-12
+
+--- H characterization ---
+  Kraus rank: 3
+  CPTP error: 1.17e-12
+  tau (worst): 0.0450
+  tau (avg):   0.0414
+  Process fidelity: 0.6675
+  [cache] H: tau_worst=0.0450, rank=3, CPTP_err=1.17e-12
+  [cache] Characterizing X on hardware...
+=== 1-Qubit Process Tomography ===
+Building 12 tomography circuits...
+Submitting 12 circuits to <qiskit_quantuminspire.qi_backend.QIBackend object at 0x10e6f7320 (name=Tuna-9, id=6)>...
+Collecting measurement results...
+Reconstructing Choi matrix...
+Choi eigenvalues: [ 1.93874413  0.05223357  0.01241844 -0.00339614]
+Choi trace: 2.0000 (should be 2)
+Extracted 3 Kraus operators
+CPTP error: 7.61e-13
+
+--- X characterization ---
+  Kraus rank: 3
+  CPTP error: 7.61e-13
+  tau (worst): 0.0429
+  tau (avg):   0.0419
+  Process fidelity: 0.5622
+  [cache] X: tau_worst=0.0429, rank=3, CPTP_err=7.61e-13
+  [cache] Characterizing RY on hardware...
+=== 1-Qubit Process Tomography ===
+Building 12 tomography circuits...
+Submitting 12 circuits to <qiskit_quantuminspire.qi_backend.QIBackend object at 0x10e6f7320 (name=Tuna-9, id=6)>...
+Collecting measurement results...
+Reconstructing Choi matrix...
+Choi eigenvalues: [ 1.94930404e+00  5.78348138e-02  1.30252219e-03 -8.44137601e-03]
+Choi trace: 2.0000 (should be 2)
+Extracted 2 Kraus operators
+CPTP error: 1.40e-12
+
+--- RY characterization ---
+  Kraus rank: 2
+  CPTP error: 1.40e-12
+  tau (worst): 0.0490
+  tau (avg):   0.0394
+  Process fidelity: 0.8970
+  [cache] RY: tau_worst=0.0490, rank=2, CPTP_err=1.40e-12
+  [cache] Characterizing Rz on hardware...
+=== 1-Qubit Process Tomography ===
+Building 12 tomography circuits...
+Submitting 12 circuits to <qiskit_quantuminspire.qi_backend.QIBackend object at 0x10e6f7320 (name=Tuna-9, id=6)>...
+Collecting measurement results...
+Reconstructing Choi matrix...
+Choi eigenvalues: [ 1.92674315  0.06954577  0.01217243 -0.00846135]
+Choi trace: 2.0000 (should be 2)
+Extracted 3 Kraus operators
+CPTP error: 1.27e-12
+
+--- Rz characterization ---
+  Kraus rank: 3
+  CPTP error: 1.27e-12
+  tau (worst): 0.0638
+  tau (avg):   0.0510
+  Process fidelity: 0.9558
+  [cache] Rz: tau_worst=0.0638, rank=3, CPTP_err=1.27e-12
+  [cache] Characterizing S on hardware...
+=== 1-Qubit Process Tomography ===
+Building 12 tomography circuits...
+Submitting 12 circuits to <qiskit_quantuminspire.qi_backend.QIBackend object at 0x10e6f7320 (name=Tuna-9, id=6)>...
+Collecting measurement results...
+Reconstructing Choi matrix...
+Choi eigenvalues: [ 1.94489424  0.07707193  0.00756917 -0.02953534]
+Choi trace: 2.0000 (should be 2)
+Extracted 3 Kraus operators
+CPTP error: 5.97e-13
+
+--- S characterization ---
+  Kraus rank: 3
+  CPTP error: 5.97e-13
+  tau (worst): 0.0526
+  tau (avg):   0.0438
+  Process fidelity: 0.8819
+  [cache] S: tau_worst=0.0526, rank=3, CPTP_err=5.97e-13
+  [cache] Attempting 2Q tomography for CNOT...
+  [cache] CNOT: 2Q tomography succeeded
+
+  All gates characterized and cached.
+
+======================================================================
+  EXPERIMENT A: H2 VQE (2 qubit)
+  Ground truth E = -1.1373 Hartree
+======================================================================
+
+--- Depth 1 ---
+  Optimal params (noiseless): E = -1.9153
+  WARNING: Job failed for II: 'Timeout while waiting for job .'
+  WARNING: Job failed for IZ: 'Timeout while waiting for job .'
+  tau_naive=0.2045 (GO)  tau_bayesian=0.2166 (GO)
+  E_measured=0.1824  E_ideal=-1.9153  E_exact=-1.1373
+  Bayesian improvement: -5.9%
+
+--- Depth 2 ---
+  Optimal params (noiseless): E = -1.9153
+  tau_naive=0.3671 (GO)  tau_bayesian=0.3498 (GO)
+  E_measured=-0.5133  E_ideal=-1.9153  E_exact=-1.1373
+  Bayesian improvement: 4.7%
+
+--- Depth 4 ---
+  Optimal params (noiseless): E = -1.9153
+  tau_naive=0.5995 (STOP)  tau_bayesian=0.4915 (GO)
+  E_measured=-0.5197  E_ideal=-1.9153  E_exact=-1.1373
+  Bayesian improvement: 18.0%
+
+--- Depth 8 ---
+  Optimal params (noiseless): E = -1.9153
+  tau_naive=0.8396 (STOP)  tau_bayesian=0.6474 (STOP)
+  E_measured=-0.5639  E_ideal=-1.9153  E_exact=-1.1373
+  Bayesian improvement: 22.9%
+
+--- Depth 16 ---
+  Optimal params (noiseless): E = -1.9153
+  tau_naive=0.9743 (STOP)  tau_bayesian=0.7363 (STOP)
+  E_measured=-0.5811  E_ideal=-1.9153  E_exact=-1.1373
+  Bayesian improvement: 24.4%
+
+  ================================================================================
+  H2 VQE DEPTH COMPARISON
+  ================================================================================
+  Depth  #Gates  tau_naive  tau_bayes  F_naive  F_bayes   Naive   Bayes    E_meas     |dE|
+  -----  ------  ---------  ---------  -------  -------  ------  ------  --------  -------
+      1       3     0.2045     0.2166    0.796    0.783      GO      GO    0.1824   1.3197
+      2       6     0.3671     0.3498    0.633    0.650      GO      GO   -0.5133   0.6240
+      4      12     0.5995     0.4915    0.401    0.508    STOP      GO   -0.5197   0.6176
+      8      24     0.8396     0.6474    0.160    0.353    STOP    STOP   -0.5639   0.5734
+     16      48     0.9743     0.7363    0.026    0.264    STOP    STOP   -0.5811   0.5562
+
+  Exact energy: -1.1373
+  Naive says STOP at depth: 4
+  Bayesian says STOP at depth: 8
+  -> Bayesian allows depth 4 (E_error=0.6176) where naive would have stopped!
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/experiment_A_h2_vqe.json
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/benchmark_partial.json
+
+======================================================================
+  EXPERIMENT B: Bernstein-Vazirani (4 qubit)
+  Hidden string: s = 1011
+======================================================================
+
+--- 1 oracle repetition(s) ---
+  tau_naive=0.3966 (USEFUL)  tau_bayesian=0.2465 (USEFUL)
+  P(success)=0.8604  expected='1011'
+  Bayesian improvement: 37.9%
+
+--- 2 oracle repetition(s) ---
+  tau_naive=0.4737 (USEFUL)  tau_bayesian=0.2891 (USEFUL)
+  P(success)=0.9658  expected='0000'
+  Bayesian improvement: 39.0%
+
+--- 3 oracle repetition(s) ---
+  tau_naive=0.5409 (USELESS)  tau_bayesian=0.3073 (USEFUL)
+  P(success)=0.8379  expected='1011'
+  Bayesian improvement: 43.2%
+
+--- 5 oracle repetition(s) ---
+  tau_naive=0.6508 (USELESS)  tau_bayesian=0.3205 (USEFUL)
+  P(success)=0.8462  expected='1011'
+  Bayesian improvement: 50.8%
+
+--- 8 oracle repetition(s) ---
+  tau_naive=0.7683 (USELESS)  tau_bayesian=0.3322 (USEFUL)
+  P(success)=0.9736  expected='0000'
+  Bayesian improvement: 56.8%
+
+--- 12 oracle repetition(s) ---
+  tau_naive=0.8659 (USELESS)  tau_bayesian=0.3425 (USEFUL)
+  P(success)=0.9636  expected='0000'
+  Bayesian improvement: 60.4%
+
+  =====================================================================================
+  BERNSTEIN-VAZIRANI DEPTH COMPARISON (s='1011')
+  =====================================================================================
+  Reps  #Gates  Expected  tau_naive  tau_bayes    Naive    Bayes    P(ok)   Improv%
+  ----  ------  --------  ---------  ---------  -------  -------  -------  --------
+     1      11      1011     0.3966     0.2465       OK       OK    0.860     37.9%
+     2      14      0000     0.4737     0.2891       OK       OK    0.966     39.0%
+     3      17      1011     0.5409     0.3073     DEAD       OK    0.838     43.2%
+     5      23      1011     0.6508     0.3205     DEAD       OK    0.846     50.8%
+     8      32      0000     0.7683     0.3322     DEAD       OK    0.974     56.8%
+    12      44      0000     0.8659     0.3425     DEAD       OK    0.964     60.4%
+
+  -> At 3 reps: naive says DEAD but P(success)=0.838!
+     tau-chrono correctly says: still useful (F_bayes=0.693)
+
+  -> At 5 reps: naive says DEAD but P(success)=0.846!
+     tau-chrono correctly says: still useful (F_bayes=0.680)
+
+  -> At 8 reps: naive says DEAD but P(success)=0.974!
+     tau-chrono correctly says: still useful (F_bayes=0.668)
+
+  -> At 12 reps: naive says DEAD but P(success)=0.964!
+     tau-chrono correctly says: still useful (F_bayes=0.658)
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/experiment_B_bernstein_vazirani.json
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/benchmark_partial.json
+
+======================================================================
+  EXPERIMENT C: LiH VQE (4 qubit)
+  Ground truth E ~ -7.8825 Hartree
+======================================================================
+
+--- Depth 1 ---
+  Optimal params (noiseless): E = -8.1437
+  tau_naive=0.4327 (GO)  tau_bayesian=0.3651 (GO)
+  E_measured=-6.5463  E_ideal=-8.1437  E_exact=-7.8825
+  Bayesian improvement: 15.6%
+
+--- Depth 2 ---
+  Optimal params (noiseless): E = -8.1489
+  tau_naive=0.6781 (STOP)  tau_bayesian=0.4568 (GO)
+  E_measured=-6.5488  E_ideal=-8.1489  E_exact=-7.8825
+  Bayesian improvement: 32.6%
+
+--- Depth 4 ---
+  Optimal params (noiseless): E = -8.1500
+  tau_naive=0.8964 (STOP)  tau_bayesian=0.5446 (STOP)
+  E_measured=-6.7444  E_ideal=-8.1500  E_exact=-7.8825
+  Bayesian improvement: 39.2%
+
+--- Depth 8 ---
+  Optimal params (noiseless): E = -8.1477
+  tau_naive=0.9893 (STOP)  tau_bayesian=0.6521 (STOP)
+  E_measured=-6.8595  E_ideal=-8.1477  E_exact=-7.8825
+  Bayesian improvement: 34.1%
+
+--- Depth 16 ---
+  Optimal params (noiseless): E = -8.1486
+  tau_naive=0.9999 (STOP)  tau_bayesian=0.7792 (STOP)
+  E_measured=-7.0623  E_ideal=-8.1486  E_exact=-7.8825
+  Bayesian improvement: 22.1%
+
+  ================================================================================
+  LiH VQE DEPTH COMPARISON
+  ================================================================================
+  Depth  #Gates  tau_naive  tau_bayes  F_naive  F_bayes   Naive   Bayes    E_meas     |dE|
+  -----  ------  ---------  ---------  -------  -------  ------  ------  --------  -------
+      1       7     0.4327     0.3651    0.567    0.635      GO      GO   -6.5463   1.3362
+      2      14     0.6781     0.4568    0.322    0.543    STOP      GO   -6.5488   1.3337
+      4      28     0.8964     0.5446    0.104    0.455    STOP    STOP   -6.7444   1.1381
+      8      56     0.9893     0.6521    0.011    0.348    STOP    STOP   -6.8595   1.0230
+     16     112     0.9999     0.7792    0.000    0.221    STOP    STOP   -7.0623   0.8202
+
+  Exact energy: -7.8825
+  Naive says STOP at depth: 2
+  Bayesian says STOP at depth: 4
+  -> Bayesian allows depth 2 (E_error=1.3337) where naive would have stopped!
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/experiment_C_lih_vqe.json
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/benchmark_summary.json
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/benchmark_all_results.json
+
+======================================================================
+  BENCHMARK COMPLETE
+======================================================================
+
+  Results saved to: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/
+  Files:
+    experiment_A_h2_vqe.json
+    experiment_B_bernstein_vazirani.json
+    experiment_C_lih_vqe.json
+    benchmark_summary.json
+    benchmark_all_results.json
+
+  Key findings:
+    [A] H2 VQE:  naive stops at depth 4, Bayesian stops at depth 8
+    [B] BV:      4 cases where naive was wrong, max improvement 60.4%
+    [C] LiH VQE: naive stops at depth 2, Bayesian stops at depth 4
+
+======================================================================

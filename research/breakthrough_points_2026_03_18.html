@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Five Breakthrough Points — Sheng-Kai Huang — 2026-03-18</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true
+  },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre']
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+/* ===== Reset & Base ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-primary:   #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card:      #1a2035;
+  --bg-hover:     #1e2a45;
+  --accent-blue:  #3b82f6;
+  --accent-cyan:  #06b6d4;
+  --accent-green: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-red:   #ef4444;
+  --accent-purple:#a78bfa;
+  --text-primary: #e2e8f0;
+  --text-secondary:#94a3b8;
+  --text-muted:   #64748b;
+  --border:       #1e293b;
+  --glow-blue:    rgba(59,130,246,0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Menlo', monospace;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* ===== Sticky Nav ===== */
+nav.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(10,14,26,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1rem;
+}
+nav.top-nav .nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.5rem 0;
+}
+nav.top-nav .nav-inner::-webkit-scrollbar { display: none; }
+nav.top-nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.78rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+nav.top-nav a:hover {
+  color: var(--accent-cyan);
+  background: var(--glow-blue);
+}
+nav.top-nav .nav-brand {
+  color: var(--accent-cyan);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Main Container ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ===== Hero ===== */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.hero h1 {
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--accent-cyan);
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+.hero .subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+.hero .meta {
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* ===== Section ===== */
+section { margin-bottom: 2.5rem; }
+section > h2 {
+  font-size: 1.25rem;
+  color: var(--accent-blue);
+  border-left: 4px solid var(--accent-blue);
+  padding-left: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ===== Card ===== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ===== Collapsible ===== */
+.collapsible {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.collapsible.open { border-color: var(--accent-blue); }
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.25rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.collapsible-header:hover { background: var(--bg-hover); }
+.collapsible-header h3 {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.collapsible-header .arrow {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  transition: transform 0.25s;
+}
+.collapsible.open .collapsible-header .arrow { transform: rotate(90deg); }
+.collapsible-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.collapsible.open .collapsible-body {
+  max-height: 8000px;
+}
+.collapsible-body-inner {
+  padding: 0 1.25rem 1.1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+/* ===== Status badges ===== */
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+.badge-done   { background: rgba(16,185,129,0.15); color: var(--accent-green); }
+.badge-wip    { background: rgba(245,158,11,0.15); color: var(--accent-amber); }
+.badge-warn   { background: rgba(239,68,68,0.12);  color: var(--accent-red);   }
+.badge-idea   { background: rgba(167,139,250,0.15);color: var(--accent-purple);}
+.badge-hard   { background: rgba(239,68,68,0.2);   color: #f87171; }
+.badge-medium { background: rgba(245,158,11,0.15); color: var(--accent-amber); }
+
+/* ===== Item list ===== */
+ul.item-list { list-style: none; padding: 0; }
+ul.item-list li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(30,41,59,0.5);
+  font-size: 0.88rem;
+}
+ul.item-list li:last-child { border-bottom: none; }
+
+/* ===== Table ===== */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin: 0.75rem 0;
+}
+.styled-table th, .styled-table td {
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.styled-table th {
+  color: var(--accent-cyan);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.styled-table td { color: var(--text-secondary); }
+
+/* ===== Equation highlight ===== */
+.eq-box {
+  background: rgba(6,182,212,0.08);
+  border: 1px solid rgba(6,182,212,0.2);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+/* ===== Callout ===== */
+.callout {
+  background: rgba(245,158,11,0.08);
+  border-left: 3px solid var(--accent-amber);
+  padding: 0.75rem 1rem;
+  border-radius: 0 8px 8px 0;
+  margin: 0.75rem 0;
+  font-size: 0.88rem;
+  color: var(--accent-amber);
+}
+.callout-cyan {
+  background: rgba(6,182,212,0.08);
+  border-left: 3px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+.callout-green {
+  background: rgba(16,185,129,0.08);
+  border-left: 3px solid var(--accent-green);
+  color: var(--accent-green);
+}
+.callout-red {
+  background: rgba(239,68,68,0.08);
+  border-left: 3px solid var(--accent-red);
+  color: var(--accent-red);
+}
+.callout-purple {
+  background: rgba(167,139,250,0.08);
+  border-left: 3px solid var(--accent-purple);
+  color: var(--accent-purple);
+}
+
+/* ===== Step list ===== */
+.step-list {
+  list-style: none;
+  padding: 0;
+  counter-reset: step-counter;
+}
+.step-list li {
+  counter-increment: step-counter;
+  padding: 0.5rem 0 0.5rem 2.2rem;
+  position: relative;
+  border-bottom: 1px solid rgba(30,41,59,0.3);
+  font-size: 0.88rem;
+}
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  background: rgba(59,130,246,0.15);
+  color: var(--accent-blue);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Derivation block ===== */
+.derivation {
+  background: rgba(10,14,26,0.6);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0;
+  font-size: 0.88rem;
+}
+.derivation p {
+  margin-bottom: 0.4rem;
+}
+
+/* ===== Difficulty tag ===== */
+.difficulty {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+.diff-medium {
+  background: rgba(245,158,11,0.15);
+  color: var(--accent-amber);
+}
+.diff-hard {
+  background: rgba(239,68,68,0.15);
+  color: var(--accent-red);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 700px) {
+  .container { padding: 1rem 0.75rem 3rem; }
+  .hero { padding: 2rem 0.5rem 1.5rem; }
+  .card { padding: 1rem; }
+  .collapsible-header { padding: 0.75rem 1rem; }
+  .collapsible-body-inner { padding: 0 1rem 1rem; }
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+/* ===== Penrose dialogue ===== */
+.dialogue {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin: 0.75rem 0;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+.dialogue .speaker {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--accent-purple);
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="top-nav">
+  <div class="nav-inner">
+    <span class="nav-brand">&Sigma;</span>
+    <a href="#bp1">BP-1 OR vs Petz</a>
+    <a href="#bp2">&Sigma; &rarr; E_G</a>
+    <a href="#bp3">BP-3 Cat</a>
+    <a href="#bp4">Born Rule</a>
+    <a href="#bp5">K(Q) from QRE</a>
+    <a href="#priority">Priority</a>
+    <a href="#penrose">Penrose</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<div class="container">
+
+<header class="hero">
+  <h1>Five Breakthrough Points</h1>
+  <p class="subtitle">Theoretical Frontiers of the \(\Sigma = D(\rho_{\text{spacetime}} \| \rho_{\text{matter}})\) Framework</p>
+  <p class="meta">Sheng-Kai Huang &mdash; 2026-03-18 &mdash; Version 1.0</p>
+</header>
+
+<!-- ========================================================================== -->
+<!-- BREAKTHROUGH POINT 1 -->
+<!-- ========================================================================== -->
+<section id="bp1">
+  <h2>Breakthrough 1 &mdash; &ldquo;Looks Like Collapse&rdquo; vs &ldquo;Real Collapse&rdquo;</h2>
+
+  <div class="card">
+    <p style="color:var(--accent-cyan);font-weight:600;margin-bottom:0.5rem;">The Problem</p>
+    <p>Penrose argues that collapse is <strong>ontological</strong> &mdash; it really happens. Our framework says collapse is <strong>epistemological</strong> &mdash; it is Petz recovery failure. The breakthrough is to prove that the two are <em>observationally indistinguishable</em> in all measurable quantities.</p>
+  </div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Theorem to Prove</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <div class="eq-box">
+        \[\|\rho_{\text{OR}}(t) - \rho_{\text{Petz}}(t)\|_1 = 0\]
+      </div>
+      <p>For any quantum system \(S\) in a gravitational field, Penrose's objective reduction prediction \(\rho_{\text{OR}}(t)\) and the Petz failure prediction \(\rho_{\text{Petz}}(t)\) yield identical density matrices in the trace norm.</p>
+    </div></div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Method &amp; Derivation Strategy</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <div class="derivation">
+        <p><strong>Penrose OR:</strong></p>
+        <p>\[\rho_{\text{OR}}(t) = \sum_i p_i \,|E_i\rangle\langle E_i|\]</p>
+        <p>Diagonal in the energy eigenbasis after decoherence time \(t \sim \hbar / E_G\).</p>
+      </div>
+      <div class="derivation">
+        <p><strong>Petz failure:</strong></p>
+        <p>\[\rho_{\text{Petz}}(t) = \mathrm{Tr}_E\!\bigl[U(t)\,(\rho_S \otimes \rho_E)\,U^\dagger(t)\bigr]\]</p>
+        <p>Reduced state after tracing out the environment (including gravitational degrees of freedom).</p>
+      </div>
+      <div class="callout callout-cyan">
+        <strong>Key step:</strong> Prove that when the environment includes gravitational degrees of freedom, \(\mathrm{Tr}_E\) yields exactly the Penrose OR density matrix. That is, gravitational decoherence reproduces objective reduction.
+      </div>
+      <p style="margin-top:0.75rem;">
+        <span class="difficulty diff-hard">MEDIUM-HARD</span>
+        Depends on Breakthrough 2 (\(\Sigma \to E_G\)).
+      </p>
+    </div></div>
+  </div>
+</section>
+
+<!-- ========================================================================== -->
+<!-- BREAKTHROUGH POINT 2 -->
+<!-- ========================================================================== -->
+<section id="bp2">
+  <h2>Breakthrough 2 &mdash; Deriving \(E_G\) from \(\Sigma\)</h2>
+
+  <div class="card">
+    <p style="color:var(--accent-cyan);font-weight:600;margin-bottom:0.5rem;">The Problem</p>
+    <p>In Penrose's Di&oacute;si&ndash;Penrose model, the collapse timescale \(\tau_{\text{DP}} = \hbar / E_G\) requires \(E_G\) as an <em>input</em>. If we can derive \(E_G\) from \(\Sigma\), the framework subsumes Penrose's theory entirely.</p>
+  </div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Derivation Route</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <p>Consider mass \(m\) in spatial superposition at positions \(A\) and \(B\):</p>
+
+      <ol class="step-list">
+        <li>Compute \(\Sigma\) at each branch:
+          \[\Sigma_A = 2\ln Q_A = -\ln(-g_{00}(A)), \quad \Sigma_B = -\ln(-g_{00}(B))\]
+        </li>
+        <li>Define the \(\Sigma\)-separation:
+          \[\Delta\Sigma = |\Sigma_A - \Sigma_B| = \left|\ln\!\frac{g_{00}(B)}{g_{00}(A)}\right|\]
+        </li>
+        <li>Weak-field approximation (\(g_{00} \approx -(1 + 2\Phi/c^2)\)):
+          \[\Delta\Sigma \approx \frac{2|\Phi_A - \Phi_B|}{c^2}\]
+        </li>
+        <li>Penrose's gravitational self-energy:
+          \[E_G = \frac{1}{G}\int |\nabla\Phi_A - \nabla\Phi_B|^2\,d^3x\]
+        </li>
+        <li><strong>Conjecture:</strong>
+          <div class="eq-box">
+            \[E_G = \frac{c^4}{G}\,\frac{1}{\mathcal{C}}\int (\Delta\Sigma)^2\,d^3x\]
+          </div>
+          where \(\mathcal{C}\) is a geometric constant.
+        </li>
+      </ol>
+
+      <div class="callout callout-green">
+        <strong>If confirmed:</strong> \(\tau_{\text{DP}} = \hbar / E_G\) becomes a <em>derived</em> consequence of the \(\Sigma\) framework, not an assumption.
+      </div>
+
+      <p style="margin-top:0.75rem;">
+        <span class="difficulty diff-hard">MEDIUM-HARD</span>
+      </p>
+    </div></div>
+  </div>
+</section>
+
+<!-- ========================================================================== -->
+<!-- BREAKTHROUGH POINT 3 -->
+<!-- ========================================================================== -->
+<section id="bp3">
+  <h2>Breakthrough 3 &mdash; Schr&ouml;dinger's Cat Without an Observer</h2>
+
+  <div class="card">
+    <p style="color:var(--accent-cyan);font-weight:600;margin-bottom:0.5rem;">The Problem</p>
+    <p>Penrose asks: &ldquo;In a universe with no observer, is the cat dead or alive?&rdquo; This is the deepest philosophical objection to epistemological interpretations.</p>
+  </div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>The Breakthrough: Redefine &ldquo;Observer&rdquo;</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <div class="callout callout-purple">
+        <strong>Core insight:</strong> &ldquo;Observer&rdquo; = any subsystem partition. No consciousness required.
+      </div>
+
+      <ul class="item-list">
+        <li>\(\tau\) does not require a conscious observer</li>
+        <li>Any \(S+E\) partition defines \(\tau_{S|E}\)</li>
+        <li>A rock has \(\tau\). A photon has \(\tau\). A cat has \(\tau\).</li>
+        <li>The universe as a whole: \(\tau = 0\) (unitary)</li>
+      </ul>
+
+      <div class="derivation" style="margin-top:1rem;">
+        <p><strong>The cat argument:</strong></p>
+        <p>A cat is an open system of \(\sim 10^{26}\) atoms. Once the cat's internal degrees of freedom entangle with the poison:</p>
+        <p>\[\Sigma_{\text{cat}} \sim 10^{23}\]</p>
+        <p>\[F_{\text{cat}} \sim \exp(-10^{23}/2) \approx 0\]</p>
+        <p>\[\tau_{\text{cat}} \approx 1\]</p>
+        <p>The cat &ldquo;observes&rdquo; itself. Petz recovery fails in \(\sim 10^{-43}\) seconds. <strong>No external observer needed.</strong></p>
+      </div>
+
+      <div class="callout" style="margin-top:1rem;">
+        <strong>Required mathematics:</strong> Prove that for an \(N\)-body system, \(\Sigma \sim N\) (extensive) and \(F \sim \exp(-N)\).
+      </div>
+
+      <p style="margin-top:0.75rem;">
+        <span class="difficulty diff-medium">MEDIUM</span>
+      </p>
+    </div></div>
+  </div>
+</section>
+
+<!-- ========================================================================== -->
+<!-- BREAKTHROUGH POINT 4 -->
+<!-- ========================================================================== -->
+<section id="bp4">
+  <h2>Breakthrough 4 &mdash; Born Rule from Retrodiction</h2>
+
+  <div class="card">
+    <p style="color:var(--accent-cyan);font-weight:600;margin-bottom:0.5rem;">The Problem</p>
+    <p>The framework currently <em>assumes</em> the Born rule. This is circular: \(\tau = 1 - F\) relies on trace and inner product structures that presuppose Born's rule. Can we derive it instead?</p>
+  </div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Possible Route (Parzygnat&ndash;Buscemi 2023)</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ol class="step-list">
+        <li><strong>Axiom:</strong> Retrodiction exists and is unique.</li>
+        <li>The Petz map is the unique Bayesian inverse (proven by Parzygnat &amp; Buscemi, 2023).</li>
+        <li>The Petz map's definition requires trace + inner product &rarr; requires Born rule.</li>
+        <li><strong>Reverse the logic:</strong> If we insist on retrodiction uniqueness as the fundamental axiom, is the Born rule the <em>only</em> probability rule compatible with it?</li>
+        <li>If provable: Born rule is derived from &ldquo;information reversibility.&rdquo;</li>
+      </ol>
+
+      <div class="eq-box">
+        \[\text{Retrodiction uniqueness} \;\Longrightarrow\; p_i = |\langle \psi | \phi_i \rangle|^2\]
+      </div>
+
+      <div class="callout callout-red">
+        <strong>Impact:</strong> Revolutionary. Would resolve one of the deepest foundations problems in quantum mechanics.
+      </div>
+
+      <p style="margin-top:0.75rem;">
+        <span class="difficulty diff-hard">HARD</span>
+        Long-term research target.
+      </p>
+    </div></div>
+  </div>
+</section>
+
+<!-- ========================================================================== -->
+<!-- BREAKTHROUGH POINT 5 -->
+<!-- ========================================================================== -->
+<section id="bp5">
+  <h2>Breakthrough 5 &mdash; \(K(Q) = \mu^2(Q-1)^2\) from QRE</h2>
+
+  <div class="card">
+    <p style="color:var(--accent-cyan);font-weight:600;margin-bottom:0.5rem;">The Problem</p>
+    <p>Why is the Khronon kinetic function quadratic and not some other form? This is a theoretical gap: \(K(Q)\) is currently assumed, not derived.</p>
+  </div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Derivation Route (80% Complete)</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ol class="step-list">
+        <li>The Khronon \(k=0\) mode is a bosonic collective mode.</li>
+        <li>Coherent state displacement: \(\alpha = Q - 1\).</li>
+        <li>Quantum relative entropy of a coherent state vs vacuum:
+          <div class="eq-box">
+            \[D\!\bigl(|\alpha\rangle\langle\alpha| \,\big\|\, |0\rangle\langle 0|\bigr) = |\alpha|^2 = (Q-1)^2\]
+          </div>
+        </li>
+        <li>Therefore the kinetic function is:
+          \[K(Q) = \mu^2 \times D(\rho_Q \| \rho_{\text{vacuum}}) = \mu^2(Q-1)^2\]
+        </li>
+      </ol>
+
+      <div class="callout callout-cyan">
+        <strong>Remaining step:</strong> Rigorously establish that the Khronon zero mode on FRW backgrounds is Gaussian. This would close the derivation completely.
+      </div>
+
+      <p style="margin-top:0.75rem;">
+        <span class="difficulty diff-medium">MEDIUM</span>
+      </p>
+    </div></div>
+  </div>
+</section>
+
+<!-- ========================================================================== -->
+<!-- PRIORITY TABLE -->
+<!-- ========================================================================== -->
+<section id="priority">
+  <h2>Priority Ranking</h2>
+
+  <div class="card">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Breakthrough</th>
+          <th>Difficulty</th>
+          <th>Impact</th>
+          <th>Order</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--accent-green);font-weight:700;">3</td>
+          <td>\(\Sigma \sim N\) extensive</td>
+          <td><span class="difficulty diff-medium">MEDIUM</span></td>
+          <td>Resolves philosophical objection</td>
+          <td style="color:var(--accent-green);font-weight:600;">DO FIRST</td>
+        </tr>
+        <tr>
+          <td style="color:var(--accent-green);font-weight:700;">2</td>
+          <td>\(\Sigma \to E_G\)</td>
+          <td><span class="difficulty diff-hard">MED-HARD</span></td>
+          <td>Subsumes Penrose</td>
+          <td style="color:var(--accent-green);font-weight:600;">DO FIRST</td>
+        </tr>
+        <tr>
+          <td style="color:var(--accent-amber);font-weight:700;">5</td>
+          <td>\(K(Q)\) from QRE</td>
+          <td><span class="difficulty diff-medium">MEDIUM</span></td>
+          <td>Closes theory gap</td>
+          <td style="color:var(--accent-amber);">CAN DO</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-muted);font-weight:700;">1</td>
+          <td>OR = Petz equivalence</td>
+          <td><span class="difficulty diff-hard">HARD</span></td>
+          <td>Ends the debate</td>
+          <td style="color:var(--text-muted);">NEEDS #2</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-muted);font-weight:700;">4</td>
+          <td>Born rule from retrodiction</td>
+          <td><span class="difficulty diff-hard">HARD</span></td>
+          <td style="color:var(--accent-purple);font-weight:600;">Revolutionary</td>
+          <td style="color:var(--text-muted);">LONG-TERM</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========================================================================== -->
+<!-- PENROSE REACTION ANALYSIS -->
+<!-- ========================================================================== -->
+<section id="penrose">
+  <h2>Penrose &mdash; Anticipated Reaction Analysis</h2>
+
+  <div class="card" style="border-left:3px solid var(--accent-green);">
+    <p style="color:var(--accent-green);font-weight:600;margin-bottom:0.5rem;">He Would Like</p>
+    <ul class="item-list">
+      <li>Weyl curvature hypothesis gets a QIT quantification: \(\Sigma_{\text{grav}} = 0\) at Big Bang</li>
+      <li>Channel Theorem: \(\eta = -g_{00} \to F = 1/Q\)</li>
+      <li>Exponential metric &mdash; no event horizon</li>
+      <li>Natural sympathy for heterodox ideas</li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--accent-red);">
+    <p style="color:var(--accent-red);font-weight:600;margin-bottom:0.5rem;">He Would Object</p>
+    <ul class="item-list">
+      <li>&ldquo;No need to modify QM&rdquo; &mdash; this contradicts his core belief</li>
+      <li>Epistemological vs ontological collapse: <em>he wants ontological</em></li>
+      <li>Will ask: &ldquo;What happens to the cat when no one is looking?&rdquo;</li>
+    </ul>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>His Most Likely Response</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <div class="dialogue">
+        <div class="speaker">Penrose (anticipated)</div>
+        &ldquo;This is interesting &mdash; you've given a precise information-theoretic formulation of my Weyl curvature hypothesis, and the channel theorem is elegant. But I think you're wrong that quantum mechanics is sufficient. Your Petz recovery failure is epistemological &mdash; about what an observer can know. My objective reduction is ontological &mdash; about what actually happens.&rdquo;
+      </div>
+    </div></div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Engagement Strategy</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <div class="callout callout-cyan">
+        <strong>Lead with Paper 2</strong> (exponential metric), not \(\tau = 1 - F\). Penrose cares deeply about singularity structure. The exponential metric = no event horizon will get his serious attention.
+      </div>
+      <ul class="item-list" style="margin-top:0.75rem;">
+        <li>Paper 2 as the entry point &mdash; singularity structure is his territory</li>
+        <li>Then bridge to Channel Theorem and \(\Sigma = 2\ln Q\)</li>
+        <li>Save the collapse debate for after he is engaged</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Penrose vs Wilde &mdash; Comparison</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <table class="styled-table">
+        <thead>
+          <tr><th>Aspect</th><th>Wilde (Cornell)</th><th>Penrose (Oxford)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Domain</td>
+            <td>QIT rigour</td>
+            <td>Gravity-quantum crossover</td>
+          </tr>
+          <tr>
+            <td>Likely concern</td>
+            <td>Gravitational application too speculative</td>
+            <td>Wants to modify QM (we don't)</td>
+          </tr>
+          <tr>
+            <td>Temperament</td>
+            <td>Cool but fair</td>
+            <td>Enthusiastic but will debate</td>
+          </tr>
+          <tr>
+            <td>Best entry</td>
+            <td>Paper 1 (pure QIT)</td>
+            <td>Paper 2 (exponential metric)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+  </div>
+</section>
+
+<footer>
+  Five Breakthrough Points v1.0 &mdash; Sheng-Kai Huang &mdash; 2026-03-18 &mdash; &Sigma; = D(&rho;<sub>spacetime</sub> &Vert; &rho;<sub>matter</sub>)
+</footer>
+
+</div><!-- .container -->
+
+<!-- ===== JavaScript ===== -->
+<script>
+function toggleCollapsible(header) {
+  const parent = header.parentElement;
+  parent.classList.toggle('open');
+}
+
+// Smooth-scroll for nav links
+document.querySelectorAll('nav.top-nav a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Keyboard shortcuts: 'e' expand all, 'c' collapse all
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'e') {
+    document.querySelectorAll('.collapsible').forEach(c => c.classList.add('open'));
+  }
+  if (e.key === 'c') {
+    document.querySelectorAll('.collapsible').forEach(c => c.classList.remove('open'));
+  }
+});
+</script>
+
+</body>
+</html>

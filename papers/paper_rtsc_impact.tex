@@ -1,0 +1,697 @@
+% paper_rtsc_impact.tex
+% From R_tau to the Second Electrical Revolution
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper_rtsc_impact.tex && pdflatex paper_rtsc_impact.tex
+% Target: ~5 pages, Physical Review Letters style
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+% Shared macros (Paper 1 conventions)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\tauasym}{\tau}
+% Paper-specific macros
+\newcommand{\taueff}{\tauasym_{\mathrm{eff}}}
+\newcommand{\taudec}{\tauasym_{\mathrm{ph}}}
+\newcommand{\Icoop}{I_{\mathrm{Cooper}}}
+\newcommand{\Ipair}{I_{\mathrm{pair}}}
+\newcommand{\Rtau}{R_{\tauasym}}
+\newcommand{\Tc}{T_{\mathrm{c}}}
+\newcommand{\oD}{\omega_{\mathrm{D}}}
+\newcommand{\EF}{E_{\mathrm{F}}}
+\newcommand{\ThetaD}{\Theta_{\mathrm{D}}}
+
+\begin{document}
+
+\title{From $R_\tau$ to the Second Electrical Revolution:\\
+Timeline and Technological Implications of Room-Temperature Superconductivity}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+We combine the $\Rtau$ screening criterion for
+superconductivity---derived from the Petz recovery
+framework---with current experimental progress to construct
+a quantitative timeline for room-temperature superconductivity
+(RTSC).  The analysis identifies four milestones:
+$0\,^\circ$C superconductivity at ambient pressure (2027--2030),
+room-temperature ($20\,^\circ$C) new materials (2030--2035),
+first commercial products (2035--2045), and systemic
+technological transformation (2040--2060).  For each
+RTSC-enabled technology---lossless power transmission, compact
+MRI, nuclear fusion, superconducting energy storage,
+frictionless transport, and low-power computing---we provide
+quantitative impact estimates grounded in physics.  Global
+transmission losses of $\sim 2000\,$TWh/year would be
+eliminated, saving $\sim \$200\,$B/year and
+$\sim 1.5\,$Gt\,CO$_2$/year; MRI costs would decrease from
+$\$1.5$--$3\,$M to $\$100$--$200\,$K per unit, enabling
+universal diagnostic access; fusion reactor size and cost
+could decrease by an order of magnitude.  We also delineate
+what RTSC \emph{cannot} improve---quantum computing coherence,
+battery chemistry, and optical communication---to temper
+overenthusiasm.  The $\Rtau$ screener provides a
+community-accessible tool for accelerating the search.
+\end{abstract}
+
+\maketitle
+
+%=======================================================================
+\section{Introduction}
+\label{sec:intro}
+%=======================================================================
+
+The pursuit of room-temperature superconductivity (RTSC)---zero
+electrical resistance at $T \geq 300\,$K and ambient
+pressure---spans more than a century since Onnes's discovery of
+superconductivity in mercury at $4.2\,$K~\cite{Onnes1911}.
+Progress accelerated dramatically in recent years:
+the compressed hydride LaH$_{10}$ achieves
+$\Tc = 260\,$K $= -13\,^\circ$C at $170\,$GPa~\cite{Somayazulu2019,Drozdov2019},
+while Deng and Chu demonstrated that pressure-quenched
+HgBaCaCuO retains $\Tc = 151\,$K at ambient
+pressure~\cite{DengChu2026}---the highest ambient-pressure
+$\Tc$ ever recorded.
+
+Despite this empirical momentum, the field has lacked a
+\emph{quantitative} framework for predicting which materials
+can achieve RTSC and on what timescale.  The $\Rtau$ screening
+criterion~\cite{HuangRTSC2026}, derived from the Petz recovery
+formalism~\cite{Huang2026,Petz1988}, provides exactly this:
+\begin{equation}\label{eq:Rtau}
+  \Rtau(T) \equiv \frac{\Ipair(T)}{\taudec(T)} \geq 1
+  \quad\Longrightarrow\quad \text{superconductivity at $T$}\,,
+\end{equation}
+where $\Ipair$ is the total pairing information (summed over
+all channels) and $\taudec$ is the phonon-induced decoherence.
+The criterion is mechanism-independent and computable from
+materials database quantities~\cite{HuangRTSC2026}.
+
+In this paper, we leverage the $\Rtau$ framework together with
+current experimental data to construct a timeline for RTSC
+milestones (Sec.~\ref{sec:timeline}), provide quantitative
+impact estimates for six key technologies
+(Sec.~\ref{sec:impact}), delineate what RTSC cannot achieve
+(Sec.~\ref{sec:cannot}), and outline a research roadmap
+(Sec.~\ref{sec:roadmap}).
+
+%=======================================================================
+\section{Timeline predictions based on $\Rtau$}
+\label{sec:timeline}
+%=======================================================================
+
+The following predictions are grounded in two inputs:
+(i)~$\Rtau$ values computed for known and predicted materials
+in Ref.~\cite{HuangRTSC2026}, and (ii)~the demonstrated
+success of pressure-quench techniques~\cite{DengChu2026}.
+Confidence levels reflect the number of independent assumptions
+required.
+
+\subsection{Prediction 1 (2027--2030): $0\,^\circ$C at ambient pressure}
+
+LaH$_{10}$ at $170\,$GPa has $\Rtau = 3.47$, far exceeding
+unity~\cite{HuangRTSC2026}.  Its $\Tc = 260\,$K $= -13\,^\circ$C
+is already within $13\,$K of the $0\,^\circ$C threshold.  The
+critical question is whether the $Fm\bar{3}m$ clathrate
+structure can be metastably retained at ambient pressure.
+
+The pressure-quench approach demonstrated by Deng and
+Chu~\cite{DengChu2026} for HgBaCaCuO---a cuprate with very
+different chemistry---establishes the viability of kinetic
+trapping.  Applying the same technique to LaH$_{10}$:
+rapid decompression at $T < 20\,$K exploits the negligible
+hydrogen diffusivity ($D_H \sim 10^{-30}\,$cm$^2$/s) to
+freeze the clathrate cage.
+
+Even with partial structural decomposition reducing $\Tc$ by
+30\%, the $\Rtau$ analysis gives
+\begin{equation}\label{eq:quench}
+  \Rtau^{\mathrm{quench}} \approx 0.7 \times 3.47 = 2.43 \gg 1\,,
+\end{equation}
+yielding $\Tc \sim 180$--$230\,$K $\approx -90$ to
+$-40\,^\circ$C in the pessimistic case, and
+$\Tc \sim 240$--$260\,$K $\approx -30$ to $-13\,^\circ$C
+if the structure is largely preserved.  Encapsulation in
+amorphous boron nitride could suppress grain-boundary
+hydrogen loss~\cite{HuangRTSC2026}.
+
+\emph{Confidence: HIGH.}  The physics (large $\Rtau$ surplus)
+and the technique (pressure quench) are both demonstrated;
+the remaining challenge is engineering.
+
+\subsection{Prediction 2 (2030--2035): Room temperature at ambient pressure}
+
+For true RTSC ($\Tc > 293\,$K at 1\,atm), the $\Rtau$
+framework identifies three material families that could
+achieve $\Rtau(300\,\mathrm{K}) \geq 1$ through multi-channel
+pairing~\cite{HuangRTSC2026}:
+
+\emph{(a) Clathrate hydrides} (e.g., LaBeH$_8$-type, CaH$_6$
+variants).---Computationally predicted $\Tc > 300\,$K under
+pressure.  Materials with Debye temperature $\ThetaD > 1200\,$K
+and electron-phonon coupling $\lambda > 2.5$ achieve
+$\Rtau > 1$ at $300\,$K via a single phonon channel.  The
+challenge: retaining these parameters at ambient pressure.
+
+\emph{(b) Nickelate hydrides} (e.g., La$_3$Ni$_2$O$_7$+H).---
+Adding hydrogen to the bilayer nickelate introduces a fourth
+pairing channel.  With three coherent channels each contributing
+$\Rtau^{(i)} \sim 0.4$, the multi-channel sum
+$\Rtau^{\mathrm{multi}} = \sum_i \Rtau^{(i)} \sim 1.2$
+exceeds unity~\cite{HuangRTSC2026}.
+
+\emph{(c) Diamond-scaffold hydrides} (H:B:C:N).---Hydrogen
+and nitrogen co-doped boron-carbon diamond combines the
+highest known $\ThetaD$ ($> 2000\,$K) with multiple
+dopant-induced pairing channels.
+
+\emph{Confidence: MEDIUM.}  Requires discovery of new
+ambient-pressure materials or successful metastable
+stabilization of high-pressure phases.
+
+\subsection{Prediction 3 (2035--2045): Commercial RTSC products}
+
+Historical precedent sets the timescale from discovery to
+commercialization.  YBa$_2$Cu$_3$O$_{7-\delta}$ (YBCO) was
+discovered in 1987~\cite{Wu1987}; the first commercial YBCO
+wire entered the market in 1996---a 9-year gap~\cite{Larbalestier2001}.
+MgB$_2$ ($\Tc = 39\,$K, discovered 2001) reached commercial
+wire by 2007~\cite{Tomsic2007}.  Both required solving
+engineering challenges: wire drawing, contact resistance,
+critical current density ($J_c > 10^4\,$A/cm$^2$ for practical
+use), and upper critical field ($H_{c2} > 10\,$T for
+magnets).
+
+For RTSC, the absence of cryogenics removes the most expensive
+and fragile subsystem, but the material-specific challenges
+(grain-boundary weak links, anisotropy, brittleness) will still
+require $\sim 10$ years of engineering development.  First
+products: RTSC power cables for short-distance urban grids and
+compact MRI magnets.
+
+\emph{Confidence: MEDIUM.}  Depends on Predictions 1--2.
+
+\subsection{Prediction 4 (2040--2060): RTSC-enabled transformation}
+
+Systemic transformation---global lossless power grids,
+mass-produced personal maglev, portable MRI in every
+ambulance---requires not just an RTSC material but mature
+manufacturing at scale: kilometer-length wires, reliable
+joints, and $J_c > 10^5\,$A/cm$^2$ in bulk form.  This
+parallels the semiconductor industry's trajectory from the
+transistor (1947) to the integrated circuit (1958) to the
+microprocessor (1971)---a 24-year arc.
+
+\emph{Confidence: LOW.}  Long-range extrapolation with many
+intervening factors.
+
+\begin{table}[t]
+\caption{\label{tab:timeline}%
+$\Rtau$-based RTSC milestone timeline.  $\Rtau$ values and
+material data from Ref.~\cite{HuangRTSC2026}.}
+\begin{ruledtabular}
+\begin{tabular}{lccc}
+Milestone & Period & Key $\Rtau$ & Confidence \\
+\hline
+$0\,^\circ$C, ambient $P$ & 2027--2030 & 2.4--3.5 & High \\
+$20\,^\circ$C, ambient $P$ & 2030--2035 & $\geq 1.0$ & Medium \\
+Commercial products & 2035--2045 & --- & Medium \\
+Systemic transformation & 2040--2060 & --- & Low \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+%=======================================================================
+\section{Quantitative impact analysis}
+\label{sec:impact}
+%=======================================================================
+
+For each RTSC-enabled technology, we provide physics-grounded
+estimates.  All cost figures are in 2025 US dollars.
+
+\subsection{Lossless power transmission}
+
+Global electricity transmission and distribution losses total
+$\sim 2000\,$TWh/year, approximately 8\% of total
+generation~\cite{IEA2024}.  At a global average electricity
+price of $\sim \$0.10$/kWh, this represents
+$\sim \$200\,$B/year in wasted energy.  The carbon footprint
+of these losses, assuming the current global generation mix
+(60\% fossil), corresponds to $\sim 1.5\,$Gt\,CO$_2$/year---comparable
+to the entire aviation industry.
+
+RTSC cables would eliminate resistive losses entirely.
+Residual losses in an AC system arise from dielectric
+hysteresis in cable insulation and eddy currents at joints,
+estimated at $< 0.1\%$~\cite{Malozemoff2012}.  The
+$\Rtau$ requirement for year-round outdoor operation is
+stringent:
+\begin{equation}\label{eq:Tc_outdoor}
+  \Tc > T_{\max}^{\mathrm{outdoor}} + \Delta T_{\mathrm{margin}}
+  = 50\,^\circ\mathrm{C} + 10\,^\circ\mathrm{C}
+  = 333\,\mathrm{K}\,,
+\end{equation}
+which requires $\Rtau(333\,\mathrm{K}) > 1$.  For indoor
+cables (data centers, hospitals), $\Tc > 293\,$K suffices.
+The quenched-LaH$_{10}$ scenario ($\Tc \sim 250\,$K) would be
+suitable for underground cables (soil temperature $\sim 10$--$15\,^\circ$C
+year-round) or refrigerated enclosures cooled to
+$< -20\,^\circ$C---far cheaper than liquid nitrogen
+cooling of existing HTS cables.
+
+\emph{Near-term opportunity:} Urban power grids with
+underground cable runs at constant soil temperature
+($\sim 15\,^\circ$C $= 288\,$K) would benefit from any
+material with $\Tc > 288\,$K.
+
+\subsection{Compact MRI}
+
+Current clinical MRI scanners generate $1.5$--$3\,$T fields
+using NbTi wire cooled to $4.2\,$K in a liquid-helium bath.
+The cryogenic subsystem (cryostat, cold head, helium
+management) accounts for $\sim 40\%$ of system cost and
+$> 60\%$ of maintenance expenses~\cite{Rinck2018}.  A typical
+$1.5\,$T clinical MRI costs $\$1.5$--$3\,$M, with annual
+operating costs of $\$100$--$200\,$K (dominated by helium
+and electricity for the cold head).
+
+An RTSC MRI would eliminate the entire cryogenic subsystem:
+\begin{itemize}
+\item Magnet cost: $\sim \$50\,$K (wire + winding, no cryostat)
+\item Electronics: $\sim \$50$--$100\,$K (gradient coils, RF, computing)
+\item Total system: $\sim \$100$--$200\,$K
+\item Annual operating cost: $\sim \$10\,$K (electricity only)
+\end{itemize}
+The $\Rtau$ requirements are more demanding than for cables:
+$\Tc > 300\,$K, upper critical field $H_{c2} > 10\,$T at
+operating temperature, and $J_c > 10^4\,$A/cm$^2$.  These
+are achievable for materials with $\Rtau \gg 1$, since large
+$\Rtau$ correlates with large gap $\Delta$ and hence large
+$H_{c2} \propto \Delta^2/\EF$.
+
+At $\$150\,$K per unit, MRI becomes feasible for rural
+clinics, ambulances, and developing countries.  The addressable
+market expands from $\sim 5{,}000$ units/year (current) to
+$\sim 50{,}000$ units/year, creating a $\sim \$7.5\,$B/year
+new market.  The public health impact---early detection of
+stroke, cancer, and traumatic brain injury in settings where
+CT is the only current option---is difficult to overstate.
+
+\subsection{Nuclear fusion}
+
+The magnetic confinement approach to fusion requires
+$\sim 10$--$20\,$T fields over $\sim 10\,$m$^3$ volumes.
+ITER, the international fusion experiment, uses Nb$_3$Sn
+superconducting magnets cooled to $4.5\,$K at a project cost
+of $\sim \$25\,$B~\cite{ITER2020}.  The cryogenic plant alone
+costs $\sim \$1\,$B and consumes $\sim 30\,$MW---a significant
+parasitic load for a reactor targeting $500\,$MW fusion power.
+
+The MIT-led SPARC/ARC design~\cite{Creely2020} already
+exploits high-temperature superconductors (HTS, ReBCO,
+$\Tc \sim 90\,$K) to achieve $> 20\,$T fields in compact
+magnets, reducing reactor size by a factor of $\sim 4$
+compared to ITER.  RTSC magnets would provide two further
+advantages:
+\begin{enumerate}
+\item \emph{No cryogenics:} eliminating the $\$1\,$B cryogenic
+  plant and its $30\,$MW parasitic load.
+\item \emph{Higher fields:} RTSC materials with large
+  $\Rtau$ are expected to have large gaps $\Delta$ and hence
+  large $H_{c2}$, potentially enabling $> 30\,$T fields that
+  further shrink the plasma volume.
+\end{enumerate}
+The net effect: fusion power plants $\sim 10\times$ smaller
+and $\sim 10\times$ cheaper than ITER-class devices.  If RTSC
+materials are available by 2035, the timeline for commercial
+fusion power could accelerate from $\sim 2060$+ to
+$\sim 2045$---a 15-year advance with enormous implications
+for decarbonization.
+
+\subsection{Superconducting magnetic energy storage}
+
+A persistent current in a superconducting loop stores energy
+indefinitely with zero resistive loss.  Current superconducting
+magnetic energy storage (SMES) systems operate at $4\,$K and
+are limited to small scales ($\sim 1$--$10\,$MJ) by cryogenic
+cost~\cite{Ali2010}.
+
+RTSC SMES would eliminate cooling costs, enabling grid-scale
+deployment.  A $1\,$MWh ($= 3.6\,$GJ) RTSC solenoid with
+$B = 5\,$T requires a coil volume
+\begin{equation}\label{eq:smes}
+  V = \frac{2\mu_0 E}{B^2}
+  = \frac{2 \times 4\pi \times 10^{-7} \times 3.6 \times 10^9}
+  {25}
+  \approx 360\;\mathrm{m}^3\,,
+\end{equation}
+roughly the size of a standard shipping container
+($\sim 33$--$76\,$m$^3$ for 20--40\,ft) when wound as a
+tightly packed toroid at $10\,$T (reducing volume by
+$4\times$).  At $10\,$T and compact geometry,
+$V \sim 90\,$m$^3$---two standard containers.
+
+Unlike lithium-ion batteries, SMES has no cycle degradation,
+no fire risk, and $> 95\%$ round-trip efficiency (limited
+only by the power electronics interface).  RTSC SMES could
+replace lithium-ion for grid-scale storage applications where
+cycle life and safety are paramount.
+
+\subsection{Transportation: frictionless maglev}
+
+The Shanghai Transrapid maglev, operating since 2004, uses
+conventional superconducting magnets (NbTi at $4.2\,$K) and
+cost $\sim \$1.3\,$B for $30\,$km of
+track~\cite{Shanghai2006}---$\$43\,$M/km, compared to
+$\sim \$5$--$15\,$M/km for conventional high-speed rail.
+The dominant cost driver is the cryogenic infrastructure
+embedded in every vehicle.
+
+RTSC maglev eliminates vehicle-side cryogenics entirely.
+The track consists of passive RTSC rails carrying persistent
+currents; the vehicle carries permanent magnets (or vice
+versa).  Estimated infrastructure cost reduction:
+60--80\%, to $\sim \$10$--$15\,$M/km---competitive with
+conventional rail.
+
+The physics is compelling: in the zero-drag limit, energy
+consumption is determined solely by aerodynamic resistance.
+For a maglev train at $300\,$km/h with $C_D A \approx 8\,$m$^2$
+and air density $\rho_{\mathrm{air}} = 1.2\,$kg/m$^3$:
+\begin{equation}\label{eq:drag}
+  P_{\mathrm{aero}} = \tfrac{1}{2}\rho_{\mathrm{air}} C_D A\, v^3
+  \approx 3.3\;\mathrm{MW}\,,
+\end{equation}
+versus $\sim 8$--$12\,$MW for wheel-on-rail trains at the
+same speed (including rolling friction).  Energy savings:
+$\sim 60$--$70\%$ per passenger-km.
+
+\subsection{Computing: superconducting interconnects}
+
+In modern data centers, $\sim 30$--$50\%$ of power consumption
+is attributable to resistive losses in wiring, power
+distribution, and cooling of the associated
+heat~\cite{Shehabi2016}.  Global data center electricity
+consumption is $\sim 400$--$500\,$TWh/year (2024), implying
+$\sim 150$--$250\,$TWh/year dissipated as wiring heat.
+
+RTSC interconnects would eliminate resistive wiring losses,
+reducing data center power consumption by $\sim 30$--$50\%$.
+At $\$0.08$/kWh (industrial rate), this represents
+$\$12$--$20\,$B/year in savings.
+
+\emph{Caveat:} Superconductivity improves \emph{wiring}, not
+\emph{switching}.  CMOS transistor operation does not require
+superconductivity; the logic gates themselves are
+non-superconducting.  Josephson junction logic~\cite{Likharev1991}
+could in principle replace CMOS, but its clock speeds
+($\sim 100\,$GHz, already demonstrated at $4\,$K) come with
+extremely low logic density.  RTSC would make Josephson logic
+more accessible by removing cryogenics, but it would not
+solve the density problem.
+
+%=======================================================================
+\section{What RTSC cannot do}
+\label{sec:cannot}
+%=======================================================================
+
+Balanced assessment requires identifying technologies that
+will \emph{not} benefit from RTSC:
+
+\emph{(i) Quantum computers.}---Superconducting qubits
+(transmons) operate at $\sim 15\,$mK, not because they
+require superconducting wiring, but because qubit
+coherence demands thermal excitation energy
+$\kB T \ll \hbar\omega_q \sim 25\,\mu$eV ($\omega_q/2\pi
+\sim 5\,$GHz).  At room temperature ($\kB T \approx 25\,$meV),
+thermal occupation $\bar{n} \sim 10^3$ destroys coherence
+regardless of whether the circuit is superconducting.  RTSC
+would reduce cryogenic costs for \emph{classical control
+electronics} but not eliminate the millikelvin stage.
+
+\emph{(ii) Battery charging speed.}---Charging rate is limited
+by electrochemical kinetics (lithium-ion diffusion in the
+cathode, SEI layer impedance), not wiring resistance.  RTSC
+cables to the charger would reduce $I^2 R$ heating in the
+cable but not change the fundamental charge rate of the
+battery itself.
+
+\emph{(iii) Optical communication.}---Photons have zero
+electrical resistance by definition.  Fiber-optic
+transmission losses ($\sim 0.2\,$dB/km at $1550\,$nm) arise
+from Rayleigh scattering and absorption, neither of which
+involves electrical resistance.  RTSC is irrelevant to
+optical networks.
+
+\emph{(iv) Semiconductor logic speed.}---The clock speed of
+modern processors is limited by RC delay in interconnects and
+power dissipation in transistors, not by wire resistance alone.
+While RTSC eliminates the R in RC, the capacitance C remains,
+and the switching energy per transistor (set by $\sim C V^2$)
+is unchanged.
+
+%=======================================================================
+\section{The $\Rtau$ roadmap}
+\label{sec:roadmap}
+%=======================================================================
+
+The path from the current state of the art to RTSC-enabled
+technology can be organized into three phases, each gated
+by the $\Rtau$ criterion:
+
+\emph{Phase 1 (now--2030): Pressure-quench existing materials.}---
+LaH$_{10}$ ($\Rtau = 3.47$) and H$_3$S ($\Rtau = 1.89$)
+are the best candidates for kinetic trapping at ambient
+pressure.  The key engineering challenge is rapid, controlled
+decompression at cryogenic temperatures.  Success criterion:
+$\Tc > 273\,$K at $P = 1\,$atm.
+
+\emph{Phase 2 (2030--2040): New ambient-pressure materials.}---
+The three material families identified in
+Ref.~\cite{HuangRTSC2026}---clathrate hydrides, nickelate
+hydrides, and diamond-scaffold hydrides---are priority targets
+for first-principles screening and experimental synthesis.
+The open-source $\Rtau$ screener~\cite{rtau_code} enables
+community-driven search across the $> 150{,}000$ entries in
+the Materials Project database~\cite{Jain2013}.  Success
+criterion: ambient-pressure material with $\Rtau(300\,\mathrm{K}) > 1$.
+
+\emph{Phase 3 (2040+): Engineering at scale.}---Wire drawing,
+joining, and critical current optimization for the winning
+material.  Historical precedent (YBCO, MgB$_2$) suggests
+$\sim 10$ years from material discovery to first commercial
+products.  Success criterion: $J_c > 10^5\,$A/cm$^2$ in
+kilometer-length wires.
+
+\subsection{The role of community search}
+
+The $\Rtau$ criterion reduces the RTSC search to a tractable
+combinatorial problem: for each candidate material, compute
+$\ThetaD$, $\lambda$, and the number of pairing channels from
+first-principles or database values, evaluate $\Rtau(300\,\mathrm{K})$,
+and rank.  The $\Rtau$ screener code~\cite{rtau_code}
+implements this pipeline and is freely available.  We
+encourage the materials science community---particularly
+groups with access to high-throughput DFT
+workflows~\cite{Curtarolo2012}---to extend the screening
+beyond the 897 hydrogen-metallic compounds examined in
+Ref.~\cite{HuangRTSC2026} to the full inorganic materials
+space.
+
+%=======================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+%=======================================================================
+
+The $\Rtau$ framework, derived from quantum information
+theory, provides the first quantitative criterion for
+screening RTSC candidates and enables physics-grounded
+timeline predictions.  The technological implications of RTSC
+are vast---\$200\,B/year in energy savings, universal MRI
+access, accelerated fusion, and frictionless transport---but
+they require materials with $\Tc > 300\,$K at ambient
+pressure, a goal that the $\Rtau$ analysis identifies as
+challenging but physically achievable.
+
+The next experimental milestone is clear:
+pressure-quench LaH$_{10}$ to ambient conditions and measure
+$\Tc$.  If the quenched material retains $\Tc > 200\,$K, the
+second electrical revolution will be underway.
+
+\begin{acknowledgments}
+The author thanks QuTech and the Quantum Inspire team for cloud
+access to the Tuna-9 processor, and the Materials Project team
+for the open database.  This work was supported in part by
+the $\tauasym = 1 - F$ research program.
+\end{acknowledgments}
+
+%=======================================================================
+\begin{thebibliography}{30}
+
+\bibitem{Onnes1911}
+H.~K.~Onnes,
+The resistance of pure mercury at helium temperatures,
+Commun.\ Phys.\ Lab.\ Univ.\ Leiden \textbf{12}, 120 (1911).
+
+\bibitem{BCS1957}
+J.~Bardeen, L.~N.~Cooper, and J.~R.~Schrieffer,
+Theory of superconductivity,
+Phys.\ Rev.\ \textbf{108}, 1175 (1957).
+
+\bibitem{Bednorz1986}
+J.~G.~Bednorz and K.~A.~M\"uller,
+Possible high $T_c$ superconductivity in the Ba--La--Cu--O system,
+Z.\ Phys.\ B \textbf{64}, 189 (1986).
+
+\bibitem{Somayazulu2019}
+M.~Somayazulu \textit{et al.},
+Evidence for superconductivity above 260\,K in lanthanum superhydride at megabar pressures,
+Phys.\ Rev.\ Lett.\ \textbf{122}, 027001 (2019).
+
+\bibitem{Drozdov2019}
+A.~P.~Drozdov \textit{et al.},
+Superconductivity at 250\,K in lanthanum hydride under high pressures,
+Nature \textbf{569}, 528 (2019).
+
+\bibitem{Drozdov2015}
+A.~P.~Drozdov, M.~I.~Eremets, I.~A.~Troyan, V.~Ksenofontov, and S.~I.~Shylin,
+Conventional superconductivity at 203\,kelvin at high pressures in the sulfur hydride system,
+Nature \textbf{525}, 73 (2015).
+
+\bibitem{DengChu2026}
+D.~Deng and C.~W.~Chu,
+Pressure-quenched HgBaCaCuO with $T_c = 151\,$K at ambient pressure,
+Preprint (2026).
+
+\bibitem{Wu1987}
+M.~K.~Wu \textit{et al.},
+Superconductivity at 93\,K in a new mixed-phase Y--Ba--Cu--O compound system at ambient pressure,
+Phys.\ Rev.\ Lett.\ \textbf{58}, 908 (1987).
+
+\bibitem{HuangRTSC2026}
+S.-K.~Huang,
+Room-temperature superconductivity as a quantum information problem:
+The $R_\tau$ screening criterion and material predictions,
+Preprint (2026).
+
+\bibitem{Huang2026}
+S.-K.~Huang,
+Temporal asymmetry as Petz recovery failure,
+Zenodo DOI: 10.5281/zenodo.18897853 (2026);
+see also \url{https://github.com/akaiHuang/petz-recovery-unification}.
+
+\bibitem{Petz1988}
+D.~Petz,
+Sufficiency of channels over von Neumann algebras,
+Q.\ J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{Jain2013}
+A.~Jain \textit{et al.},
+Commentary: The Materials Project: A materials genome approach to accelerating materials innovation,
+APL Mater.\ \textbf{1}, 011002 (2013).
+
+\bibitem{Larbalestier2001}
+D.~Larbalestier, A.~Gurevich, D.~M.~Feldmann, and A.~Polyanskii,
+High-$T_c$ superconducting materials for electric power applications,
+Nature \textbf{414}, 368 (2001).
+
+\bibitem{Tomsic2007}
+M.~Tomsic \textit{et al.},
+Overview of MgB$_2$ superconductor applications,
+Int.\ J.\ Appl.\ Ceram.\ Technol.\ \textbf{4}, 250 (2007).
+
+\bibitem{IEA2024}
+International Energy Agency,
+\textit{World Energy Outlook 2024} (IEA, Paris, 2024).
+
+\bibitem{Malozemoff2012}
+A.~P.~Malozemoff \textit{et al.},
+Progress in high temperature superconductor coated conductors
+and their applications,
+Supercond.\ Sci.\ Technol.\ \textbf{25}, 123001 (2012).
+
+\bibitem{Rinck2018}
+P.~A.~Rinck,
+\textit{Magnetic Resonance in Medicine}, 12th ed.\
+(ABW Wissenschaftsverlag, Berlin, 2018).
+
+\bibitem{ITER2020}
+ITER Organization,
+\textit{ITER Research Plan within the Staged Approach}
+(ITER Organization, St.\ Paul-lez-Durance, 2018).
+
+\bibitem{Creely2020}
+A.~J.~Creely \textit{et al.},
+Overview of the SPARC tokamak,
+J.\ Plasma Phys.\ \textbf{86}, 865860502 (2020).
+
+\bibitem{Ali2010}
+M.~H.~Ali, B.~Wu, and R.~A.~Dougal,
+An overview of SMES applications in power and energy systems,
+IEEE Trans.\ Sustain.\ Energy \textbf{1}, 38 (2010).
+
+\bibitem{Shanghai2006}
+R.~Thornton, T.~Clark, and E.~Perreault,
+Linear synchronous motor propulsion of urban transit vehicles,
+in \textit{Proceedings of the Joint Rail Conference} (ASME, 2006).
+
+\bibitem{Shehabi2016}
+A.~Shehabi \textit{et al.},
+\textit{United States Data Center Energy Usage Report}
+(Lawrence Berkeley National Laboratory, 2016).
+
+\bibitem{Likharev1991}
+K.~K.~Likharev and V.~K.~Semenov,
+RSFQ logic/memory family: a new Josephson-junction technology
+for sub-terahertz-clock-frequency digital systems,
+IEEE Trans.\ Appl.\ Supercond.\ \textbf{1}, 3 (1991).
+
+\bibitem{Gao2025}
+M.~Gao \textit{et al.},
+Upper bound on the critical temperature of superconductors from
+first-principles phonon calculations,
+Phys.\ Rev.\ B \textbf{111}, 024506 (2025).
+
+\bibitem{Curtarolo2012}
+S.~Curtarolo \textit{et al.},
+AFLOW: An automatic framework for high-throughput materials discovery,
+Comput.\ Mater.\ Sci.\ \textbf{58}, 218 (2012).
+
+\bibitem{rtau_code}
+S.-K.~Huang,
+$R_\tau$ screener: open-source code for superconductor screening,
+\url{https://github.com/akaiHuang/petz-recovery-unification} (2026).
+
+\bibitem{Huang2026exp}
+S.-K.~Huang,
+Measuring temporal asymmetry on a superconducting quantum processor:
+From quantum erasure to the birth of time's arrow,
+Preprint (2026).
+
+\bibitem{Schilling1993}
+A.~Schilling, M.~Cantoni, J.~D.~Guo, and H.~R.~Ott,
+Superconductivity above 130\,K in the Hg--Ba--Ca--Cu--O system,
+Nature \textbf{363}, 56 (1993).
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,745 @@
+% time_machine_nogo.tex
+% Time, Computation, and Novelty: A No-Go Theorem from Petz Recovery
+% For submission to Physical Review Letters
+% Author: Sheng-Kai Huang
+% Compile with: pdflatex time_machine_nogo.tex && pdflatex time_machine_nogo.tex && pdflatex time_machine_nogo.tex
+
+\documentclass[prl,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{proposition}{Proposition}
+
+% Convenience macros (matching Paper 1)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\KL}{D}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\op}[2]{|#1\rangle\langle#2|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tauasym}{\tau}
+\newcommand{\taurot}{\tilde{\tau}}
+
+\begin{document}
+
+\title{Time, Computation, and Novelty: A No-Go Theorem from Petz Recovery}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+We prove a no-go theorem connecting time-reversibility, quantum
+computation, and the arrow of time within the Petz recovery
+framework.  A quantum channel has $\tauasym = 0$ for all input states
+if and only if it is unitary (Theorem~\ref{thm:structure}).  It follows
+that ideal unitary circuits are simultaneously time-reversible and
+computationally universal (Theorem~\ref{thm:ideal}), while any
+physical gate with noise breaks time symmetry
+(Theorem~\ref{thm:noisy}).  These results yield a trilemma: a physical
+system can have at most two of \{time-reversibility, quantum
+coherence, environmental interaction\} (Corollary~\ref{cor:trilemma}).
+The saturation surface of the Petz recovery bound is
+observer-dependent---the ``boundary of the time machine'' depends on
+the observer's prior (Theorem~\ref{thm:observer}).  For non-Markovian
+dynamics, local time reversal ($d\tauasym/dt < 0$) is possible but
+fundamentally bounded by envelope decay and total entropy production.
+The past has not disappeared; it is information leaked to the
+environment.  $\tauasym$ measures how much has leaked.  Time is the
+cost of novelty.
+\end{abstract}
+
+\maketitle
+
+%-----------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%-----------------------------------------------------------------------
+
+The quantum eraser~\cite{Scully1982,Kim2000} demonstrates that a
+future measurement on an idler photon can restore interference in a
+signal photon whose which-path information has been recorded.  The
+future measurement affects the present interpretation.  But there is
+an asymmetry: in an open system, one must wait for the future
+measurement to actually occur before the past can be reinterpreted.
+The arrow of time appears precisely because the system is open.
+
+The Petz recovery map~\cite{Petz1986,Petz1988} provides the
+mathematical structure underlying this observation.  Given a quantum
+channel $\chan$ and a reference state $\sigma$, the Petz map
+$\Petz_{\sigma,\chan}$ is the unique Bayesian retrodiction
+functor~\cite{Parzygnat2023}: it recovers the past from the future.
+The recovery infidelity
+$\tauasym = 1 - F(\rho, \Petz_{\sigma,\chan}(\chan(\rho)))$ measures
+how much the past differs from its retrodicted version---the
+operational arrow of time.  When $\tauasym = 0$ for all inputs,
+prediction and retrodiction are equivalent, and time has no direction.
+When $\tauasym > 0$, some information about the past is gone, and the
+arrow of time exists.
+
+In Ref.~\cite{Huang2026a} (hereafter Paper~1), we established the
+equivalence chain
+$\tauasym = 0 \Leftrightarrow \Sigma = 0 \Leftrightarrow
+I(A;E|B) = 0 \Leftrightarrow \text{QMC}$
+linking vanishing temporal asymmetry to vanishing entropy production,
+vanishing information leakage, and the quantum Markov condition.  We
+also proved a composition theorem showing that $\sqrt{\tauasym}$
+satisfies a triangle inequality under channel composition.
+
+In this Letter, we use these tools to prove a no-go theorem for ``time
+machines.''  The central question is: can a physical system be
+simultaneously time-reversible ($\tauasym = 0$) and computationally
+useful?  The answer reveals a trilemma connecting time-reversibility,
+quantum coherence, and environmental interaction.
+
+The physical picture that emerges is this: the past has not
+disappeared.  It is encoded in the environment---in the photons that
+scattered off objects, the thermal vibrations of air molecules, the
+decoherence records in the surrounding matter.  The parameter
+$\tauasym$ measures how much information has leaked.  A ``time
+machine,'' in this framework, is not a device that bends spacetime.
+It is a device that recovers information from the environment.
+
+%-----------------------------------------------------------------------
+\section{Framework}
+\label{sec:framework}
+%-----------------------------------------------------------------------
+
+We work within the framework of Paper~1~\cite{Huang2026a}.  All
+Hilbert spaces are finite-dimensional.
+
+The \emph{temporal asymmetry parameter} for a CPTP map
+$\chan: \mathcal{B}(\hilb_A) \to \mathcal{B}(\hilb_B)$, input state
+$\rho \in \mathcal{S}(\hilb_A)$, and faithful reference state
+$\sigma \in \mathcal{S}(\hilb_A)$ is
+\begin{equation}
+\tauasym(\rho, \chan, \sigma)
+= 1 - F\!\big(\rho,\, \Petz_{\sigma,\chan}(\chan(\rho))\big),
+\label{eq:tau_def}
+\end{equation}
+where $\Petz_{\sigma,\chan}$ is the Petz recovery
+map~\cite{Petz1986,Petz1988} and $F$ is the Uhlmann fidelity.
+
+A CPTP map $\chan$ is \emph{time-reversible} if
+$\tauasym(\rho, \chan, \sigma) = 0$ for all states $\rho$ and all
+faithful $\sigma$.  Equivalently (Paper~1, Eq.~(10)):
+$\tauasym = 0$ for all inputs iff $\Sigma = 0$ iff the quantum Markov
+condition holds iff perfect Petz recovery is achieved.
+
+A finite set of CPTP maps
+$\mathcal{G} = \{\chan_1, \ldots, \chan_k\}$ acting on
+$\hilb = (\mathbb{C}^2)^{\otimes n}$ is \emph{computationally
+universal} if, for any unitary $U \in U(2^n)$ and any $\epsilon > 0$,
+some finite composition
+$\chan_{i_m} \circ \cdots \circ \chan_{i_1}$
+approximates $U\rho\,U^\dagger$ to within $\epsilon$ in trace norm
+for all $\rho$.
+
+A CPTP map is \emph{noiseless} if it is a unitary conjugation
+$\chan(\rho) = V\rho\,V^\dagger$; otherwise it is \emph{noisy}.
+
+%-----------------------------------------------------------------------
+\section{The No-Go Theorem}
+\label{sec:nogo}
+%-----------------------------------------------------------------------
+
+\begin{theorem}[Structure of time-reversible channels]
+\label{thm:structure}
+Let\/ $\chan: \mathcal{B}(\hilb) \to \mathcal{B}(\hilb)$ be a CPTP
+map.  Then
+$\tauasym(\rho, \chan, \sigma) = 0$ for all states $\rho$ and all
+faithful $\sigma$ if and only if\/ $\chan$ is a unitary conjugation:
+$\chan(\rho) = U\rho\,U^\dagger$ for some unitary~$U$.
+\end{theorem}
+
+\emph{Proof.}---The ``if'' direction is Corollary~1 of
+Paper~1~\cite{Huang2026a}: for unitary $\chan_U$, the Petz recovery is
+$\Petz_{\sigma,\chan_U}(X) = U^\dagger X\,U$ independent of $\sigma$,
+giving $F = 1$ and $\tauasym = 0$.
+
+For ``only if'': $\tauasym = 0$ for all $\rho$ means
+$F(\rho, \Petz_{\sigma,\chan}(\chan(\rho))) = 1$ for all $\rho$.  By
+the Petz sufficiency theorem~\cite{Petz1988}, this holds for all
+$\rho$ if and only if $\chan$ is sufficient for all pairs
+$(\rho, \sigma)$, which requires $\chan$ to be reversible.  A
+reversible CPTP map on a finite-dimensional algebra is a
+$*$-automorphism, which by the Wigner theorem is unitarily
+implemented.\hfill$\square$
+
+\begin{theorem}[Ideal computation is time-reversible]
+\label{thm:ideal}
+Let\/ $\mathcal{G} = \{\chan_1, \ldots, \chan_k\}$ be a gate set
+where each $\chan_i$ is a unitary conjugation.  Then:
+\begin{enumerate}
+\item[\emph{(a)}] Each $\chan_i$ has $\tauasym_i = 0$.
+\item[\emph{(b)}] Any composition
+  $\chan_{i_m} \circ \cdots \circ \chan_{i_1}$ is unitary, hence has
+  $\tauasym_{\mathrm{total}} = 0$.
+\item[\emph{(c)}] If the unitaries $\{U_1, \ldots, U_k\}$ form a
+  universal gate set (e.g., $\{H, T, \mathrm{CNOT}\}$), then
+  $\mathcal{G}$ is computationally universal.
+\end{enumerate}
+Therefore, ideal quantum computation is simultaneously
+time-reversible and computationally universal.
+\end{theorem}
+
+\emph{Proof.}---(a) and (b) follow from Corollary~1 of
+Paper~1 and the fact that the composition of unitaries is unitary.
+(c) is the Solovay--Kitaev theorem~\cite{Kitaev1997,Dawson2006}:
+any dense subgroup of $\mathrm{SU}(d)$ provides $\epsilon$-approximate
+universality with gate count
+$O(\log^c(1/\epsilon))$.\hfill$\square$
+
+\begin{theorem}[Noisy gates break time symmetry]
+\label{thm:noisy}
+Let $\chan$ be a CPTP map that is not a unitary conjugation.  Then
+there exist states $\rho$ and $\sigma$ such that
+$\tauasym(\rho, \chan, \sigma) > 0$.
+\end{theorem}
+
+\emph{Proof.}---Contrapositive of
+Theorem~\ref{thm:structure}.\hfill$\square$
+
+\emph{The naive argument and its failure.}---One might attempt a
+different proof: from the saturation theorem (Paper~1, Theorem~4),
+$\tauasym = 0$ requires $[\chan(\rho), \chan(\sigma)] = 0$, so a
+time-reversible channel maps everything to a commuting subalgebra
+and cannot generate quantum coherence.  This argument has a gap.
+The saturation theorem characterizes when $F^2 = \exp(-\Delta D)$
+is an equality---but $\tauasym = 0$ requires $F = 1$, a stronger
+condition.  The correct route is through Theorem~\ref{thm:structure},
+which uses the full Petz sufficiency theorem rather than the
+saturation condition.
+
+The key point is that Theorem~\ref{thm:ideal} appears to ``destroy''
+the no-go theorem: ideal quantum computation has $\tauasym = 0$.
+The real no-go emerges from the distinction between mathematical
+and physical computation.  Any physical quantum computer operates
+with noisy gates.  The physical process implementing gate $U_i$ is
+not the ideal unitary conjugation but a noisy CPTP map that
+approximates it.  By Theorem~\ref{thm:noisy}, every such gate
+contributes $\tauasym > 0$.
+
+The arrow of time in a quantum computer comes from noise, not from
+computation.  The unitary content of computation contributes zero
+to the time arrow.  Only the irreversible periphery---initialization,
+measurement, decoherence---has $\tauasym > 0$.
+
+%-----------------------------------------------------------------------
+\section{The Trilemma}
+\label{sec:trilemma}
+%-----------------------------------------------------------------------
+
+\begin{corollary}[The time--coherence--environment trilemma]
+\label{cor:trilemma}
+A physical system can achieve at most two of the following three
+properties simultaneously:
+\begin{enumerate}
+\item[\emph{(i)}] \textbf{Time-reversibility:}
+  $\tauasym = 0$ for all inputs.
+\item[\emph{(ii)}] \textbf{Quantum coherence:}
+  non-commuting output states.
+\item[\emph{(iii)}] \textbf{Environmental interaction:}
+  $\chan$ is not unitary.
+\end{enumerate}
+Any two imply the negation of the third.
+\end{corollary}
+
+\emph{Proof.}---Three cases.
+
+(i) + (ii) $\Rightarrow$ $\lnot$(iii):
+Time-reversible quantum coherence (non-commuting outputs with
+$\tauasym = 0$ for all inputs) requires, by
+Theorem~\ref{thm:structure}, that $\chan$ is unitary---no
+environmental interaction.
+
+(i) + (iii) $\Rightarrow$ $\lnot$(ii):
+A time-reversible non-unitary channel has
+$\tauasym = 0$ for all inputs and is non-unitary.  But
+Theorem~\ref{thm:structure} says $\tauasym = 0$ for all inputs
+requires unitarity---contradiction unless we weaken to
+state-specific $\tauasym = 0$.  A non-unitary channel with
+$\tauasym(\rho, \chan, \sigma) = 0$ for specific pairs maps those
+states to a commuting subalgebra (Paper~1, Theorem~4), so there is
+no quantum coherence between them.
+
+(ii) + (iii) $\Rightarrow$ $\lnot$(i):
+Quantum coherence in an open system means $\chan$ is not unitary
+and produces non-commuting outputs.  By Theorem~\ref{thm:noisy},
+$\tauasym > 0$ for some inputs.\hfill$\square$
+
+Table~\ref{tab:trilemma} summarizes the three scenarios.
+
+\begin{table}[htbp]
+\caption{\label{tab:trilemma}The trilemma.  Each row satisfies two of
+the three properties and violates the third.  The column ``Physical?''
+indicates whether the scenario is realizable in a laboratory.}
+\begin{ruledtabular}
+\begin{tabular}{lcccl}
+\textbf{Scenario} & (i) & (ii) & (iii) & \textbf{Physical?} \\
+\colrule
+Ideal quantum computer &
+  $\checkmark$ & $\checkmark$ & $\times$ &
+  No (requires zero noise) \\
+Classical open system &
+  $\checkmark$ & $\times$ & $\checkmark$ &
+  Yes (commuting outputs) \\
+Real quantum computer &
+  $\times$ & $\checkmark$ & $\checkmark$ &
+  Yes (arrow of time) \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\emph{Connection to Landauer--Bennett.}---Landauer~\cite{Landauer1961}
+showed that erasure costs at least $\kB T \ln 2$ per bit.
+Bennett~\cite{Bennett1973} showed that logically reversible
+computation can in principle be performed without erasure, at zero
+energy cost.  The trilemma is the quantum-information-theoretic
+counterpart: unitary computation has $\tauasym = 0$; only the
+irreversible periphery (noise, measurement, erasure) has
+$\tauasym > 0$.  The logical content of computation is free.  The
+physical overhead is what costs.
+
+%-----------------------------------------------------------------------
+\section{Observer-Dependent Boundary}
+\label{sec:observer}
+%-----------------------------------------------------------------------
+
+The saturation surface of the Petz recovery bound (Paper~1,
+Theorem~4) divides the space of triples $(\chan, \rho, \sigma)$
+into a recoverable region ($\tauasym \approx 0$) and an irreversible
+region ($\tauasym \gg 0$).
+
+\begin{theorem}[Observer-dependent time-reversibility]
+\label{thm:observer}
+For the same channel $\chan$ and the same input state $\rho$, two
+observers using different reference states $\sigma_1 \neq \sigma_2$
+can disagree on whether the process is time-reversible:
+\begin{equation}
+\tauasym(\rho, \chan, \sigma_1) = 0
+\;\;\not\!\!\!\Rightarrow\;\;
+\tauasym(\rho, \chan, \sigma_2) = 0.
+\label{eq:observer}
+\end{equation}
+\end{theorem}
+
+\emph{Proof.}---By example.  Consider the amplitude damping channel
+$\chan_\gamma$ with $\gamma = 0.1$ and $\rho = \ket{0}\!\bra{0}$.
+Take $\sigma_1 = I/2$.  Then
+$\chan(\rho) = \ket{0}\!\bra{0}$ and
+$\chan(\sigma_1) = \mathrm{diag}((1+\gamma)/2,\,(1-\gamma)/2)$.
+Since $\chan(\rho)$ is rank-1 and $[\chan(\rho), \chan(\sigma_1)] = 0$,
+the likelihood ratio is constant on the support, so the saturation
+conditions of Paper~1, Theorem~4, are met and $\tauasym$ is small.
+
+Now take $\sigma_2 = \ket{1}\!\bra{1}$.  Then
+$\chan(\sigma_2) = \mathrm{diag}(\gamma, 1-\gamma)$, giving a
+different likelihood ratio and a different relative entropy gap.  The
+recovery fidelity changes, and in general
+$\tauasym(\rho, \chan, \sigma_1) \neq
+\tauasym(\rho, \chan, \sigma_2)$.\hfill$\square$
+
+The ``boundary of the time machine'' is not absolute.  It depends on
+what the observer considers the prior state of the world.  An observer
+with a prior $\sigma$ close to $\rho$ (more information) sees a
+larger region of time-reversibility.  An observer with less
+information sees a smaller region.  This connects to the core result
+of Paper~1: the arrow of time is not an absolute property of physics
+but emerges from the relationship between the system and the
+observer's prior.
+
+In the Bures geometry, $\tauasym = 1 - F$ measures the Bures
+distance between $\rho$ and its Petz-recovered version.  The
+saturation surface can be visualized as a ``cone'' in Bures space:
+processes inside the cone are recoverable, processes outside are
+irreversible.  The reference state $\sigma$ determines the orientation
+of this cone.
+
+%-----------------------------------------------------------------------
+\section{Non-Markovian Time Reversal}
+\label{sec:nonmarkov}
+%-----------------------------------------------------------------------
+
+For Markovian dynamics (Lindbladian evolution), the temporal asymmetry
+satisfies~\cite{Huang2026a}
+\begin{equation}
+\frac{d\tauasym}{dt}
+\sim \frac{\dot{\Sigma}}{2}(1 - \tauasym) \geq 0,
+\label{eq:markov_mono}
+\end{equation}
+where $\dot{\Sigma} \geq 0$ is the instantaneous entropy production
+rate.  The arrow of time only advances.
+
+For non-Markovian dynamics, the divisibility condition
+fails~\cite{Breuer2016} and $\dot{\Sigma}$ can be temporarily
+negative, opening the possibility of
+\begin{equation}
+\frac{d\tauasym}{dt} < 0
+\qquad \text{(local time reversal)}.
+\label{eq:nonmarkov}
+\end{equation}
+Information flows back from the environment to the system, and the
+Petz recovery temporarily improves without intervention.
+
+\emph{Jaynes--Cummings model.}---A qubit coupled to a single cavity
+mode with Lorentzian spectral density
+$J(\omega) = \gamma_0 \lambda^2 /
+[2\pi((\omega_0 - \omega)^2 + \lambda^2)]$
+provides a concrete example~\cite{Breuer2009}.  The decoherence
+function is
+\begin{equation}
+G(t) = e^{-\lambda t/2}
+\!\left[\cosh\!\frac{dt}{2}
++ \frac{\lambda}{d}\sinh\!\frac{dt}{2}\right]\!,
+\label{eq:decoherence}
+\end{equation}
+where $d = \sqrt{\lambda^2 - 2\gamma_0\lambda}$.
+
+In the weak-coupling regime ($\gamma_0/\lambda < 1/2$), $G(t)$ decays
+monotonically and $\tauasym(t)$ increases monotonically---standard
+Markovian behavior.  In the strong-coupling regime
+($\gamma_0/\lambda > 1/2$), $d$ becomes imaginary, $G(t)$ oscillates,
+and $\tauasym(t)$ exhibits intervals where
+$d\tauasym/dt < 0$.  The fidelity $F(t)$ temporarily increases:
+the Petz recovery improves, constituting a concrete
+non-Markovianity witness distinct from the BLP trace-distance
+witness~\cite{Breuer2009} and the RHP divisibility
+witness~\cite{Rivas2010}.
+
+\emph{Design principles.}---Four conditions favor local time reversal:
+(1)~a structured environment (spectral peaks, finite bandwidth);
+(2)~strong coupling ($\gamma_0/\lambda > 1/2$);
+(3)~a finite-dimensional environment (information mirror, not
+information sink); and (4)~coherent system--environment interaction
+(dephasing-type interactions do not produce backflow).
+
+\emph{Fundamental limits.}---Even with optimal non-Markovian
+engineering, three constraints apply.
+
+\emph{Limit~1: Envelope decay.}  The oscillations in $\tauasym(t)$
+occur within a decaying envelope:
+$\tauasym(t) \sim 1 - |G(t)|^2$ with
+$|G(t)| \leq e^{-\lambda t/2}$.  Local time reversal is always
+temporary.
+
+\emph{Limit~2: Total entropy production.}  Even when
+$d\tauasym/dt < 0$ in the subsystem, the total entropy production
+$\Sigma_{\mathrm{total}} \geq 0$ for system plus environment.  The
+subsystem's temporary $\tauasym$ decrease is paid for by entropy
+increase elsewhere.
+
+\emph{Limit~3: Isolation paradox.}  To achieve $\tauasym \to 0$
+permanently requires $\lambda \to 0$: zero dissipation, complete
+isolation.  But a completely isolated system undergoes unitary
+evolution, and by Theorem~\ref{thm:ideal} can perform quantum
+computation internally.  The problem is that one cannot program it
+(programming requires interaction: $\tauasym > 0$), cannot read out
+the result (measurement requires interaction: $\tauasym > 0$), and
+cannot change the computation (the evolution is fixed by the initial
+Hamiltonian).  A time machine that cannot be programmed or read out
+is not a useful computer.
+
+This closes the loop to the no-go theorem.
+
+%-----------------------------------------------------------------------
+\section{The Past as Leaked Information}
+\label{sec:past}
+%-----------------------------------------------------------------------
+
+The preceding results lead to a unified physical interpretation.
+
+The past has not disappeared.  It is encoded in the
+environment---in the photons that scattered off objects, the
+thermal vibrations of air molecules, the decoherence records in
+surrounding matter.  The parameter $\tauasym$ measures how much
+information has leaked from the system to the environment.  A
+``time machine,'' in the $\tauasym$ framework, is not a device
+that bends spacetime.  It is a device that recovers information
+from the environment.
+
+Consider a universe with $\tauasym = 0$ everywhere.  All evolution is
+unitary.  All processes are perfectly reversible.  The Petz map
+achieves exact recovery everywhere.  Past and future are operationally
+indistinguishable.  No information is created or destroyed.  Nothing
+happens that was not already determined by initial conditions.
+
+Now consider a universe with $\tauasym > 0$.  Non-unitary processes
+exist.  Some information leaks irreversibly to the environment.  The
+past is not perfectly recoverable from the future.  Time has a
+direction.  Measurement outcomes are genuinely random.  New
+information can be created.
+
+The $\tauasym = 0$ universe is a time machine---but it contains no
+novelty.  The $\tauasym > 0$ universe has novelty---but it cannot
+reverse time.
+
+This tension is quantitative.  The arrow of time $\tauasym$ is bounded
+from below by the non-commutativity of the channel outputs (the
+``computational content'' of the process) and bounded from above by
+the entropy production.  It accumulates sub-additively across
+sequential processes via the composition theorem (Paper~1,
+Theorem~5).  Time is not an all-or-nothing binary.  It is a continuous
+parameter.
+
+\emph{Time is the cost of novelty.}
+
+%-----------------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+%-----------------------------------------------------------------------
+
+\emph{Trinity of computational bounds.}---The no-go theorem takes its
+place alongside two other fundamental constraints on physical
+computation.  The Margolus--Levitin bound~\cite{Margolus1998} limits
+how \emph{fast} one can compute:
+$t_{\min} = \pi\hbar/(2\Delta E)$.  The Landauer
+bound~\cite{Landauer1961} limits how \emph{cheaply} one can compute:
+$W_{\mathrm{diss}} \geq \kB T \ln 2$ per bit erased.  The Petz--$\tauasym$
+bound limits how \emph{reversibly} one can compute:
+$\tauasym > 0$ for any noisy gate.  Speed, cost, and reversibility
+together define the physical space of realizable computation.
+
+\emph{Connection to ER=EPR.}---Maldacena and
+Susskind~\cite{Maldacena2013} conjectured that entanglement is
+geometrically dual to wormholes.  Susskind~\cite{Susskind2016} and
+Brown et~al.~\cite{Brown2016} connected the growth of the
+Einstein--Rosen bridge to the growth of quantum computational
+complexity.  In our framework, $\tauasym$ grows as complexity grows:
+the wormhole elongates as information leaks irreversibly.  A
+``time machine'' ($\tauasym = 0$) corresponds to a static wormhole
+with no complexity growth---possible only for an eternal black hole
+in perfect thermal equilibrium.  The no-go theorem in this language
+becomes: one cannot simultaneously have a growing wormhole (useful
+computation) and a static one (time-reversibility).
+
+\emph{Connection to the quantum eraser.}---The quantum eraser is the
+physical paradigm from which the entire $\tauasym$ framework
+originates.  The eraser shows that a future measurement can restore
+past coherence---but only in a closed system, and only for the
+specific entangled state.  The $\tauasym$ framework generalizes this:
+in a closed system ($\tauasym = 0$), retrodiction is exact and
+temporal order is irrelevant.  In an open system ($\tauasym > 0$),
+one must wait for the future to actually happen.  The no-go theorem
+adds: the price of temporal coexistence ($\tauasym = 0$) is
+that the system cannot produce genuinely new information.  In a
+$\tauasym = 0$ world, everything is predetermined by initial
+conditions.  There are no surprises.
+
+\emph{Outlook.}---The composition theorem (Paper~1, Theorem~5) and the
+design principles of Sec.~\ref{sec:nonmarkov} suggest an engineering
+program: a ``$\tauasym$-Chrono'' engine that uses Bayesian
+composition, saturation scanning, and non-Markovian backflow
+optimization to design protocols for quantum memory extension, passive
+error correction, and precision tests of time symmetry.
+
+\begin{acknowledgments}
+The author thanks M.~M.~Wilde for valuable feedback on the
+$\tauasym$ framework, and A.~J.~Parzygnat and F.~Buscemi for
+foundational work on retrodiction.
+\end{acknowledgments}
+
+%-----------------------------------------------------------------------
+% BIBLIOGRAPHY
+%-----------------------------------------------------------------------
+
+\begin{thebibliography}{40}
+
+\bibitem{Scully1982}
+M.~O. Scully and K.~Dr\"uhl,
+``Quantum eraser: A proposed photon correlation experiment concerning
+observation and `delayed choice' in quantum mechanics,''
+Phys.\ Rev.\ A \textbf{25}, 2208 (1982).
+
+\bibitem{Kim2000}
+Y.-H. Kim, R.~Yu, S.~P. Kulik, Y.~Shih, and M.~O. Scully,
+``Delayed `choice' quantum eraser,''
+Phys.\ Rev.\ Lett.\ \textbf{84}, 1 (2000).
+
+\bibitem{Petz1986}
+D.~Petz,
+``Sufficient subalgebras and the relative entropy of states of a
+von Neumann algebra,''
+Commun.\ Math.\ Phys.\ \textbf{105}, 123 (1986).
+
+\bibitem{Petz1988}
+D.~Petz,
+``Sufficiency of channels over von Neumann algebras,''
+Q.\ J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{Parzygnat2023}
+A.~J. Parzygnat and F.~Buscemi,
+``Axioms for retrodiction: Achieving time-reversal symmetry with a
+prior,''
+Quantum \textbf{7}, 1013 (2023).
+
+\bibitem{Huang2026a}
+S.-K. Huang,
+``The arrow of time from Petz recovery,''
+(2026), \url{https://github.com/akaiHuang/petz-recovery-unification}.
+
+\bibitem{Kitaev1997}
+A.~Yu.~Kitaev,
+``Quantum computations: Algorithms and error correction,''
+Russ.\ Math.\ Surv.\ \textbf{52}, 1191 (1997).
+
+\bibitem{Dawson2006}
+C.~M. Dawson and M.~A. Nielsen,
+``The Solovay--Kitaev algorithm,''
+Quantum Inf.\ Comput.\ \textbf{6}, 81 (2006).
+
+\bibitem{Landauer1961}
+R.~Landauer,
+``Irreversibility and heat generation in the computing process,''
+IBM J.\ Res.\ Dev.\ \textbf{5}, 183 (1961).
+
+\bibitem{Bennett1973}
+C.~H. Bennett,
+``Logical reversibility of computation,''
+IBM J.\ Res.\ Dev.\ \textbf{17}, 525 (1973).
+
+\bibitem{ReebWolf2014}
+D.~Reeb and M.~M. Wolf,
+``An improved Landauer principle with finite-size corrections,''
+New J.\ Phys.\ \textbf{16}, 103011 (2014).
+
+\bibitem{Margolus1998}
+N.~Margolus and L.~B. Levitin,
+``The maximum speed of dynamical evolution,''
+Physica D \textbf{120}, 188 (1998).
+
+\bibitem{Lloyd2000}
+S.~Lloyd,
+``Ultimate physical limits to computation,''
+Nature \textbf{406}, 1047 (2000).
+
+\bibitem{Junge2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M. Wilde, and A.~Winter,
+``Universal recovery maps and approximate sufficiency of quantum
+relative entropy,''
+Ann.\ Henri Poincar\'e \textbf{19}, 2955 (2018).
+
+\bibitem{Fawzi2015}
+O.~Fawzi and R.~Renner,
+``Quantum conditional mutual information and approximate Markov
+chains,''
+Commun.\ Math.\ Phys.\ \textbf{340}, 575 (2015).
+
+\bibitem{Kolchinsky2017}
+A.~Kolchinsky and D.~H. Wolpert,
+``Dependence of dissipation on the initial distribution over states,''
+J.\ Stat.\ Mech.\ \textbf{2017}, 083202 (2017).
+
+\bibitem{Breuer2009}
+H.-P. Breuer, E.-M. Laine, and J.~Piilo,
+``Measure for the degree of non-Markovian behavior of quantum
+processes in open systems,''
+Phys.\ Rev.\ Lett.\ \textbf{103}, 210401 (2009).
+
+\bibitem{Rivas2010}
+A.~Rivas, S.~F. Huelga, and M.~B. Plenio,
+``Entanglement and non-Markovianity of quantum evolutions,''
+Phys.\ Rev.\ Lett.\ \textbf{105}, 050403 (2010).
+
+\bibitem{Breuer2016}
+H.-P. Breuer, E.-M. Laine, J.~Piilo, and B.~Vacchini,
+``Colloquium: Non-Markovian dynamics in open quantum systems,''
+Rev.\ Mod.\ Phys.\ \textbf{88}, 021002 (2016).
+
+\bibitem{Crooks1999}
+G.~E. Crooks,
+``Entropy production fluctuation theorem and the nonequilibrium
+work relation for free energy differences,''
+Phys.\ Rev.\ E \textbf{60}, 2721 (1999).
+
+\bibitem{Kwon2019}
+H.~Kwon and M.~S. Kim,
+``Fluctuation theorems for a quantum channel,''
+Phys.\ Rev.\ X \textbf{9}, 031029 (2019).
+
+\bibitem{Maldacena2013}
+J.~Maldacena and L.~Susskind,
+``Cool horizons for entangled black holes,''
+Fortschr.\ Phys.\ \textbf{61}, 781 (2013).
+
+\bibitem{Susskind2016}
+L.~Susskind,
+``Computational complexity and black hole horizons,''
+Fortschr.\ Phys.\ \textbf{64}, 24 (2016).
+
+\bibitem{Brown2016}
+A.~R. Brown, D.~A. Roberts, L.~Susskind, B.~Swingle, and Y.~Zhao,
+``Complexity, action, and black holes,''
+Phys.\ Rev.\ D \textbf{93}, 086006 (2016).
+
+\bibitem{Zurek2003}
+W.~H. Zurek,
+``Decoherence, einselection, and the quantum origins of the
+classical,''
+Rev.\ Mod.\ Phys.\ \textbf{75}, 715 (2003).
+
+\bibitem{Zeh1970}
+H.~D. Zeh,
+``On the interpretation of measurement in quantum theory,''
+Found.\ Phys.\ \textbf{1}, 69 (1970).
+
+\bibitem{Landi2021}
+G.~T. Landi and M.~Paternostro,
+``Irreversible entropy production: From classical to quantum,''
+Rev.\ Mod.\ Phys.\ \textbf{93}, 035008 (2021).
+
+\bibitem{Buscemi2024}
+G.~Bai, F.~Buscemi, and V.~Scarani,
+``Fully quantum stochastic entropy production,''
+arXiv:2412.12489 (2024).
+
+\bibitem{Barnum2002}
+H.~Barnum and E.~Knill,
+``Reversing quantum dynamics with near-optimal quantum and classical
+fidelity,''
+J.\ Math.\ Phys.\ \textbf{43}, 2097 (2002).
+
+\bibitem{Fullwood2023}
+A.~J. Parzygnat and J.~Fullwood,
+``From time-reversal symmetry to quantum Bayes' rules,''
+PRX Quantum \textbf{4}, 020334 (2023).
+
+\bibitem{Png2025}
+W.-H. Png and V.~Scarani,
+``Petz recovery maps of single-qubit decoherence channels in an
+ion trap quantum processor,''
+Phys.\ Rev.\ A \textbf{112}, 022613 (2025).
+
+\bibitem{Singh2025}
+G.~Singh, R.~S. Sahani, V.~Jagadish, L.~Lautenbacher,
+N.~K. Bernardes, and K.~Dorai,
+``Realizing the Petz recovery map on an NMR quantum processor,''
+arXiv:2508.08998 (2025).
+
+\bibitem{ABL1964}
+Y.~Aharonov, P.~G. Bergmann, and J.~L. Lebowitz,
+``Time symmetry in the quantum process of measurement,''
+Phys.\ Rev.\ \textbf{134}, B1410 (1964).
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,79 @@
+{
+  "config": {
+    "distance": 5,
+    "rounds": 3,
+    "base_noise": 0.008,
+    "hot_factor": 4.0,
+    "hot_fraction": 0.3,
+    "total_samples": 6000,
+    "test_size": 1000,
+    "n_detectors": 72,
+    "hot_indices": [
+      0,
+      8,
+      9,
+      11,
+      13,
+      16,
+      23
+    ],
+    "observable_flip_rate": 0.195
+  },
+  "approach_A": {
+    "logical_error_rate": 0.013,
+    "training_examples": 0,
+    "time_s": 0.0013780593872070312
+  },
+  "approach_B": {
+    "logical_error_rates": {
+      "50": 0.194,
+      "100": 0.195,
+      "200": 0.192,
+      "500": 0.187,
+      "1000": 0.183,
+      "2000": 0.17,
+      "4000": 0.163
+    },
+    "times_s": {
+      "50": 0.15935683250427246,
+      "100": 0.12212991714477539,
+      "200": 0.13451123237609863,
+      "500": 0.13292288780212402,
+      "1000": 0.16057491302490234,
+      "2000": 0.1618671417236328,
+      "4000": 0.17666888236999512
+    }
+  },
+  "approach_C": {
+    "logical_error_rates": {
+      "50": 0.044,
+      "100": 0.03,
+      "200": 0.026,
+      "500": 0.016,
+      "1000": 0.013
+    },
+    "times_s": {
+      "50": 0.03248310089111328,
+      "100": 0.05409884452819824,
+      "200": 0.07085394859313965,
+      "500": 0.1303091049194336,
+      "1000": 0.236253023147583
+    }
+  },
+  "oracle": {
+    "logical_error_rate": 0.009
+  },
+  "analysis": {
+    "oracle_ler": 0.009,
+    "physics_ler": 0.013,
+    "best_ml_ler": 0.163,
+    "best_ml_n": 4000,
+    "best_physml_ler": 0.013,
+    "best_physml_n": 1000,
+    "ml_matches_physics_at_n": null,
+    "physml_beats_physics_at_n": null,
+    "physml_matches_ml_best_at_n": 50,
+    "data_efficiency_gain": 80.0
+  },
+  "total_time_s": 1.603062629699707
+}

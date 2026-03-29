@@ -1,0 +1,83 @@
+{
+  "experiment": "QEC Experiment 2: Noise Drift Tracking",
+  "config": {
+    "distance": 5,
+    "rounds_per_sample": 5,
+    "p_base": 0.005,
+    "noise_ratio": 4.0,
+    "fraction_noisy": 0.3,
+    "drift_interval": 1000,
+    "num_epochs": 12,
+    "shots_per_epoch": 10000,
+    "seed": 2026
+  },
+  "results": {
+    "qec_round": [
+      1000,
+      2000,
+      3000,
+      4000,
+      5000,
+      6000,
+      7000,
+      8000,
+      9000,
+      10000,
+      11000,
+      12000
+    ],
+    "ler_never_recalibrate": [
+      0.05,
+      0.0686,
+      0.0639,
+      0.0701,
+      0.0712,
+      0.0687,
+      0.0544,
+      0.071,
+      0.0625,
+      0.0579,
+      0.0585,
+      0.0737
+    ],
+    "ler_recalibrate_each_epoch": [
+      0.0502,
+      0.0475,
+      0.0556,
+      0.0528,
+      0.0487,
+      0.0509,
+      0.0411,
+      0.0566,
+      0.0447,
+      0.0557,
+      0.0407,
+      0.0657
+    ],
+    "ler_perfect_knowledge": [
+      0.0502,
+      0.0475,
+      0.0556,
+      0.0528,
+      0.0487,
+      0.0509,
+      0.0411,
+      0.0566,
+      0.0447,
+      0.0557,
+      0.0407,
+      0.0657
+    ]
+  },
+  "summary": {
+    "avg_ler_never": 0.06420833333333333,
+    "avg_ler_recal": 0.05085,
+    "avg_ler_perfect": 0.05085,
+    "degradation_factor": 1.2866071428571426,
+    "runtime_seconds": 1.5739879608154297
+  },
+  "packages": {
+    "stim": "1.15.0",
+    "pymatching": "2.3.1"
+  }
+}

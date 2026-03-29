@@ -1,0 +1,75 @@
+{
+  "trial_1": [
+    {
+      "trial": 0,
+      "depth": 2,
+      "tau_naive": 0.1082,
+      "tau_bayesian": 0.1057,
+      "improvement_pct": 2.3
+    },
+    {
+      "trial": 0,
+      "depth": 4,
+      "tau_naive": 0.1985,
+      "tau_bayesian": 0.1807,
+      "improvement_pct": 9.0
+    },
+    {
+      "trial": 0,
+      "depth": 6,
+      "tau_naive": 0.2682,
+      "tau_bayesian": 0.2645,
+      "improvement_pct": 1.4
+    },
+    {
+      "trial": 0,
+      "depth": 8,
+      "tau_naive": 0.3542,
+      "tau_bayesian": 0.3224,
+      "improvement_pct": 9.0
+    },
+    {
+      "trial": 0,
+      "depth": 10,
+      "tau_naive": 0.3999,
+      "tau_bayesian": 0.347,
+      "improvement_pct": 13.2
+    },
+    {
+      "trial": 0,
+      "depth": 15,
+      "tau_naive": 0.5352,
+      "tau_bayesian": 0.415,
+      "improvement_pct": 22.5
+    },
+    {
+      "trial": 0,
+      "depth": 20,
+      "tau_naive": 0.6399,
+      "tau_bayesian": 0.4483,
+      "improvement_pct": 29.9
+    },
+    {
+      "trial": 0,
+      "depth": 30,
+      "tau_naive": 0.7839,
+      "tau_bayesian": 0.4844,
+      "improvement_pct": 38.2
+    },
+    {
+      "trial": 0,
+      "depth": 40,
+      "tau_naive": 0.8703,
+      "tau_bayesian": 0.4947,
+      "improvement_pct": 43.2
+    },
+    {
+      "trial": 0,
+      "depth": 50,
+      "tau_naive": 0.9222,
+      "tau_bayesian": 0.4984,
+      "improvement_pct": 46.0
+    }
+  ],
+  "note": "Trial 2-3 failed due to Tuna-9 calibration timeout"
+}

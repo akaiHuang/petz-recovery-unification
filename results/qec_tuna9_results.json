@@ -1,0 +1,64 @@
+{
+  "backend": "Tuna-9",
+  "timestamp": "2026-03-19 13:23:07",
+  "shots": 4096,
+  "qubit_mapping": {
+    "d0": 0,
+    "d1": 1,
+    "d2": 2,
+    "a0": 3,
+    "a1": 4
+  },
+  "tau_characterizations": [
+    {
+      "qubit_index": 0,
+      "physical_qubit": 0,
+      "tau_worst": 0.0546965247391471,
+      "tau_avg": 0.04774485440473316,
+      "process_fidelity": 0.9883572850703338
+    },
+    {
+      "qubit_index": 1,
+      "physical_qubit": 1,
+      "tau_worst": 0.06101938600139789,
+      "tau_avg": 0.04877660182870051,
+      "process_fidelity": 0.9884035207587942
+    },
+    {
+      "qubit_index": 2,
+      "physical_qubit": 2,
+      "tau_worst": 0.05444960179764802,
+      "tau_avg": 0.04435454479531183,
+      "process_fidelity": 0.9896174635433909
+    }
+  ],
+  "strategy_results": [
+    {
+      "name": "A",
+      "description": "No error correction (raw readout)",
+      "logical_error_rate": 0.00634765625,
+      "total_shots": 4096,
+      "num_errors": 26,
+      "raw_counts": null
+    },
+    {
+      "name": "B",
+      "description": "Standard syndrome correction (uniform majority vote)",
+      "logical_error_rate": 0.0458984375,
+      "total_shots": 4096,
+      "num_errors": 188,
+      "raw_counts": null
+    },
+    {
+      "name": "C",
+      "description": "tau-chrono noise-informed correction (weighted majority vote)",
+      "logical_error_rate": 0.027587890625,
+      "total_shots": 4096,
+      "num_errors": 113,
+      "raw_counts": null
+    }
+  ],
+  "improvement_B_over_A": -623.0769230769231,
+  "improvement_C_over_B": 39.8936170212766,
+  "improvement_C_over_A": -334.61538461538464
+}

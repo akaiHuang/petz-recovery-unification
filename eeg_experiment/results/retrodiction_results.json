@@ -1,0 +1,72 @@
+{
+  "W": {
+    "sigma": 2.5919999999999987,
+    "petz_bound": 0.2736241033704082,
+    "f_optimal": 0.6703200460356393,
+    "fidelity_transformer": 0.7744669660574709,
+    "fidelity_linear": 0.6903702020645142,
+    "fidelity_ar": 0.6157211065292358,
+    "mse_transformer": 0.22769974708557128,
+    "mse_linear": 0.3126029074192047,
+    "mse_ar": 0.38796883821487427,
+    "bound_satisfied_transformer": true,
+    "bound_satisfied_linear": true,
+    "bound_satisfied_ar": true
+  },
+  "R": {
+    "sigma": 1.5680000000000005,
+    "petz_bound": 0.4565760496233146,
+    "f_optimal": 0.6703200460356393,
+    "fidelity_transformer": 0.782611317524982,
+    "fidelity_linear": 0.7051652669906616,
+    "fidelity_ar": 0.6547196507453918,
+    "mse_transformer": 0.2303587818145752,
+    "mse_linear": 0.3124240040779114,
+    "mse_ar": 0.3658790588378906,
+    "bound_satisfied_transformer": true,
+    "bound_satisfied_linear": true,
+    "bound_satisfied_ar": true
+  },
+  "N1": {
+    "sigma": 0.8000000000000007,
+    "petz_bound": 0.6703200460356391,
+    "f_optimal": 0.6703200460356391,
+    "fidelity_transformer": 0.7735354381478937,
+    "fidelity_linear": 0.6661438941955566,
+    "fidelity_ar": 0.6488651633262634,
+    "mse_transformer": 0.22940263748168946,
+    "mse_linear": 0.3381858468055725,
+    "mse_ar": 0.3556886315345764,
+    "bound_satisfied_transformer": true,
+    "bound_satisfied_linear": false,
+    "bound_satisfied_ar": false
+  },
+  "N2": {
+    "sigma": 0.28800000000000003,
+    "petz_bound": 0.865887748059205,
+    "f_optimal": 0.6703200460356393,
+    "fidelity_transformer": 0.7757498231968946,
+    "fidelity_linear": 0.6951617002487183,
+    "fidelity_ar": 0.669562816619873,
+    "mse_transformer": 0.21247439384460448,
+    "mse_linear": 0.2888292670249939,
+    "mse_ar": 0.31308382749557495,
+    "bound_satisfied_transformer": false,
+    "bound_satisfied_linear": false,
+    "bound_satisfied_ar": false
+  },
+  "N3": {
+    "sigma": 0.03199999999999999,
+    "petz_bound": 0.9841273200552851,
+    "f_optimal": 0.6703200460356392,
+    "fidelity_transformer": 0.7707437833539647,
+    "fidelity_linear": 0.6710938215255737,
+    "fidelity_ar": 0.6701306104660034,
+    "mse_transformer": 0.2258766269683838,
+    "mse_linear": 0.3240559697151184,
+    "mse_ar": 0.3250049650669098,
+    "bound_satisfied_transformer": false,
+    "bound_satisfied_linear": false,
+    "bound_satisfied_ar": false
+  }
+}

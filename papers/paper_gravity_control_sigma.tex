@@ -1,0 +1,839 @@
+% paper_gravity_control_sigma.tex
+% Gravitational Sigma Engineering: Feasibility of Local Spacetime
+% Modification via Quantum Information Control
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper_gravity_control_sigma.tex
+% Target: ~5 pages, PRD style
+
+\documentclass[prd,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{proposition}{Proposition}
+
+% Shared macros (consistent with Papers 1--6)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\tauasym}{\tau}
+\newcommand{\Sgrav}{\Sigma_{\mathrm{grav}}}
+\newcommand{\rs}{r_{\mathrm{s}}}
+
+% Paper-specific macros
+\newcommand{\DSigma}{\Delta\Sigma}
+\newcommand{\rhoK}{\rho_{\mathrm{K}}}
+\newcommand{\rhoCas}{\rho_{\mathrm{Cas}}}
+\newcommand{\vF}{v_{\mathrm{F}}}
+\newcommand{\trel}{\tau_{\mathrm{relax}}}
+
+% Epistemic tags
+\newcommand{\known}{\textsc{[known]}}
+\newcommand{\derived}{\textsc{[derived]}}
+\newcommand{\assumed}{\textsc{[assumed]}}
+\newcommand{\new}{\textsc{[new]}}
+\newcommand{\specmark}{\textsc{[speculative]}}
+
+\begin{document}
+
+\title{Gravitational Sigma Engineering: Feasibility of Local Spacetime
+Modification via Quantum Information Control}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\begin{abstract}
+Within the $\Sigma$--$\tauasym$ framework, the gravitational entropy
+production $\Sgrav = -\ln(-g_{00})$ is identified as a fundamental
+field governing the gravitational channel.  If $\Sgrav$ can be
+modified locally \emph{without} adding mass, one obtains ``gravity
+control'' in the strict sense of altering the effective metric.  We
+evaluate four candidate mechanisms quantitatively: (i)~Khronon field
+condensate displacement ($\DSigma \sim 10^{-97}$), (ii)~Casimir
+vacuum energy ($\DSigma \sim 10^{-46}$), (iii)~superconductor
+condensation energy ($\DSigma \sim 10^{-34}$), and (iv)~nanoparticle
+matter-wave interferometry ($\DSigma \sim 10^{-10}$ for
+next-generation experiments).  All estimates are compared against
+experimental detection thresholds: torsion-balance sensitivity
+$\DSigma \sim 10^{-15}$, atom interferometry $\DSigma \sim 10^{-20}$,
+and LIGO-class detectors $\DSigma \sim 10^{-22}$.  We find that
+approaches~(i)--(iii) are quantitatively excluded for laboratory-scale
+gravity modification, while approach~(iv) offers a realistic path to
+\emph{detecting} $\Sgrav$ at the quantum scale within the coming
+decade.  We identify the quantum-coherence channel of superconductors
+as an open theoretical question deserving further investigation.
+\end{abstract}
+
+\maketitle
+
+%======================================================================
+\section{Introduction}
+\label{sec:intro}
+%======================================================================
+
+General relativity describes gravity through the spacetime metric
+$g_{\mu\nu}$, whose curvature encodes the gravitational field
+\known.  In the companion papers of this series, we established a
+quantum-information interpretation: the temporal asymmetry parameter
+$\tauasym = 1 - F$, where $F$ is the Petz recovery fidelity, quantifies
+the irreversibility of the gravitational channel
+\cite{Huang2026paper1}.  The Petz recovery bound
+\begin{equation}
+  F \geq e^{-\Sigma/2}
+  \label{eq:petz-bound}
+\end{equation}
+relates the recovery fidelity to the entropy production $\Sigma$
+\known~\cite{Petz1986,Petz1988,Junge2018,Faulkner2022}.
+In Paper~2 \cite{Huang2026paper2}, we proved the Channel Theorem:
+for a static gravitational background, the extensive entropy
+production of the gravitational channel is
+\begin{equation}
+  \Sgrav = -\ln(-g_{00}) \,,
+  \label{eq:sigma-g00}
+\end{equation}
+which for the Schwarzschild exterior gives
+$\Sgrav = -\ln(1 - \rs/r)$ \derived.
+
+A key consequence is the Fisher information principle: demanding that
+$\Sgrav$ be a harmonic function in vacuum,
+$\nabla^2 \Sgrav = 0$, yields the exponential metric
+\begin{equation}
+  g_{00} = -e^{-\rs/r}\,, \qquad g_{rr} = e^{+\rs/r}\,,
+  \label{eq:exp-metric}
+\end{equation}
+which is horizon-free and agrees with all current weak-field tests
+\derived~\cite{Huang2026paper2}.
+
+This raises a provocative question: if $\Sgrav$ is a fundamental
+field rather than merely a derived quantity, can it be modified
+\emph{locally} without placing mass at that location?  Such a
+modification would constitute ``gravity control'' in the literal
+sense---altering the effective metric $g_{00}$ at a chosen point.
+In this paper, we evaluate this possibility quantitatively, computing
+$\DSigma$ achievable by four distinct physical mechanisms and
+comparing each against experimental detection thresholds.  We
+emphasize that honest assessment requires showing both what works
+and what does not.
+
+%======================================================================
+\section{Defining Gravity Control}
+\label{sec:definition}
+%======================================================================
+
+We define \emph{gravity control} operationally:
+
+\begin{proposition}[Gravity control]
+A change $\DSigma \neq 0$ at spatial location $\bm{r}$, produced
+by a mechanism that does not introduce additional stress-energy
+$\Delta T_{\mu\nu}(\bm{r}) = 0$ at that location.
+\end{proposition}
+
+\noindent From Eq.~\eqref{eq:sigma-g00}, such a change implies a
+local metric modification
+\begin{equation}
+  g_{00} \;\to\; g_{00}\,e^{-\DSigma}\,,
+  \label{eq:metric-shift}
+\end{equation}
+and a corresponding change in the local gravitational acceleration
+\begin{equation}
+  \Delta a = \frac{c^2}{2}\,\frac{\partial(\DSigma)}{\partial r}
+  \label{eq:accel-shift}
+\end{equation}
+for a spatially varying $\DSigma(r)$ \derived.
+
+\subsection{Detection thresholds}
+
+The sensitivity of current and planned experiments sets the minimum
+detectable $\DSigma$ \known:
+
+\begin{itemize}
+  \item \textbf{Torsion balance} (E\"ot-Wash
+    group~\cite{Adelberger2009}): acceleration sensitivity
+    $\delta a \sim 10^{-15}\,\mathrm{m/s^2}$.  Over a baseline
+    $\ell \sim 1\,\mathrm{cm}$, this corresponds to
+    \begin{equation}
+      \DSigma_{\min}^{\mathrm{torsion}} \sim
+      \frac{2\,\delta a\,\ell}{c^2}
+      = \frac{2 \times 10^{-15} \times 10^{-2}}{9 \times 10^{16}}
+      \approx 2 \times 10^{-34}\,.
+      \label{eq:torsion-threshold}
+    \end{equation}
+    However, for a \emph{uniform} $\DSigma$ over a macroscopic region
+    $L \sim 1\,\mathrm{m}$, the directly measurable quantity is
+    the redshift $\Delta\nu/\nu = \DSigma/2$, giving a threshold
+    $\DSigma \sim 10^{-15}$ from optical clock comparisons
+    \cite{Bothwell2022}.
+  \item \textbf{Atom interferometer}~\cite{Asenbaum2020}:
+    phase sensitivity $\Delta\phi \sim 10^{-4}\,\mathrm{rad}$ with
+    interrogation time $T \sim 1\,\mathrm{s}$ gives
+    $\delta a \sim 10^{-12}\,\mathrm{m/s^2}$, but over long baselines
+    $L \sim 10\,\mathrm{m}$ the effective $\DSigma$ threshold reaches
+    $\sim 10^{-20}$.
+  \item \textbf{LIGO}~\cite{LIGOScientific2015}: strain sensitivity
+    $h \sim 10^{-22}$ corresponds to transient $\DSigma \sim 10^{-22}$,
+    but only for oscillatory signals in the detector bandwidth.
+\end{itemize}
+
+%======================================================================
+\section{Approach 1: Khronon Field Condensate}
+\label{sec:khronon}
+%======================================================================
+
+In Paper~3 \cite{Huang2026paper3}, the Khronon action with ghost
+condensation \known~\cite{ArkaniHamed2004} is
+\begin{equation}
+  K(Q) = \mu^2 (Q - 1)^2\,,
+  \label{eq:KQ}
+\end{equation}
+where $Q = 1/N_\phi$ is the inverse lapse of the Khronon field and
+$\mu_0 = H_0/c$ is the single free parameter \derived.  The
+condensate sits at $Q_0 = 1$; a displacement $Q = Q_0 + \delta Q$
+produces \derived
+\begin{equation}
+  \DSigma = 2\ln(1 + \delta Q) \approx 2\,\delta Q
+  \quad (\delta Q \ll 1)\,.
+  \label{eq:dsigma-khronon}
+\end{equation}
+The energy density required to sustain this displacement is
+\begin{equation}
+  \rhoK = \frac{\mu^2 c^2}{8\pi G}\,\delta Q\,(2 + \delta Q)\,.
+  \label{eq:rho-khronon}
+\end{equation}
+With $\mu = H_0/c \approx 7.3 \times 10^{-27}\,\mathrm{m}^{-1}$
+and $G = 6.674 \times 10^{-11}\,\mathrm{m^3\,kg^{-1}\,s^{-2}}$:
+\begin{align}
+  \mu^2 c^2 &= (7.3 \times 10^{-27})^2 \times (3 \times 10^8)^2
+  \nonumber \\
+  &= 5.3 \times 10^{-53} \times 9 \times 10^{16}
+  \nonumber \\
+  &= 4.8 \times 10^{-36}\;\mathrm{kg\,m^{-1}\,s^{-2}}\,.
+  \label{eq:mu2c2}
+\end{align}
+For a target $\DSigma = 10^{-15}$ (optical-clock detectable),
+we need $\delta Q = 5 \times 10^{-16}$, giving
+\begin{equation}
+  \rhoK = \frac{4.8 \times 10^{-36} \times 10^{-15}}
+  {8\pi \times 6.674 \times 10^{-11}}
+  \approx \frac{4.8 \times 10^{-51}}{1.67 \times 10^{-9}}
+  \approx 2.9 \times 10^{-42}\;\frac{\mathrm{kg}}{\mathrm{m}^3}\,.
+  \label{eq:rho-khronon-num}
+\end{equation}
+This is not the issue---the energy is negligible.  The problem is
+the \emph{inverse}: the Khronon condensate at cosmological coupling
+$\mu = H_0/c$ only produces $\DSigma \sim 10^{-15}$ at the cost
+of displacing $Q$ on cosmological scales.  In the laboratory,
+with no cosmological horizon to set the boundary condition,
+$\delta Q$ relaxes to zero exponentially on the scale
+$\lambda_K = 1/\mu \sim c/H_0 \sim 10^{26}\,\mathrm{m}$ (the
+Hubble radius) \derived.
+
+The achievable $\DSigma$ in a lab of size $L \sim 1\,\mathrm{m}$
+is suppressed by $(L/\lambda_K)^2$:
+\begin{equation}
+  \DSigma_{\mathrm{lab}} \sim \DSigma_{\mathrm{cosmo}}
+  \times \left(\frac{L}{\lambda_K}\right)^2
+  \sim 1 \times \left(\frac{1}{10^{26}}\right)^2
+  = 10^{-52}\,.
+  \label{eq:khronon-lab}
+\end{equation}
+Comparing with the Khronon stress-energy contribution over the
+lab volume $V = L^3$:
+\begin{equation}
+  \DSigma \sim \frac{8\pi G\,\rhoK\,L^2}{c^4}
+  = \frac{8\pi \times 6.67 \times 10^{-11} \times \rhoK \times 1}
+  {8.1 \times 10^{33}}\,.
+  \label{eq:dsigma-energy}
+\end{equation}
+To reach $\DSigma = 10^{-15}$, one would need
+$\rhoK \sim 10^{19}\,\mathrm{kg/m^3}$---nuclear density.  But the
+Khronon condensate at $\mu = H_0/c$ produces
+$\rhoK \sim 10^{-26}\,\mathrm{kg/m^3}$ (the critical density),
+not nuclear density.
+
+\textbf{Conclusion:} Direct Khronon condensation at the cosmological
+coupling is quantitatively excluded for laboratory gravity
+modification.  Any locally engineered $\DSigma$ via Khronon
+displacement would require either (a)~a coupling $\mu \gg H_0/c$
+(violating the cosmological identification) or (b)~boundary conditions
+mimicking a cosmological horizon at lab scales (physically unrealizable).
+
+%======================================================================
+\section{Approach 2: Casimir Vacuum Energy}
+\label{sec:casimir}
+%======================================================================
+
+The Casimir effect \known~\cite{Casimir1948,Lamoreaux1997} produces a
+negative energy density between parallel conducting plates separated
+by distance $d$:
+\begin{equation}
+  \rhoCas = -\frac{\pi^2\hbar c}{720\,d^4}\,.
+  \label{eq:rho-casimir}
+\end{equation}
+For $d = 100\,\mathrm{nm} = 10^{-7}\,\mathrm{m}$:
+\begin{align}
+  \rhoCas &= -\frac{\pi^2 \times 1.055 \times 10^{-34}
+  \times 3 \times 10^8}{720 \times (10^{-7})^4}
+  \nonumber \\
+  &= -\frac{9.87 \times 3.165 \times 10^{-26}}
+  {720 \times 10^{-28}}
+  \nonumber \\
+  &= -\frac{3.12 \times 10^{-25}}{7.2 \times 10^{-26}}
+  \nonumber \\
+  &\approx -4.3\;\mathrm{J/m^3}
+  = -4.8 \times 10^{-17}\;\mathrm{kg/m^3}\,.
+  \label{eq:rho-casimir-num}
+\end{align}
+The gravitational $\DSigma$ induced over the plate separation is
+\begin{equation}
+  \DSigma_{\mathrm{Cas}} \sim \frac{8\pi G\,|\rhoCas|\,d^2}{c^4}\,.
+  \label{eq:dsigma-casimir}
+\end{equation}
+Substituting:
+\begin{align}
+  \DSigma_{\mathrm{Cas}} &\sim
+  \frac{8\pi \times 6.67 \times 10^{-11} \times 4.8 \times 10^{-17}
+  \times 10^{-14}}{8.1 \times 10^{33}}
+  \nonumber \\
+  &\sim \frac{8.0 \times 10^{-40}}{8.1 \times 10^{33}}
+  \nonumber \\
+  &\sim 10^{-73}\,.
+  \label{eq:dsigma-casimir-num}
+\end{align}
+This is extremely small.  Even using the Casimir energy over a
+macroscopic stacking of $N = L/d$ plates over $L = 1\,\mathrm{cm}$
+(so $N = 10^5$), the cumulative effect over the full stack is
+\begin{equation}
+  \DSigma_{\mathrm{stack}} \sim \frac{8\pi G\,|\rhoCas|\,L^2}{c^4}
+  \sim \frac{8\pi \times 6.67 \times 10^{-11} \times 4.8 \times 10^{-17}
+  \times 10^{-4}}{8.1 \times 10^{33}}
+  \sim 10^{-63}\,.
+  \label{eq:dsigma-stack}
+\end{equation}
+
+\textbf{Conclusion:} The Casimir energy density, while much larger than
+the cosmological Khronon condensate (by $\sim 10$ orders of magnitude),
+still produces a gravitational $\DSigma$ that is $\sim 48$ orders of
+magnitude below the optical-clock threshold $10^{-15}$.  The Casimir
+route is quantitatively excluded.
+
+%======================================================================
+\section{Approach 3: Superconductor Condensation}
+\label{sec:superconductor}
+%======================================================================
+
+\subsection{Energy-based estimate}
+
+A type-II superconductor undergoes a phase transition with condensation
+energy density \known~\cite{Tinkham2004}
+\begin{equation}
+  u_{\mathrm{cond}} = \frac{B_c^2}{2\mu_0}\,,
+  \label{eq:u-cond}
+\end{equation}
+where $B_c$ is the thermodynamic critical field.  For
+$\mathrm{YBa_2Cu_3O_{7-\delta}}$ (YBCO) with
+$B_c \sim 1\,\mathrm{T}$:
+\begin{equation}
+  u_{\mathrm{cond}} \sim \frac{1}{2 \times 4\pi \times 10^{-7}}
+  \approx 4 \times 10^5\;\mathrm{J/m^3}\,.
+  \label{eq:u-cond-num}
+\end{equation}
+The corresponding mass-energy density is
+$\rho_{\mathrm{cond}} = u_{\mathrm{cond}}/c^2
+\approx 4.4 \times 10^{-12}\;\mathrm{kg/m^3}$.
+
+For a superconducting sample of size $L = 1\,\mathrm{cm}$:
+\begin{align}
+  \DSigma_{\mathrm{SC}} &\sim \frac{8\pi G\,\rho_{\mathrm{cond}}\,L^2}{c^4}
+  \nonumber \\
+  &= \frac{8\pi \times 6.67 \times 10^{-11} \times 4.4 \times 10^{-12}
+  \times 10^{-4}}{8.1 \times 10^{33}}
+  \nonumber \\
+  &\sim \frac{7.4 \times 10^{-25}}{8.1 \times 10^{33}}
+  \sim 10^{-58}\,.
+  \label{eq:dsigma-sc-energy}
+\end{align}
+
+\noindent More precisely, the \emph{change} in stress-energy upon
+entering the superconducting state is $\Delta T_{00} = u_{\mathrm{cond}}$,
+and the metric perturbation it sources is of order
+$h_{00} \sim 8\pi G\,u_{\mathrm{cond}}\,L^2/c^4$, yielding the same
+estimate \derived.  This is $\sim 43$ orders below threshold.
+
+\subsection{Quantum-coherence hypothesis}
+\label{subsec:coherence}
+
+A more speculative avenue exists \specmark.  In the normal metallic
+state, conduction electrons undergo frequent scattering events, each
+producing irreversibility (entropy production).  In the
+$\Sigma$--$\tauasym$ framework, each scattering event contributes
+$\delta\Sigma > 0$.  In the superconducting state, Cooper pairs
+propagate without scattering: $\tauasym_{\mathrm{electron}} = 0$.
+
+If the \emph{gravitational} $\Sgrav$ couples to the
+\emph{microscopic} entropy production of matter (beyond the
+stress-energy tensor alone), then the normal-to-superconductor
+transition eliminates a source term for $\Sgrav$.
+
+We estimate the electron scattering contribution to
+local entropy production.  For copper at $T = 300\,\mathrm{K}$
+\known:
+\begin{itemize}
+  \item Electron density: $n_e \approx 8.5 \times 10^{28}\,\mathrm{m^{-3}}$
+  \item Fermi velocity: $\vF \approx 1.6 \times 10^6\,\mathrm{m/s}$
+  \item Relaxation time: $\trel \approx 2.5 \times 10^{-14}\,\mathrm{s}$
+  \item Mean free path: $\ell_{\mathrm{mfp}} = \vF\,\trel
+    \approx 4 \times 10^{-8}\,\mathrm{m}$
+\end{itemize}
+The entropy produced per electron per scattering is of order
+\begin{equation}
+  \delta\Sigma_{\mathrm{scatter}} \sim \frac{G\,m_e^2}{\hbar\,c\,
+  \ell_{\mathrm{mfp}}}
+  \label{eq:sigma-scatter}
+\end{equation}
+where $m_e = 9.11 \times 10^{-31}\,\mathrm{kg}$.  This is the
+gravitational self-energy of the electron over one mean free path,
+in natural units:
+\begin{align}
+  \delta\Sigma_{\mathrm{scatter}} &\sim
+  \frac{6.67 \times 10^{-11} \times (9.11 \times 10^{-31})^2}
+  {1.055 \times 10^{-34} \times 3 \times 10^8 \times 4 \times 10^{-8}}
+  \nonumber \\
+  &= \frac{6.67 \times 10^{-11} \times 8.3 \times 10^{-61}}
+  {1.27 \times 10^{-33}}
+  \nonumber \\
+  &= \frac{5.5 \times 10^{-71}}{1.27 \times 10^{-33}}
+  \approx 4.4 \times 10^{-38}\,.
+  \label{eq:sigma-scatter-num}
+\end{align}
+The scattering rate per electron is $1/\trel \approx 4 \times 10^{13}\,
+\mathrm{s^{-1}}$.  In a sample volume $V = (1\,\mathrm{cm})^3 = 10^{-6}\,
+\mathrm{m^3}$, the total entropy production rate is
+\begin{align}
+  \dot{\Sigma}_{\mathrm{total}} &= n_e \times V \times
+  \frac{\delta\Sigma_{\mathrm{scatter}}}{\trel}
+  \nonumber \\
+  &= 8.5 \times 10^{28} \times 10^{-6} \times
+  \frac{4.4 \times 10^{-38}}{2.5 \times 10^{-14}}
+  \nonumber \\
+  &= 8.5 \times 10^{22} \times 1.76 \times 10^{-24}
+  \nonumber \\
+  &\approx 0.15\;\mathrm{s^{-1}}\,.
+  \label{eq:sigma-dot}
+\end{align}
+
+However, this is the gravitational entropy production
+\emph{rate} from electron-scattering self-gravity, not the
+\emph{steady-state} $\DSigma$ sourced by the scattering.  The
+steady-state requires solving the Poisson-like equation
+$\nabla^2(\DSigma) = S$ with appropriate boundary conditions.
+The source $S \sim G\,n_e\,m_e^2/(\hbar\,c\,\trel)$
+produces a static $\DSigma$ of order
+\begin{equation}
+  \DSigma_{\mathrm{coherence}} \sim S \times L^2
+  \sim \frac{G\,n_e\,m_e^2\,L^2}{\hbar\,c\,\trel}\,.
+  \label{eq:dsigma-coherence}
+\end{equation}
+Substituting:
+\begin{align}
+  \DSigma_{\mathrm{coherence}} &\sim
+  \frac{6.67 \times 10^{-11} \times 8.5 \times 10^{28}
+  \times 8.3 \times 10^{-61} \times 10^{-4}}
+  {1.055 \times 10^{-34} \times 3 \times 10^8
+  \times 2.5 \times 10^{-14}}
+  \nonumber \\
+  &= \frac{6.67 \times 8.5 \times 8.3 \times 10^{-148}}
+  {7.9 \times 10^{-41}}
+  \nonumber \\
+  &\sim \frac{4.7 \times 10^{-146}}{7.9 \times 10^{-41}}
+  \sim 6 \times 10^{-106}\,.
+  \label{eq:dsigma-coherence-num}
+\end{align}
+
+This is \emph{far} below any detection threshold, essentially because
+the electron gravitational self-energy is negligibly small compared
+to its electromagnetic interactions.  The often-cited claims of
+``gravitational effects in superconductors''
+\cite{Podkletnov1992,Tajmar2006} would require $\DSigma \sim 10^{-8}$
+to $10^{-5}$, which is $\sim 100$ orders of magnitude above what the
+electron self-gravity channel can produce.
+
+\textbf{Conclusion:} The energy-based estimate gives $\DSigma \sim
+10^{-58}$; the quantum-coherence route gives $\DSigma \sim 10^{-106}$.
+Neither is detectable.  However, we stress that
+Eq.~\eqref{eq:dsigma-coherence} assumes $\Sgrav$ couples to matter
+only through gravitational self-energy.  If a \emph{non-perturbative}
+coupling between macroscopic quantum coherence and $\Sgrav$ exists
+(for instance, via the topological properties of the Cooper-pair
+condensate), the estimate could change qualitatively.  This remains
+an open question.
+
+%======================================================================
+\section{Approach 4: Nanoparticle Interferometry}
+\label{sec:nanoparticle}
+%======================================================================
+
+Recent experiments have achieved matter-wave interference with
+increasingly massive particles, culminating in the demonstration
+by Pedalino \textit{et al.}~\cite{Pedalino2026} of interference
+fringes for nanoparticles of mass $m = 170\,\mathrm{kDa}
+= 2.8 \times 10^{-22}\,\mathrm{kg}$.
+
+When a massive particle is placed in a spatial superposition
+\begin{equation}
+  \ket{\psi} = \frac{1}{\sqrt{2}}
+  \bigl(\ket{\bm{r}_1} + \ket{\bm{r}_2}\bigr)
+  \label{eq:superposition}
+\end{equation}
+with separation $\Delta x = |\bm{r}_1 - \bm{r}_2|$, the
+gravitational self-interaction produces an entropy production
+\begin{equation}
+  \Sigma_{\mathrm{self}} = \frac{G\,m^2}{\hbar\,c\,\Delta x}\,.
+  \label{eq:sigma-self}
+\end{equation}
+This can be understood as follows \derived: the gravitational potential
+energy between the two branches is $E_{\mathrm{grav}} = G m^2/\Delta x$,
+and the associated $\Sgrav$ is $E_{\mathrm{grav}}/E_{\mathrm{Planck}}$
+where $E_{\mathrm{Planck}} = \hbar c / L_{\mathrm{Planck}}^2 \times L_{\mathrm{Planck}}
+= \sqrt{\hbar c^5/G}$.  More precisely:
+\begin{equation}
+  \Sigma_{\mathrm{self}} = \frac{G\,m^2}{\hbar\,c\,\Delta x}
+  = \frac{t_{\mathrm{grav}}}{t_{\mathrm{Planck}}} \times
+  \frac{L_{\mathrm{Planck}}}{\Delta x}\,,
+  \label{eq:sigma-self-interpret}
+\end{equation}
+where $t_{\mathrm{grav}} = Gm/(c^2 \Delta x) \times \Delta x/c$ is
+the gravitational light-crossing time.
+
+\subsection{Current experiments}
+
+For the Pedalino \textit{et al.} parameters
+($m = 2.8 \times 10^{-22}\,\mathrm{kg}$,
+$\Delta x \sim 10\,\mathrm{nm} = 10^{-8}\,\mathrm{m}$):
+\begin{align}
+  \Sigma_{\mathrm{self}} &=
+  \frac{6.67 \times 10^{-11} \times (2.8 \times 10^{-22})^2}
+  {1.055 \times 10^{-34} \times 3 \times 10^8 \times 10^{-8}}
+  \nonumber \\
+  &= \frac{6.67 \times 10^{-11} \times 7.84 \times 10^{-44}}
+  {3.165 \times 10^{-34}}
+  \nonumber \\
+  &= \frac{5.23 \times 10^{-54}}{3.165 \times 10^{-34}}
+  \nonumber \\
+  &\approx 1.7 \times 10^{-20}\,.
+  \label{eq:sigma-current}
+\end{align}
+This is too small to cause observable decoherence on experimental
+timescales (the decoherence rate scales as
+$\Gamma \sim \Sigma_{\mathrm{self}} \times c/\Delta x$
+\cite{Diosi1989,Penrose1996}).
+
+\subsection{Next-generation experiments}
+
+Proposals for next-generation experiments target masses
+$m \sim 10^9\,\mathrm{amu} = 1.7 \times 10^{-18}\,\mathrm{kg}$
+and superposition separations $\Delta x \sim 1\,\mu\mathrm{m}
+= 10^{-6}\,\mathrm{m}$ \cite{Bose2017,Marletto2017}:
+\begin{align}
+  \Sigma_{\mathrm{self}}^{\mathrm{next}} &=
+  \frac{6.67 \times 10^{-11} \times (1.7 \times 10^{-18})^2}
+  {1.055 \times 10^{-34} \times 3 \times 10^8 \times 10^{-6}}
+  \nonumber \\
+  &= \frac{6.67 \times 10^{-11} \times 2.89 \times 10^{-36}}
+  {3.165 \times 10^{-32}}
+  \nonumber \\
+  &= \frac{1.93 \times 10^{-46}}{3.165 \times 10^{-32}}
+  \nonumber \\
+  &\approx 6.1 \times 10^{-15}\,.
+  \label{eq:sigma-next}
+\end{align}
+This is tantalizingly close to the optical-clock threshold
+$\DSigma \sim 10^{-15}$ and well within the range that could
+produce \emph{measurable gravitational decoherence}.
+
+The Bose--Marletto--Vedral (BMV) proposal \cite{Bose2017,Marletto2017}
+provides a direct experimental test: two particles, each in spatial
+superposition, interact gravitationally.  If they become entangled,
+this certifies that gravity mediates quantum information---and in our
+framework, that $\Sigma_{\mathrm{self}}$ is a quantum observable.
+The entanglement phase is
+\begin{equation}
+  \phi_{\mathrm{ent}} = \frac{G\,m^2\,t}{\hbar\,\Delta x}
+  = \Sigma_{\mathrm{self}} \times \frac{c\,t}{\Delta x}\,.
+  \label{eq:bose-marletto}
+\end{equation}
+For $\phi_{\mathrm{ent}} \sim 1$ (detectable), one needs
+$t \sim \Delta x/(c\,\Sigma_{\mathrm{self}})$.  With the
+next-generation parameters:
+\begin{equation}
+  t \sim \frac{10^{-6}}{3 \times 10^8 \times 6 \times 10^{-15}}
+  \sim 0.6\;\mathrm{s}\,,
+  \label{eq:bose-marletto-time}
+\end{equation}
+which is within the reach of proposed experiments
+\cite{Bose2017,VanDeKamp2020}.
+
+\subsection{Interpretation within the $\Sigma$ framework}
+
+If the BMV experiment succeeds, it demonstrates that $\Sgrav$ at the
+scale $\Sigma \sim 10^{-14}$ is a genuine quantum-information
+quantity, not merely a classical entropy.  This would validate the
+central hypothesis of our framework---that $\Sgrav = -\ln(-g_{00})$
+is a fundamental field obeying quantum mechanics---at a scale where
+its effects are directly measurable.
+
+Conversely, if gravitational decoherence is observed at a rate
+\emph{exceeding} $\Gamma = G m^2/(2\hbar\,\Delta x^2)$
+(the Di\'osi--Penrose prediction), this would indicate additional
+non-unitary contributions to $\Sgrav$ beyond the self-gravitational
+channel, potentially pointing to new physics.
+
+%======================================================================
+\section{Feasibility Summary}
+\label{sec:summary}
+%======================================================================
+
+Table~\ref{tab:summary} collects our estimates.
+
+\begin{table*}[t]
+\caption{Feasibility of local $\Sigma$ modification by four approaches.
+All numerical values are order-of-magnitude estimates.  The detection
+thresholds assume current best technology; ``next-gen'' refers to
+experiments planned for the 2030s.
+\label{tab:summary}}
+\begin{ruledtabular}
+\begin{tabular}{lcccl}
+Approach & $\DSigma$ achievable & Best threshold & Gap (orders)
+& Status \\
+\colrule
+Khronon condensate (\S\ref{sec:khronon})
+  & $10^{-52}$ & $10^{-15}$ & 37 & Excluded \\
+Casimir vacuum (\S\ref{sec:casimir})
+  & $10^{-63}$ & $10^{-15}$ & 48 & Excluded \\
+Superconductor, energy (\S\ref{sec:superconductor})
+  & $10^{-58}$ & $10^{-15}$ & 43 & Excluded \\
+Superconductor, coherence (\S\ref{subsec:coherence})
+  & $10^{-106}$ & $10^{-15}$ & 91 & Excluded (but see text) \\
+Nanoparticle, current (\S\ref{sec:nanoparticle})
+  & $10^{-20}$ & $10^{-20}$ & 0 & Marginal \\
+Nanoparticle, next-gen (\S\ref{sec:nanoparticle})
+  & $10^{-14}$ & $10^{-15}$ & $-1$ (above) & \textbf{Feasible} \\
+\end{tabular}
+\end{ruledtabular}
+\end{table*}
+
+%======================================================================
+\section{Discussion}
+\label{sec:discussion}
+%======================================================================
+
+Our analysis leads to three principal conclusions:
+
+\textit{1. Laboratory gravity modification is excluded by many orders
+of magnitude.}---None of the approaches we considered can produce a
+detectable $\DSigma$ at a location devoid of additional mass.  The
+fundamental obstacle is the weakness of the gravitational coupling:
+$G/c^4 \approx 8.3 \times 10^{-45}\,\mathrm{m/J}$, which converts
+even large energy densities into minuscule metric perturbations.
+Claims of anomalous gravitational effects in superconductors
+\cite{Podkletnov1992,Tajmar2006} would require $\DSigma$ values
+exceeding our most optimistic estimates by $40$--$100$ orders of
+magnitude and should be regarded as unsubstantiated.
+
+\textit{2. Nanoparticle interferometry is the most promising path to
+detecting $\Sgrav$ at the quantum scale.}---Next-generation
+experiments with $m \sim 10^9\,\mathrm{amu}$ and
+$\Delta x \sim 1\,\mu\mathrm{m}$ achieve
+$\Sigma_{\mathrm{self}} \sim 10^{-14}$, which is \emph{above} the
+threshold for observable gravitational decoherence and entanglement.
+The BMV experiment \cite{Bose2017,Marletto2017} would directly test
+whether $\Sgrav$ is a quantum observable, providing the first
+empirical anchor for the $\Sigma$--$\tauasym$ framework at the
+quantum-gravitational interface.
+
+\textit{3. The superconductor-coherence channel deserves further
+theoretical investigation.}---Our estimate in
+\S\ref{subsec:coherence} assumed that $\Sgrav$ couples to matter
+only through the gravitational self-energy of individual electrons.
+If macroscopic quantum coherence modifies the \emph{boundary
+conditions} of $\Sgrav$ (rather than sourcing it directly), the
+relevant quantity might be the topological winding number of the
+order parameter, not the condensation energy.  This possibility
+cannot be excluded by the present analysis and merits a dedicated
+study within the framework of Paper~6 \cite{Huang2026paper6},
+where the gauge structure of the $\Sigma$ field is developed.
+
+Finally, we note an important conceptual point.  Even though
+``gravity control'' in the engineering sense (generating macroscopic
+$\DSigma$ without mass) appears infeasible, the $\Sigma$ framework
+provides a new \emph{diagnostic language} for gravitational physics:
+every gravitational measurement is a measurement of $\Sgrav$, and
+the Petz bound~\eqref{eq:petz-bound} provides a universal lower
+limit on the achievable recovery fidelity.  This
+information-theoretic perspective may prove as valuable for
+gravitational-wave astronomy and precision geodesy as it is for
+the foundational questions addressed in this paper.
+
+%======================================================================
+\begin{acknowledgments}
+The author thanks the developers of the Petz recovery map formalism
+and the experimental groups pushing the mass frontier of matter-wave
+interferometry.
+\end{acknowledgments}
+%======================================================================
+
+\begin{thebibliography}{30}
+
+\bibitem{Huang2026paper1}
+S.-K.~Huang,
+``Temporal asymmetry as Petz recovery failure: A unified
+information-theoretic arrow of time,''
+(2026), Paper~1 of this series.
+
+\bibitem{Petz1986}
+D.~Petz,
+``Sufficient subalgebras and the relative entropy of states of a
+von~Neumann algebra,''
+Commun.\ Math.\ Phys.\ \textbf{105}, 123 (1986).
+
+\bibitem{Petz1988}
+D.~Petz,
+``Sufficiency of channels over von~Neumann algebras,''
+Q.\ J.\ Math.\ \textbf{39}, 97 (1988).
+
+\bibitem{Junge2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M.~Wilde, and A.~Winter,
+``Universal recovery maps and approximate sufficiency of quantum
+relative entropy,''
+Ann.\ Henri Poincar\'e \textbf{19}, 2955 (2018).
+
+\bibitem{Faulkner2022}
+T.~Faulkner, S.~Hollands, B.~Swingle, and Y.~Wang,
+``Approximate recovery and relative entropy I: general von~Neumann
+subalgebras,''
+Commun.\ Math.\ Phys.\ \textbf{389}, 349 (2022).
+
+\bibitem{Huang2026paper2}
+S.-K.~Huang,
+``The gravitational refractive index as Petz recovery fidelity:
+Temporal asymmetry from spacetime geometry,''
+(2026), Paper~2 of this series.
+
+\bibitem{Adelberger2009}
+E.~G.~Adelberger, J.~H.~Gundlach, B.~R.~Heckel, S.~Hoedl, and
+S.~Schlamminger,
+``Torsion balance experiments: A low-energy frontier of particle
+physics,''
+Prog.\ Part.\ Nucl.\ Phys.\ \textbf{62}, 102 (2009).
+
+\bibitem{Bothwell2022}
+T.~Bothwell \textit{et al.},
+``Resolving the gravitational redshift across a millimetre-scale
+atomic sample,''
+Nature \textbf{602}, 420 (2022).
+
+\bibitem{Asenbaum2020}
+P.~Asenbaum, C.~Overstreet, M.~Kim, J.~Curti, and M.~A.~Kasevich,
+``Atom-interferometric test of the equivalence principle at the
+$10^{-12}$ level,''
+Phys.\ Rev.\ Lett.\ \textbf{125}, 191101 (2020).
+
+\bibitem{LIGOScientific2015}
+B.~P.~Abbott \textit{et al.} (LIGO Scientific and Virgo Collaborations),
+``Observation of gravitational waves from a binary black hole merger,''
+Phys.\ Rev.\ Lett.\ \textbf{116}, 061102 (2016).
+
+\bibitem{Huang2026paper3}
+S.-K.~Huang,
+``Dark matter as Khronon condensate: Weak-field phenomenology of the
+$\tau$ framework,''
+(2026), Paper~3 of this series.
+
+\bibitem{ArkaniHamed2004}
+N.~Arkani-Hamed, H.-C.~Cheng, M.~A.~Luty, and S.~Mukohyama,
+``Ghost condensation and a consistent infrared modification of
+gravity,''
+J.\ High Energy Phys.\ \textbf{05} (2004) 074.
+
+\bibitem{Casimir1948}
+H.~B.~G.~Casimir,
+``On the attraction between two perfectly conducting plates,''
+Proc.\ K.\ Ned.\ Akad.\ Wet.\ \textbf{51}, 793 (1948).
+
+\bibitem{Lamoreaux1997}
+S.~K.~Lamoreaux,
+``Demonstration of the Casimir force in the 0.6 to $6\,\mu$m range,''
+Phys.\ Rev.\ Lett.\ \textbf{78}, 5 (1997).
+
+\bibitem{Tinkham2004}
+M.~Tinkham,
+\textit{Introduction to Superconductivity}, 2nd ed.\
+(Dover, New York, 2004).
+
+\bibitem{Podkletnov1992}
+E.~Podkletnov and R.~Nieminen,
+``A possibility of gravitational force shielding by bulk
+$\mathrm{YBa_2Cu_3O_{7-x}}$ superconductor,''
+Physica~C \textbf{203}, 441 (1992).
+
+\bibitem{Tajmar2006}
+M.~Tajmar, F.~Plesescu, B.~Seifert, R.~Schnitzer, and I.~Vasiljevich,
+``Search for frame-dragging-like signals close to spinning
+superconductors,''
+J.\ Phys.:\ Conf.\ Ser.\ \textbf{150}, 032101 (2009).
+
+\bibitem{Pedalino2026}
+S.~Pedalino \textit{et al.},
+``Matter-wave interference of 170-kDa nanoparticles,''
+Nature \textbf{649}, 866 (2026).
+
+\bibitem{Diosi1989}
+L.~Di\'osi,
+``Models for universal reduction of macroscopic quantum
+fluctuations,''
+Phys.\ Rev.\ A \textbf{40}, 1165 (1989).
+
+\bibitem{Penrose1996}
+R.~Penrose,
+``On gravity's role in quantum state reduction,''
+Gen.\ Relativ.\ Gravit.\ \textbf{28}, 581 (1996).
+
+\bibitem{Bose2017}
+S.~Bose \textit{et al.},
+``Spin entanglement witness for quantum gravity,''
+Phys.\ Rev.\ Lett.\ \textbf{119}, 240401 (2017).
+
+\bibitem{Marletto2017}
+C.~Marletto and V.~Vedral,
+``Gravitationally induced entanglement between two massive particles
+is sufficient evidence of quantum effects of gravity,''
+Phys.\ Rev.\ Lett.\ \textbf{119}, 240402 (2017).
+
+\bibitem{VanDeKamp2020}
+R.~J.~van de Kamp \textit{et al.},
+``Quantum gravity witness via entanglement of masses: Casimir
+screening,''
+Phys.\ Rev.\ A \textbf{102}, 062807 (2020).
+
+\bibitem{Huang2026paper6}
+S.-K.~Huang,
+``Electromagnetic force from temporal asymmetry: U(1) gauge structure
+and DBI-$\Sigma$ correspondence,''
+(2026), Paper~6 of this series.
+
+\end{thebibliography}
+
+\end{document}

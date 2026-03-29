@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unified Framework Blueprint — Sheng-Kai Huang</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true
+  },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre']
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+/* ===== Reset & Base ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-primary:   #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card:      #1a2035;
+  --bg-hover:     #1e2a45;
+  --accent-blue:  #3b82f6;
+  --accent-cyan:  #06b6d4;
+  --accent-green: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-red:   #ef4444;
+  --accent-purple:#a78bfa;
+  --text-primary: #e2e8f0;
+  --text-secondary:#94a3b8;
+  --text-muted:   #64748b;
+  --border:       #1e293b;
+  --glow-blue:    rgba(59,130,246,0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Menlo', monospace;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* ===== Sticky Nav ===== */
+nav.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(10,14,26,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1rem;
+}
+nav.top-nav .nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.5rem 0;
+}
+nav.top-nav .nav-inner::-webkit-scrollbar { display: none; }
+nav.top-nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.78rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+nav.top-nav a:hover {
+  color: var(--accent-cyan);
+  background: var(--glow-blue);
+}
+nav.top-nav .nav-brand {
+  color: var(--accent-cyan);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Main Container ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ===== Hero ===== */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.hero h1 {
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--accent-cyan);
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+.hero .subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+.hero .meta {
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* ===== Section ===== */
+section { margin-bottom: 2.5rem; }
+section > h2 {
+  font-size: 1.25rem;
+  color: var(--accent-blue);
+  border-left: 4px solid var(--accent-blue);
+  padding-left: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ===== Card ===== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ===== Collapsible ===== */
+.collapsible {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.collapsible.open { border-color: var(--accent-blue); }
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.25rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.collapsible-header:hover { background: var(--bg-hover); }
+.collapsible-header h3 {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.collapsible-header .arrow {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  transition: transform 0.25s;
+}
+.collapsible.open .collapsible-header .arrow { transform: rotate(90deg); }
+.collapsible-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.collapsible.open .collapsible-body {
+  max-height: 5000px;
+}
+.collapsible-body-inner {
+  padding: 0 1.25rem 1.1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+/* ===== Status badges ===== */
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+.badge-done   { background: rgba(16,185,129,0.15); color: var(--accent-green); }
+.badge-wip    { background: rgba(245,158,11,0.15); color: var(--accent-amber); }
+.badge-warn   { background: rgba(239,68,68,0.12);  color: var(--accent-red);   }
+.badge-idea   { background: rgba(167,139,250,0.15);color: var(--accent-purple);}
+.badge-fail   { background: rgba(239,68,68,0.2);   color: #f87171; }
+
+/* ===== Item list ===== */
+ul.item-list { list-style: none; padding: 0; }
+ul.item-list li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(30,41,59,0.5);
+  font-size: 0.88rem;
+}
+ul.item-list li:last-child { border-bottom: none; }
+
+/* ===== Table ===== */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin: 0.75rem 0;
+}
+.styled-table th, .styled-table td {
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.styled-table th {
+  color: var(--accent-cyan);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.styled-table td { color: var(--text-secondary); }
+
+/* ===== SVG Triangle ===== */
+.svg-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+.svg-wrap svg text {
+  font-family: 'SF Mono','Fira Code','Consolas',monospace;
+}
+
+/* ===== Progress bar (scoreboard) ===== */
+.scoreboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+}
+.score-row {
+  display: grid;
+  grid-template-columns: 170px 1fr 50px;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+@media (max-width: 600px) {
+  .score-row { grid-template-columns: 110px 1fr 45px; font-size: 0.78rem; }
+}
+.score-row .label { color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.score-row .bar-bg {
+  height: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
+}
+.score-row .bar-fill {
+  height: 100%;
+  border-radius: 7px;
+  transition: width 0.6s ease;
+}
+.bar-green  { background: linear-gradient(90deg, #059669, #10b981); }
+.bar-amber  { background: linear-gradient(90deg, #d97706, #f59e0b); }
+.bar-red    { background: linear-gradient(90deg, #dc2626, #ef4444); }
+.bar-purple { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+.score-row .val { color: var(--text-muted); text-align: right; font-size: 0.82rem; }
+
+/* ===== Equation highlight ===== */
+.eq-box {
+  background: rgba(6,182,212,0.08);
+  border: 1px solid rgba(6,182,212,0.2);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 700px) {
+  .container { padding: 1rem 0.75rem 3rem; }
+  .hero { padding: 2rem 0.5rem 1.5rem; }
+  .card { padding: 1rem; }
+  .collapsible-header { padding: 0.75rem 1rem; }
+  .collapsible-body-inner { padding: 0 1rem 1rem; }
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+/* ===== Equivalence chain highlight ===== */
+.chain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.75rem 0;
+  font-size: 0.88rem;
+  color: var(--accent-green);
+}
+.chain span { white-space: nowrap; }
+.chain .arrow-sep { color: var(--text-muted); }
+
+/* ===== Discovery callout ===== */
+.callout {
+  background: rgba(245,158,11,0.08);
+  border-left: 3px solid var(--accent-amber);
+  padding: 0.75rem 1rem;
+  border-radius: 0 8px 8px 0;
+  margin: 0.75rem 0;
+  font-size: 0.88rem;
+  color: var(--accent-amber);
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="top-nav">
+  <div class="nav-inner">
+    <span class="nav-brand">&Sigma;</span>
+    <a href="#core">Core Eq</a>
+    <a href="#triangle">Triangle</a>
+    <a href="#layers">8 Layers</a>
+    <a href="#einstein">Einstein</a>
+    <a href="#penrose">Penrose</a>
+    <a href="#wolfram">Wolfram</a>
+    <a href="#scoreboard">Scoreboard</a>
+    <a href="#gaps">Gaps</a>
+    <a href="#honesty">Honesty</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<div class="container">
+
+<header class="hero">
+  <h1>\(\Sigma = D(\rho_{\text{spacetime}} \| \rho_{\text{matter}})\)<br>
+  From Quantum to Cosmos</h1>
+  <p class="subtitle">A Unified Framework Blueprint</p>
+  <p class="meta">Sheng-Kai Huang &mdash; 2026-03-18 &mdash; Version 1.0</p>
+</header>
+
+<!-- ========== CORE EQUATION ========== -->
+<section id="core">
+  <h2>Core Equation</h2>
+
+  <div class="eq-box">
+    \[\Sigma \;=\; D\!\bigl(\rho_{\text{spacetime}} \,\big\|\, \rho_{\text{matter}}\bigr) \;=\; 2\ln Q\]
+  </div>
+
+  <div class="card">
+    <ul class="item-list">
+      <li>\(D\) &mdash; quantum relative entropy</li>
+      <li>\(Q = 1/N_\phi\) &mdash; inverse Khronon lapse</li>
+      <li>\(F = 1/Q\) &mdash; geometric fidelity (K-independent)</li>
+      <li>\(\tau = 1 - F\) &mdash; temporal asymmetry</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <p style="color:var(--accent-cyan);font-weight:600;margin-bottom:0.5rem;">Equivalence Chain</p>
+    <div class="chain">
+      <span>\(\tau=0\)</span><span class="arrow-sep">&hArr;</span>
+      <span>\(\Sigma=0\)</span><span class="arrow-sep">&hArr;</span>
+      <span>\(I(A;E|B)=0\)</span><span class="arrow-sep">&hArr;</span>
+      <span>QMC</span><span class="arrow-sep">&hArr;</span>
+      <span>Petz Recovery exact</span>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>2026-03-18 Discovery:</strong> \(F=1/Q\) and \(\Sigma=2\ln Q\) are <em>geometric</em> quantities &mdash; independent of the kinetic function \(K(Q)\).
+  </div>
+</section>
+
+<!-- ========== UNIFIED TRIANGLE (SVG) ========== -->
+<section id="triangle">
+  <h2>Unified Triangle</h2>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 500 400" width="500" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Unified Triangle: Quantum Information, Gravity, Thermodynamics, centered on Sigma=2lnQ">
+      <!-- Glow filter -->
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="edgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.6"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Triangle edges -->
+      <polygon points="250,50 60,340 440,340" fill="none" stroke="url(#edgeGrad)" stroke-width="2" filter="url(#glow)"/>
+
+      <!-- Inner connecting lines to center -->
+      <line x1="250" y1="50" x2="250" y2="210" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="60" y1="340" x2="250" y2="210" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="440" y1="340" x2="250" y2="210" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+
+      <!-- Center node -->
+      <circle cx="250" cy="210" r="42" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-width="2" filter="url(#glow)"/>
+      <text x="250" y="205" text-anchor="middle" fill="#06b6d4" font-size="13" font-weight="700">&Sigma; = 2 ln Q</text>
+      <text x="250" y="222" text-anchor="middle" fill="#94a3b8" font-size="10">Unified Core</text>
+
+      <!-- Top vertex: Quantum Information -->
+      <circle cx="250" cy="50" r="6" fill="#a78bfa"/>
+      <text x="250" y="30" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="600">Quantum Information</text>
+      <text x="250" y="78" text-anchor="middle" fill="#94a3b8" font-size="10">&tau; = 1 &minus; F, Petz map</text>
+
+      <!-- Bottom-left vertex: Gravity -->
+      <circle cx="60" cy="340" r="6" fill="#3b82f6"/>
+      <text x="60" y="365" text-anchor="middle" fill="#3b82f6" font-size="13" font-weight="600">Gravity</text>
+      <text x="60" y="380" text-anchor="middle" fill="#94a3b8" font-size="9.5">Einstein eq from QRE</text>
+      <text x="60" y="393" text-anchor="middle" fill="#64748b" font-size="9">Dorau-Much 2025</text>
+
+      <!-- Bottom-right vertex: Thermodynamics -->
+      <circle cx="440" cy="340" r="6" fill="#10b981"/>
+      <text x="440" y="365" text-anchor="middle" fill="#10b981" font-size="13" font-weight="600">Thermodynamics</text>
+      <text x="440" y="380" text-anchor="middle" fill="#94a3b8" font-size="9.5">2nd Law from DPI</text>
+
+      <!-- Edge labels -->
+      <text x="140" y="180" text-anchor="middle" fill="#64748b" font-size="9" transform="rotate(-33,140,180)">Petz &harr; metric</text>
+      <text x="360" y="180" text-anchor="middle" fill="#64748b" font-size="9" transform="rotate(33,360,180)">DPI &harr; entropy</text>
+      <text x="250" y="355" text-anchor="middle" fill="#64748b" font-size="9">Bekenstein&ndash;Hawking</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ========== 8 LAYERS ========== -->
+<section id="layers">
+  <h2>Eight-Layer Unification</h2>
+
+  <!-- Layer 1 -->
+  <div class="collapsible open" data-layer="1">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Layer 1 &mdash; Quantum Foundations</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li>1.1 Collapse = Petz failure (\(\tau\to1\)) <span class="badge badge-wip">WIP Paper 1b</span></li>
+        <li>1.2 Decoherence = \(d\Sigma/dt > 0\) <span class="badge badge-done">DONE</span></li>
+        <li>1.3 Entanglement: \(\Sigma_{AB} \le \Sigma_A + \Sigma_B\) <span class="badge badge-wip">WIP</span></li>
+        <li>1.4 Quantum eraser: closed \(\tau=0\), open \(\tau>0\) <span class="badge badge-wip">WIP Paper 5</span></li>
+        <li>1.5 Bell inequalities <span class="badge badge-warn">CAUTION</span> restatement, not new result</li>
+        <li>1.6 Born rule <span class="badge badge-fail">FAIL</span> circular reasoning</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Layer 2 -->
+  <div class="collapsible" data-layer="2">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Layer 2 &mdash; Atomic / Molecular</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <p><span class="badge badge-fail">N/A</span> Gravitational effects ~\(10^{-40}\). Degenerates to standard statistical mechanics. No meaningful prediction at this scale.</p>
+    </div></div>
+  </div>
+
+  <!-- Layer 3 -->
+  <div class="collapsible" data-layer="3">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Layer 3 &mdash; Condensed Matter</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li>3.1 Ghost condensation = Bregman divergence critical point <span class="badge badge-done">DONE</span></li>
+        <li>3.2 Superfluid / superconductor analogy <span class="badge badge-idea">IDEA</span></li>
+        <li>3.3 Time crystals <span class="badge badge-idea">IDEA</span></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Layer 4 -->
+  <div class="collapsible" data-layer="4">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Layer 4 &mdash; Astrophysics</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li>4.1 Black holes: Channel Theorem, exponential metric, no event horizon <span class="badge badge-done">DONE Paper 2</span></li>
+        <li>4.2 Neutron stars: redshift deviation 24%, NICER testable <span class="badge badge-wip">WIP</span></li>
+        <li>4.3 Gravitational waves: \(c_T = c\) exactly <span class="badge badge-done">DONE</span></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Layer 5 -->
+  <div class="collapsible" data-layer="5">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Layer 5 &mdash; Galactic</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li>5.1 Dark matter = Khronon fluctuation, \(\Omega_{\rm DM} = 0.268\) <span class="badge badge-done">DONE</span></li>
+        <li>5.2 MOND from \(J(Y)\), \(a_0 = cH_0/(2\pi)\) <span class="badge badge-warn">CAUTION</span></li>
+        <li>5.3 Rotation curves <span class="badge badge-warn">CAUTION</span></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Layer 6 -->
+  <div class="collapsible" data-layer="6">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Layer 6 &mdash; Cosmology</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li>6.1 Dark energy: \(\Lambda \sim \mu_0^2\) <span class="badge badge-wip">WIP</span></li>
+        <li>6.2 CMB: DBI resolves \(w\to1\) problem, \(c_s^2(t,k)\) k-dependent <span class="badge badge-warn">CAUTION</span></li>
+        <li>6.3 Large-scale structure: BAO DESI \(\Delta\chi^2 = -3.9\) <span class="badge badge-done">DONE</span></li>
+        <li>6.4 DBI upgrade: \(K_{\rm DBI} = \frac{2\mu^2}{\lambda_D}\!\left[1 - \sqrt{1 - \lambda_D(Q-1)^2}\right]\) <span class="badge badge-warn">CAUTION</span></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Layer 7 -->
+  <div class="collapsible" data-layer="7">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Layer 7 &mdash; Origin of the Universe</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li>7.1 Low-entropy problem: \(Q=1\) is natural vacuum, \(\Sigma=0\) needs no fine-tuning <span class="badge badge-wip">WIP</span></li>
+        <li>7.2 Inflation: Khronon may double as the inflaton <span class="badge badge-idea">IDEA</span></li>
+        <li>7.3 Horizon problem: \(\Sigma=0 \Rightarrow\) QMC \(\Rightarrow\) automatic homogeneity <span class="badge badge-done">DONE</span></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Layer 8 -->
+  <div class="collapsible" data-layer="8">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Layer 8 &mdash; Ultimate Questions</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li>8.1 Nature of time: \(\tau\) = retrodiction difficulty, observer-dependent <span class="badge badge-done">DONE</span></li>
+        <li>8.2 Arrow of time: DPI \(\Rightarrow \Sigma\ge0\) <span class="badge badge-wip">WIP</span></li>
+        <li>8.3 Existence of matter: \(\Sigma>0\) instability <span class="badge badge-idea">IDEA</span></li>
+      </ul>
+    </div></div>
+  </div>
+</section>
+
+<!-- ========== RESPONDING TO EINSTEIN ========== -->
+<section id="einstein">
+  <h2>Responding to Einstein</h2>
+  <div class="card">
+    <table class="styled-table">
+      <thead><tr><th>Einstein's Vision</th><th>Our Framework</th></tr></thead>
+      <tbody>
+        <tr><td>Eliminate \(\rho_{\text{spacetime}}/\rho_{\text{matter}}\) distinction</td><td>Unify via \(D(\rho\|\sigma)\) &mdash; do not eliminate</td></tr>
+        <tr><td>Geometrise everything</td><td>Geometry is a <em>manifestation</em> of \(\Sigma\)</td></tr>
+        <tr><td>Determinism replaces QM</td><td>Not needed; Petz is built in</td></tr>
+        <tr><td style="color:var(--accent-amber);">Wrong direction, right intuition</td><td style="color:var(--accent-green);">Partially successful</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========== RESPONDING TO PENROSE ========== -->
+<section id="penrose">
+  <h2>Responding to Penrose</h2>
+  <div class="card">
+    <table class="styled-table">
+      <thead><tr><th>Penrose's Question</th><th>Our Answer</th></tr></thead>
+      <tbody>
+        <tr><td>Weyl = 0 at Big Bang?</td><td>\(\Sigma = 0\) (natural vacuum)</td></tr>
+        <tr><td>Weyl growth &rarr; arrow of time?</td><td>\(\Sigma\) growth &rarr; \(\tau > 0\)</td></tr>
+        <tr><td>Collapse = gravitational effect?</td><td>Collapse = Petz failure</td></tr>
+        <tr><td>Modify QM?</td><td>Not needed</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========== RESPONDING TO WOLFRAM ========== -->
+<section id="wolfram">
+  <h2>Responding to Wolfram</h2>
+  <div class="card">
+    <table class="styled-table">
+      <thead><tr><th>Wolfram's Framework</th><th>Our Framework</th></tr></thead>
+      <tbody>
+        <tr><td>Computational irreducibility</td><td>\(\tau = 1 - F\) (exact quantification)</td></tr>
+        <tr><td>Causal graph foliation</td><td>Khronon field level surfaces</td></tr>
+        <tr><td>Dark matter</td><td>None (gap) &rarr; we fill it</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========== 32-PROBLEM SCOREBOARD ========== -->
+<section id="scoreboard">
+  <h2>32 Unsolved Problems &mdash; Scoreboard</h2>
+
+  <!-- Legend -->
+  <div class="card" style="margin-bottom:1.25rem;">
+    <div style="display:flex;flex-wrap:wrap;gap:0.75rem;font-size:0.82rem;">
+      <span><span class="badge badge-done">DONE</span> 14</span>
+      <span><span class="badge badge-wip">WIP</span> 6</span>
+      <span><span class="badge badge-warn">CAUTION</span> 5</span>
+      <span><span class="badge badge-idea">IDEA</span> 2</span>
+      <span><span class="badge badge-fail">FAIL</span> 5</span>
+      <span style="color:var(--accent-cyan);font-weight:600;margin-left:auto;">Addressable: 20/32 = 63%</span>
+    </div>
+  </div>
+
+  <!-- QM Foundations -->
+  <div class="collapsible" data-layer="s1">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Quantum Mechanics Foundations (7)</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li><span class="badge badge-done">DONE</span> Measurement problem</li>
+        <li><span class="badge badge-done">DONE</span> Collapse</li>
+        <li><span class="badge badge-done">DONE</span> Schrodinger's cat</li>
+        <li><span class="badge badge-done">DONE</span> Quantum-classical boundary</li>
+        <li><span class="badge badge-done">DONE</span> Decoherence</li>
+        <li><span class="badge badge-fail">FAIL</span> Born rule</li>
+        <li><span class="badge badge-warn">CAUTION</span> Bell inequalities</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Quantum Gravity -->
+  <div class="collapsible" data-layer="s2">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Quantum Gravity (5)</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li><span class="badge badge-done">DONE</span> Black hole information</li>
+        <li><span class="badge badge-wip">WIP</span> Firewall</li>
+        <li><span class="badge badge-wip">WIP</span> Holography</li>
+        <li><span class="badge badge-warn">CAUTION</span> UV completion</li>
+        <li><span class="badge badge-warn">CAUTION</span> Spacetime structure</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Time -->
+  <div class="collapsible" data-layer="s3">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Time (4)</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li><span class="badge badge-done">DONE</span> Arrow origin</li>
+        <li><span class="badge badge-done">DONE</span> Nature of time</li>
+        <li><span class="badge badge-done">DONE</span> Block universe vs presentism</li>
+        <li><span class="badge badge-wip">WIP</span> Problem of time</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Cosmology -->
+  <div class="collapsible" data-layer="s4">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Cosmology (7)</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li><span class="badge badge-done">DONE</span> Dark matter</li>
+        <li><span class="badge badge-done">DONE</span> Initial low entropy</li>
+        <li><span class="badge badge-done">DONE</span> Horizon problem</li>
+        <li><span class="badge badge-wip">WIP</span> Dark energy</li>
+        <li><span class="badge badge-wip">WIP</span> Inflation</li>
+        <li><span class="badge badge-idea">IDEA</span> Baryon asymmetry</li>
+        <li><span class="badge badge-warn">CAUTION</span> Flatness</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Thermodynamics -->
+  <div class="collapsible" data-layer="s5">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Thermodynamics (3)</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li><span class="badge badge-done">DONE</span> Second law</li>
+        <li><span class="badge badge-done">DONE</span> Multi-arrow unification</li>
+        <li><span class="badge badge-wip">WIP</span> Boltzmann brain</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Particle Physics -->
+  <div class="collapsible" data-layer="s6">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Particle Physics (6)</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li><span class="badge badge-fail">FAIL</span> Hierarchy problem</li>
+        <li><span class="badge badge-fail">FAIL</span> Mass origin</li>
+        <li><span class="badge badge-fail">FAIL</span> Three generations</li>
+        <li><span class="badge badge-fail">FAIL</span> Strong CP</li>
+        <li><span class="badge badge-fail">FAIL</span> Charge quantisation</li>
+        <li><span class="badge badge-idea">IDEA</span> Grand unification</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- Visual progress bars -->
+  <div class="card" style="margin-top:1.25rem;">
+    <p style="color:var(--accent-cyan);font-weight:600;margin-bottom:0.75rem;">Category Progress</p>
+    <div class="scoreboard-grid">
+      <div class="score-row">
+        <span class="label">QM Foundations</span>
+        <div class="bar-bg"><div class="bar-fill bar-green" style="width:71%"></div></div>
+        <span class="val">5/7</span>
+      </div>
+      <div class="score-row">
+        <span class="label">Quantum Gravity</span>
+        <div class="bar-bg"><div class="bar-fill bar-amber" style="width:20%"></div></div>
+        <span class="val">1/5</span>
+      </div>
+      <div class="score-row">
+        <span class="label">Time</span>
+        <div class="bar-bg"><div class="bar-fill bar-green" style="width:75%"></div></div>
+        <span class="val">3/4</span>
+      </div>
+      <div class="score-row">
+        <span class="label">Cosmology</span>
+        <div class="bar-bg"><div class="bar-fill bar-green" style="width:43%"></div></div>
+        <span class="val">3/7</span>
+      </div>
+      <div class="score-row">
+        <span class="label">Thermodynamics</span>
+        <div class="bar-bg"><div class="bar-fill bar-green" style="width:67%"></div></div>
+        <span class="val">2/3</span>
+      </div>
+      <div class="score-row">
+        <span class="label">Particle Physics</span>
+        <div class="bar-bg"><div class="bar-fill bar-red" style="width:0%"></div></div>
+        <span class="val">0/6</span>
+      </div>
+    </div>
+    <div style="margin-top:1rem;text-align:center;">
+      <div class="bar-bg" style="height:20px;max-width:400px;margin:0 auto;border-radius:10px;">
+        <div class="bar-fill bar-green" style="width:44%;border-radius:10px 0 0 10px;display:inline-block;height:100%;float:left;"></div>
+        <div class="bar-fill bar-amber" style="width:19%;display:inline-block;height:100%;float:left;"></div>
+        <div class="bar-fill bar-purple" style="width:6%;display:inline-block;height:100%;float:left;"></div>
+      </div>
+      <p style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-secondary);">
+        <span style="color:var(--accent-green);">14 Done</span> &middot;
+        <span style="color:var(--accent-amber);">6 WIP</span> &middot;
+        <span style="color:var(--accent-red);">5 Caution</span> &middot;
+        <span style="color:var(--accent-purple);">2 Idea</span> &middot;
+        <span style="color:var(--text-muted);">5 Fail</span>
+        &nbsp;&mdash;&nbsp; <strong style="color:var(--accent-cyan);">63% addressable</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GAP ANALYSIS ========== -->
+<section id="gaps">
+  <h2>Gap Analysis</h2>
+
+  <div class="collapsible open" data-layer="g1">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Completed</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li><span class="badge badge-done">DONE</span> Paper 1 &mdash; GitHub + Zenodo</li>
+        <li><span class="badge badge-done">DONE</span> Paper 2 &mdash; arXiv-ready</li>
+        <li><span class="badge badge-done">DONE</span> Paper 3a &mdash; Galactic scale</li>
+        <li><span class="badge badge-done">DONE</span> Paper 5 &mdash; Complementary Uncertainty</li>
+        <li><span class="badge badge-done">DONE</span> \(F = 1/Q\) geometric identity</li>
+        <li><span class="badge badge-done">DONE</span> Ghost condensation = Bregman critical point</li>
+        <li><span class="badge badge-done">DONE</span> Khronon = Mimetic correspondence</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="collapsible" data-layer="g2">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Medium Gaps (supplement-level)</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li><span class="badge badge-wip">1</span> Collapse = Petz failure (Paper 1b)</li>
+        <li><span class="badge badge-wip">2</span> \(K(Q)\) from Fisher metric</li>
+        <li><span class="badge badge-wip">3</span> \(\Sigma = 2\ln Q\) general proof</li>
+        <li><span class="badge badge-wip">4</span> Quantum eraser formalisation</li>
+        <li><span class="badge badge-wip">5</span> Weyl hypothesis \(\Sigma\)-version</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="collapsible" data-layer="g3">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Hard Gaps</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li>\(\eta_\mu = 1\) from DPI &mdash; rigorous derivation needed</li>
+        <li>\(\Omega_{\rm DM}\) extremal principle &mdash; strict formalisation</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="collapsible" data-layer="g4">
+    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+      <h3>Long-term Gaps</h3>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="collapsible-body"><div class="collapsible-body-inner">
+      <ul class="item-list">
+        <li>\(\mu_0 = H_0/c\) derivation from first principles</li>
+        <li>Full CMB Boltzmann code verification</li>
+      </ul>
+    </div></div>
+  </div>
+</section>
+
+<!-- ========== HONESTY BOUNDARY ========== -->
+<section id="honesty">
+  <h2>Honesty Boundary</h2>
+
+  <div class="card" style="border-left:3px solid var(--accent-green);">
+    <p style="color:var(--accent-green);font-weight:600;margin-bottom:0.5rem;">What We CAN Do</p>
+    <ul class="item-list">
+      <li>Unify gravity + quantum information + thermodynamics under \(\Sigma = D(\rho\|\sigma)\)</li>
+      <li>Answer Penrose's Weyl curvature hypothesis via \(\Sigma = 0\)</li>
+      <li>Predict \(\Omega_{\rm DM} = 0.268\) (1.1% from observation)</li>
+      <li>21 falsifiable predictions &mdash; 0 ruled out so far</li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--accent-red);">
+    <p style="color:var(--accent-red);font-weight:600;margin-bottom:0.5rem;">What We CANNOT Do</p>
+    <ul class="item-list">
+      <li>Gauge structure of the Standard Model</li>
+      <li>Particle mass spectrum</li>
+      <li>UV-complete quantum gravity</li>
+      <li>Atomic-scale predictions (effects ~\(10^{-40}\))</li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--accent-cyan);">
+    <p style="color:var(--accent-cyan);font-weight:600;margin-bottom:0.5rem;">Positioning</p>
+    <p style="font-size:0.9rem;">An <strong>organizing principle</strong> (like thermodynamics), not a specific microscopic model.</p>
+  </div>
+</section>
+
+<footer>
+  &Sigma; = D(&rho;<sub>spacetime</sub> &Vert; &rho;<sub>matter</sub>) &mdash; Unified Framework Blueprint v1.0 &mdash; Sheng-Kai Huang &mdash; 2026-03-18
+</footer>
+
+</div><!-- .container -->
+
+<!-- ===== JavaScript ===== -->
+<script>
+function toggleCollapsible(header) {
+  const parent = header.parentElement;
+  parent.classList.toggle('open');
+}
+
+// Smooth-scroll for nav links (fallback for older browsers)
+document.querySelectorAll('nav.top-nav a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Expand-all / collapse-all with keyboard shortcut: press 'e' to expand all, 'c' to collapse all
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'e') {
+    document.querySelectorAll('.collapsible').forEach(c => c.classList.add('open'));
+  }
+  if (e.key === 'c') {
+    document.querySelectorAll('.collapsible').forEach(c => c.classList.remove('open'));
+  }
+});
+</script>
+
+</body>
+</html>

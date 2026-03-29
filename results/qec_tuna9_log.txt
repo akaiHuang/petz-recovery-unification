@@ -1,0 +1,67 @@
+========================================================================
+QEC EXPERIMENT: 3-Qubit Repetition Code
+========================================================================
+  Mode:      HARDWARE (Tuna-9)
+  Shots:     4,096
+  Timestamp: 2026-03-19 13:23:07
+========================================================================
+
+Checking Tuna-9 status...
+  Status: idle
+  Connected: Tuna-9 (9 qubits)
+
+--- Step 1: Qubit Mapping ---
+  WARNING: No 5-qubit subset satisfies all connectivity constraints.
+           Using default assignment [0,1,2,3,4]; transpiler will add SWAPs.
+  Optimal mapping: {'d0': 0, 'd1': 1, 'd2': 2, 'a0': 3, 'a1': 4}
+
+--- Step 2: tau-chrono Qubit Characterization ---
+  Characterizing d0 (physical qubit 0)...
+    tau_worst = 0.0547, tau_avg = 0.0477, F_proc = 0.9884
+  Characterizing d1 (physical qubit 1)...
+    tau_worst = 0.0610, tau_avg = 0.0488, F_proc = 0.9884
+  Characterizing d2 (physical qubit 2)...
+    tau_worst = 0.0544, tau_avg = 0.0444, F_proc = 0.9896
+
+  tau values: {0: '0.0547', 1: '0.0610', 2: '0.0544'}
+  Noisiest data qubit: d1 (phys 1, tau = 0.0610)
+
+--- Step 3: Strategy A (No Error Correction) ---
+  Logical error rate:  0.0063  (26/4096 errors)
+  Time: 10.8s
+
+--- Step 4: Strategy B (Standard Syndrome Correction) ---
+  Logical error rate:  0.0459  (188/4096 errors)
+  Time: 11.0s
+
+--- Step 5: Strategy C (tau-chrono Noise-Informed Correction) ---
+  Logical error rate:  0.0276  (113/4096 errors)
+  Time: 11.0s
+
+========================================================================
+RESULTS COMPARISON
+========================================================================
+
+  Strategy                                             LER     Errors
+  --------------------------------------------- ---------- ----------
+  A: No correction (raw readout)                    0.0063         26
+  B: Standard syndrome (uniform vote)               0.0459        188
+  C: tau-chrono informed (weighted vote)            0.0276        113
+
+  Improvements:
+    B over A (syndrome helps):          -623.1%
+    C over B (tau-chrono helps):         +39.9%
+    C over A (total improvement):        -334.6%
+
+  Per-qubit tau values used for weighting:
+    d0 (phys 0): tau = 0.0547, trust weight = 0.9453
+    d1 (phys 1): tau = 0.0610, trust weight = 0.9390
+    d2 (phys 2): tau = 0.0544, trust weight = 0.9456
+
+  INTERPRETATION:
+    tau-chrono noise-informed decoding IMPROVES over standard correction by 39.9%.
+    The noisiest qubit (d1) was correctly down-weighted in the majority vote.
+
+  Results saved to: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/qec_tuna9_results.json
+
+Done.

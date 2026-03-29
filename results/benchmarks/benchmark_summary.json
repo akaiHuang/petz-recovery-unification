@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-03-19T11:53:39.767763",
+  "backend": "Tuna-9",
+  "shots": 4096,
+  "experiments_run": [
+    "A",
+    "B",
+    "C"
+  ],
+  "A_naive_stop": 4,
+  "A_bayesian_stop": 8,
+  "A_best_energy": -0.5810619628906251,
+  "B_naive_premature_deaths": 4,
+  "B_max_improvement": 60.44931271721148,
+  "C_naive_stop": 2,
+  "C_bayesian_stop": 4,
+  "C_best_energy": -7.062290771484375
+}

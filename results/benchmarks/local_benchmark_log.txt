@@ -1,0 +1,191 @@
+======================================================================
+  tau-chrono QUANTUM APPLICATION BENCHMARKS
+  Backend: local simulation
+  Date: 2026-03-19 10:43
+  Shots: 4096  |  Timeout: 600s
+======================================================================
+
+======================================================================
+  GATE CHARACTERIZATION (cached)
+======================================================================
+  [cache] H: using simulated noise model
+  [cache] X: using simulated noise model
+  [cache] RY: using simulated noise model
+  [cache] Rz: using simulated noise model
+  [cache] S: using simulated noise model
+  [cache] CNOT: using simulated cnot_error model
+
+  All gates characterized and cached.
+
+======================================================================
+  EXPERIMENT A: H2 VQE (2 qubit)
+  Ground truth E = -1.1373 Hartree
+======================================================================
+
+--- Depth 1 ---
+  Optimal params (noiseless): E = -1.9153
+  tau_naive=0.0282 (GO)  tau_bayesian=0.0281 (GO)
+  E_measured=-1.7888  E_ideal=-1.9153  E_exact=-1.1373
+  Bayesian improvement: 0.2%
+
+--- Depth 2 ---
+  Optimal params (noiseless): E = -1.9153
+  tau_naive=0.0556 (GO)  tau_bayesian=0.0552 (GO)
+  E_measured=-1.0305  E_ideal=-1.9153  E_exact=-1.1373
+  Bayesian improvement: 0.6%
+
+--- Depth 4 ---
+  Optimal params (noiseless): E = -1.9153
+  tau_naive=0.1080 (GO)  tau_bayesian=0.1064 (GO)
+  E_measured=-1.7608  E_ideal=-1.9153  E_exact=-1.1373
+  Bayesian improvement: 1.6%
+
+--- Depth 8 ---
+  Optimal params (noiseless): E = -1.9153
+  tau_naive=0.2044 (GO)  tau_bayesian=0.1976 (GO)
+  E_measured=-1.1933  E_ideal=-1.9153  E_exact=-1.1373
+  Bayesian improvement: 3.3%
+
+--- Depth 16 ---
+  Optimal params (noiseless): E = -1.9153
+  tau_naive=0.3670 (GO)  tau_bayesian=0.3431 (GO)
+  E_measured=-1.6263  E_ideal=-1.9153  E_exact=-1.1373
+  Bayesian improvement: 6.5%
+
+  ================================================================================
+  H2 VQE DEPTH COMPARISON
+  ================================================================================
+  Depth  #Gates  tau_naive  tau_bayes  F_naive  F_bayes   Naive   Bayes    E_meas     |dE|
+  -----  ------  ---------  ---------  -------  -------  ------  ------  --------  -------
+      1       3     0.0282     0.0281    0.972    0.972      GO      GO   -1.7888   0.6515
+      2       6     0.0556     0.0552    0.944    0.945      GO      GO   -1.0305   0.1068
+      4      12     0.1080     0.1064    0.892    0.894      GO      GO   -1.7608   0.6235
+      8      24     0.2044     0.1976    0.796    0.802      GO      GO   -1.1933   0.0560
+     16      48     0.3670     0.3431    0.633    0.657      GO      GO   -1.6263   0.4890
+
+  Exact energy: -1.1373
+  Naive says STOP at depth: never
+  Bayesian says STOP at depth: never
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/experiment_A_h2_vqe.json
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/benchmark_partial.json
+
+======================================================================
+  EXPERIMENT B: Bernstein-Vazirani (4 qubit)
+  Hidden string: s = 1011
+======================================================================
+
+--- 1 oracle repetition(s) ---
+  tau_naive=0.0237 (USEFUL)  tau_bayesian=0.0151 (USEFUL)
+  P(success)=0.9851  expected='1011'
+  Bayesian improvement: 36.4%
+
+--- 2 oracle repetition(s) ---
+  tau_naive=0.0237 (USEFUL)  tau_bayesian=0.0151 (USEFUL)
+  P(success)=0.9822  expected='0000'
+  Bayesian improvement: 36.4%
+
+--- 3 oracle repetition(s) ---
+  tau_naive=0.0237 (USEFUL)  tau_bayesian=0.0151 (USEFUL)
+  P(success)=0.9792  expected='1011'
+  Bayesian improvement: 36.4%
+
+--- 5 oracle repetition(s) ---
+  tau_naive=0.0237 (USEFUL)  tau_bayesian=0.0151 (USEFUL)
+  P(success)=0.9734  expected='1011'
+  Bayesian improvement: 36.4%
+
+--- 8 oracle repetition(s) ---
+  tau_naive=0.0237 (USEFUL)  tau_bayesian=0.0151 (USEFUL)
+  P(success)=0.9648  expected='0000'
+  Bayesian improvement: 36.4%
+
+--- 12 oracle repetition(s) ---
+  tau_naive=0.0237 (USEFUL)  tau_bayesian=0.0151 (USEFUL)
+  P(success)=0.9534  expected='0000'
+  Bayesian improvement: 36.4%
+
+  =====================================================================================
+  BERNSTEIN-VAZIRANI DEPTH COMPARISON (s='1011')
+  =====================================================================================
+  Reps  #Gates  Expected  tau_naive  tau_bayes    Naive    Bayes    P(ok)   Improv%
+  ----  ------  --------  ---------  ---------  -------  -------  -------  --------
+     1      11      1011     0.0237     0.0151       OK       OK    0.985     36.4%
+     2      14      0000     0.0237     0.0151       OK       OK    0.982     36.4%
+     3      17      1011     0.0237     0.0151       OK       OK    0.979     36.4%
+     5      23      1011     0.0237     0.0151       OK       OK    0.973     36.4%
+     8      32      0000     0.0237     0.0151       OK       OK    0.965     36.4%
+    12      44      0000     0.0237     0.0151       OK       OK    0.953     36.4%
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/experiment_B_bernstein_vazirani.json
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/benchmark_partial.json
+
+======================================================================
+  EXPERIMENT C: LiH VQE (4 qubit)
+  Ground truth E ~ -7.8825 Hartree
+======================================================================
+
+--- Depth 1 ---
+  Optimal params (noiseless): E = -8.1437
+  tau_naive=0.0590 (GO)  tau_bayesian=0.1134 (GO)
+  E_measured=-7.6703  E_ideal=-8.1437  E_exact=-7.8825
+  Bayesian improvement: -92.3%
+
+--- Depth 2 ---
+  Optimal params (noiseless): E = -8.1489
+  tau_naive=0.1144 (GO)  tau_bayesian=0.5084 (STOP)
+  E_measured=-7.2136  E_ideal=-8.1489  E_exact=-7.8825
+  Bayesian improvement: -344.3%
+
+--- Depth 4 ---
+  Optimal params (noiseless): E = -8.1500
+  tau_naive=0.2158 (GO)  tau_bayesian=0.9640 (STOP)
+  E_measured=-6.3139  E_ideal=-8.1500  E_exact=-7.8825
+  Bayesian improvement: -346.8%
+
+--- Depth 8 ---
+  Optimal params (noiseless): E = -8.1477
+  tau_naive=0.3850 (GO)  tau_bayesian=1.0000 (STOP)
+  E_measured=-5.0478  E_ideal=-8.1477  E_exact=-7.8825
+  Bayesian improvement: -159.8%
+
+--- Depth 16 ---
+  Optimal params (noiseless): E = -8.1486
+  tau_naive=0.6217 (STOP)  tau_bayesian=1.0000 (STOP)
+  E_measured=-4.3034  E_ideal=-8.1486  E_exact=-7.8825
+  Bayesian improvement: -60.8%
+
+  ================================================================================
+  LiH VQE DEPTH COMPARISON
+  ================================================================================
+  Depth  #Gates  tau_naive  tau_bayes  F_naive  F_bayes   Naive   Bayes    E_meas     |dE|
+  -----  ------  ---------  ---------  -------  -------  ------  ------  --------  -------
+      1       7     0.0590     0.1134    0.941    0.887      GO      GO   -7.6703   0.2122
+      2      14     0.1144     0.5084    0.886    0.492      GO    STOP   -7.2136   0.6689
+      4      28     0.2158     0.9640    0.784    0.036      GO    STOP   -6.3139   1.5686
+      8      56     0.3850     1.0000    0.615    0.000      GO    STOP   -5.0478   2.8347
+     16     112     0.6217     1.0000    0.378    0.000    STOP    STOP   -4.3034   3.5791
+
+  Exact energy: -7.8825
+  Naive says STOP at depth: 16
+  Bayesian says STOP at depth: 2
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/experiment_C_lih_vqe.json
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/benchmark_summary.json
+  Saved: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/benchmark_all_results.json
+
+======================================================================
+  BENCHMARK COMPLETE
+======================================================================
+
+  Results saved to: /Users/akaihuangm1/Desktop/github/petz-recovery-unification/results/benchmarks/
+  Files:
+    experiment_A_h2_vqe.json
+    experiment_B_bernstein_vazirani.json
+    experiment_C_lih_vqe.json
+    benchmark_summary.json
+    benchmark_all_results.json
+
+  Key findings:
+    [A] H2 VQE:  naive stops at depth None, Bayesian stops at depth None
+    [B] BV:      0 cases where naive was wrong, max improvement 36.4%
+    [C] LiH VQE: naive stops at depth 16, Bayesian stops at depth 2
+
+======================================================================

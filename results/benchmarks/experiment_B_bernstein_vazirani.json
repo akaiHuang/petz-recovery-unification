@@ -1,0 +1,91 @@
+{
+  "experiment": "B: Bernstein-Vazirani (4 qubit, s=1011)",
+  "timestamp": "2026-03-19T11:37:24.887366",
+  "hidden_string": "1011",
+  "results": [
+    {
+      "n_reps": 1,
+      "n_gates": 11,
+      "expected_string": "1011",
+      "tau_naive": 0.3965714743045855,
+      "tau_bayesian": 0.24646665946898494,
+      "F_naive_pred": 0.6034285256954145,
+      "F_bayesian_pred": 0.7535333405310151,
+      "success_prob": 0.8603515625,
+      "naive_says_useless": false,
+      "bayesian_says_useless": false,
+      "improvement_pct": 37.85063338174268,
+      "composition_holds": true
+    },
+    {
+      "n_reps": 2,
+      "n_gates": 14,
+      "expected_string": "0000",
+      "tau_naive": 0.47367709420217685,
+      "tau_bayesian": 0.28907483800290756,
+      "F_naive_pred": 0.5263229057978231,
+      "F_bayesian_pred": 0.7109251619970924,
+      "success_prob": 0.9658203125,
+      "naive_says_useless": false,
+      "bayesian_says_useless": false,
+      "improvement_pct": 38.97217291247708,
+      "composition_holds": true
+    },
+    {
+      "n_reps": 3,
+      "n_gates": 17,
+      "expected_string": "1011",
+      "tau_naive": 0.5409302189547296,
+      "tau_bayesian": 0.30728042568813285,
+      "F_naive_pred": 0.4590697810452704,
+      "F_bayesian_pred": 0.6927195743118671,
+      "success_prob": 0.837890625,
+      "naive_says_useless": true,
+      "bayesian_says_useless": false,
+      "improvement_pct": 43.19407292831441,
+      "composition_holds": true
+    },
+    {
+      "n_reps": 5,
+      "n_gates": 23,
+      "expected_string": "1011",
+      "tau_naive": 0.650753892308817,
+      "tau_bayesian": 0.32047818835748043,
+      "F_naive_pred": 0.349246107691183,
+      "F_bayesian_pred": 0.6795218116425196,
+      "success_prob": 0.84619140625,
+      "naive_says_useless": true,
+      "bayesian_says_useless": false,
+      "improvement_pct": 50.752781943346925,
+      "composition_holds": true
+    },
+    {
+      "n_reps": 8,
+      "n_gates": 32,
+      "expected_string": "0000",
+      "tau_naive": 0.7682547303303289,
+      "tau_bayesian": 0.3322460750443701,
+      "F_naive_pred": 0.23174526966967113,
+      "F_bayesian_pred": 0.6677539249556299,
+      "success_prob": 0.9736328125,
+      "naive_says_useless": true,
+      "bayesian_says_useless": false,
+      "improvement_pct": 56.75313643672415,
+      "composition_holds": true
+    },
+    {
+      "n_reps": 12,
+      "n_gates": 44,
+      "expected_string": "0000",
+      "tau_naive": 0.8658728748119717,
+      "tau_bayesian": 0.34245867298337385,
+      "F_naive_pred": 0.13412712518802827,
+      "F_bayesian_pred": 0.6575413270166262,
+      "success_prob": 0.963623046875,
+      "naive_says_useless": true,
+      "bayesian_says_useless": false,
+      "improvement_pct": 60.44931271721148,
+      "composition_holds": true
+    }
+  ]
+}

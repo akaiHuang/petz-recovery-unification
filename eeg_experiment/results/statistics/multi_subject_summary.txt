@@ -1,0 +1,43 @@
+================================================================================
+MULTI-SUBJECT PETZ BOUND ANALYSIS -- NEURAL SIGMA ESTIMATOR
+================================================================================
+
+Subjects analyzed: 23
+Total epochs:      8620
+Overall Petz bound compliance: 75.7%
+
+Stage    N_ep  N_subj Sigma_mean  Sigma_SE  Tau_mean   Tau_SE   Comply%  Comply_SE
+-------------------------------------------------------------------------------------
+Wake     1840      23     0.5955    0.0158    0.0347   0.0023     97.9%       0.4%
+N1       1451      23     0.1758    0.0084    0.0511   0.0034     69.1%       1.8%
+N2       1840      23     0.1256    0.0036    0.0357   0.0018     63.9%       1.4%
+N3       1661      23     0.1141    0.0063    0.0130   0.0009     74.8%       2.0%
+REM      1828      23     0.1502    0.0042    0.0329   0.0016     71.1%       1.4%
+
+Ordering: Sigma(W)=0.5955 > Sigma(N1)=0.1758 > Sigma(N2)=0.1256 > Sigma(N3)=0.1141
+W > N1 > N2 > N3: CONFIRMED
+
+Kruskal-Wallis test (W, N1, N2, N3):
+  H = 3222.70, p = 0.00e+00, significant = True
+
+Post-hoc Mann-Whitney U (one-sided, Bonferroni corrected):
+      W > N1: U = 2431336, p_bonf = 0.0000e+00, ***
+      W > N2: U = 3206336, p_bonf = 0.0000e+00, ***
+      W > N3: U = 2909671, p_bonf = 0.0000e+00, ***
+     N1 > N2: U = 1617780, p_bonf = 4.2257e-25, ***
+     N1 > N3: U = 1546778, p_bonf = 4.5095e-42, ***
+     N2 > N3: U = 1653168, p_bonf = 8.3758e-05, ***
+
+Key comparison W > N3:
+  U = 2909671, p = 0.00e+00
+  Sigma(W)/Sigma(N3) = 5.22
+
+REM vs NREM:
+  U = 4854902, p = 2.13e-06
+  Sigma(REM) = 0.1502, Sigma(NREM) = 0.1364
+
+================================================================================
+SUGGESTED PAPER TEXT:
+================================================================================
+
+We analyzed 23 subjects (8620 30-second epochs) from the Sleep-EDF database using a neural entropy production estimator (Method 3). The Petz recovery bound F >= exp(-Sigma/2) was satisfied in 75.7% of all epochs. The neural entropy production Sigma tracked consciousness level: Sigma(Wake) = 0.595 vs Sigma(N3) = 0.114 (ratio 5.2x, Mann-Whitney p = 0.0e+00). The ordering Sigma(W) > Sigma(N1) > Sigma(N2) > Sigma(N3) was statistically significant (Kruskal-Wallis H = 3222.7, p = 0.0e+00), confirming that consciousness corresponds to higher irreversibility in neural dynamics, as quantified by the Petz recovery framework.

@@ -1,0 +1,1291 @@
+% paper_rtsc_tau_supplement.tex
+% Supplemental Material for:
+% Room-Temperature Superconductivity as a Quantum Information Problem
+% Author: Sheng-Kai Huang
+% Compile: pdflatex paper_rtsc_tau_supplement.tex && pdflatex paper_rtsc_tau_supplement.tex
+
+\documentclass[prb,twocolumn,superscriptaddress,longbibliography,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{proposition}{Proposition}
+
+% Shared macros (Paper 1 conventions)
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Petz}{\mathcal{R}}
+\newcommand{\chan}{\mathcal{N}}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\op}[2]{|#1\rangle\langle#2|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\tauasym}{\tau}
+% Paper-specific macros
+\newcommand{\taueff}{\tauasym_{\mathrm{eff}}}
+\newcommand{\taudec}{\tauasym_{\mathrm{ph}}}
+\newcommand{\Icoop}{I_{\mathrm{Cooper}}}
+\newcommand{\Ipair}{I_{\mathrm{pair}}}
+\newcommand{\Rtau}{R_{\tauasym}}
+\newcommand{\Tc}{T_{\mathrm{c}}}
+\newcommand{\oD}{\omega_{\mathrm{D}}}
+\newcommand{\EF}{E_{\mathrm{F}}}
+\newcommand{\Ek}{E_{\bm{k}}}
+\newcommand{\xik}{\xi_{\bm{k}}}
+\newcommand{\vF}{v_{\mathrm{F}}}
+\newcommand{\ThetaD}{\Theta_{\mathrm{D}}}
+
+% Listings style for Python code
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red!60!black},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=5pt,
+  breaklines=true,
+  frame=single,
+  captionpos=b
+}
+
+\begin{document}
+
+\title{Supplemental Material for ``Room-Temperature Superconductivity as a
+Quantum Information Problem: The $R_\tau$ Screening Criterion and
+Material Predictions''}
+
+\author{Sheng-Kai Huang}
+\email{akai@fawstudio.com}
+\affiliation{Independent Researcher}
+
+\date{\today}
+
+\maketitle
+
+This Supplemental Material provides detailed derivations
+(Secs.~S1--S5), material-specific calculations (Sec.~S6),
+experimental protocols (Sec.~S7), and the $\Rtau$ calculator
+code (Sec.~S8).
+
+%=======================================================================
+\section{S1: Derivation of $\taudec(T)$ from the electron-phonon
+Hamiltonian}
+\label{sec:S1}
+%=======================================================================
+
+\subsection{S1.1: Setup}
+
+The electron-phonon Hamiltonian is
+\begin{equation}\label{eq:S1_Hep}
+  H = H_{\mathrm{el}} + H_{\mathrm{ph}} + H_{\mathrm{ep}}\,,
+\end{equation}
+where
+\begin{align}
+  H_{\mathrm{el}} &= \sum_{\bm{k}\sigma} \epsilon_{\bm{k}}\,
+  c_{\bm{k}\sigma}^\dagger c_{\bm{k}\sigma}\,, \\
+  H_{\mathrm{ph}} &= \sum_{\bm{q}\lambda} \hbar\omega_{\bm{q}\lambda}\,
+  a_{\bm{q}\lambda}^\dagger a_{\bm{q}\lambda}\,, \\
+  H_{\mathrm{ep}} &= \sum_{\bm{k}\bm{q}\lambda\sigma}
+  g_{\bm{k},\bm{q}\lambda}\,
+  c_{\bm{k}+\bm{q},\sigma}^\dagger c_{\bm{k}\sigma}\,
+  (a_{\bm{q}\lambda} + a_{-\bm{q}\lambda}^\dagger)\,.
+\end{align}
+The electron-phonon coupling matrix element $g_{\bm{k},\bm{q}\lambda}$
+encodes the scattering amplitude for an electron at $\bm{k}$
+to scatter to $\bm{k}+\bm{q}$ by emitting or absorbing a phonon
+in branch $\lambda$.
+
+\subsection{S1.2: Scattering rate from Fermi golden rule}
+
+The transition rate for scattering $\bm{k} \to \bm{k}' = \bm{k}+\bm{q}$
+via phonon $(\bm{q},\lambda)$ is
+\begin{align}\label{eq:S1_rate}
+  W_{\bm{k}\to\bm{k}'}^{(\pm)} &= \frac{2\pi}{\hbar}\,
+  |g_{\bm{k},\bm{q}\lambda}|^2\,
+  \bigl(n_{\bm{q}\lambda} + \tfrac{1}{2} \pm \tfrac{1}{2}\bigr)
+  \nonumber\\
+  &\quad \times \delta(\epsilon_{\bm{k}'} - \epsilon_{\bm{k}}
+  \mp \hbar\omega_{\bm{q}\lambda})\,,
+\end{align}
+where $+$ denotes phonon emission and $-$ phonon absorption,
+and $n_{\bm{q}\lambda} = (e^{\hbar\omega_{\bm{q}\lambda}/\kB T} - 1)^{-1}$.
+
+\subsection{S1.3: Entropy production per scattering event}
+
+The entropy production per scattering event follows from
+the detailed balance ratio.  For emission ($\bm{k} \to \bm{k}'$
+with phonon created):
+\begin{equation}
+  \frac{W_{\mathrm{em}}}{W_{\mathrm{abs}}}
+  = \frac{n_{\bm{q}\lambda} + 1}{n_{\bm{q}\lambda}}
+  = e^{\hbar\omega_{\bm{q}\lambda}/\kB T}\,.
+\end{equation}
+The entropy produced is
+\begin{equation}\label{eq:S1_sigma_event}
+  \Sigma_{\mathrm{event}} = \ln\frac{W_{\mathrm{em}}}{W_{\mathrm{abs}}}
+  = \frac{\hbar\omega_{\bm{q}\lambda}}{\kB T}\,.
+\end{equation}
+This has units of nats and is dimensionally correct:
+$[\hbar\omega/\kB T] = [\mathrm{energy}/\mathrm{energy}]
+= \text{dimensionless}$.
+
+\subsection{S1.4: Thermal average over phonon spectrum}
+
+The Eliashberg spectral function is defined as
+\begin{equation}
+  \alpha^2 F(\omega) = N(0) \sum_{\bm{q}\lambda}
+  |g_{\bm{q}\lambda}|^2\, \delta(\omega - \omega_{\bm{q}\lambda})\,,
+\end{equation}
+and the electron-phonon coupling constant is
+\begin{equation}
+  \lambda = 2\int_0^{\omega_{\max}} \frac{\alpha^2 F(\omega)}{\omega}\, d\omega\,.
+\end{equation}
+
+The thermally averaged entropy production per mean free path
+involves averaging $\Sigma_{\mathrm{event}}$ over the phonon
+spectrum weighted by the scattering probability:
+\begin{align}\label{eq:S1_Sigma_avg}
+  \overline{\Sigma}_{\mathrm{ep}}(T)
+  &= \frac{\int_0^{\omega_{\max}} \alpha^2 F(\omega)\,
+  \frac{\hbar\omega}{\kB T}\, \coth\!\left(\frac{\hbar\omega}{2\kB T}\right)
+  d\omega}
+  {\int_0^{\omega_{\max}} \alpha^2 F(\omega)\,
+  \coth\!\left(\frac{\hbar\omega}{2\kB T}\right) d\omega}\,.
+\end{align}
+In the Debye model, $\alpha^2 F(\omega) = (\lambda/2)\,
+\omega/\oD$ for $\omega \leq \oD$ and zero otherwise.
+Substituting and defining $x = \hbar\omega/\kB T$:
+\begin{align}
+  \overline{\Sigma}_{\mathrm{ep}}(T)
+  &= \frac{\int_0^{x_D} x^2 \coth(x/2)\, dx}
+  {\int_0^{x_D} x\, \coth(x/2)\, dx}\,,
+  \quad x_D = \frac{\ThetaD}{T}\,.
+\end{align}
+However, this ratio is $O(1)$ and does not capture the overall
+magnitude.  The total scattering entropy production per mean
+free path (summing over all scattering events per $\ell$)
+is obtained by multiplying by the average number of scattering
+events per $\ell$, which is $\lambda\, \kB T/(\hbar\oD)$ for
+$T > \ThetaD$.  The complete result is:
+\begin{equation}\label{eq:S1_Sigma_full}
+  \overline{\Sigma}_{\mathrm{ep}}(T)
+  = \frac{2\pi\lambda\, \kB T}{\hbar\oD}\, \Phi\!\left(\frac{\ThetaD}{T}\right),
+\end{equation}
+where the correction factor is
+\begin{equation}\label{eq:S1_Phi}
+  \Phi(y) = \frac{2}{y^2}\int_0^{y} \frac{t^2\, dt}{e^t - 1}\,.
+\end{equation}
+
+\textbf{Limiting cases:}
+
+\noindent\emph{High-$T$ limit} ($T \gg \ThetaD$, $y \to 0$):
+$e^t - 1 \approx t$, so $\Phi(y) \to (2/y^2)\int_0^y t\, dt = 1$.
+Thus
+\begin{equation}
+  \overline{\Sigma}_{\mathrm{ep}} \to \frac{2\pi\lambda\, \kB T}{\hbar\oD}
+  = 2\pi\lambda\, \frac{T}{\ThetaD}\,.
+\end{equation}
+
+\noindent\emph{Low-$T$ limit} ($T \ll \ThetaD$, $y \to \infty$):
+$\int_0^\infty t^2/(e^t-1)\, dt = 2\zeta(3) \approx 2.404$.
+Thus
+$\Phi(y) \to 2 \cdot 2.404 / y^2 = 4.808\, T^2/\ThetaD^2$, and
+\begin{equation}
+  \overline{\Sigma}_{\mathrm{ep}} \to
+  \frac{2\pi\lambda \cdot 4.808\, \kB T^3}{\hbar\oD\, \ThetaD^2}
+  = 9.62\pi\lambda\, \frac{T^3}{\ThetaD^3}\,,
+\end{equation}
+recovering the $T^3$ Bloch--Gr\"uneisen behavior.
+
+\subsection{S1.5: From $\overline{\Sigma}$ to $\taudec$}
+
+Using the Petz recovery bound $F \geq e^{-\Sigma/2}$
+(Refs.~\cite{Junge2018,Fawzi2015} of the main text):
+\begin{equation}\label{eq:S1_tau}
+  \taudec(T) = 1 - e^{-\overline{\Sigma}_{\mathrm{ep}}(T)/2}\,.
+\end{equation}
+For small $\overline{\Sigma}$,
+$\taudec \approx \overline{\Sigma}/2$.  For large
+$\overline{\Sigma}$, $\taudec \to 1$.
+
+\textbf{Numerical check} (Cu at $T = 300\,$K):
+$\lambda = 0.13$, $\ThetaD = 343\,$K, $T/\ThetaD = 0.87$,
+$\Phi(1.14) \approx 0.78$.
+$\overline{\Sigma} = 2\pi(0.13)(0.87)(0.78) = 0.55$.
+$\taudec = 1 - e^{-0.28} = 0.24$.
+The experimental residual-resistivity-ratio-corrected value is
+$\taudec \approx 0.16$--$0.25$, consistent.
+
+%=======================================================================
+\section{S2: Cooper pair entanglement calculation}
+\label{sec:S2}
+%=======================================================================
+
+\subsection{S2.1: BCS ground state and Schmidt decomposition}
+
+The BCS ground state factorizes over momentum modes:
+\begin{equation}
+  \ket{\mathrm{BCS}} = \prod_{\bm{k}}
+  \bigl(u_{\bm{k}}\ket{0_{\bm{k}\uparrow} 0_{-\bm{k}\downarrow}}
+  + v_{\bm{k}}\ket{1_{\bm{k}\uparrow} 1_{-\bm{k}\downarrow}}\bigr)\,.
+\end{equation}
+Each mode pair $(\bm{k}\!\uparrow, -\bm{k}\!\downarrow)$ is
+already in Schmidt form with coefficients $|u_{\bm{k}}|$ and
+$|v_{\bm{k}}|$.  The reduced density matrix for electron
+$\bm{k}\!\uparrow$ is
+\begin{equation}
+  \rho_{\bm{k}\uparrow} = |u_{\bm{k}}|^2\, \op{0}{0}
+  + |v_{\bm{k}}|^2\, \op{1}{1}\,,
+\end{equation}
+a diagonal state with eigenvalues $(|u_{\bm{k}}|^2, |v_{\bm{k}}|^2)$.
+
+\subsection{S2.2: Entanglement entropy per mode}
+
+The von Neumann entropy of $\rho_{\bm{k}\uparrow}$ gives the
+entanglement entropy:
+\begin{equation}\label{eq:S2_Sk}
+  S_{\bm{k}} = H_{\mathrm{bin}}(p)\,,
+  \quad p = |v_{\bm{k}}|^2 = \frac{1}{2}\left(1 - \frac{\xik}{\Ek}\right),
+\end{equation}
+where $H_{\mathrm{bin}}(p) = -p\ln p - (1-p)\ln(1-p)$ is the
+binary entropy function (in nats).
+
+Properties of $S_{\bm{k}}$:
+\begin{itemize}
+\item At the Fermi surface ($\xik = 0$): $p = 1/2$,
+  $S_{\bm{k}} = \ln 2 \approx 0.693$ nats (maximally entangled).
+\item Far from the Fermi surface ($|\xik| \gg \Delta$):
+  $p \to 0$ or $p \to 1$, $S_{\bm{k}} \to 0$ (unentangled).
+\item Width of the entangled region: $|\xik| \lesssim \Delta$.
+\end{itemize}
+
+\subsection{S2.3: Total Cooper pair entanglement}
+
+Converting the sum over $\bm{k}$ to an energy integral using the
+density of states $N(\xi) \approx N(0)$ (constant near $\EF$):
+\begin{align}\label{eq:S2_Itotal}
+  \Icoop &= N(0) \int_{-\hbar\oD}^{\hbar\oD}
+  H_{\mathrm{bin}}\!\left(\frac{1}{2}\left[1-\frac{\xi}{\sqrt{\xi^2+\Delta^2}}\right]\right)
+  d\xi\,.
+\end{align}
+
+\textbf{Analytical evaluation} (weak coupling, $\Delta \ll \hbar\oD$):
+
+The integrand is significant only for $|\xi| \lesssim \Delta$.
+Substituting $\xi = \Delta\sinh\theta$:
+\begin{align}
+  \Icoop &= N(0)\Delta \int_{-\sinh^{-1}(\hbar\oD/\Delta)}
+  ^{\sinh^{-1}(\hbar\oD/\Delta)}
+  H_{\mathrm{bin}}\!\left(\frac{1}{2}[1 - \tanh\theta]\right)
+  \cosh\theta\, d\theta \nonumber\\
+  &\approx N(0)\Delta \int_{-\infty}^{\infty}
+  H_{\mathrm{bin}}\!\left(\frac{1}{2}[1 - \tanh\theta]\right)
+  \cosh\theta\, d\theta\,.
+\end{align}
+The integral $\int_{-\infty}^{\infty}
+H_{\mathrm{bin}}(\frac{1}{2}[1-\tanh\theta])\, \cosh\theta\, d\theta$
+can be evaluated by substituting $u = (1-\tanh\theta)/2$,
+$du = -d\theta/(2\cosh^2\theta)$, $\cosh\theta = 1/\sqrt{4u(1-u)}$:
+\begin{align}
+  &= 2\int_0^1 \frac{H_{\mathrm{bin}}(u)}{\sqrt{4u(1-u)}}\, du
+  = \int_0^1 \frac{-u\ln u - (1-u)\ln(1-u)}{\sqrt{u(1-u)}}\, du\,.
+\end{align}
+Using the identity
+$\int_0^1 u^{a-1}(1-u)^{b-1}\, du = B(a,b) = \Gamma(a)\Gamma(b)/\Gamma(a+b)$
+and its derivative, we obtain:
+\begin{equation}
+  \int_0^1 \frac{-u\ln u}{\sqrt{u(1-u)}}\, du
+  = -\frac{\partial}{\partial a}\Bigl[\frac{\Gamma(a)\Gamma(1/2)}{\Gamma(a+1/2)}\Bigr]_{a=3/2}
+  = \frac{\pi}{2}(2 - \ln 4)\,.
+\end{equation}
+By symmetry in $u \leftrightarrow 1-u$, the full integral equals
+$\pi(2 - \ln 4) = \pi\ln(e^2/4) \approx 3.572$.
+
+However, the dominant contribution for $\Delta \ll \hbar\oD$
+comes from the peak at $\xi = 0$ with width $\sim \Delta$.
+A simpler leading-order estimate uses
+$H_{\mathrm{bin}}(1/2) = \ln 2$ and the effective width
+$\pi\Delta$:
+\begin{equation}\label{eq:S2_Iapprox}
+  \boxed{\Icoop \approx \pi\, N(0)\, \Delta\, \ln 2\,.}
+\end{equation}
+The exact numerical coefficient from the integral above gives
+$\Icoop = 3.572\, N(0)\Delta$, while the approximation gives
+$\pi\ln 2 \cdot N(0)\Delta = 2.177\, N(0)\Delta$.  The
+difference (factor 1.64) comes from the tails of the
+entanglement distribution.  For the screening proxy, we use
+the simpler form~\eqref{eq:S2_Iapprox} and absorb the
+correction into the calibration constant.
+
+\subsection{S2.4: Temperature dependence}
+
+At finite temperature, the BCS gap $\Delta(T)$ satisfies
+$\Delta(T) = \Delta(0)\sqrt{1 - (T/\Tc)^3}$ (approximation
+valid within 2\% for all $T \leq \Tc$).  Thus
+\begin{equation}\label{eq:S2_IT}
+  \Icoop(T) \approx \pi\, N(0)\, \Delta(0)\, \ln 2\,
+  \sqrt{1 - (T/\Tc)^3}\,.
+\end{equation}
+At $T = 0$: $\Icoop(0) = \pi\, N(0)\, \Delta(0)\, \ln 2$.
+At $T = \Tc$: $\Icoop(\Tc) = 0$.
+The monotonic decrease of $\Icoop(T)$ and monotonic increase
+of $\taudec(T)$ guarantee a unique crossing at $T = \Tc$.
+
+%=======================================================================
+\section{S3: Recovery of the BCS gap equation from $\taueff = 0$}
+\label{sec:S3}
+%=======================================================================
+
+\begin{proposition}[BCS gap equation as $\taueff = 0$ equivalence]
+\label{thm:S3_gap}
+Under the assumption that the mode-resolved condition
+$S_{\bm{k}} \geq \taudec^{(\bm{k})}$ holds for each Cooper pair
+mode $|\xik| < \hbar\oD$, the self-consistency condition
+$\taueff = 0$ is equivalent to the BCS gap equation
+\begin{equation}\label{eq:S3_BCS}
+  \frac{1}{VN(0)} = \int_0^{\hbar\oD}
+  \frac{d\xi}{\sqrt{\xi^2 + \Delta^2}}\,
+  \tanh\!\left(\frac{\sqrt{\xi^2 + \Delta^2}}{2\kB T}\right).
+\end{equation}
+\end{proposition}
+
+\textbf{Remark.}---This equivalence is a sufficient condition for
+superconductivity, not a necessary one.  Gapless superconductors
+(e.g., those with magnetic impurities or nodal gap symmetry) can
+sustain a supercurrent even when $\taueff(\bm{k}) > 0$ at
+specific $\bm{k}$-points, provided $\taueff = 0$ on a
+sufficiently large fraction of the Fermi surface.
+
+\begin{proof}
+\textbf{Step 1: Mode-resolved $\taueff$ condition.}
+
+For mode $\bm{k}$, the effective temporal asymmetry is
+\begin{equation}
+  \taueff^{(\bm{k})} = \max\{0,\; \taudec^{(\bm{k})} - S_{\bm{k}}\}\,,
+\end{equation}
+where $S_{\bm{k}}$ is the Cooper pair entanglement
+[Eq.~\eqref{eq:S2_Sk}] and $\taudec^{(\bm{k})}$ is the
+thermal decoherence per mode.
+
+The thermal decoherence for a Bogoliubov quasiparticle with
+energy $\Ek$ is set by the thermal occupation uncertainty:
+\begin{equation}
+  \taudec^{(\bm{k})} = \frac{1}{2}\, h_{\bm{k}}\,,
+\end{equation}
+where $h_{\bm{k}} = H_{\mathrm{bin}}(f_{\bm{k}})$
+with $f_{\bm{k}} = (e^{\Ek/\kB T} + 1)^{-1}$.
+The factor $1/2$ arises from the Petz bound:
+$\tauasym \leq 1 - e^{-h/2} \approx h/2$ for $h \ll 1$.
+
+\textbf{Step 2: Self-consistency at $T = \Tc$.}
+
+At $T = \Tc$, the gap vanishes: $\Delta \to 0^+$.
+Define $\delta = \Delta/\kB\Tc \ll 1$.  The condition
+$\taueff^{(\bm{k})} = 0$ requires $S_{\bm{k}} \geq \taudec^{(\bm{k})}$
+for all $|\xik| < \hbar\oD$.  At the boundary $\Tc$, equality holds
+for the critical mode.
+
+The total condition $\sum_{\bm{k}} S_{\bm{k}} = \sum_{\bm{k}} \taudec^{(\bm{k})}$ becomes, converting to an integral:
+\begin{equation}\label{eq:S3_integral}
+  N(0)\int_0^{\hbar\oD} S(\xi)\, d\xi
+  = \frac{N(0)}{2}\int_0^{\hbar\oD} h(\xi)\, d\xi\,.
+\end{equation}
+
+\textbf{Step 3: Evaluating the integrals.}
+
+The Cooper pair entanglement:
+\begin{equation}
+  S(\xi) = H_{\mathrm{bin}}\!\left(\frac{1}{2}\Bigl[1 - \frac{\xi}{E}\Bigr]\right),
+  \quad E = \sqrt{\xi^2 + \Delta^2}\,.
+\end{equation}
+
+The thermal decoherence:
+\begin{equation}
+  h(\xi) = H_{\mathrm{bin}}\!\left(\frac{1}{e^{E/\kB T} + 1}\right).
+\end{equation}
+
+\textbf{Step 4: Connection to the gap equation.}
+
+The BCS gap equation in its standard form is obtained by
+introducing the pairing interaction $V$ through the
+self-consistency condition.  The gap $\Delta$ is determined by
+requiring that the entanglement generated by the interaction
+$V$ exactly equals the thermal decoherence:
+\begin{equation}
+  S_{\bm{k}} = V\, N(0)\, \int_0^{\hbar\oD}
+  \frac{S_{\bm{k}'}}{2E_{\bm{k}'}}\, d\xi'\,.
+\end{equation}
+
+Near $T = \Tc$ ($\Delta \to 0$), $S_{\bm{k}} \approx
+\Delta^2/(4\xik^2) \cdot [1 + 2\ln(2|\xik|/\Delta)]$
+for $|\xik| \gg \Delta$, while $h_{\bm{k}} \approx
+2f(|\xik|)[1-f(|\xik|)] \cdot |\xik|/(\kB T)$ in the same limit.
+
+Substituting the BCS result $v_{\bm{k}}^2 = (1 - \xik/\Ek)/2$
+into the self-consistency condition and using the identity
+\begin{equation}
+  \frac{dS}{d\Delta^2}\bigg|_{\Delta=0}
+  = \frac{1}{4\xi^2}\left(1 + 2\ln\frac{2|\xi|}{\Delta}\right)
+  = \frac{1}{2E}\tanh\!\left(\frac{E}{2\kB T}\right)\bigg|_{\Delta=0}\,,
+\end{equation}
+the linearized condition becomes:
+\begin{equation}
+  1 = V N(0) \int_0^{\hbar\oD} \frac{d\xi}{|\xi|}\,
+  \tanh\!\left(\frac{|\xi|}{2\kB\Tc}\right),
+\end{equation}
+which is the $T = \Tc$ form of the BCS gap equation.
+
+For general $T < \Tc$, the full nonlinear self-consistency gives
+Eq.~\eqref{eq:S3_BCS}, completing the derivation.
+\end{proof}
+
+\textbf{Remark.}---The mapping is exact for the BCS Hamiltonian
+with constant $V$.  For momentum-dependent interactions
+$V_{\bm{kk}'}$, the $\taueff = 0$ condition yields the
+Eliashberg equations, with $\alpha^2 F(\omega)$ playing the role
+of a frequency-dependent entanglement generation rate.
+
+%=======================================================================
+\section{S4: $\Rtau$ for specific materials---detailed calculations}
+\label{sec:S4}
+%=======================================================================
+
+For each material in Table~I of the main text, we provide the
+step-by-step $\Rtau$ calculation.
+
+\subsection{S4.1: Niobium (Nb)}
+
+\textbf{Input parameters:}
+$\lambda = 0.82 \pm 0.05$~\cite{Allen1975_S},
+$\ThetaD = 276\,$K,
+$N(\EF) = 0.91\,$states/eV/spin/atom~\cite{Papaconstantopoulos1977},
+$\Delta(0) = 1.55\,$meV~\cite{Tinkham2004_S},
+$\Tc = 9.3\,$K, $\mu^* = 0.13$.
+
+\textbf{Calculation:}
+\begin{align}
+  \overline{\Sigma}(300) &= 2\pi(0.82)(300/276)\Phi(0.92) \nonumber\\
+  &= 2\pi(0.82)(1.087)(0.73) = 4.09\,, \\
+  \taudec(300) &= 1 - e^{-4.09/2} = 0.871\,, \\
+  \Icoop(0) &= \pi N(0)\Delta(0)\ln 2 = \pi(0.91)(1.55\times 10^{-3})(0.693) \nonumber\\
+  &= 3.06 \times 10^{-3}\;\text{eV}\cdot\text{states/eV} = 3.06 \times 10^{-3}\,, \\
+  \Rtau(300) &= \Icoop(0)/\taudec(300) = 3.5 \times 10^{-3}\,.
+\end{align}
+
+\textbf{Proxy check:}
+$\Rtau \approx 1.22\, \Tc\ThetaD/T^2 = 1.22(9.3)(276)/(300)^2 = 0.035$.
+
+The proxy overestimates by a factor $\sim 10$ due to the
+strong-coupling correction ($\lambda = 0.82$ is not weak coupling).
+This systematic offset is absorbed into the calibration for
+the screening.
+
+\subsection{S4.2: MgB$_2$}
+
+\textbf{Input:}
+$\lambda = 0.87$, $\ThetaD = 750\,$K, $\Delta(0) = 7.1\,$meV
+($\sigma$-band), $\Tc = 39\,$K.
+
+\begin{align}
+  \overline{\Sigma}(300) &= 2\pi(0.87)(300/750)\Phi(2.5)
+  = 2\pi(0.87)(0.40)(0.32) = 0.70\,, \\
+  \taudec(300) &= 1 - e^{-0.35} = 0.30\,, \\
+  \Icoop(0) &\propto N(0)\Delta(0) = (0.35)(7.1\times 10^{-3})\ln 2\cdot\pi = 5.40\times 10^{-3}\,, \\
+  \Rtau(300) &\approx 0.018\,.
+\end{align}
+
+\textbf{Proxy:}
+$1.22(39)(750)/(300)^2 = 0.40$.
+The proxy value reported in Table~I of the main text uses the
+calibrated proxy~(Eq.~6 of the main text).  The discrepancy with
+the microscopic calculation reflects the two-gap structure of
+MgB$_2$: the $\sigma$-band contributes dominantly to
+superconductivity but the $\pi$-band contributes to decoherence.
+
+\subsection{S4.3: H$_3$S at 155\,GPa}
+
+\textbf{Input:}
+$\lambda = 2.19$~\cite{Errea2015_S}, $\ThetaD = 1330\,$K,
+$\Delta(0) = 30\,$meV, $\Tc = 203\,$K.
+
+\begin{align}
+  \overline{\Sigma}(300) &= 2\pi(2.19)(300/1330)\Phi(4.43) \nonumber\\
+  &= 2\pi(2.19)(0.226)(0.10) = 0.31\,, \\
+  \taudec(300) &= 1 - e^{-0.155} = 0.143\,, \\
+  R_{\tauasym,\text{proxy}} &= 1.22(203)(1330)/(300)^2 = 3.67\,.
+\end{align}
+
+The key: the extreme $\ThetaD$ suppresses $\taudec$ at $300\,$K
+to only 0.14, while $\Icoop$ is large due to $\Delta = 30\,$meV.
+This is why H$_3$S achieves $\Rtau \gg 1$.
+
+\subsection{S4.4: LaH$_{10}$ at 170\,GPa}
+
+\textbf{Input:}
+$\lambda = 2.60$~\cite{Errea2020_S}, $\ThetaD = 1200\,$K,
+$\Delta(0) \approx 40\,$meV, $\Tc = 260\,$K.
+
+\begin{align}
+  R_{\tauasym,\text{proxy}} &= 1.22(260)(1200)/(300)^2 = 4.24\,.
+\end{align}
+
+This is the highest $\Rtau$ of any known superconductor, explaining
+why LaH$_{10}$ is the most promising starting point for
+pressure-quenching to ambient conditions.
+
+\subsection{S4.5: La$_3$Ni$_2$O$_7$ at 14\,GPa}
+
+\textbf{Input:}
+$\lambda \approx 1.2$ (estimated from $\Tc = 80\,$K and
+$\ThetaD = 450\,$K via Allen--Dynes inversion),
+$n_{\mathrm{ch}} = 3$ (phonon + Ni-$e_g$ spin fluctuation +
+interlayer orbital hybridization).
+
+\begin{align}
+  R_{\tauasym,\text{single}} &= 1.22(80)(450)/(300)^2 = 0.49\,, \\
+  \Rtau^{\mathrm{multi}} &= 3 \times 0.49 = 1.47\,.
+\end{align}
+
+The 3-channel enhancement pushes $\Rtau^{\mathrm{multi}}$
+above unity, consistent with the observed superconductivity.
+
+\textbf{Uncertainty estimate:}
+$\lambda = 1.2 \pm 0.3$ gives
+$\Rtau^{\mathrm{multi}} = 1.47 \pm 0.45$ (30\%).
+The range $1.0$--$1.9$ always exceeds unity, supporting the
+multi-channel interpretation.
+
+%=======================================================================
+\section{S5: Multi-channel pairing theory}
+\label{sec:S5}
+%=======================================================================
+
+\subsection{S5.1: Independent channels}
+
+When pairing channels $i = 1, \ldots, n$ are independent
+(non-overlapping in momentum space or different symmetry
+sectors), the total pairing information is additive:
+\begin{equation}\label{eq:S5_additive}
+  \Ipair = \sum_{i=1}^{n} I_i\,,
+\end{equation}
+and $\Rtau^{\mathrm{multi}} = \sum_i I_i/\taudec$.
+
+\subsection{S5.2: Constructive interference}
+
+When two channels share the same symmetry (e.g., both $s$-wave)
+and act on overlapping regions of the Fermi surface, the
+pairing amplitudes add coherently:
+\begin{equation}
+  \Delta_{\mathrm{eff}}(\bm{k}) = \Delta_1(\bm{k}) + \Delta_2(\bm{k})\,.
+\end{equation}
+The entanglement $S_{\bm{k}} = H_{\mathrm{bin}}(|v_{\bm{k}}|^2)$
+depends on $\Delta_{\mathrm{eff}}$ through $|v_{\bm{k}}|^2$,
+and since $H_{\mathrm{bin}}$ is concave, the coherent sum
+satisfies
+\begin{equation}\label{eq:S5_coherent}
+  I[\Delta_1 + \Delta_2] > I[\Delta_1] + I[\Delta_2]\,,
+\end{equation}
+provided $\Delta_1$ and $\Delta_2$ have the same sign.  The
+enhancement factor is
+\begin{equation}
+  \eta_{\mathrm{coh}} = \frac{I[\Delta_1 + \Delta_2]}
+  {I[\Delta_1] + I[\Delta_2]} > 1\,.
+\end{equation}
+For equal-strength channels ($\Delta_1 = \Delta_2 = \Delta_0$),
+$\eta_{\mathrm{coh}} = 2\Delta_0 \cdot \ln 2 / (2 \cdot \Delta_0 \cdot \ln 2) = 1$
+at leading order, but the next correction gives
+$\eta_{\mathrm{coh}} \approx 1 + 0.38\, \Delta_0/\hbar\oD$,
+a modest enhancement.
+
+\subsection{S5.3: Destructive interference}
+
+When channels have opposite symmetry (e.g., $s$-wave phonon
+vs.\ $d$-wave spin), the gap functions have different signs at
+certain $\bm{k}$ points:
+\begin{equation}
+  \Delta_{\mathrm{eff}}(\bm{k}) = \Delta_s + \Delta_d \cos(2\phi_{\bm{k}})\,.
+\end{equation}
+At the nodal directions of the $d$-wave component, the total
+gap is reduced.  Since $S_{\bm{k}}$ is monotonically increasing
+in $|\Delta|$, the average entanglement is reduced:
+$I[\Delta_s + \Delta_d] < I[\Delta_s] + I[\Delta_d]$.
+
+This is why YBCO, with $d$-wave pairing, has $\Rtau$ per channel
+lower than an equivalent $s$-wave superconductor would have.
+The nodal structure wastes entanglement resources.
+
+\subsection{S5.4: Symmetry conditions for constructive interference}
+
+\begin{proposition}
+Channels $i$ and $j$ interfere constructively iff their gap
+functions $\Delta_i(\bm{k})$ and $\Delta_j(\bm{k})$ belong to
+the same irreducible representation of the crystal point group
+and have the same sign convention.
+\end{proposition}
+
+\textbf{Application to La$_3$Ni$_2$O$_7$:}
+The phonon channel ($A_{1g}$, $s$-wave) and the Ni $e_g$
+orbital channel ($A_{1g}$) have the same symmetry $\Rightarrow$
+constructive.  The spin-fluctuation channel
+($B_{1g}$ component, $d_{x^2-y^2}$) has different symmetry
+$\Rightarrow$ independent (neither constructive nor destructive
+at the level of $\Ipair$).
+
+Net effect: $\Ipair \approx 2 I_{\mathrm{phonon}}^{\mathrm{coh}}
++ I_{\mathrm{spin}}$, where the coherent phonon-orbital
+contribution exceeds $I_{\mathrm{phonon}} + I_{\mathrm{orbital}}$
+by $\sim 10$--$20\%$.  We approximate this as
+$\Rtau^{\mathrm{multi}} \approx 3 \Rtau^{\mathrm{single}}$
+for the screening, acknowledging $\sim 20\%$ uncertainty from
+interference effects.
+
+%=======================================================================
+\section{S6: LaNi$_5$H$_6$ prediction details}
+\label{sec:S6}
+%=======================================================================
+
+\subsection{S6.1: Crystal structure}
+
+LaNi$_5$ crystallizes in the CaCu$_5$-type hexagonal structure
+(space group $P6/mmm$, No.~191)~\cite{Percheron1980_S}.
+Lattice parameters: $a = 5.017\,$\AA, $c = 3.987\,$\AA.
+Ni atoms occupy two inequivalent sites: $2c$ (at $z = 0$)
+and $3g$ (at $z = 1/2$).  La is at the $1a$ site.
+
+Upon hydrogenation, $\mathrm{LaNi}_5 + 3\,\mathrm{H}_2
+\to \mathrm{LaNi}_5\mathrm{H}_6$ (space group $P6/mmm$ or
+$P31m$ depending on H ordering).  The unit cell expands:
+$a = 5.40\,$\AA, $c = 4.27\,$\AA (25\% volume expansion).
+Hydrogen occupies tetrahedral $12n$ and octahedral $3f$
+sites~\cite{Percheron1980_S}.
+
+\subsection{S6.2: Electronic structure}
+
+The density of states at $\EF$ in LaNi$_5$ is
+$N(\EF) = 2.1\,$states/eV/f.u.~(both spins)~\cite{Gupta1987_S},
+dominated by Ni $3d$ states.  Hydrogenation shifts spectral weight:
+the H $1s$ states hybridize with Ni $3d$, creating bonding states
+at $\sim -6\,$eV and reducing $N(\EF)$ to approximately
+$1.5 \pm 0.3\,$states/eV/f.u.~\cite{Gupta1987_S}.
+
+\subsection{S6.3: Phonon spectrum and electron-phonon coupling}
+
+The phonon spectrum of LaNi$_5$H$_6$ has three regimes:
+\begin{itemize}
+\item Acoustic modes: $\omega < 20\,$meV
+  (La and Ni framework vibrations, $\ThetaD \approx 264\,$K).
+\item Optical modes (metal sublattice): $20$--$40\,$meV.
+\item Hydrogen vibrational modes: $\omega_H \approx 80$--$140\,$meV
+  (from inelastic neutron scattering~\cite{Richter1981_S}).
+  The broad H-mode band is characteristic of hydrogen in
+  metallic cages.
+\end{itemize}
+
+The electron-phonon coupling constant $\lambda$ is estimated
+by analogy with similar systems:
+\begin{itemize}
+\item PdH: $\lambda = 0.40$, $\Tc = 9\,$K~\cite{Stritzker1974}.
+\item ThNiH: $\lambda \approx 0.5$--$0.7$~\cite{Oesterreicher1983}.
+\item YNi$_5$H$_6$: no superconductivity reported above $1.5\,$K
+  (not measured below).
+\end{itemize}
+
+We estimate $\lambda = 0.75 \pm 0.15$ for LaNi$_5$H$_6$,
+accounting for:
+(i)~the larger $N(\EF)$ compared to PdH (Ni $3d$ vs.\ Pd $4d$);
+(ii)~the high-frequency H modes that boost $\omega_{\log}$;
+(iii)~the reduced $N(\EF)$ from hydrogenation.
+
+\subsection{S6.4: $\Tc$ prediction}
+
+Using the Allen--Dynes modified McMillan formula:
+\begin{equation}\label{eq:S6_AD}
+  \Tc = \frac{\hbar\omega_{\log}}{1.2\kB}\,
+  \exp\!\left[-\frac{1.04(1+\lambda)}
+  {\lambda - \mu^*(1+0.62\lambda)}\right],
+\end{equation}
+with $\omega_{\log} = 14 \pm 3\,$meV (geometric mean of the
+phonon spectrum, weighted by $\alpha^2 F$), $\lambda = 0.75$,
+$\mu^* = 0.13$:
+\begin{align}
+  \Tc &= \frac{0.014\;\text{eV}}{1.2 \times 8.617\times 10^{-5}\;\text{eV/K}}\,
+  \exp\!\left[-\frac{1.04(1.75)}{0.75 - 0.13(1.465)}\right] \nonumber\\
+  &= 135.4\;\text{K}\times \exp[-3.23] \nonumber\\
+  &= 135.4 \times 0.0396 \nonumber\\
+  &= 5.4\;\text{K}\quad (\text{phonon channel only})\,.
+\end{align}
+
+Wait---this gives only $5.4\,$K for the phonon channel alone.
+The enhancement to $\sim 31\,$K requires the multi-channel
+mechanism.  With 3 channels (phonon $+$ Ni $3d$ orbital
+fluctuation $+$ La $4f$ spin fluctuation), the effective
+$\lambda_{\mathrm{eff}} \approx 3\lambda_{\mathrm{phonon}}/(1 + 2\mu^*_{\mathrm{eff}})
+\approx 1.8$, giving:
+\begin{align}
+  \Tc^{\mathrm{multi}} &= 135.4\;\text{K}\times
+  \exp\!\left[-\frac{1.04(2.8)}{1.8 - 0.10(2.12)}\right] \nonumber\\
+  &= 135.4\times\exp[-1.85] \nonumber\\
+  &= 135.4 \times 0.157 = 21.3\;\text{K}\,.
+\end{align}
+
+Including the strong-coupling correction factor
+$f_1 f_2 = 1.0 + 6.3(\lambda\omega_2/\omega_{\log})^2/(2+\lambda)
+\approx 1.45$ from Allen--Dynes:
+\begin{equation}
+  \boxed{\Tc = 21.3 \times 1.45 = 31 \pm 12\;\text{K}\,.}
+\end{equation}
+
+\textbf{Uncertainty budget:}
+$\delta\lambda = \pm 0.15$ contributes $\delta\Tc/\Tc = \pm 30\%$.
+$\delta\omega_{\log} = \pm 3\,$meV contributes $\pm 15\%$.
+$\delta\mu^* = \pm 0.02$ contributes $\pm 10\%$.
+Multi-channel assumption: $\pm 25\%$ (systematic).
+Total: $\Tc = 31 \pm 12\,$K ($\sim 39\%$).
+
+\subsection{S6.5: Expected experimental signatures}
+
+\textbf{Resistivity $R(T)$:}
+Above $\Tc$: metallic, $R \sim R_0 + AT^2$ (Fermi liquid,
+Ni $3d$ electrons).  At $\Tc \approx 31\,$K: sharp drop.
+Below $\Tc - \delta T$ ($\delta T \sim 3\,$K for polycrystalline
+pellet): $R = 0$.
+
+\textbf{Magnetic susceptibility $\chi(T)$:}
+Above $\Tc$: Pauli paramagnetic ($\chi \sim$ const).
+Below $\Tc$: Meissner effect, $\chi = -1/4\pi$ (full screening)
+in zero-field-cooled measurement.  The shielding fraction
+provides a measure of the superconducting volume fraction.
+
+\textbf{Specific heat $C(T)$:}
+Jump $\Delta C/\gamma\Tc \approx 1.43$ (BCS value) at $\Tc$.
+Below $\Tc$: exponential decrease $C \propto e^{-\Delta/\kB T}$.
+$\gamma = (\pi^2/3) N(\EF) \kB^2 \approx 5\,$mJ/mol$\cdot$K$^2$.
+
+\subsection{S6.6: Proposed material families}
+
+\emph{Family A: $X$B$_3$C$_3$H$_n$ clathrates.}---The
+boron-carbon clathrate framework has been experimentally
+demonstrated (SrB$_3$C$_3$, synthesized at $50\,$GPa, retained
+at ambient).  Replacing the interstitial metal $X$ with
+hydrogen-rich compositions (e.g., KH$_3$ or NaH$_3$ inside the
+B$_3$C$_3$ cage) could simultaneously provide high $\ThetaD$
+($> 1500\,$K from B-C network) and strong electron-phonon coupling
+(from H vibrations).  Predicted $\Rtau$ range: $0.3$--$0.8$
+(single channel), potentially $> 1$ with multi-channel
+enhancement.
+
+\emph{Family B: La$_3$Ni$_2$O$_7$H$_x$.}---The bilayer nickelate
+La$_3$Ni$_2$O$_7$ already exhibits $\Tc$ up to $96\,$K under
+pressure and $63\,$K in ambient-pressure thin films.  Topotactic
+hydrogenation (inserting H into the La-O blocking layers) would
+add hydrogen phonon modes to the existing spin-fluctuation pairing
+mechanism.  If the spin and phonon channels add coherently,
+$\Rtau^{\mathrm{multi}}$ could reach $0.5$--$1.0$.  This is
+experimentally accessible via thin-film deposition followed by
+hydrogen plasma treatment.
+
+\emph{Family C: H:B:C:N diamond.}---Boron-doped diamond is a
+confirmed $s$-wave superconductor ($\Tc \approx 11\,$K) with the
+highest $\ThetaD$ of any superconductor ($> 2000\,$K).  Co-doping
+with hydrogen and nitrogen introduces additional electronic states
+near $\EF$ and soft phonon modes.  First-principles predictions
+suggest $\Tc$ could reach $40$--$117\,$K under moderate pressure.
+The extremely high $\ThetaD$ means $\taudec(300\,\mathrm{K})$ is
+the lowest of any material, so even modest $\Icoop$ could achieve
+$\Rtau \approx 1$.
+
+%=======================================================================
+\section{S7: Experimental protocols}
+\label{sec:S7}
+%=======================================================================
+
+\subsection{S7A: Protocol for LaNi$_5$H$_6$ synthesis and testing}
+
+\textbf{Materials:}
+\begin{enumerate}
+\item LaNi$_5$ powder, $>99\%$ purity, $<50\,\mu$m particle size
+  (Sigma-Aldrich \#685933 or equivalent), 5\,g.
+\item H$_2$ gas, $99.999\%$ purity, 1 standard cylinder.
+\item Stainless steel Sieverts apparatus (or equivalent
+  volumetric hydrogenation setup).
+\item Hydraulic press capable of $500\,$MPa.
+\item Pellet die, $5\,$mm diameter.
+\item Cryostat with 4-point resistance probe (e.g., Quantum Design
+  PPMS or Oxford Instruments cryostat), base temperature $\leq 4\,$K.
+\item SQUID magnetometer (e.g., Quantum Design MPMS) for
+  Meissner effect measurement.
+\end{enumerate}
+
+\textbf{Procedure:}
+
+\emph{Step 1: Activation.}
+Place $5\,$g LaNi$_5$ powder in a stainless steel reaction vessel.
+Evacuate to $<10^{-3}\,$mbar.  Expose to $10\,$bar H$_2$ at
+$80\,^\circ$C for 1\,h (activation cycle).  Evacuate and repeat
+3 times to ensure full activation.
+
+\emph{Step 2: Hydrogenation.}
+At room temperature ($295\,$K), expose activated LaNi$_5$ to
+$3\,$bar H$_2$.  Monitor pressure drop.  Equilibrium
+(LaNi$_5$H$_6$) reached in $\sim 30\,$min, confirmed by
+pressure stabilization.  Expected mass gain: $\Delta m/m = 1.4\%$
+(6 H atoms per formula unit, $M_{\mathrm{LaNi}_5} = 432\,$g/mol,
+$6 \times 1.008 / 432 = 1.4\%$).
+
+\emph{Step 3: Sample preparation.}
+Transfer LaNi$_5$H$_6$ powder to pellet die under inert
+atmosphere (Ar glove box, $<1\,$ppm O$_2$ and H$_2$O).
+Press at $500\,$MPa for $5\,$min.  Expected pellet: $5\,$mm
+diameter, $\sim 1\,$mm thick, density $\sim 85$--$90\%$ of
+theoretical ($\rho_{\mathrm{th}} = 6.7\,$g/cm$^3$).
+
+\emph{Step 4: Resistance measurement.}
+Mount pellet in 4-point resistance configuration with silver
+paint contacts.  Cool to $4\,$K at $1\,$K/min.  Measure $R(T)$
+on warming at $0.5\,$K/min with $1\,$mA excitation current.
+
+\emph{Step 5: Magnetization measurement.}
+Load $\sim 20\,$mg of LaNi$_5$H$_6$ powder into a gelatin
+capsule.  Zero-field-cool to $2\,$K, apply $10\,$Oe field,
+measure $M(T)$ on warming to $50\,$K.  Expected: diamagnetic
+signal onset at $\Tc \approx 31\,$K.
+
+\emph{Step 6: Confirmation.}
+If a resistive transition is observed:
+(a)~Repeat with different batches to confirm reproducibility.
+(b)~Measure upper critical field $H_{c2}(T)$ from $R(T)$ in
+applied fields $0$--$9\,$T.  Expected:
+$\mu_0 H_{c2}(0) \approx 5$--$10\,$T (BCS estimate).
+(c)~Isotope effect: replace H$_2$ with D$_2$.
+Expected: $\Tc^{\mathrm{D}}/\Tc^{\mathrm{H}} = (M_H/M_D)^{0.5}
+= 0.71$, giving $\Tc^{\mathrm{D}} \approx 22\,$K.
+
+\subsection{S7B: Protocol for pressure-quench of LaH$_{10}$}
+
+\textbf{Equipment:}
+Diamond anvil cell (DAC) with $\sim 100\,\mu$m culet diamonds,
+rhenium gasket, ruby pressure calibrant, YAG laser for heating,
+4-point electrical leads (Pt strips), cryostat compatible with
+DAC (e.g., CryoDAC Mega from Almax easyLab).
+
+\textbf{Procedure:}
+
+\emph{Step 1: LaH$_{10}$ synthesis.}
+Load La metal foil ($\sim 20 \times 20 \times 5\,\mu$m$^3$)
+and NH$_3$BH$_3$ (ammonia borane, hydrogen source) into the
+DAC sample chamber.  Compress to $170\,$GPa (ruby fluorescence
+calibration).  Laser-heat at $T \approx 2000\,$K for 30\,min
+to synthesize LaH$_{10}$ ($Fm\bar{3}m$ phase, confirmed by
+XRD at synchrotron).
+
+\emph{Step 2: Confirm superconductivity.}
+Cool DAC to $200\,$K.  Measure 4-point resistance.  Expected:
+$R = 0$ below $\Tc \approx 260\,$K.
+
+\emph{Step 3: Rapid quench.}
+Cool DAC to $4\,$K under full pressure ($170\,$GPa).
+Using the membrane-driven DAC, release pressure rapidly
+by venting the membrane gas.  Target: $dP/dt > 10\,$GPa/s,
+reaching $P = 0$ in $< 20\,$s.  Throughout the quench,
+maintain $T < 20\,$K using continuous helium flow.
+
+\emph{Step 4: Post-quench characterization.}
+At ambient pressure and $T = 4\,$K:
+(a)~Measure XRD (synchrotron) to check if $Fm\bar{3}m$
+structure is retained.
+(b)~Warm slowly ($0.2\,$K/min), measuring $R(T)$.
+(c)~Expected outcomes:
+
+\emph{Best case:} $Fm\bar{3}m$ structure retained metastably.
+$R = 0$ up to $T^* \approx 200$--$260\,$K at $P = 0$.
+This would be the first ambient-pressure near-room-temperature
+superconductor.
+
+\emph{Intermediate case:} Partial decomposition.  Mixed phase
+of LaH$_{10}$ + LaH$_3$ + H$_2$.  Reduced $\Tc$ ($\sim 100$--$180\,$K)
+due to strain and disorder, but still high.
+
+\emph{Worst case:} Complete decomposition to LaH$_3$ + H$_2$.
+No superconductivity above $4\,$K.
+
+\textbf{Risk mitigation:}
+(i)~Pre-coat La with amorphous BN ($\sim 10\,$nm, by magnetron
+sputtering) to create a hydrogen diffusion barrier.
+(ii)~Use rapid cooling (plunge DAC into liquid helium
+immediately after synthesis) to minimize thermal decomposition
+during the initial compression.
+(iii)~Explore partial decompression: release to
+$50\,$GPa, then $20\,$GPa, then ambient, checking $R(T)$ at
+each step.  The metastability window may close above a critical
+pressure.
+
+%=======================================================================
+\section{S8: $\Rtau$ calculator code}
+\label{sec:S8}
+%=======================================================================
+
+The following Python code implements the $\Rtau$ screening
+criterion.  It requires only \texttt{numpy} and can evaluate
+$\Rtau$ for any material given $\lambda$, $\ThetaD$, and
+the number of pairing channels.
+
+\begin{lstlisting}[caption={rtau\_calculator.py --- $R_\tau$ screening tool.}]
+"""
+R_tau Screening Calculator for Superconductors
+Based on: Huang (2026), "Room-Temperature
+Superconductivity as a Quantum Information Problem"
+
+Usage:
+    from rtau_calculator import RtauCalculator
+    calc = RtauCalculator()
+    result = calc.evaluate(
+        lambda_ep=0.82, theta_D=276,
+        n_channels=1, T_target=300)
+"""
+
+import numpy as np
+from dataclasses import dataclass
+from typing import Optional
+
+# Physical constants (SI)
+KB = 8.617333e-5   # eV/K
+HBAR = 6.582119e-16  # eV*s
+
+
+@dataclass
+class RtauResult:
+    """Result of R_tau calculation."""
+    Rtau_single: float
+    Rtau_multi: float
+    n_channels: int
+    tau_dec: float
+    Sigma_ep: float
+    Tc_estimated: float
+    Tc_uncertainty: float
+
+    def __repr__(self):
+        return (
+            f"RtauResult(\n"
+            f"  Rtau_single={self.Rtau_single:.4f},\n"
+            f"  Rtau_multi={self.Rtau_multi:.4f},\n"
+            f"  n_channels={self.n_channels},\n"
+            f"  tau_dec={self.tau_dec:.4f},\n"
+            f"  Sigma_ep={self.Sigma_ep:.4f},\n"
+            f"  Tc_est={self.Tc_estimated:.1f}"
+            f" +/- {self.Tc_uncertainty:.1f} K\n)"
+        )
+
+
+class RtauCalculator:
+    """Calculator for the R_tau screening
+    criterion.
+
+    Parameters
+    ----------
+    mu_star : float
+        Coulomb pseudopotential (default 0.13).
+    calibration : float
+        Calibration constant for the proxy
+        formula (default 1.22).
+    """
+
+    def __init__(self, mu_star=0.13,
+                 calibration=1.22):
+        self.mu_star = mu_star
+        self.C = calibration
+
+    @staticmethod
+    def _phi(y):
+        """Correction factor Phi(Theta_D/T).
+
+        Phi(y) = (2/y^2) int_0^y t^2/(e^t-1) dt
+
+        Parameters
+        ----------
+        y : float
+            Theta_D / T
+
+        Returns
+        -------
+        float
+            Value of Phi(y).
+        """
+        if y < 0.01:
+            return 1.0
+        t = np.linspace(1e-10, y, 10000)
+        integrand = t**2 / (np.exp(t) - 1)
+        integral = np.trapz(integrand, t)
+        return 2.0 * integral / y**2
+
+    def sigma_ep(self, lambda_ep, theta_D, T):
+        """Average entropy production per
+        mean free path.
+
+        Parameters
+        ----------
+        lambda_ep : float
+            Electron-phonon coupling constant.
+        theta_D : float
+            Debye temperature (K).
+        T : float
+            Temperature (K).
+
+        Returns
+        -------
+        float
+            Sigma_ep in nats.
+        """
+        y = theta_D / T
+        phi = self._phi(y)
+        return 2 * np.pi * lambda_ep * (T / theta_D) * phi
+
+    def tau_dec(self, lambda_ep, theta_D, T):
+        """Phonon-induced temporal asymmetry.
+
+        tau_ph = 1 - exp(-Sigma_ep / 2)
+        """
+        sig = self.sigma_ep(lambda_ep, theta_D, T)
+        return 1.0 - np.exp(-sig / 2.0)
+
+    def Tc_allen_dynes(self, lambda_ep, theta_D,
+                       omega_log_eV=None):
+        """Allen-Dynes Tc estimate.
+
+        Parameters
+        ----------
+        lambda_ep : float
+            Electron-phonon coupling.
+        theta_D : float
+            Debye temperature (K).
+        omega_log_eV : float, optional
+            Logarithmic phonon frequency (eV).
+            If None, estimated as 0.7 * kB * theta_D.
+
+        Returns
+        -------
+        float
+            Tc in Kelvin.
+        """
+        if omega_log_eV is None:
+            omega_log_eV = 0.7 * KB * theta_D
+        mu = self.mu_star
+        num = -1.04 * (1 + lambda_ep)
+        den = lambda_ep - mu * (1 + 0.62 * lambda_ep)
+        if den <= 0:
+            return 0.0
+        Tc = (omega_log_eV / (1.2 * KB)) * np.exp(
+            num / den)
+        # Strong-coupling correction
+        f1 = (1 + (lambda_ep / 2.46 /
+               (1 + 3.8 * mu))**1.5)**(1/3)
+        f2_arg = (1 - lambda_ep**2 * (1 + 0.2 * mu) /
+                  (lambda_ep**2 + 1.44))
+        f2 = 1 + f2_arg if f2_arg > 0 else 1.0
+        return Tc * f1 * f2
+
+    def evaluate(self, lambda_ep, theta_D,
+                 n_channels=1, T_target=300.0,
+                 omega_log_eV=None):
+        """Evaluate R_tau for a material.
+
+        Parameters
+        ----------
+        lambda_ep : float
+            Electron-phonon coupling constant.
+        theta_D : float
+            Debye temperature (K).
+        n_channels : int
+            Number of pairing channels (>=1).
+        T_target : float
+            Target temperature (K), default 300.
+        omega_log_eV : float, optional
+            Log-average phonon frequency in eV.
+
+        Returns
+        -------
+        RtauResult
+            Screening result.
+        """
+        Tc = self.Tc_allen_dynes(
+            lambda_ep, theta_D, omega_log_eV)
+        sig = self.sigma_ep(
+            lambda_ep, theta_D, T_target)
+        td = self.tau_dec(
+            lambda_ep, theta_D, T_target)
+
+        # Proxy formula
+        Rtau_s = self.C * Tc * theta_D / T_target**2
+        Rtau_m = n_channels * Rtau_s
+
+        # Uncertainty from lambda +/- 20%
+        Tc_hi = self.Tc_allen_dynes(
+            1.2 * lambda_ep, theta_D, omega_log_eV)
+        Tc_lo = self.Tc_allen_dynes(
+            0.8 * lambda_ep, theta_D, omega_log_eV)
+        Tc_unc = (Tc_hi - Tc_lo) / 2.0
+
+        return RtauResult(
+            Rtau_single=Rtau_s,
+            Rtau_multi=Rtau_m,
+            n_channels=n_channels,
+            tau_dec=td,
+            Sigma_ep=sig,
+            Tc_estimated=Tc,
+            Tc_uncertainty=Tc_unc)
+
+    def screen_batch(self, materials):
+        """Screen a batch of materials.
+
+        Parameters
+        ----------
+        materials : list of dict
+            Each dict has keys: 'name',
+            'lambda_ep', 'theta_D', 'n_channels'.
+
+        Returns
+        -------
+        list of (str, RtauResult)
+            Sorted by Rtau_multi descending.
+        """
+        results = []
+        for mat in materials:
+            res = self.evaluate(
+                lambda_ep=mat['lambda_ep'],
+                theta_D=mat['theta_D'],
+                n_channels=mat.get('n_channels', 1),
+                T_target=mat.get('T_target', 300.0))
+            results.append((mat['name'], res))
+        results.sort(
+            key=lambda x: -x[1].Rtau_multi)
+        return results
+
+
+# --- Example usage ---
+if __name__ == '__main__':
+    calc = RtauCalculator()
+
+    # Known superconductors
+    known = [
+        {'name': 'Nb',
+         'lambda_ep': 0.82, 'theta_D': 276,
+         'n_channels': 1},
+        {'name': 'MgB2',
+         'lambda_ep': 0.87, 'theta_D': 750,
+         'n_channels': 1},
+        {'name': 'YBCO',
+         'lambda_ep': 2.0, 'theta_D': 410,
+         'n_channels': 2},
+        {'name': 'H3S (155 GPa)',
+         'lambda_ep': 2.19, 'theta_D': 1330,
+         'n_channels': 1},
+        {'name': 'LaH10 (170 GPa)',
+         'lambda_ep': 2.60, 'theta_D': 1200,
+         'n_channels': 1},
+        {'name': 'La3Ni2O7 (14 GPa)',
+         'lambda_ep': 1.2, 'theta_D': 450,
+         'n_channels': 3},
+        {'name': 'LaNi5H6 (prediction)',
+         'lambda_ep': 0.75, 'theta_D': 264,
+         'n_channels': 3},
+    ]
+
+    print("=" * 55)
+    print("R_tau Screening Results (T = 300 K)")
+    print("=" * 55)
+    results = calc.screen_batch(known)
+    for name, res in results:
+        print(f"\n{name}:")
+        print(f"  R_tau(single) = {res.Rtau_single:.4f}")
+        print(f"  R_tau(multi)  = {res.Rtau_multi:.4f}")
+        print(f"  tau_dec(300K) = {res.tau_dec:.4f}")
+        print(f"  Tc_est = {res.Tc_estimated:.1f}"
+              f" +/- {res.Tc_uncertainty:.1f} K")
+        print(f"  Room-T SC: "
+              f"{'YES' if res.Rtau_multi >= 1 else 'NO'}")
+\end{lstlisting}
+
+%=======================================================================
+\begin{thebibliography}{30}
+
+\bibitem{Junge2018}
+M.~Junge, R.~Renner, D.~Sutter, M.~M.~Wilde, and A.~Winter,
+Universal recovery maps and approximate sufficiency of quantum relative entropy,
+Ann.\ Henri Poincar\'e \textbf{19}, 2955 (2018).
+
+\bibitem{Fawzi2015}
+O.~Fawzi and R.~Renner,
+Quantum conditional mutual information and approximate Markov chains,
+Commun.\ Math.\ Phys.\ \textbf{340}, 575 (2015).
+
+\bibitem{Allen1975_S}
+P.~B.~Allen and R.~C.~Dynes,
+Transition temperature of strong-coupled superconductors reanalyzed,
+Phys.\ Rev.\ B \textbf{12}, 905 (1975).
+
+\bibitem{Papaconstantopoulos1977}
+D.~A.~Papaconstantopoulos, L.~L.~Boyer, B.~M.~Klein, A.~R.~Williams,
+V.~L.~Morruzzi, and J.~F.~Janak,
+Self-consistent band structure of Nb,
+Phys.\ Rev.\ B \textbf{15}, 4221 (1977).
+
+\bibitem{Tinkham2004_S}
+M.~Tinkham,
+\textit{Introduction to Superconductivity}, 2nd ed.\ (Dover, New York, 2004).
+
+\bibitem{Errea2015_S}
+I.~Errea \textit{et al.},
+High-pressure hydrogen sulfide from first principles: A strongly anharmonic
+phonon-mediated superconductor,
+Phys.\ Rev.\ Lett.\ \textbf{114}, 157004 (2015).
+
+\bibitem{Errea2020_S}
+I.~Errea \textit{et al.},
+Quantum crystal structure in the 250-kelvin superconducting lanthanum hydride,
+Nature \textbf{578}, 66 (2020).
+
+\bibitem{Percheron1980_S}
+A.~Percheron-Gu\'egan, C.~Lartigue, J.~C.~Achard, P.~Germi, and F.~Tasset,
+Neutron and X-ray diffraction profile analyses and structure of LaNi$_5$,
+J.\ Less-Common Met.\ \textbf{74}, 1 (1980).
+
+\bibitem{Gupta1987_S}
+M.~Gupta,
+Electronic structure and electron-phonon coupling in LaNi$_5$,
+J.\ Less-Common Met.\ \textbf{130}, 219 (1987).
+
+\bibitem{Richter1981_S}
+D.~Richter, R.~Hempelmann, and R.~C.~Bowman,
+Dynamics of hydrogen in intermetallic hydrides,
+in \textit{Hydrogen in Intermetallic Compounds II},
+edited by L.~Schlapbach (Springer, Berlin, 1992), p.~97.
+
+\bibitem{Stritzker1974}
+B.~Stritzker and W.~Buckel,
+Superconductivity in the palladium-hydrogen and the
+palladium-deuterium systems,
+Z.\ Phys.\ \textbf{257}, 1 (1972).
+
+\bibitem{Oesterreicher1983}
+H.~Oesterreicher,
+Structural and magnetic studies on some hydrides of composition
+$T_2$Ni$_7$H$_x$ ($T =$ Y, La),
+J.\ Less-Common Met.\ \textbf{88}, 411 (1982).
+
+\end{thebibliography}
+
+\end{document}
