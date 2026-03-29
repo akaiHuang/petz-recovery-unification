@@ -97,7 +97,8 @@ manipulates spacetime---warp drives, wormholes, time machines---violates
 some property of the gravitational field. But violations have prices.
 This essay calculates them.
 
-\medskip
+
+
 
 The starting point is an observation Einstein made in 1911, four years
 before general relativity \cite{Einstein1911}: the coordinate speed of
@@ -127,13 +128,22 @@ The spherically symmetric solution with $\Sigma \to 0$ at infinity and
 the correct Newtonian limit is $\Sigma = \rs/r$, giving the exponential
 metric $g_{00} = -e^{-\rs/r}$ \cite{Papapetrou1954,Yilmaz1958}.
 
+We emphasize that $\nabla^2\Sigma = 0$ is \emph{not} a consequence of
+Einstein's equations---it is an \emph{alternative} vacuum principle.
+Einstein's equations in vacuum ($R_{\mu\nu} = 0$) yield the
+Schwarzschild metric; Fisher information minimization yields the
+exponential metric.  Both agree through second post-Newtonian order
+($\beta = \gamma = 1$), diverging only at $O((\rs/r)^3) \sim 10^{-18}$
+for solar-system scales.  Which principle Nature selects is an
+empirical question---one that the Event Horizon Telescope can answer.
+
 Here is the key insight. The \emph{maximum principle} for harmonic
 functions---that $\Sigma$ cannot attain a local extremum in the interior
 of the domain---simultaneously forbids three exotic spacetime structures.
 Each forbidden structure can be ``purchased'' by supplying enough energy
 to make $\nabla^2\Sigma \neq 0$, and the price is calculable.
 
-\medskip
+
 
 Gravity, viewed through the $\Sigma$ lens, is spacetime's price list.
 The maximum principle is the budget constraint. This essay reads the
@@ -149,7 +159,8 @@ The engine of everything that follows is a classical theorem from the
 theory of partial differential equations \cite{Evans2010}. We state it
 in the form we need:
 
-\medskip
+
+
 
 \noindent\textbf{Theorem} (Strong Maximum Principle).
 \textit{Let\/ $\nabla^2\Sigma = 0$ in a connected domain\/ $D$, with\/
@@ -164,7 +175,7 @@ $\partial D$ (no interior maximum);}
 conditions.}
 \end{itemize}
 
-\medskip
+
 
 The proof fits in two lines of any PDE textbook. But its consequences
 for gravity are profound. Property~(i) says $g_{00} = -e^{-\Sigma}$
@@ -200,12 +211,13 @@ radius $r \leq \rs = 2GM/c^2$ creates a region where $\Sigma$ is driven
 past all bounds by the matter source. The Schwarzschild metric emerges
 when $\rho$ is compressed to a point.
 
-\medskip
+
+
 
 \noindent\textbf{The price of Barrier~1:} concentrate mass $M$ into
 $r \leq 2GM/c^2$.
 
-\medskip
+
 
 Nature already pays this price---but only inside matter.
 The vacuum field equation $\nabla^2\Sigma = 0$ applies outside
@@ -230,7 +242,10 @@ $V_{\mathrm{eff}} = e^{-2\rs/\rho}/\rho^2$, has its maximum at
 $\rho_{\mathrm{ph}} = \rs$, giving a critical impact parameter
 $b_c = e \cdot \rs \approx 2.72\,\rs$, compared with the Schwarzschild
 value $b_c = 3\sqrt{3}\,\rs/2 \approx 2.60\,\rs$. The difference is
-4.6\%.
+4.6\%.  (We note that the Kretschmann scalar
+$R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma} = \rs^4 e^{-2\rs/r}(3\rs^2
++ 12\rs r + 20 r^2)/(4r^{10})$ vanishes as $r \to 0$; the exponential
+metric is singularity-free.)
 
 The Event Horizon Telescope's measurement of the M87* shadow currently
 has ${\sim}10\%$ uncertainty \cite{EHT2019}. The next-generation EHT,
@@ -327,13 +342,14 @@ no CTC can form. Barrier~3 is qualitatively different from Barriers~1
 and~2. Those required large $\Sigma$ (strong gravity); this requires
 $\Sigma$ of the \emph{wrong sign}.
 
-\medskip
+
+
 
 \noindent\textbf{The price of Barrier~3:} a ``negative information
 source,'' meaning $\nabla^2\Sigma < 0$---a region that \emph{accelerates}
 time rather than slowing it.
 
-\medskip
+
 
 What does $\Sigma < 0$ mean physically? At $\Sigma > 0$, clocks tick
 slower than at infinity (normal gravity; the GPS correction). At
@@ -370,7 +386,8 @@ principle \emph{proves} that $\Sigma < 0$ is impossible if
 $\nabla^2\Sigma = 0$. The question is whether the universe allows
 sources that violate harmonicity in the required direction.
 
-\medskip
+
+
 
 \noindent\textbf{The combined price of a time machine:}
 \begin{enumerate}
@@ -489,7 +506,7 @@ type not known to exist. This is not a no-go theorem---it is a
 \emph{price-go} theorem. It says exactly what must be paid, and for
 Barrier~3, the currency has not yet been invented.
 
-\medskip
+
 
 The question, then, is not whether time travel is possible. The
 maximum principle tells us it is forbidden in the harmonic
