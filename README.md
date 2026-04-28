@@ -263,6 +263,55 @@ petz-recovery-unification/
 2. [Paper 2: Gravitational Refractive Index](https://github.com/akaiHuang/exponential-metric)
 3. [Paper 3: Khronon Dark Matter](https://github.com/akaiHuang/khronon-dark-matter)
 
+## Hardware Realisation: τ-chrono
+
+The τ framework introduced in this paper has a direct engineering
+incarnation: **[τ-chrono](https://github.com/akaiHuang/tau-chrono)**, a
+Python toolkit for noise prediction and mitigation on real NISQ quantum
+hardware.
+
+The connection is direct. Paper 1 proves that the temporal-asymmetry
+parameter `τ = 1 − F(ρ, R̃_{σ,N}(N(ρ)))` is the precise measure of
+retrodiction failure for any quantum channel `N`. On real
+superconducting hardware, gates are modelled as composed depolarising
+or amplitude-damping channels, and the master inequality chain
+`−log F² ≤ I(A;E|B) ≤ Σ ≤ ΔD` (Section ~5 of the main paper) bounds
+the achievable circuit fidelity from the entropy production of the
+gate sequence.
+
+τ-chrono operationalises this as a tool:
+
+- **τ-chrono v1** uses single-qubit Bayesian-reference propagation
+  along the circuit, yielding NISQ fidelity predictions **26.4% more
+  accurate on average** (peak 48.3% at depth 50) than the standard
+  independent-gate (multiplicative) baseline on the QuTech Tuna-9
+  9-qubit transmon — validated on the published `iqm_garnet_bv_depth`
+  pre-registration and `Bernstein–Vazirani` real-hardware data.
+
+- **τ-chrono v2** (April 2026) adds per-Pauli `(F, bias)`
+  calibration and an anomalous-weak-value-based F estimator. It
+  cross-validates across **4 transmon backends** (Tuna-9, IQM Garnet,
+  Sirius, Emerald), achieves **3–10× error reduction on chemistry
+  VQE** (H₂ / LiH / BeH₂ / H₂O), and reveals **hardware non-uniformity
+  within Tuna-17** (`Δ F_anomaly = 0.22` across three qubit pairs on
+  the same chip).
+
+- v2 also provides the first hardware quantification of the
+  "future-information" coherence time `T_anomaly = 101 ns` bare /
+  ~500 ns under X-Y-X-Y dynamical decoupling on Tuna-9 — the
+  operational signature of TSVF-style retrodiction (Aharonov &
+  Vaidman 1988) in superconducting hardware.
+
+Without τ-chrono, this paper's τ framework is purely theoretical; with
+it, τ becomes a vendor-neutral metric that NISQ algorithm developers
+can drop into their pipelines. τ-chrono is the experimental + engineering
+deliverable for Paper 1.
+
+τ-chrono uses the same Petz recovery formalism, the same retrodiction
+master inequality, and the same `τ = 1 − F` quantitative parameter
+introduced in this paper. It is the answer to "what does τ look like on
+real hardware?".
+
 ## Citation
 
 ```bibtex
