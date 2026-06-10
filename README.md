@@ -2,7 +2,7 @@
 
 **Connecting quantum erasers, error correction, retrodiction, and thermodynamics through a single parameter.**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18897853.svg)](https://doi.org/10.5281/zenodo.18897853)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.18897853-blue.svg)](https://doi.org/10.5281/zenodo.18897853)
 [![arXiv](https://img.shields.io/badge/arXiv-TBD-b31b1b.svg)](https://arxiv.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
